@@ -24,6 +24,14 @@ public class FileFinder {
 	private static String result;
 	private static Logger logger = LogManager.getLogger(FileFinder.class);
 	
+	public static boolean fileExists(final String ROOT, final String fileName) {
+		try {
+			return (findFilePath(ROOT, fileName).isPresent()) ? true : false;
+		}catch(Exception e) {
+			return false;
+		}
+	}
+	
 	public static String findPathWithoutRootAndExtension(final String ROOT, final String fileName) {
 		result = findPathWithoutRoot(ROOT, fileName);
 		if(result.length() > 0) {
