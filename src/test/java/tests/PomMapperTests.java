@@ -8,7 +8,7 @@ class PomMapperTests {
 	@Test
 	void createPomsFromXML() {		
 		final String XML_SOURCE = 
-				"C:/Users/SteveBrown/eclipse-workspace/2021/DTest/src/main/resources/site_map/site_map.xml";
+				"C:/Users/SteveBrown/eclipse-workspace/2021/SiteMapper/src/main/resources/site_map/site_map.xml";
 		
 		PomMapper mapper = new PomMapper(XML_SOURCE);
 		mapper.createPoms();

@@ -58,7 +58,7 @@ public class FileFinder {
 	}
 	
 	private static Optional<String> findFilePath(final String ROOT, final String fileName){
-		filePath = null;
+		filePath = Optional.ofNullable(null);
 		try (Stream<Path> walkStream = Files.walk(Paths.get(ROOT))) {
 	    walkStream.filter(p -> p.toFile().isFile()).forEach(f -> {
 	      if (f.toString().endsWith("\\" + fileName)) {

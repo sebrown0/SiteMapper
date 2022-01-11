@@ -3,7 +3,6 @@
  */
 package tests;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
@@ -14,14 +13,10 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.List;
 import java.util.stream.Collectors;
-import java.util.stream.Stream;
-
-import javax.swing.plaf.basic.BasicInternalFrameTitlePane.SystemMenuBar;
 
 import org.junit.jupiter.api.Test;
 
 import utils.FileFinder;
-import utils.FileReader;
 
 /**
  * @author Brown
@@ -47,8 +42,8 @@ class FileMapperTests {
 	@Test
 	public void givenFilePath_whenUsingFilesLines_thenFileData() throws URISyntaxException, IOException {
 	    String expectedData = "Hello, world!";
-	      
-	    Path path = Paths.get("./src/main/resources/fileTest.txt");
+	      ///SiteMapper/src/test/java/tests/FileMapperTests.java
+	    Path path = Paths.get("./src/test/java/tests/FileMapperTests.java");
 //	    Path path = Paths.get(getClass().getClassLoader()
 //	      .getResource("fileTest.txt").toURI());
 	         

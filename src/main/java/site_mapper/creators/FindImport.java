@@ -25,17 +25,15 @@ public class FindImport implements ImportType{
 
 	@Override
 	public String getPath() {
+		String importPath = "";
 		if(siteMapInfo != null) {
-			String importPath = FileFinder
+			importPath = FileFinder
 				.findPathWithoutRootAndExtension(siteMapInfo.getRootDir(), importStr + ".java")
-				.replaceAll("\\\\", "."); 
-
-			return "import " + importPath + ";";					
+				.replaceAll("\\\\", ".");								
 		}else {
-			LogManager.getLogger(FindImport.class).error("Could not get import for [" + importStr + "]");;
-			return "";
+			LogManager.getLogger(FindImport.class).error("Could not get import for [" + importStr + "]");;			
 		}
-		
+		return (importPath != null && importPath.length()>1) ? "import " + importPath + ";" : "";
 	}
 
 }
