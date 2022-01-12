@@ -65,14 +65,24 @@ public class ClassMaker {
 	
 	private void setWriter(){
 		String filePath = getFilePath();
-		try {
-			fileOut = 				
-					Optional.ofNullable(new BufferedWriter(
-						new OutputStreamWriter(
-								new FileOutputStream(filePath),	StandardCharsets.UTF_8)));
-		} catch (FileNotFoundException e) {
-			logger.error("Error file output stream [" + filePath + "]");
+		//filePath	"C:/Users/SteveBrown/eclipse-workspace/2021/SiteMapper/src/main/java/a/payroll/Left/employees/EmployeeDetails.java" (id=104)	
+		if(elementClass.getSiteMapInfo().isOverwritingExisting()) {
+			System.out.println("OVER WRITTING"); // TODO - remove or log
+			try {
+				fileOut = 				
+						Optional.ofNullable(new BufferedWriter(
+							new OutputStreamWriter(
+									new FileOutputStream(filePath),	StandardCharsets.UTF_8)));
+			} catch (FileNotFoundException e) {
+				logger.error("Error file output stream [" + filePath + "]");
+			}	
+		}else {
+			System.out.println("NOT OVER WRITTING"); // TODO - remove or log 	
+			/*
+			 * Have to diff the files
+			 */
 		}
+		
 	}
 	private String getFilePath() {
 		return 

@@ -29,7 +29,9 @@ public class SiteMapInfo {
 	private String rootDir;
 	@XmlElement(name="ParentPackage")
 	private String parentPackage;
-
+	@XmlElement(name="OverwriteExisting")
+	private String overwriteExisting;
+	
 	private String xmlSource;
 	private String date;
 	private String time;
@@ -75,6 +77,16 @@ public class SiteMapInfo {
 	}
 	public String getParentPackage() {
 		return parentPackage;
+	}
+	public boolean isOverwritingExisting() {
+		// Default to not over writing if value cannot be found.
+		if(overwriteExisting == null) {
+			return false;
+		}else {
+			System.out.println("isOverwritingExisting ->" + overwriteExisting); // TODO - remove or log 	
+			return (overwriteExisting.equalsIgnoreCase("TRUE")) ? true : false;	
+		}
+		
 	}
 
 	@Override

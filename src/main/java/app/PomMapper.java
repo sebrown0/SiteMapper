@@ -34,6 +34,19 @@ public class PomMapper {
 		this.XML_SOURCE = XML_SOURCE;	
 	}
 	
+//	public Optional<Object> getUnmarshalledSource() {
+//		Optional<PomMapperApp> pomMapperApp = Optional.ofNullable(null);
+//		try {
+//			setJaxContext();
+//			unmarshallSource();
+//			getSource().ifPresent(src -> getMapper(src).ifPresent(m -> pomMapperApp = Optional.ofNullable(m)));
+////			pomMapperApp = getMapper(null)
+//		} catch (JAXBException e) {
+//			logger.error("Could not unmarshall XML");
+//		}
+//		return Optional.ofNullable(pomMapperApp);
+//	}
+	
 	public void createPoms() {
 		writeLogHeader();
 		try {
@@ -75,12 +88,12 @@ public class PomMapper {
 		return Optional.ofNullable(new StreamSource(XML_SOURCE));
 	}
 	private Optional<PomMapperApp> getMapper(StreamSource s){
-		PomMapperApp app = null;
+		Optional<PomMapperApp> app = Optional.ofNullable(null);
 		try {
-			app = unmarshaller.unmarshal(s, PomMapperApp.class).getValue();			
+			app = Optional.ofNullable(unmarshaller.unmarshal(s, PomMapperApp.class).getValue());			
 		} catch (JAXBException e) {
 			logger.error("Error unmarshalling source");
 		}	 
-		return Optional.ofNullable(app);
+		return app;
 	}
 }

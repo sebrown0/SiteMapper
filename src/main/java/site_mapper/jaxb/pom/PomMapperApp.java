@@ -42,5 +42,8 @@ public class PomMapperApp {
 			}	
 		}					
 	}
-	
+
+	public SiteMapInfo getSiteMapInfo() {
+		return siteMapInfo;
+	}
 }

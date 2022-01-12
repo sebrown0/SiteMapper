@@ -12,7 +12,6 @@ import java.io.Writer;
 import java.nio.charset.StandardCharsets;
 
 import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 
 import site_mapper.jaxb.pom.PackageHierarchy;
 import site_mapper.jaxb.pom.SiteMapInfo;
