@@ -8,6 +8,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 /**
@@ -21,17 +22,27 @@ import java.util.stream.Collectors;
  * object representing the line.
  */
 public class LineMapper {	
-	private static int lineNum;	
+	private String filePath;
+	private int lineNum;	
+	private LineFactory lineFactory = new LineFactory();
+	private boolean prevLineWasBlank;
+	private Stage stage = new Stage();
 	
-	public static List<FileLine> mapLines(String filePath) {
+	private FileLine fileLine;
+	
+	public LineMapper(String filePath) {
+		this.filePath = filePath;
+	}
+
+	public List<Optional<FileLine>> mapLines() {
 		Path path = Paths.get(filePath);
-		List<FileLine> lines = null;
+		List<Optional<FileLine>> fileLines = null;
 		if(path != null) {			
 			lineNum = 0;
 			try {
-				lines =	Files
+				fileLines =	Files
 						.lines(path)
-						.map(ln -> new FileLine(++lineNum, ln))
+						.map(ln -> getNewLine(ln))
 						.collect(Collectors.toUnmodifiableList());
 			} catch (IOException e) {
 				// TODO Log
@@ -39,7 +50,32 @@ public class LineMapper {
 		}else {
 			// TODO Log
 		}
-		return lines;
+		return fileLines;
+	}
+	
+	private Optional<FileLine> getNewLine(String lineData) {
+		fileLine = null;
+
+		if(isBlankLine(lineData)) {
+			System.out.println("BLANK"); // TODO - remove or log 	
+			fileLine = new LineBlank(lineNum);
+			prevLineWasBlank = true;			
+		}else {
+			if(prevLineWasBlank) {
+				prevLineWasBlank = false;
+				stage.moveNext();
+			}
+			
+			lineFactory
+				.getFileLine(stage, lineNum, lineData)
+				.ifPresent(fl -> fileLine = fl);
+		}
+
+		return Optional.ofNullable(fileLine);
+	}
+	
+	private boolean isBlankLine(String lineData) {
+		return (lineData.length()>0) ? false : true;
 	}
 	
 }

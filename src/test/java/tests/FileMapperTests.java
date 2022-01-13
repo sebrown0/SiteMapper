@@ -3,16 +3,21 @@
  */
 package tests;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-import java.io.IOException;
-import java.net.URISyntaxException;
+import java.util.Optional;
 
 import org.junit.jupiter.api.Test;
 
 import file.FileFinder;
+import file.FileLine;
+import file.LineFactory;
+import file.LineImport;
 import file.LineMapper;
+import file.Stage;
+import file.Stage.FileStages;
 
 /**
  * @author SteveBrown
@@ -36,7 +41,43 @@ class FileMapperTests {
 	}
 	
 	@Test
-	public void givenFilePath_whenUsingFilesLines_thenFileData() throws URISyntaxException, IOException {	    
-	    LineMapper.mapLines(TEST_CLASS_PATH).forEach(ln -> System.out.println(ln));
+	public void mapLines_inTestClass() {
+		LineMapper lineMapper = new LineMapper(TEST_CLASS_PATH);				
+		assertTrue(lineMapper.mapLines().size() > 0);
+	}
+	
+	@Test
+	void fileStage_initial() {
+		Stage stage = new Stage();
+		assertEquals(FileStages.INITIAL, stage.peekCurrent());		
+	}
+	@Test
+	void fileStage_moveNext() {
+		Stage stage = new Stage();
+		assertEquals(FileStages.PACKAGE, stage.moveNext());		
+	}
+	@Test
+	void fileStage_set() {
+		Stage stage = new Stage();		
+		stage.setStage(FileStages.IMPORTS);
+		assertEquals(FileStages.IMPORTS, stage.peekCurrent());		
+	}
+	
+	@Test
+	void lineFactory() {
+		Optional<FileLine> fileLine;
+		Stage stage = new Stage();		
+		assertEquals(FileStages.INITIAL, stage.peekCurrent());
+		
+		LineFactory lineFactory = new LineFactory();
+		
+		fileLine = lineFactory.getFileLine(stage, 0, "line data");
+		assertTrue(fileLine.isEmpty());
+		assertEquals(FileStages.IMPORTS, stage.moveNext());
+		
+		fileLine = lineFactory.getFileLine(stage, 0, "line data");
+		assertTrue(fileLine.get() instanceof LineImport);
+		assertEquals(FileStages.COMMENTS, stage.moveNext());
+		
 	}
 }

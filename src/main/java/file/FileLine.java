@@ -12,7 +12,7 @@ package file;
  * A line in a file.
  * 
  */
-public class FileLine {
+public abstract class FileLine {
 	private int number;
 	private String value;
 	
