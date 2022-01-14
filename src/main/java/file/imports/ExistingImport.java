@@ -13,7 +13,7 @@ package file.imports;
  * the import as it's existing and should 
  * already have one.
  */
-public class ExistingImport extends Import{
+public class ExistingImport extends Import<String>{
 	
 	@Override
 	public String toString() {

@@ -13,6 +13,7 @@ import file.annotation.SiteMapAnnotation;
 import file.class_file.ClassBody;
 import file.class_file.ClassDeclaration;
 import file.class_file.ClassFile;
+import file.class_file.ClassFile.NewClassFileBuilder;
 import file.class_package.ExistingClassPackage;
 import file.class_package.NewClassPackage;
 import file.comment.ExistingComment;
@@ -24,6 +25,8 @@ import file.method.Method;
 import file.variable.Argument;
 import file.variable.ClassVariable;
 import file.variable.MethodVariable;
+import site_mapper.creators.ComponentWriterJsPanelWithIFrame;
+import site_mapper.creators.ComponentWriterVisitor;
 import site_mapper.jaxb.pom.SiteMapInfo;
 
 /**
@@ -49,24 +52,27 @@ class FilePojoElementsTests {
 	@Test
 	void existing_package() {
 		ExistingClassPackage cp = new ExistingClassPackage("package a.payroll.Left.employees;");
+		
 		assertEquals("package a.payroll.Left.employees;\n\n", cp.toString());
 	}
 	@Test
 	void new_package() {
 		NewClassPackage cp = new NewClassPackage("a.payroll.Left.employees");
+		
 		assertEquals("package a.payroll.Left.employees;\n\n", cp.toString());
 	}
 	
 	@Test
 	void testExistingAnnotation() {
 		ExistingAnnotation annotation = new ExistingAnnotation("SB", "1.0.0", "01/01/2022");
+		
 		assertEquals(ANNOTATION_RESULT, annotation.toString());
 	}
 	@Test
 	void testNewAnnotation() {
 		SiteMapInfo info = new SiteMapInfo().setAuthor("SteveBrown").setVersion("1.0.0");
 		NewAnnotation annotation = new NewAnnotation(info);
-		System.out.println(annotation); // TODO - remove or log 	
+		
 		assertEquals("@SiteMap(author=\"SteveBrown\", version=\"1.0.0\", date=\"" + info.getDate() + "\")", annotation.toString());
 	}
 	
@@ -103,6 +109,7 @@ class FilePojoElementsTests {
 	@Test
 	void testArgument() {
 		Argument v = new Argument("String", "str");		
+		
 		assertEquals("String str", v.toString());				 	
 	}
 	
@@ -146,19 +153,31 @@ class FilePojoElementsTests {
 	void methodBody() {
 		ExistingMethodBody body = new ExistingMethodBody();
 		body.addLine("Line1").addLine("Line2");
+		
 		assertEquals("\t\tLine1\n\t\tLine2\n", body.toString());
 	}
 
 	@Test
 	void newImports() {
+		ComponentWriterVisitor componentWriter = new ComponentWriterJsPanelWithIFrame();
 		NewImport imps = new NewImport();
-		imps.addLine("import java.util.List").addLine("import control_builder.*");
-		assertEquals("import java.util.List;\nimport control_builder.*;\n\n", imps.toString());
+		imps.setLines(componentWriter.getImportNames());
+
+		
+		assertEquals(
+				"import java.util.List;\n" +
+				"import org.openqa.selenium.By;\n" +
+				"import control_builder.*;\n" +
+				"import site_mapper.annotations.SiteMap;\n" +
+				"//Placeholder for missing import [JsPanelWithIFrame]\n" +
+				"//Placeholder for missing import [CoreData]\n" , 
+				imps.toString());
 	}	
 	@Test
 	void existingImports() {
 		ExistingImport imps = new ExistingImport();
 		imps.addLine("import java.util.List;").addLine("import control_builder.*;");
+		
 		assertEquals("import java.util.List;\nimport control_builder.*;\n\n", imps.toString());
 	}
 	
@@ -187,7 +206,7 @@ class FilePojoElementsTests {
 		declaration
 			.addExtended("Ext1").addExtended("Ext2")
 			.addImplemented("Imp1").addImplemented("Imp2");
-		System.out.println(declaration.toString()); // TODO - remove or log
+		
 		assertEquals("public class EmployeeDetails extends Ext1, Ext2 implements Imp1, Imp2 {\n", declaration.toString());
 	}
 	
@@ -229,22 +248,26 @@ class FilePojoElementsTests {
 	
 	@Test
 	void existing_classFile() {
-		ExistingComment comment = new ExistingComment();
+		ExistingComment comment = 
+			(ExistingComment) new ExistingComment()
+				.addLine("/**")
+				.addLine("* Generated Class.")
+				.addLine("* ----------------")
+				.addLine("* Source:  C:/site_map.xml")
+				.addLine("* Author:  SteveBrown")
+				.addLine("* Version: 1.0.0")
+				.addLine("* Created: 07/01/2022 08:53:56")
+				.addLine("*/");
+		
+		ExistingImport imprt = 
+				(ExistingImport) new ExistingImport().addLine("import java.util.List;").addLine("import control_builder.*;");
 		
 		ClassFile clazz = 
 				new ClassFile
 					.ExistingClassFileBuilder(
 						new ExistingClassPackage("package a.payroll.Left.employees;"), 
-						new ExistingImport().addLine("import java.util.List;").addLine("import control_builder.*;"), 
-						comment
-							.addLine("/**")
-							.addLine("* Generated Class.")
-							.addLine("* ----------------")
-							.addLine("* Source:  C:/site_map.xml")
-							.addLine("* Author:  SteveBrown")
-							.addLine("* Version: 1.0.0")
-							.addLine("* Created: 07/01/2022 08:53:56")
-							.addLine("*/"), 
+						imprt, 
+						comment, 
 						new ClassDeclaration("public", "EmployeeDetails").addExtended("JsPanelWithIFrame"), 
 						getTestClassBody())
 					.build();
@@ -303,4 +326,30 @@ class FilePojoElementsTests {
 		
 		return classBody;
 	}
+	
+//	@Test
+//	void newClassFileBuilder() {
+//		NewImport imprt = 
+//				(NewImport) new NewImport().addLine("import java.util.List;").addLine("import control_builder.*;");
+//		
+//		NewComment comment = 
+//			new NewComment(
+//				new SiteMapInfo()
+//					.setXmlSource("C:/site_map.xml")
+//					.setAuthor("SteveBrown")
+//					.setVersion("1.0.0"));
+//		
+//		
+//		NewClassFileBuilder builder = new ClassFile.NewClassFileBuilder();
+//		builder
+//			.setInPackage(new NewClassPackage("package a.payroll.Left.employees"))
+//			.setImports(imprt)
+//			.setComment(comment)
+//			.setDeclaration(null)
+//			.setClassBody(getTestClassBody());
+//		
+//		ClassFile classFile = builder.build();
+//		
+//		System.out.println(classFile.toString()); // TODO - remove or log 	
+//	}
 }

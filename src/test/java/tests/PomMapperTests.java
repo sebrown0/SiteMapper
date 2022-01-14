@@ -6,7 +6,7 @@ import app.PomMapper;
 
 class PomMapperTests {
 	static final String XML_SOURCE = 
-			"C:/Users/SteveBrown/eclipse-workspace/2021/SiteMapper/src/main/resources/site_map/site_map.xml";
+			"C:/Users/SteveBrown/eclipse-workspace/2021/SiteMapper/src/test/resources/site_map/site_map.xml";
 	
 //	@Test
 //	void isOverwriting() {

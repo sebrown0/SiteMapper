@@ -4,8 +4,15 @@
 package file.class_file;
 
 import file.class_package.ClassPackage;
+import file.class_package.ExistingClassPackage;
+import file.class_package.NewClassPackage;
 import file.comment.Comment;
+import file.comment.ExistingComment;
+import file.comment.NewComment;
+import file.imports.ExistingImport;
 import file.imports.Import;
+import file.imports.NewImport;
+import site_mapper.creators.ComponentWriter;
 
 /**
  * @author SteveBrown
@@ -55,9 +62,9 @@ public class ClassFile {
 	
 	public static class ExistingClassFileBuilder extends Builder {
 		public ExistingClassFileBuilder(
-				ClassPackage inPackage, 
-				Import imports, 
-				Comment comment, 
+				ExistingClassPackage inPackage, 
+				ExistingImport imports, 
+				ExistingComment comment, 
 				ClassDeclaration declaration, 
 				ClassBody classBody) {
 			
@@ -66,6 +73,43 @@ public class ClassFile {
 			this.comment = comment;
 			this.declaration = declaration;
 			this.classBody = classBody;
+		}
+
+		@Override
+		public ClassFile build() {
+			return new ClassFile(this);
+		}
+	}
+	
+	public static class NewClassFileBuilder extends Builder {
+		private ComponentWriter componentWriter;
+		
+		public NewClassFileBuilder(ComponentWriter componentWriter) {
+			this.componentWriter = componentWriter;
+		}
+
+		public NewClassFileBuilder setInPackage(NewClassPackage inPackage) {
+			super.inPackage = inPackage;
+			return this;
+		}
+
+		public NewClassFileBuilder setImports(NewImport imports) {
+			super.imports = imports;
+			return this;
+		}
+
+		public NewClassFileBuilder setComment(NewComment comment) {
+			super.comment = comment;
+			return this;
+		}
+
+		public NewClassFileBuilder setDeclaration(ClassDeclaration declaration) {
+			super.declaration = declaration;
+			return this;
+		}
+
+		public void setClassBody(ClassBody classBody) {
+			super.classBody = classBody;
 		}
 
 		@Override

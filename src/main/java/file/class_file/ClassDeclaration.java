@@ -17,8 +17,8 @@ import file.helpers.Formatter;
  * POJO for a class declaration in a site mapped class.
  */
 public class ClassDeclaration {	
-	private String modifier;
-	private String name;
+	private final String modifier;
+	private final String name;
 	private List<String> extended;
 	private List<String> implemented;
 	
@@ -27,28 +27,11 @@ public class ClassDeclaration {
 		this.name = name;
 	}
 
-	public void setExtended(List<String> extended) {
-		if(this.extended == null) { 
-			this.extended = extended; 
-		}else {
-			this.extended.addAll(extended);	
-		}		
-	}
-
 	public ClassDeclaration addExtended(String extended) {
 		if(this.extended == null) { this.extended = new ArrayList<>(); }
 		this.extended.add(extended);
 		return this;
-	}
-	
-	public void setImplemented(List<String> implemented) {
-		if(this.implemented == null) { 
-			this.implemented = implemented; 
-		}else {
-			this.implemented.addAll(implemented);	
-		}		
-	}
-	
+	}		
 
 	public ClassDeclaration addImplemented(String implemented) {
 		if(this.implemented == null) { this.implemented = new ArrayList<>(); }
@@ -76,5 +59,9 @@ public class ClassDeclaration {
 		}else {
 			return "";
 		}
+	}
+	
+	public static class Builder {
+		
 	}
 }

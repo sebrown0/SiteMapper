@@ -12,10 +12,10 @@ import java.util.List;
  * 	Initial
  * @since 1.0
  */
-public abstract class Import {
-	protected List<String> lines = new ArrayList<>();
+public abstract class Import <T> {
+	protected List<T> lines = new ArrayList<>();
 
-	public void setLines(List<String> lines) {
+	public void setLines(List<T> lines) {
 		if(lines != null) {
 			this.lines.addAll(lines);
 		}else {
@@ -23,7 +23,7 @@ public abstract class Import {
 		}		
 	}
 
-	public Import addLine(String line) {
+	public Import<T> addLine(T line) {
 		lines.add(line);
 		return this;
 	}
