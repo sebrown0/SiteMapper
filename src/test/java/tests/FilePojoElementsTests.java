@@ -7,7 +7,9 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import org.junit.jupiter.api.Test;
 
-import file.SiteMapAnnotation;
+import file.annotation.ExistingAnnotation;
+import file.annotation.NewAnnotation;
+import file.annotation.SiteMapAnnotation;
 import file.class_file.ClassBody;
 import file.class_file.ClassDeclaration;
 import file.class_file.ClassFile;
@@ -47,23 +49,30 @@ class FilePojoElementsTests {
 	@Test
 	void existing_package() {
 		ExistingClassPackage cp = new ExistingClassPackage("package a.payroll.Left.employees;");
-		assertEquals("package a.payroll.Left.employees;", cp.toString());
+		assertEquals("package a.payroll.Left.employees;\n\n", cp.toString());
 	}
 	@Test
 	void new_package() {
 		NewClassPackage cp = new NewClassPackage("a.payroll.Left.employees");
-		assertEquals("package a.payroll.Left.employees;", cp.toString());
+		assertEquals("package a.payroll.Left.employees;\n\n", cp.toString());
 	}
 	
 	@Test
-	void testAnnotation() {
-		SiteMapAnnotation annotation = new SiteMapAnnotation("SB", "1.0.0", "01/01/2022");
+	void testExistingAnnotation() {
+		ExistingAnnotation annotation = new ExistingAnnotation("SB", "1.0.0", "01/01/2022");
 		assertEquals(ANNOTATION_RESULT, annotation.toString());
+	}
+	@Test
+	void testNewAnnotation() {
+		SiteMapInfo info = new SiteMapInfo().setAuthor("SteveBrown").setVersion("1.0.0");
+		NewAnnotation annotation = new NewAnnotation(info);
+		System.out.println(annotation); // TODO - remove or log 	
+		assertEquals("@SiteMap(author=\"SteveBrown\", version=\"1.0.0\", date=\"" + info.getDate() + "\")", annotation.toString());
 	}
 	
 	@Test
 	void testVariable_withString() {
-		SiteMapAnnotation annotation = new SiteMapAnnotation("SB", "1.0.0", "01/01/2022");
+		ExistingAnnotation annotation = new ExistingAnnotation("SB", "1.0.0", "01/01/2022");
 		ClassVariable v = new ClassVariable();
 		v
 			.setAnnotation(annotation)
@@ -78,7 +87,7 @@ class FilePojoElementsTests {
 	}
 	@Test
 	void testVariable_withInt() {
-		SiteMapAnnotation annotation = new SiteMapAnnotation("SB", "1.0.0", "01/01/2022");
+		SiteMapAnnotation annotation = new ExistingAnnotation("SB", "1.0.0", "01/01/2022");
 		MethodVariable v = new MethodVariable();
 		v
 			.setAnnotation(annotation)
@@ -144,33 +153,33 @@ class FilePojoElementsTests {
 	void newImports() {
 		NewImport imps = new NewImport();
 		imps.addLine("import java.util.List").addLine("import control_builder.*");
-		assertEquals("import java.util.List;\nimport control_builder.*;\n", imps.toString());
+		assertEquals("import java.util.List;\nimport control_builder.*;\n\n", imps.toString());
 	}	
 	@Test
 	void existingImports() {
 		ExistingImport imps = new ExistingImport();
 		imps.addLine("import java.util.List;").addLine("import control_builder.*;");
-		assertEquals("import java.util.List;\nimport control_builder.*;\n", imps.toString());
+		assertEquals("import java.util.List;\nimport control_builder.*;\n\n", imps.toString());
 	}
 	
 	@Test 
 	void classDeclaration_without_extends_or_implements(){
 		ClassDeclaration declaration = new ClassDeclaration("public", "EmployeeDetails");
-		assertEquals("public class EmployeeDetails {", declaration.toString());
+		assertEquals("public class EmployeeDetails {\n", declaration.toString());
 	}
 	@Test 
 	void classDeclaration_with_extends(){
 		ClassDeclaration declaration = new ClassDeclaration("public", "EmployeeDetails");
 		declaration.addExtended("Ext1").addExtended("Ext2");
 		
-		assertEquals("public class EmployeeDetails extends Ext1, Ext2 {", declaration.toString());
+		assertEquals("public class EmployeeDetails extends Ext1, Ext2 {\n", declaration.toString());
 	}
 	@Test 
 	void classDeclaration_with_implements(){
 		ClassDeclaration declaration = new ClassDeclaration("public", "EmployeeDetails");
 		declaration.addImplemented("Imp1").addImplemented("Imp2");
 		
-		assertEquals("public class EmployeeDetails implements Imp1, Imp2 {", declaration.toString());
+		assertEquals("public class EmployeeDetails implements Imp1, Imp2 {\n", declaration.toString());
 	}
 	@Test 
 	void classDeclaration_with_extends_implements(){
@@ -179,7 +188,7 @@ class FilePojoElementsTests {
 			.addExtended("Ext1").addExtended("Ext2")
 			.addImplemented("Imp1").addImplemented("Imp2");
 		System.out.println(declaration.toString()); // TODO - remove or log
-		assertEquals("public class EmployeeDetails extends Ext1, Ext2 implements Imp1, Imp2 {", declaration.toString());
+		assertEquals("public class EmployeeDetails extends Ext1, Ext2 implements Imp1, Imp2 {\n", declaration.toString());
 	}
 	
 	@Test
@@ -189,7 +198,7 @@ class FilePojoElementsTests {
 		
 		Method m = new Method();
 		m
-			.setAnnotation(new SiteMapAnnotation("SB", "1.0.0", "01/01/2022"))
+			.setAnnotation(new ExistingAnnotation("SB", "1.0.0", "01/01/2022"))
 			.setModifier("private")
 			.setReturnType("String")
 			.setName("aMethod")
@@ -261,7 +270,7 @@ class FilePojoElementsTests {
 	}
 	
 	private ClassBody getTestClassBody() {
-		SiteMapAnnotation annotation = new SiteMapAnnotation("SB", "1.0.0", "01/01/2022");
+		SiteMapAnnotation annotation = new ExistingAnnotation("SB", "1.0.0", "01/01/2022");
 		
 		ClassVariable v1 = new ClassVariable();
 		v1

@@ -5,7 +5,7 @@ package file.helpers;
 
 import java.util.List;
 
-import file.SiteMapAnnotation;
+import file.annotation.SiteMapAnnotation;
 
 /**
  * @author SteveBrown

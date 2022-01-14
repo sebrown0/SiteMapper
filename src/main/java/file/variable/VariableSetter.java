@@ -3,7 +3,7 @@
  */
 package file.variable;
 
-import file.SiteMapAnnotation;
+import file.annotation.SiteMapAnnotation;
 
 /**
  * @author SteveBrown

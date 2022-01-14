@@ -1,7 +1,7 @@
 /**
  * 
  */
-package file;
+package file.annotation;
 
 import file.helpers.Formatter;
 
@@ -13,7 +13,7 @@ import file.helpers.Formatter;
  * 
  * POJO for annotation @SiteMap
  */
-public class SiteMapAnnotation {	
+public abstract class SiteMapAnnotation {	
 	private String author;
 	private String version;
 	private String date;

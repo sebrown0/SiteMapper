@@ -6,7 +6,7 @@ package file.method;
 import java.util.ArrayList;
 import java.util.List;
 
-import file.SiteMapAnnotation;
+import file.annotation.SiteMapAnnotation;
 import file.helpers.Formatter;
 import file.variable.Argument;
 
