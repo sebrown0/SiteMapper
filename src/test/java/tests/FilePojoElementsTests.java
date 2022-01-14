@@ -14,6 +14,7 @@ import file.class_file.ClassFile;
 import file.class_package.ExistingClassPackage;
 import file.class_package.NewClassPackage;
 import file.comment.ExistingComment;
+import file.comment.NewComment;
 import file.imports.ExistingImport;
 import file.imports.NewImport;
 import file.method.ExistingMethodBody;
@@ -21,6 +22,7 @@ import file.method.Method;
 import file.variable.Argument;
 import file.variable.ClassVariable;
 import file.variable.MethodVariable;
+import site_mapper.jaxb.pom.SiteMapInfo;
 
 /**
  * @author SteveBrown
@@ -109,6 +111,26 @@ class FilePojoElementsTests {
 			.addLine("*/");
 		
 		assertEquals(COMMENT_RESULT, comment.toString());		
+	}
+	@Test
+	void newComment() {
+		SiteMapInfo info = new SiteMapInfo();
+		NewComment comment = new NewComment(
+				info
+					.setXmlSource("C:/site_map.xml")
+					.setAuthor("SteveBrown")
+					.setVersion("1.0.0"));
+				
+		assertEquals(
+				"/**\n" +
+				"* Generated Class.\n" +
+				"* ----------------\n" +
+				"* Source:  C:/site_map.xml\n" +
+				"* Author:  SteveBrown\n" +
+				"* Version: 1.0.0\n" +
+				"* Created: " + info.getTimeStamp() +
+				"\n*/\n", 
+				comment.toString());		
 	}
 	
 	@Test
