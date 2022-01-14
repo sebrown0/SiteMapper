@@ -5,6 +5,10 @@ package tests;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import org.assertj.core.util.Arrays;
 import org.junit.jupiter.api.Test;
 
 import file.annotation.ExistingAnnotation;
@@ -14,6 +18,7 @@ import file.class_file.ClassBody;
 import file.class_file.ClassDeclaration;
 import file.class_file.ClassFile;
 import file.class_file.ClassFile.NewClassFileBuilder;
+import file.class_file.ExistingConstructor;
 import file.class_package.ExistingClassPackage;
 import file.class_package.NewClassPackage;
 import file.comment.ExistingComment;
@@ -63,8 +68,8 @@ class FilePojoElementsTests {
 	}
 	
 	@Test
-	void testExistingAnnotation() {
-		ExistingAnnotation annotation = new ExistingAnnotation("SB", "1.0.0", "01/01/2022");
+	void testExistingAnnotation() {		
+		ExistingAnnotation annotation = new ExistingAnnotation("author=\"SB\", version=\"1.0.0\", date=\"01/01/2022\"");
 		
 		assertEquals(ANNOTATION_RESULT, annotation.toString());
 	}
@@ -78,7 +83,7 @@ class FilePojoElementsTests {
 	
 	@Test
 	void testVariable_withString() {
-		ExistingAnnotation annotation = new ExistingAnnotation("SB", "1.0.0", "01/01/2022");
+		ExistingAnnotation annotation = new ExistingAnnotation("author=\"SB\", version=\"1.0.0\", date=\"01/01/2022\"");
 		ClassVariable v = new ClassVariable();
 		v
 			.setAnnotation(annotation)
@@ -93,7 +98,7 @@ class FilePojoElementsTests {
 	}
 	@Test
 	void testVariable_withInt() {
-		SiteMapAnnotation annotation = new ExistingAnnotation("SB", "1.0.0", "01/01/2022");
+		SiteMapAnnotation annotation = new ExistingAnnotation("author=\"SB\", version=\"1.0.0\", date=\"01/01/2022\"");
 		MethodVariable v = new MethodVariable();
 		v
 			.setAnnotation(annotation)
@@ -211,13 +216,28 @@ class FilePojoElementsTests {
 	}
 	
 	@Test
+	void constructor() {
+		List<String> lines = new ArrayList<>();
+		lines.add("\tpublic EmployeeDetails(CoreData coreData) {");
+		lines.add("\t\tsuper(coreData,PANEL_TITLE);");
+		lines.add("\t\tbuildMyControls();");
+		lines.add("\t}");
+		
+		ExistingAnnotation annotation = new ExistingAnnotation("author=\"SB\", version=\"1.0.0\", date=\"01/01/2022\"");
+		ExistingConstructor cnstr = new ExistingConstructor(lines);
+		cnstr.setAnnotation(annotation);
+		
+		System.out.println(cnstr.toString()); // TODO - remove or log 	
+	}
+	
+	@Test
 	void testMethod() {
 		ExistingMethodBody body = new ExistingMethodBody();
 		body.addLine("Line1").addLine("Line2");
 		
 		Method m = new Method();
 		m
-			.setAnnotation(new ExistingAnnotation("SB", "1.0.0", "01/01/2022"))
+			.setAnnotation(new ExistingAnnotation("author=\"SB\", version=\"1.0.0\", date=\"01/01/2022\""))
 			.setModifier("private")
 			.setReturnType("String")
 			.setName("aMethod")
@@ -291,7 +311,7 @@ class FilePojoElementsTests {
 	}
 	
 	private ClassBody getTestClassBody() {
-		SiteMapAnnotation annotation = new ExistingAnnotation("SB", "1.0.0", "01/01/2022");
+		SiteMapAnnotation annotation = new ExistingAnnotation("author=\"SB\", version=\"1.0.0\", date=\"01/01/2022\"");
 		
 		ClassVariable v1 = new ClassVariable();
 		v1

@@ -16,7 +16,11 @@ import site_mapper.jaxb.pom.SiteMapInfo;
 public class NewAnnotation extends SiteMapAnnotation {
 
 	public NewAnnotation(SiteMapInfo info) {
-		super(info.getAuthor(), info.getVersion(), info.getDate());
+//		super(info.getAuthor(), info.getVersion(), info.getDate());
+		super
+			.setAuthor(info.getAuthor())
+			.setVersion(info.getVersion())
+			.setDate(info.getDate());
 	}	
 		
 }

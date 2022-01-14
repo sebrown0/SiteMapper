@@ -18,12 +18,26 @@ public abstract class SiteMapAnnotation {
 	private String version;
 	private String date;
 	
-	public SiteMapAnnotation(String author, String version, String date) {		
-		this.author = author;
-		this.version = version;
-		this.date = date;
-	}
+//	public SiteMapAnnotation(String author, String version, String date) {		
+//		this.author = author;
+//		this.version = version;
+//		this.date = date;
+//	}
 	
+	public SiteMapAnnotation setAuthor(String author) {
+		this.author = author;
+		return this;
+	}
+	public SiteMapAnnotation setVersion(String version) {
+		this.version = version;
+		return this;
+	}
+	public SiteMapAnnotation setDate(String date) {
+		this.date = date;
+		return this;
+	}
+
+
 	@Override
 	public String toString() {
 		return String.format(
