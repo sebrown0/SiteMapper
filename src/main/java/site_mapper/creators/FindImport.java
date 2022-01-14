@@ -31,12 +31,16 @@ public class FindImport implements ImportType{
 				.findPathWithoutRootAndExtension(siteMapInfo.getRootDir(), importStr + ".java")
 				.replaceAll("\\\\", ".");								
 		}else {
-			LogManager.getLogger(FindImport.class).error("Could not get import for [" + importStr + "]");;			
+			LogManager
+				.getLogger(FindImport.class)
+				.error("Could not get import for [" + importStr + "]");;			
 		}
-		return (importPath != null && importPath.length()>1) ? "import " + importPath + ";" : getNotFound();
+		return (importPath != null && importPath.length()>1) ? 
+				"import " + importPath + ";" : 
+					getNotFound();
 	}
 
 	private String getNotFound() {
-		return "//Placeholder for missing import [" + importStr + "]";
+		return "/* Placeholder for missing import [" + importStr + "] */";
 	}
 }

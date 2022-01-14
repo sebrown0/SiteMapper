@@ -15,14 +15,6 @@ import java.util.List;
 public abstract class Import <T> {
 	protected List<T> lines = new ArrayList<>();
 
-	public void setLines(List<T> lines) {
-		if(lines != null) {
-			this.lines.addAll(lines);
-		}else {
-			this.lines = lines;	
-		}		
-	}
-
 	public Import<T> addLine(T line) {
 		lines.add(line);
 		return this;

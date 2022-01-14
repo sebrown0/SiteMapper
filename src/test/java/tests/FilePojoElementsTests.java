@@ -25,8 +25,8 @@ import file.method.Method;
 import file.variable.Argument;
 import file.variable.ClassVariable;
 import file.variable.MethodVariable;
+import site_mapper.creators.ComponentWriter;
 import site_mapper.creators.ComponentWriterJsPanelWithIFrame;
-import site_mapper.creators.ComponentWriterVisitor;
 import site_mapper.jaxb.pom.SiteMapInfo;
 
 /**
@@ -159,11 +159,11 @@ class FilePojoElementsTests {
 
 	@Test
 	void newImports() {
-		ComponentWriterVisitor componentWriter = new ComponentWriterJsPanelWithIFrame();
+		ComponentWriter componentWriter = new ComponentWriterJsPanelWithIFrame();
 		NewImport imps = new NewImport();
 		imps.setLines(componentWriter.getImportNames());
 
-		
+		//DEPENDS ON THE IMPORTS IN ComponentWriterJsPanelWithIFrame
 		assertEquals(
 				"import java.util.List;\n" +
 				"import org.openqa.selenium.By;\n" +
@@ -325,6 +325,19 @@ class FilePojoElementsTests {
 			.addMethod(m);
 		
 		return classBody;
+	}
+	
+	@Test
+	void newClassFileBuilder() {
+		ComponentWriterJsPanelWithIFrame componentWriter = new ComponentWriterJsPanelWithIFrame();
+		SiteMapInfo info = new SiteMapInfo().setAuthor("SteveBrown").setVersion("1.0.0");
+		
+		NewClassFileBuilder builder = 
+				new ClassFile.NewClassFileBuilder(componentWriter, info);
+		
+		ClassFile classFile = builder.build();
+		
+		System.out.println(classFile.toString()); // TODO - remove or log 	
 	}
 	
 //	@Test

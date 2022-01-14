@@ -13,6 +13,7 @@ import file.imports.ExistingImport;
 import file.imports.Import;
 import file.imports.NewImport;
 import site_mapper.creators.ComponentWriter;
+import site_mapper.jaxb.pom.SiteMapInfo;
 
 /**
  * @author SteveBrown
@@ -26,7 +27,7 @@ import site_mapper.creators.ComponentWriter;
  */
 public class ClassFile {
 	private final ClassPackage inPackage;
-	private final Import imports;
+	private final Import<?> imports;
 	private final Comment comment;
 	private final ClassDeclaration declaration;
 	private final ClassBody classBody;
@@ -44,15 +45,25 @@ public class ClassFile {
 		return 
 				inPackage +
 				imports.toString() +
-				comment.toString() +
-				declaration.toString() +
-				classBody.toString() + 
+				getComment() +
+				getDeclaration() +
+				getClassBody() + 
 				"\n}";		
+	}
+	
+	private String getComment() {
+		return (comment != null) ? comment.toString() : "/* COMMENT NOT FOUND */\n";
+	}
+	private String getDeclaration() {
+		return (declaration != null) ? declaration.toString() : "/* CLASS DECLARATION NOT FOUND */\n";
+	}
+	private String getClassBody() {
+		return (classBody != null) ? classBody.toString() : "/* CLASS BODY NOT FOUND */\n";
 	}
 	
 	public abstract static class Builder {
 		protected ClassPackage inPackage;
-		protected Import imports;
+		protected Import<?> imports;
 		protected Comment comment;
 		protected ClassDeclaration declaration;
 		protected ClassBody classBody;
@@ -83,9 +94,14 @@ public class ClassFile {
 	
 	public static class NewClassFileBuilder extends Builder {
 		private ComponentWriter componentWriter;
+		private SiteMapInfo info;
 		
-		public NewClassFileBuilder(ComponentWriter componentWriter) {
+		public NewClassFileBuilder(ComponentWriter componentWriter, SiteMapInfo info) {
 			this.componentWriter = componentWriter;
+			this.info = info;
+			
+			setImports();
+			setComment();
 		}
 
 		public NewClassFileBuilder setInPackage(NewClassPackage inPackage) {
@@ -93,14 +109,12 @@ public class ClassFile {
 			return this;
 		}
 
-		public NewClassFileBuilder setImports(NewImport imports) {
-			super.imports = imports;
-			return this;
+		private void setImports() {
+			super.imports = new NewImport().setLines(componentWriter.getImportNames());
 		}
 
-		public NewClassFileBuilder setComment(NewComment comment) {
-			super.comment = comment;
-			return this;
+		private void setComment() {
+			super.comment = new NewComment(info);
 		}
 
 		public NewClassFileBuilder setDeclaration(ClassDeclaration declaration) {
