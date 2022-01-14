@@ -10,7 +10,10 @@ import file.SiteMapAnnotation;
 /**
  * @author SteveBrown
  * @version 1.0
+ * 	Initial
  * @since 1.0
+ * 
+ * Various ways formatting a string for a site mapped class.
  */
 public class Formatter {
 
@@ -49,7 +52,7 @@ public class Formatter {
 			for (T t : listOfVals) {
 				ret += String.format("%s, ", t.toString());				
 			}
-			if(listOfVals.size()>1) { ret = ret.substring(0, ret.length()-2); }
+			if(listOfVals.size()>=1) { ret = ret.substring(0, ret.length()-2); }
 		}
 		return ret;
 	}

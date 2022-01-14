@@ -3,8 +3,9 @@
  */
 package file.method;
 
-import java.util.ArrayList;
 import java.util.List;
+
+import file.helpers.Lines;
 
 /**
  * @author SteveBrown
@@ -14,26 +15,23 @@ import java.util.List;
  * 
  * All the lines of a method body as supplied.
  */
-public class MethodBody {
-	private List<String> lines = new ArrayList<>();
-
+public class ExistingMethodBody {
+	private Lines<String> lines = new Lines<>();
+	
 	public void setLines(List<String> lines) {
-		if(lines != null) {
-			this.lines.addAll(lines);
-		}else {
-			this.lines = lines;	
-		}		
+		this.lines.setLines(lines);
 	}
-
-	public MethodBody addLine(String line) {
-		lines.add(line);
+	
+	public ExistingMethodBody addLine(String line) {
+		lines.addLine(line);
 		return this;
 	}
+	
 	
 	@Override
 	public String toString() {
 		String body = "";
-		for (String s : lines) {
+		for (String s : lines.getLines()) {
 			body += "\t\t" + s + "\n";
 		}
 		return body;

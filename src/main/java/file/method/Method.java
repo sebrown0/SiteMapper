@@ -24,7 +24,7 @@ public class Method {
 	private String returnType = "void";
 	private String name;
 	private List<Argument> arguments;
-	private MethodBody body;
+	private ExistingMethodBody body;
 	
 	public Method setAnnotation(SiteMapAnnotation annotation) {
 		this.annotation = annotation;
@@ -51,7 +51,7 @@ public class Method {
 		arguments.add(arg);
 		return this;
 	}
-	public Method setBody(MethodBody body) {
+	public Method setBody(ExistingMethodBody body) {
 		this.body = body;
 		return this;
 	}

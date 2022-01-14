@@ -1,20 +1,23 @@
 /**
  * 
  */
-package file;
+package file.class_file;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import file.method.Method;
 import file.variable.ClassVariable;
-import file.variable.Variable;
 
 /**
  * @author SteveBrown
  * @version 1.0
  * 	Initial
  * @since 1.0
+ * 
+ * POJO for the class body of a 
+ * site-mapped class file.
+ * 
  */
 public class ClassBody {
 	private List<ClassVariable> variables = new ArrayList<>();
