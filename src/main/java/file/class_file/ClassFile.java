@@ -12,47 +12,65 @@ import file.imports.Import;
  * @version 1.0
  * 	Initial
  * @since 1.0
+ * 
+ * A site mapped class file with all its elements.
+ * Use one of the builders to create the object.
+ * 
  */
 public class ClassFile {
-	private ClassPackage inPackage;
-	private Import imports;
-	private Comment comment;
-	private ClassDeclaration declaration;
-	private ClassBody classBody;
+	private final ClassPackage inPackage;
+	private final Import imports;
+	private final Comment comment;
+	private final ClassDeclaration declaration;
+	private final ClassBody classBody;
 
-	public ClassFile setInPackage(ClassPackage inPackage) {
-		this.inPackage = inPackage;
-		return this;
-	}	
-	public ClassFile setImport(Import imprt) {
-		this.imports = imprt;
-		return this;
+	private ClassFile(Builder builder) {
+		this.inPackage = builder.inPackage;
+		this.imports = builder.imports;
+		this.comment = builder.comment;
+		this.declaration = builder.declaration;
+		this.classBody = builder.classBody;
 	}
-	public ClassFile setComment(Comment comment) {
-		this.comment = comment;
-		return this;
-	}	
-	public ClassFile setDeclaration(ClassDeclaration declaration) {
-		this.declaration = declaration;
-		return this;
-	}
-	public ClassFile setClassBody(ClassBody classBody) {
-		this.classBody = classBody;
-		return this;
-	}
-	
+		
 	@Override 
 	public String toString() {
-		String res = 
+		return 
 				inPackage +
 				imports.toString() +
 				comment.toString() +
 				declaration.toString() +
 				classBody.toString() + 
-				"\n}";
-		
-		return res;
+				"\n}";		
 	}
 	
+	public abstract static class Builder {
+		protected ClassPackage inPackage;
+		protected Import imports;
+		protected Comment comment;
+		protected ClassDeclaration declaration;
+		protected ClassBody classBody;
+		
+		public abstract ClassFile build();			
+	}
 	
+	public static class ExistingClassFileBuilder extends Builder {
+		public ExistingClassFileBuilder(
+				ClassPackage inPackage, 
+				Import imports, 
+				Comment comment, 
+				ClassDeclaration declaration, 
+				ClassBody classBody) {
+			
+			this.inPackage = inPackage;
+			this.imports = imports;
+			this.comment = comment;
+			this.declaration = declaration;
+			this.classBody = classBody;
+		}
+
+		@Override
+		public ClassFile build() {
+			return new ClassFile(this);
+		}
+	}
 }

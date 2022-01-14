@@ -229,29 +229,27 @@ class FilePojoElementsTests {
 	
 	@Test
 	void existing_classFile() {
-		ClassFile clazz = new ClassFile();
-		ExistingImport imps = new ExistingImport();
-		imps.addLine("import java.util.List;").addLine("import control_builder.*;");
-		
 		ExistingComment comment = new ExistingComment();
-		comment
-			.addLine("/**")
-			.addLine("* Generated Class.")
-			.addLine("* ----------------")
-			.addLine("* Source:  C:/site_map.xml")
-			.addLine("* Author:  SteveBrown")
-			.addLine("* Version: 1.0.0")
-			.addLine("* Created: 07/01/2022 08:53:56")
-			.addLine("*/");
-				
-		clazz
-			.setInPackage(new ExistingClassPackage("package a.payroll.Left.employees;"))
-			.setImport(imps)
-			.setComment(comment)
-			.setDeclaration(new ClassDeclaration("public", "EmployeeDetails").addExtended("JsPanelWithIFrame"))
-			.setClassBody(getTestClassBody());
 		
-		System.out.println(clazz.toString()); // TODO - remove or log 	
+		ClassFile clazz = 
+				new ClassFile
+					.ExistingClassFileBuilder(
+						new ExistingClassPackage("package a.payroll.Left.employees;"), 
+						new ExistingImport().addLine("import java.util.List;").addLine("import control_builder.*;"), 
+						comment
+							.addLine("/**")
+							.addLine("* Generated Class.")
+							.addLine("* ----------------")
+							.addLine("* Source:  C:/site_map.xml")
+							.addLine("* Author:  SteveBrown")
+							.addLine("* Version: 1.0.0")
+							.addLine("* Created: 07/01/2022 08:53:56")
+							.addLine("*/"), 
+						new ClassDeclaration("public", "EmployeeDetails").addExtended("JsPanelWithIFrame"), 
+						getTestClassBody())
+					.build();
+				
+//		System.out.println(clazz.toString()); // TODO - remove or log 	
 		assertEquals(
 			"package a.payroll.Left.employees;\n\n" +
 			"import java.util.List;\nimport control_builder.*;\n\n" +
