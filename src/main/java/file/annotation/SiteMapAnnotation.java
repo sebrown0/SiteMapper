@@ -17,13 +17,7 @@ public abstract class SiteMapAnnotation {
 	private String author;
 	private String version;
 	private String date;
-	
-//	public SiteMapAnnotation(String author, String version, String date) {		
-//		this.author = author;
-//		this.version = version;
-//		this.date = date;
-//	}
-	
+		
 	public SiteMapAnnotation setAuthor(String author) {
 		this.author = author;
 		return this;
@@ -36,7 +30,6 @@ public abstract class SiteMapAnnotation {
 		this.date = date;
 		return this;
 	}
-
 
 	@Override
 	public String toString() {

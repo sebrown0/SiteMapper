@@ -69,7 +69,7 @@ class FilePojoElementsTests {
 	
 	@Test
 	void testExistingAnnotation() {		
-		ExistingAnnotation annotation = new ExistingAnnotation("author=\"SB\", version=\"1.0.0\", date=\"01/01/2022\"");
+		ExistingAnnotation annotation = new ExistingAnnotation("@SiteMap(author=\"SB\", version=\"1.0.0\", date=\"01/01/2022\")");
 		
 		assertEquals(ANNOTATION_RESULT, annotation.toString());
 	}
@@ -83,7 +83,7 @@ class FilePojoElementsTests {
 	
 	@Test
 	void testVariable_withString() {
-		ExistingAnnotation annotation = new ExistingAnnotation("author=\"SB\", version=\"1.0.0\", date=\"01/01/2022\"");
+		ExistingAnnotation annotation = new ExistingAnnotation("@SiteMap(author=\"SB\", version=\"1.0.0\", date=\"01/01/2022\")");
 		ClassVariable v = new ClassVariable();
 		v
 			.setAnnotation(annotation)
@@ -98,7 +98,7 @@ class FilePojoElementsTests {
 	}
 	@Test
 	void testVariable_withInt() {
-		SiteMapAnnotation annotation = new ExistingAnnotation("author=\"SB\", version=\"1.0.0\", date=\"01/01/2022\"");
+		SiteMapAnnotation annotation = new ExistingAnnotation("@SiteMap(author=\"SB\", version=\"1.0.0\", date=\"01/01/2022\")");
 		MethodVariable v = new MethodVariable();
 		v
 			.setAnnotation(annotation)
@@ -174,8 +174,8 @@ class FilePojoElementsTests {
 				"import org.openqa.selenium.By;\n" +
 				"import control_builder.*;\n" +
 				"import site_mapper.annotations.SiteMap;\n" +
-				"//Placeholder for missing import [JsPanelWithIFrame]\n" +
-				"//Placeholder for missing import [CoreData]\n" , 
+				"/* Placeholder for missing import [JsPanelWithIFrame] */\n" +
+				"/* Placeholder for missing import [CoreData] */\n" , 
 				imps.toString());
 	}	
 	@Test
@@ -311,7 +311,7 @@ class FilePojoElementsTests {
 	}
 	
 	private ClassBody getTestClassBody() {
-		SiteMapAnnotation annotation = new ExistingAnnotation("author=\"SB\", version=\"1.0.0\", date=\"01/01/2022\"");
+		SiteMapAnnotation annotation = new ExistingAnnotation("@SiteMap(author=\"SB\", version=\"1.0.0\", date=\"01/01/2022\")");
 		
 		ClassVariable v1 = new ClassVariable();
 		v1
