@@ -237,7 +237,7 @@ class FilePojoElementsTests {
 		
 		Method m = new Method();
 		m
-			.setAnnotation(new ExistingAnnotation("author=\"SB\", version=\"1.0.0\", date=\"01/01/2022\""))
+			.setAnnotation(new ExistingAnnotation("@SiteMap(author=\"SB\", version=\"1.0.0\", date=\"01/01/2022\")"))
 			.setModifier("private")
 			.setReturnType("String")
 			.setName("aMethod")

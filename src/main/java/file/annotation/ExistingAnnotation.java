@@ -16,13 +16,11 @@ public class ExistingAnnotation extends SiteMapAnnotation {
 
 	public ExistingAnnotation(String annotationStr) {
 		this.annotationStr = annotationStr;
-		/*
-		 * PARSE THE STRING TO GET THE ELEMENTS.
-		 */
 	}
-	
-//	public ExistingAnnotation(String author, String version, String date) {
-//		super(author, version, date);
-//	}	
-		
+
+	@Override
+	public String toString() {
+		return annotationStr ;
+	}
+			
 }
