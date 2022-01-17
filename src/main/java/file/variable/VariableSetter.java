@@ -15,7 +15,8 @@ import file.annotation.SiteMapAnnotation;
  */
 public interface VariableSetter {
 	VariableSetter setAnnotation(SiteMapAnnotation annotation);
-	VariableSetter setModifier(String modifier);
+	VariableSetter setType(String modifier);
 	VariableSetter setName(String name);
 	VariableSetter setValue(String value);
+	void setFromString(String varStr);
 }

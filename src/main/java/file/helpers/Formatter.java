@@ -26,11 +26,18 @@ public class Formatter {
 		}		
 	}
 	
-	public static  String getVariableValue(String value, String modifier) {
+	public static String getVariableValue(String value, String type) {
 		String ret = "";
 		if(value != null) {
-			if(modifier.contains("String")) {
-				ret = " = \"" + value + "\"";
+			if(type.contains("String")) {
+				if(!(value.startsWith("\""))){
+					ret = " = \"" + value;	
+				}else {
+					ret = " = " + value;
+				}				
+				if(!(value.endsWith("\""))){
+					ret += "\"";
+				}
 			}else {
 				ret = " = " + value;
 			}
@@ -38,8 +45,15 @@ public class Formatter {
 		return ret;
 	}
 	
+	public static String getVariableValue(String value) {		
+		return (value != null) ? " =" + value : "";
+	}
+	
 	public static String getValueOf(String value) {
 		return (value != null) ? value : "";
+	}
+	public static String getValueOf(String prepend, String value) {
+		return (value != null) ? prepend + value : "";
 	}
 	
 	public static String getValuePair(String value, String valueTag) {

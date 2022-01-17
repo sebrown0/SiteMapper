@@ -7,10 +7,6 @@ import site_mapper.annotations.SiteMap;
 import object_models.panels.JsPanelWithIFrame;
 import object_models.pages.homepage.CoreData;
 
-/*
- * Use as a template for testing file creation/diffed files.
- */
-
 /**
 * Generated Class.
 * ----------------
@@ -45,9 +41,11 @@ public class EmployeeDetails extends JsPanelWithIFrame {
 		super.buildPanelControls(myControls);
 	}
 
-	private void aMethodNotFromSiteMapper(){
+	private String aMethodNotFromSiteMapper(int idx){
+		String aStr = "";
 		//do some stuff...
-		//should not be replaced by sitemapper.
+
+		return aStr;
 	}
 	
 }

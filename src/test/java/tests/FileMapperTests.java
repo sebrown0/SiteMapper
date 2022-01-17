@@ -16,8 +16,8 @@ import file.FileLine;
 import file.LineFactory;
 import file.LineImport;
 import file.LineMapper;
-import file.Stage;
-import file.Stage.FileStages;
+import file.stage.ZZZ_Stage;
+import file.stage.ZZZ_Stage.FileStages;
 
 /**
  * @author SteveBrown
@@ -48,17 +48,17 @@ class FileMapperTests {
 	
 	@Test
 	void fileStage_initial() {
-		Stage stage = new Stage();
+		ZZZ_Stage stage = new ZZZ_Stage();
 		assertEquals(FileStages.INITIAL, stage.peekCurrent());		
 	}
 	@Test
 	void fileStage_moveNext() {
-		Stage stage = new Stage();
+		ZZZ_Stage stage = new ZZZ_Stage();
 		assertEquals(FileStages.PACKAGE, stage.moveNext());		
 	}
 	@Test
 	void fileStage_set() {
-		Stage stage = new Stage();		
+		ZZZ_Stage stage = new ZZZ_Stage();		
 		stage.setStage(FileStages.IMPORTS);
 		assertEquals(FileStages.IMPORTS, stage.peekCurrent());		
 	}
@@ -66,7 +66,7 @@ class FileMapperTests {
 	@Test
 	void lineFactory() {
 		Optional<FileLine> fileLine;
-		Stage stage = new Stage();		
+		ZZZ_Stage stage = new ZZZ_Stage();		
 		assertEquals(FileStages.INITIAL, stage.peekCurrent());
 		
 		LineFactory lineFactory = new LineFactory();

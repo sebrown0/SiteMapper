@@ -11,6 +11,8 @@ import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
+import file.stage.ZZZ_Stage;
+
 /**
  * @author SteveBrown
  * @version 1.0
@@ -26,7 +28,7 @@ public class LineMapper {
 	private int lineNum;	
 	private LineFactory lineFactory = new LineFactory();
 	private boolean prevLineWasBlank;
-	private Stage stage = new Stage();
+	private ZZZ_Stage stage = new ZZZ_Stage();
 	
 	private FileLine fileLine;
 	
@@ -37,6 +39,8 @@ public class LineMapper {
 	public List<Optional<FileLine>> mapLines() {
 		Path path = Paths.get(filePath);
 		List<Optional<FileLine>> fileLines = null;
+		
+		
 		if(path != null) {			
 			lineNum = 0;
 			try {

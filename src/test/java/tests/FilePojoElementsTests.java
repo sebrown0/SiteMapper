@@ -4,11 +4,11 @@
 package tests;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import org.assertj.core.util.Arrays;
 import org.junit.jupiter.api.Test;
 
 import file.annotation.ExistingAnnotation;
@@ -87,7 +87,7 @@ class FilePojoElementsTests {
 		ClassVariable v = new ClassVariable();
 		v
 			.setAnnotation(annotation)
-			.setModifier("public static final String")
+			.setType("public static final String")
 			.setName("PANEL_TITLE")
 			.setValue("Employee Details");
 		
@@ -102,7 +102,7 @@ class FilePojoElementsTests {
 		MethodVariable v = new MethodVariable();
 		v
 			.setAnnotation(annotation)
-			.setModifier("public static final int")
+			.setType("public static final int")
 			.setName("PANEL_TITLE")
 			.setValue("1");
 		
@@ -111,6 +111,34 @@ class FilePojoElementsTests {
 				"\tpublic static final int PANEL_TITLE = 1", 
 				v.toString());				 	
 	}	
+	@Test
+	void testClassVariable_fromStr_with_final() {
+		ClassVariable v = new ClassVariable();
+		v.setFromString("public final String MENU_TITLE = \"Employee Details\";");
+		
+		assertEquals("public final String MENU_TITLE = \"Employee Details\";", v.toString());
+	}
+	@Test
+	void testClassVariable_fromStr_with_staticFinal() {
+		ClassVariable v = new ClassVariable();
+		v.setFromString("public static final String MENU_TITLE = \"Employee Details\";");
+		 	
+		assertEquals("public static final String MENU_TITLE = \"Employee Details\";", v.toString());
+	}
+	@Test
+	void testClassVariable_fromStr_with_value() {
+		ClassVariable v = new ClassVariable();
+		v.setFromString("public String MENU_TITLE = \"Employee Details\";");
+		 	
+		assertEquals("public String MENU_TITLE = \"Employee Details\";", v.toString());
+	}
+	@Test
+	void testClassVariable_fromStr() {
+		ClassVariable v = new ClassVariable();
+		v.setFromString("public String MENU_TITLE;");
+		 	
+		assertEquals("public String MENU_TITLE;", v.toString());
+	}
 	@Test
 	void testArgument() {
 		Argument v = new Argument("String", "str");		
@@ -316,13 +344,13 @@ class FilePojoElementsTests {
 		ClassVariable v1 = new ClassVariable();
 		v1
 			.setAnnotation(annotation)
-			.setModifier("public static final String")
+			.setType("public static final String")
 			.setName("PANEL_NAME")
 			.setValue("Employee Details");
 		
 		ClassVariable v2 = new ClassVariable();
 		v2		
-			.setModifier("private int")
+			.setType("private int")
 			.setName("idx");
 		
 		ExistingMethodBody methodBody = new ExistingMethodBody();

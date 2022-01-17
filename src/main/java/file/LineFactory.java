@@ -5,6 +5,8 @@ package file;
 
 import java.util.Optional;
 
+import file.stage.ZZZ_Stage;
+
 /**
  * @author SteveBrown
  * @version 1.0
@@ -13,7 +15,7 @@ import java.util.Optional;
  */
 public class LineFactory {
 
-	public Optional<FileLine> getFileLine(Stage stages, int lineNum, String value) {
+	public Optional<FileLine> getFileLine(ZZZ_Stage stages, int lineNum, String value) {
 		FileLine fileLine = null;
 		System.out.println("->" + stages.peekCurrent()); // TODO - remove or log 	
 		switch (stages.peekCurrent()) {

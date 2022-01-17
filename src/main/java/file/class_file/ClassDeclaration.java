@@ -6,6 +6,7 @@ package file.class_file;
 import java.util.ArrayList;
 import java.util.List;
 
+import file.class_file.ClassFile.Builder;
 import file.helpers.Formatter;
 
 /**
@@ -21,6 +22,8 @@ public class ClassDeclaration {
 	private final String name;
 	private List<String> extended;
 	private List<String> implemented;
+	
+	private String theDeclaration;
 	
 	public ClassDeclaration(String modifier, String name) {
 		this.modifier = modifier;
@@ -41,7 +44,8 @@ public class ClassDeclaration {
 	
 	@Override
 	public String toString() {		
-		return modifier + " class " + name + getExtends() + getImplements() + " {\n";
+//		return modifier + " class " + name + getExtends() + getImplements() + " {\n";
+		return theDeclaration;
 	}
 	
 	private String getExtends() {
@@ -61,7 +65,24 @@ public class ClassDeclaration {
 		}
 	}
 	
-	public static class Builder {
+	public static abstract class Builder {
+		protected String modifier;
+		protected String name;
+		protected List<String> extended;
+		protected List<String> implemented;
+		
+		protected String theDeclaration;
+		
+		public abstract ClassDeclaration build();			
+	}
+	
+	public static class ExistingDeclaration extends Builder {
+
+		@Override
+		public ClassDeclaration build() {
+			// TODO Auto-generated method stub
+			return null;
+		}
 		
 	}
 }

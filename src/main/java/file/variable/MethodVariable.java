@@ -26,8 +26,14 @@ public class MethodVariable extends Variable {
 		return String.format(
 				"%s\t%s %s%s", 
 				Formatter.getAnnotation(annotation), 
-				Formatter.getValueOf(modifier), 
+				Formatter.getValueOf(type), 
 				Formatter.getValueOf(name), 
-				Formatter.getVariableValue(value, modifier));
+				Formatter.getVariableValue(value, type));
+	}
+
+	@Override
+	public void setFromString(String varStr) {
+		// TODO Auto-generated method stub
+		
 	}		
 }

@@ -14,9 +14,9 @@ import file.annotation.SiteMapAnnotation;
  * Abstract POJO for variables in SiteMap class file.
  */
 
-public abstract class Variable implements VariableSetter {
+public abstract class Variable implements VariableSetter {	
 	protected SiteMapAnnotation annotation;
-	protected String modifier;
+	protected String type;
 	protected String name;
 		
 	@Override // VariableSetter
@@ -25,8 +25,8 @@ public abstract class Variable implements VariableSetter {
 		return this;
 	}
 	@Override // VariableSetter
-	public VariableSetter setModifier(String modifier) {
-		this.modifier = modifier;
+	public VariableSetter setType(String modifier) {
+		this.type = modifier;
 		return this;
 	}
 	@Override // VariableSetter
