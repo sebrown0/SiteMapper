@@ -9,7 +9,6 @@ import java.io.IOException;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import file.class_file.ClassFile;
 import file.imports.Import;
 import site_mapper.elements.ElementClass;
 import site_mapper.jaxb.pom.PackageHierarchy;
@@ -27,27 +26,16 @@ import site_mapper.jaxb.pom.PackageHierarchy;
  * 	constructor & super constructor
  * 	methods
  */
-public class ClassWriter implements ClassWriterActions {
+public class ClassWriter2 implements ClassWriterActions {
 	private PackageHierarchy ph;	
 	private String className;
 	private BufferedWriter writer;
 	private ComponentWriterVisitor componentWriter;
 	private ElementClass elementClass;
 	private AnnotationWriter annotationWriter;
-	private Logger logger = LogManager.getLogger(ClassWriter.class);
-	private ClassFile classFile;
+	Logger logger = LogManager.getLogger(ClassWriter2.class);
 	
-	
-	public ClassWriter(ClassFile classFile) {
-		this.classFile = classFile;
-	}
-	public void writeClass() throws IOException {
-		logger.debug("Writing class");
-		System.out.println(classFile.toString()); // TODO - remove or log 	
-//		writer.write(classFile.toString());
-	}
-	
-	public ClassWriter(ElementClass elementClass, PackageHierarchy ph, BufferedWriter writer, ComponentWriterVisitor componentWriter) {
+	public ClassWriter2(ElementClass elementClass, PackageHierarchy ph, BufferedWriter writer, ComponentWriterVisitor componentWriter) {
 		this.elementClass = elementClass;
 		this.className = elementClass.getClassName();
 		this.annotationWriter = new AnnotationWriter(writer, elementClass.getSiteMapInfo());

@@ -11,7 +11,7 @@ import java.util.regex.Pattern;
  * 	Initial
  * @since 1.0
  */
-public class Modifier {
+public class Modifier {	
 	public static final Pattern modifierPattern = Pattern.compile(".*public.*|.*protected.*|.*private.*");
 	
 	public static boolean isValidModifier(String modifier) {

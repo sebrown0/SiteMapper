@@ -3,8 +3,6 @@
  */
 package file.variable;
 
-import file.annotation.SiteMapAnnotation;
-
 /**
  * @author SteveBrown
  * @version 1.0
@@ -14,9 +12,8 @@ import file.annotation.SiteMapAnnotation;
  * Methods for setting a variable.
  */
 public interface VariableSetter {
-	VariableSetter setAnnotation(SiteMapAnnotation annotation);
-	VariableSetter setType(String modifier);
+//	VariableSetter setAnnotation(SiteMapAnnotation annotation);
+	VariableSetter setModifier(String modifier);
 	VariableSetter setName(String name);
 	VariableSetter setValue(String value);
-	void setFromString(String varStr);
 }

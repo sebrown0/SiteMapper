@@ -6,6 +6,7 @@ package tests;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import org.junit.jupiter.api.Test;
@@ -15,7 +16,6 @@ import file.annotation.NewAnnotation;
 import file.annotation.SiteMapAnnotation;
 import file.class_file.ClassBody;
 import file.class_file.ClassDeclaration;
-import file.class_file.ClassDeclaration.ExistingDeclaration;
 import file.class_file.ClassFile;
 import file.class_file.ClassFile.NewClassFileBuilder;
 import file.class_file.ExistingConstructor;
@@ -33,6 +33,11 @@ import file.variable.ClassVariable;
 import file.variable.MethodVariable;
 import site_mapper.creators.ComponentWriter;
 import site_mapper.creators.ComponentWriterJsPanelWithIFrame;
+import site_mapper.elements.Element;
+import site_mapper.elements.ElementClass;
+import site_mapper.jaxb.menu_items.JsPanelWithIFrame;
+import site_mapper.jaxb.menu_items.MenuItem;
+import site_mapper.jaxb.menu_items.MenuItemType;
 import site_mapper.jaxb.pom.SiteMapInfo;
 
 /**
@@ -55,17 +60,48 @@ class FilePojoElementsTests {
 			"* Created: 07/01/2022 08:53:56\n" +
 			"*/\n";
 	
+	private static final Element e1 = 
+			new Element()
+				.setName("save")
+				.setType("button")
+				.setText("Save")
+				.setFafa("fa fa-save");
+	
+	private static final Element e2 = 
+			new Element()
+				.setName("search")
+				.setType("button")
+				.setText("Search")
+				.setFafa("fa fa-search");
+	
+	private static final SiteMapInfo info = 
+			new SiteMapInfo().setAuthor("SteveBrown").setVersion("1.0.0").setXmlSource("c:\\src");
+	
+	private static final ElementClass menuItem = 
+			new MenuItem()
+				.setSiteMapInfo(info)
+				.setName("EmployeeDetails")
+				.setClassName("EmployeeDetails")
+				.setPackageName("a.payroll.Left.employees;")
+				.setMenuItemType(new MenuItemType().setAttributes(new JsPanelWithIFrame()))
+				.setElements(Arrays.asList(e1,e2));
+	
+	@Test
+	void uiuiuiuiui(){
+		System.out.println(menuItem.toString());
+	}
+	
 	@Test
 	void existing_package() {
 		ExistingClassPackage cp = new ExistingClassPackage("package a.payroll.Left.employees;");
 		
-		assertEquals("package a.payroll.Left.employees;\n\n", cp.toString());
+		assertEquals("package a.payroll.Left.employees;", cp.toString());
 	}
 	@Test
 	void new_package() {
 		NewClassPackage cp = new NewClassPackage("a.payroll.Left.employees");
 		
-		assertEquals("package a.payroll.Left.employees;\n\n", cp.toString());
+		assertEquals("package a.payroll.Left.employees", cp.toString());
 	}
 
 	@Test
@@ -191,12 +227,10 @@ class FilePojoElementsTests {
 	@Test
 	void testVariable_withString() {
 		ExistingAnnotation annotation = new ExistingAnnotation("@SiteMap(author=\"SB\", version=\"1.0.0\", date=\"01/01/2022\")");
-		ClassVariable v = new ClassVariable();
-		v
-			.setAnnotation(annotation)
-			.setType("public static final String")
-			.setName("PANEL_TITLE")
-			.setValue("Employee Details");
+		ClassVariable v = 
+				new ClassVariable
+					.FromString("public static final String PANEL_TITLE = Employee Details")
+					.withAnnotation(annotation).build();
 		
 		assertEquals(
 				"\t" + ANNOTATION_RESULT + "\n" +
@@ -209,7 +243,7 @@ class FilePojoElementsTests {
 		MethodVariable v = new MethodVariable();
 		v
 			.setAnnotation(annotation)
-			.setType("public static final int")
+			.setModifier("public static final int")
 			.setName("PANEL_TITLE")
 			.setValue("1");
 		
@@ -220,31 +254,39 @@ class FilePojoElementsTests {
 	}	
 	@Test
 	void testClassVariable_fromStr_with_final() {
-		ClassVariable v = new ClassVariable();
-		v.setFromString("public final String MENU_TITLE = \"Employee Details\";");
-		
-		assertEquals("public final String MENU_TITLE = \"Employee Details\";", v.toString());
+		ClassVariable v = 
+				new ClassVariable
+					.FromString("public final String MENU_TITLE = \"Employee Details\";")
+					.build();
+				
+		assertEquals("\tpublic final String MENU_TITLE = \"Employee Details\";", v.toString());
 	}
 	@Test
 	void testClassVariable_fromStr_with_staticFinal() {
-		ClassVariable v = new ClassVariable();
-		v.setFromString("public static final String MENU_TITLE = \"Employee Details\";");
-		 	
-		assertEquals("public static final String MENU_TITLE = \"Employee Details\";", v.toString());
+		ClassVariable v = 
+				new ClassVariable
+					.FromString("public static final String MENU_TITLE = \"Employee Details\";")
+					.build();
+				 	
+		assertEquals("\tpublic static final String MENU_TITLE = \"Employee Details\";", v.toString());
 	}
 	@Test
 	void testClassVariable_fromStr_with_value() {
-		ClassVariable v = new ClassVariable();
-		v.setFromString("public String MENU_TITLE = \"Employee Details\";");
-		 	
-		assertEquals("public String MENU_TITLE = \"Employee Details\";", v.toString());
+		ClassVariable v = 
+				new ClassVariable
+					.FromString("public String MENU_TITLE = \"Employee Details\";")
+					.build();
+				 	
+		assertEquals("\tpublic String MENU_TITLE = \"Employee Details\";", v.toString());
 	}
 	@Test
 	void testClassVariable_fromStr() {
-		ClassVariable v = new ClassVariable();
-		v.setFromString("public String MENU_TITLE;");
-		 	
-		assertEquals("public String MENU_TITLE;", v.toString());
+		ClassVariable v = 
+				new ClassVariable
+					.FromString("public String MENU_TITLE;")
+					.build();
+				 	
+		assertEquals("\tpublic String MENU_TITLE;", v.toString());
 	}
 	@Test
 	void testArgument() {
@@ -364,17 +406,16 @@ class FilePojoElementsTests {
 	private ClassBody getTestClassBody() {
 		SiteMapAnnotation annotation = new ExistingAnnotation("@SiteMap(author=\"SB\", version=\"1.0.0\", date=\"01/01/2022\")");
 		
-		ClassVariable v1 = new ClassVariable();
-		v1
-			.setAnnotation(annotation)
-			.setType("public static final String")
-			.setName("PANEL_NAME")
-			.setValue("Employee Details");
+		ClassVariable v1 = 
+				new ClassVariable
+					.FromString("public static final String PANEL_NAME = Employee Details")
+					.build();
+			
 		
-		ClassVariable v2 = new ClassVariable();
-		v2		
-			.setType("private int")
-			.setName("idx");
+		ClassVariable v2 = 
+				new ClassVariable
+					.FromString("private int idx")
+					.build();
 		
 		ExistingMethodBody methodBody = new ExistingMethodBody();
 		methodBody.addLine("Line1").addLine("Line2");
@@ -400,11 +441,9 @@ class FilePojoElementsTests {
 	
 	@Test
 	void newClassFileBuilder() {
-		ComponentWriterJsPanelWithIFrame componentWriter = new ComponentWriterJsPanelWithIFrame();
-		SiteMapInfo info = new SiteMapInfo().setAuthor("SteveBrown").setVersion("1.0.0");
 		
 		NewClassFileBuilder builder = 
-				new ClassFile.NewClassFileBuilder(componentWriter, info);
+				new ClassFile.NewClassFileBuilder(menuItem);
 		
 		ClassFile classFile = builder.build();
 		

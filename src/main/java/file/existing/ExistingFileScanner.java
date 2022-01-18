@@ -15,6 +15,7 @@ import java.util.regex.Pattern;
 import file.annotation.ExistingAnnotation;
 import file.imports.ImportList;
 import file.variable.ClassVariable;
+import file.variable.ClassVariable.Builder;
 
 /**
  * @author SteveBrown
@@ -131,16 +132,18 @@ public class ExistingFileScanner {
 		while(!end && scanner.hasNext()) {
 			line = scanner.nextLine();
 			if(line.length() > 0) {
-				variable = new ClassVariable();
+				Builder builder = new ClassVariable.FromString(line);
+				
 				if(annotationTest.test(line)) {
-					System.out.println("A->" + line); // TODO - remove or log
 					ExistingAnnotation anno = new ExistingAnnotation(line);
-					variable.setAnnotation(anno);
+					builder.withAnnotation(anno);					
 				}else if(variableTest.test(line)) {
-					System.out.println("V->" + line); // TODO - remove or log
+					// TODO
 				}else {
 					end = true;
 				}
+				variable = builder.build();
+				classVariables.add(variable.toString()); //TODO
 			}else {
 				end = true;
 			}

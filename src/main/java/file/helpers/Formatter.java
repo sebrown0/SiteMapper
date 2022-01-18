@@ -20,7 +20,16 @@ public class Formatter {
 	public static String getAnnotation(SiteMapAnnotation annotation) {
 		if(annotation != null) {
 			String ano = annotation.toString();
-			return (ano != null) ? "\t" + ano + "\n" : "";	
+			return (ano != null) ? ano + "\n" : "";	
+		}else {
+			return "";
+		}		
+	}
+	
+	public static String getAnnotation(SiteMapAnnotation annotation, String withTabs) {
+		if(annotation != null) {
+			String ano = annotation.toString();
+			return (ano != null) ? withTabs + ano + "\n" : "";	
 		}else {
 			return "";
 		}		
@@ -30,10 +39,10 @@ public class Formatter {
 		String ret = "";
 		if(value != null) {
 			if(type.contains("String")) {
-				if(!(value.startsWith("\""))){
-					ret = " = \"" + value;	
+				if(value.startsWith("\"")){
+					ret = " = " + value;	
 				}else {
-					ret = " = " + value;
+					ret = " = \"" + value;					
 				}				
 				if(!(value.endsWith("\""))){
 					ret += "\"";
@@ -46,7 +55,7 @@ public class Formatter {
 	}
 	
 	public static String getVariableValue(String value) {		
-		return (value != null) ? " =" + value : "";
+		return (value != null) ? " = " + value : "";
 	}
 	
 	public static String getValueOf(String value) {
@@ -69,5 +78,9 @@ public class Formatter {
 			if(listOfVals.size()>=1) { ret = ret.substring(0, ret.length()-2); }
 		}
 		return ret;
+	}
+	
+	public static String getEndOfLine(String line) {		
+		return (line != null && line.endsWith(";")) ? line : line + ";";
 	}
 }

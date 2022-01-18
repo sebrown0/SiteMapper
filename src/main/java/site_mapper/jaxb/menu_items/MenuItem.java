@@ -44,10 +44,10 @@ public class MenuItem implements ElementClass {
 	
 	private String menuPackageName;
 	private String moduleName;	
-	private SiteMapInfo siteMap;
+	private SiteMapInfo siteMapInfo;
 	
 	public void createPoms(SiteMapInfo siteMap, PackageHierarchy ph){
-		this.siteMap = siteMap;
+		this.siteMapInfo = siteMap;
 		boolean createPackage = createPackageForClassIfNecessary(siteMap, ph);
 		createClass(ph);
 		removeThisClassPackageFromHierarchy(createPackage, ph);		
@@ -99,12 +99,35 @@ public class MenuItem implements ElementClass {
 	}
 	@Override //ElementClass
 	public SiteMapInfo getSiteMapInfo() {
-		return siteMap;
+		return siteMapInfo;
 	}	
 	
 	public String getName() {
 		return name;
-	}	
+	}
 	
-
+	public MenuItem setName(String name) {
+		this.name = name;
+		return this;
+	}
+	public MenuItem setPackageName(String packageName) {
+		this.packageName = packageName;
+		return this;
+	}
+	public MenuItem setClassName(String className) {
+		this.className = className;
+		return this;
+	}
+	public MenuItem setMenuItemType(MenuItemType menuItemType) {
+		this.menuItemType = menuItemType;
+		return this;
+	}
+	public MenuItem setElements(List<Element> elements) {
+		this.elements = elements;
+		return this;
+	}	
+	public MenuItem setSiteMapInfo(SiteMapInfo info) {
+		this.siteMapInfo = info;
+		return this;
+	}	
 }

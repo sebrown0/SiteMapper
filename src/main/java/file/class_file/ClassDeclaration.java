@@ -7,6 +7,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import file.helpers.Formatter;
+import site_mapper.elements.ElementClass;
+import site_mapper.jaxb.menu_items.TypeAttributes;
 
 /**
  * @author SteveBrown
@@ -137,9 +139,43 @@ public class ClassDeclaration {
 		
 		@Override
 		public ClassDeclaration build() {
-			// TODO Auto-generated method stub
 			return new ClassDeclaration(this);
+		}		
+	}
+	
+	public static class NewDeclaration extends Builder {
+		private ElementClass clazz;
+		private TypeAttributes attributes;
+		
+		public NewDeclaration setDeclarationClazz(ElementClass clazz) {
+			this.clazz = clazz;
+			this.attributes = clazz.getMenuItemType().getAttributes();
+			
+			setModifier();
+			setName();
+			setExtends();
+			setImplements();
+			
+			return this;
 		}
 		
+		@Override
+		public ClassDeclaration build() {
+			return new ClassDeclaration(this);
+		}		
+		
+		private void setModifier() {
+			modifier = "public"; 			/** Default to public. **/
+		}
+		private void setName() {
+			name = clazz.getClassName();
+		}
+		private void setExtends() {			
+			extend = attributes.getExtends();
+		}
+		private void setImplements() {
+			
+		}
 	}
+	
 }

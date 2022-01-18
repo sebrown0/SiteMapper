@@ -11,6 +11,7 @@ import file.comment.ExistingComment;
 import file.comment.NewComment;
 import file.imports.ImportList;
 import site_mapper.creators.ComponentWriter;
+import site_mapper.elements.ElementClass;
 import site_mapper.jaxb.pom.SiteMapInfo;
 
 /**
@@ -40,13 +41,20 @@ public class ClassFile {
 		
 	@Override 
 	public String toString() {
-		return 
-				inPackage +
-				imports.toString() +
-				getComment() +
-				getDeclaration() +
-				getClassBody() + 
-				"\n}";		
+		return String.format(
+				"%s\n\n%s\n\n%s\n%s\n%s\n}", 
+				inPackage, 
+				imports.toString(), 
+				getComment(), 
+				getDeclaration(), 
+				getClassBody());
+//		return 
+//				inPackage +
+//				imports.toString() +
+//				getComment() +
+//				getDeclaration() +
+//				getClassBody() + 
+//				"\n}";		
 	}
 	
 	private String getComment() {
@@ -92,19 +100,23 @@ public class ClassFile {
 	
 	public static class NewClassFileBuilder extends Builder {
 		private ComponentWriter componentWriter;
+		private ElementClass clazz;
 		private SiteMapInfo info;
 		
-		public NewClassFileBuilder(ComponentWriter componentWriter, SiteMapInfo info) {
-			this.componentWriter = componentWriter;
-			this.info = info;
+		public NewClassFileBuilder(ElementClass clazz) {
+			this.clazz = clazz;
+			this.componentWriter = clazz.getMenuItemType().getAttributes().getComponentWriter();
+			this.info = clazz.getSiteMapInfo();
 			
+			setInPackage();
 			setImports();
 			setComment();
+			setDeclaration();
+			setClassBody();
 		}
 
-		public NewClassFileBuilder setInPackage(NewClassPackage inPackage) {
-			super.inPackage = inPackage;
-			return this;
+		private void setInPackage() {
+			super.inPackage = new NewClassPackage(clazz.getPackage());
 		}
 
 		private void setImports() {
@@ -115,13 +127,17 @@ public class ClassFile {
 			super.comment = new NewComment(info);
 		}
 
-		public NewClassFileBuilder setDeclaration(ClassDeclaration declaration) {
-			super.declaration = declaration;
-			return this;
+		private void setDeclaration() {
+			super.declaration = 
+				new ClassDeclaration
+					.NewDeclaration()
+					.setDeclarationClazz(clazz)
+					.build();
 		}
 
-		public void setClassBody(ClassBody classBody) {
-			super.classBody = classBody;
+		private void setClassBody() {
+//			ClassBody classBody = new ;
+//			super.classBody = classBody;
 		}
 
 		@Override

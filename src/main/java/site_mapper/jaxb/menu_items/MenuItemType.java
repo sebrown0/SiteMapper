@@ -19,22 +19,23 @@ import jakarta.xml.bind.annotation.XmlRootElement;
 @XmlRootElement(name="Type")
 @XmlAccessorType(XmlAccessType.PROPERTY)
 public class MenuItemType {	
-	private TypeAttributes js;
+	private TypeAttributes attributes;
 	private String type;
 
 	public String getType() {
 		return type;
 	}	
 
-	public TypeAttributes getJs() {
-		return js;
+	public TypeAttributes getAttributes() {
+		return attributes;
 	}
 	
 	@XmlElements({
 		@XmlElement(name="JsPanelWithIFrame", type=JsPanelWithIFrame.class)
 	})
-	public void setJs(TypeAttributes js) {
-		this.js = js;		
+	public MenuItemType setAttributes(TypeAttributes js) {
+		this.attributes = js;		
+		return this;
 	}
 	
 	@XmlAttribute(name="name")

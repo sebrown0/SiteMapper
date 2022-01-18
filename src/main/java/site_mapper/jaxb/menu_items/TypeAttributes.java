@@ -3,6 +3,8 @@
  */
 package site_mapper.jaxb.menu_items;
 
+import site_mapper.creators.ComponentWriter;
+
 /**
  * @author SteveBrown
  * @version 1.0
@@ -21,4 +23,6 @@ package site_mapper.jaxb.menu_items;
  * TODO - Make into interface?
  */
 public abstract class TypeAttributes {
+	public abstract String getExtends();
+	public abstract ComponentWriter getComponentWriter();
 }

@@ -60,7 +60,7 @@ public class Method {
 	public String toString() {
 		return String.format(
 				"%s\t%s %s %s(%s){\n%s\t}", 
-				Formatter.getAnnotation(annotation), 
+				Formatter.getAnnotation(annotation, "\t"), 
 				Formatter.getValueOf(modifier), 
 				Formatter.getValueOf(returnType), 
 				Formatter.getValueOf(name),

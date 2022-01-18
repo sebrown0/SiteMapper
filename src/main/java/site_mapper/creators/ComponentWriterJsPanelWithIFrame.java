@@ -9,8 +9,12 @@ import java.util.Arrays;
 import java.util.List;
 
 import exceptions.InvalidArgumentException;
+import file.annotation.NewAnnotation;
+import file.annotation.SiteMapAnnotation;
 import file.imports.Import;
 import file.imports.NewImport;
+import file.variable.ClassVariable;
+import file.variable.Variable;
 import site_mapper.elements.Element;
 import site_mapper.elements.ElementClass;
 import site_mapper.jaxb.menu_items.JsPanelWithIFrame;
@@ -28,7 +32,7 @@ public class ComponentWriterJsPanelWithIFrame implements ComponentWriterVisitor{
 	private JsPanelWithIFrame jsPanel;
 	private List<Element> elements;
 	private SiteMapInfo siteMapInfo;
-	
+		
 	@Override //ComponentWriter
 	public List<Import> getImportNames() {
 		return Arrays.asList(
@@ -38,6 +42,13 @@ public class ComponentWriterJsPanelWithIFrame implements ComponentWriterVisitor{
 				new NewImport(new UseImport("site_mapper.annotations.SiteMap")),
 				new NewImport(new FindImport("JsPanelWithIFrame", siteMapInfo)),
 				new NewImport(new FindImport("CoreData", siteMapInfo)));
+	}
+	@Override //ComponentWriter
+	public List<ClassVariable> getClassVariables() {
+//		SiteMapAnnotation annotation = new NewAnnotation(siteMapInfo);
+//
+//		return Arrays.asList( new ClassVariable().setAnnotation(annotation).setModifier("public"));
+		return null;
 	}
 	@Override //ComponentWriter
 	public List<String> getSuperArgs() {
@@ -68,7 +79,7 @@ public class ComponentWriterJsPanelWithIFrame implements ComponentWriterVisitor{
 	}
 	@Override //ComponentWriterVisitor
 	public ComponentWriterVisitor setElementClass(ElementClass elementClass) {
-		this.jsPanel = (JsPanelWithIFrame) elementClass.getMenuItemType().getJs();
+		this.jsPanel = (JsPanelWithIFrame) elementClass.getMenuItemType().getAttributes();
 		this.elements = elementClass.getElements();
 		this.className = elementClass.getClassName();
 		return this;

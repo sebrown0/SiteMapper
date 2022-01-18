@@ -13,7 +13,7 @@ public abstract class ClassPackage {
 	protected String packagePath;
 	
 	protected void setPackagePath(String packagePath) {
-		this.packagePath = packagePath + "\n\n";
+		this.packagePath = packagePath;
 	}
 
 	@Override
