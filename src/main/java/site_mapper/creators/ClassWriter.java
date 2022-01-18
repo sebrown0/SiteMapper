@@ -9,6 +9,7 @@ import java.io.IOException;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import file.imports.Import;
 import site_mapper.elements.ElementClass;
 import site_mapper.jaxb.pom.PackageHierarchy;
 
@@ -61,10 +62,14 @@ public class ClassWriter implements ClassWriterActions {
 		writeNewLine();		
 	}
 	
-	private void addImport(ImportType type) throws IOException {
-		writer.write(type.getPath());
+	private void addImport(Import imprt) throws IOException {
+		writer.write(imprt.toString()); //CHANGED FROM ImportType.getPath();
 		writeNewLine();
 	}
+//	private void addImport(ImportType type) throws IOException {
+//		writer.write(type.getPath());
+//		writeNewLine();
+//	}
 	
 	public void writeComments() throws IOException {
 		logger.debug("Writing comments");

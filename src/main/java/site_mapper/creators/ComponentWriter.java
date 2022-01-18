@@ -5,6 +5,8 @@ package site_mapper.creators;
 
 import java.util.List;
 
+import file.imports.Import;
+
 /**
  * @author SteveBrown
  * @version 1.0
@@ -13,7 +15,7 @@ import java.util.List;
  */
 public interface ComponentWriter {
 	String getClassName();
-	List<ImportType> getImportNames();
+	List<Import> getImportNames();
 	List<String> getSuperArgs();
 	List<String> getConstructorArgs();
 	List<String> getConstructorLines();

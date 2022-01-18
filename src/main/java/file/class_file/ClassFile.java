@@ -9,9 +9,7 @@ import file.class_package.NewClassPackage;
 import file.comment.Comment;
 import file.comment.ExistingComment;
 import file.comment.NewComment;
-import file.imports.ExistingImport;
-import file.imports.Import;
-import file.imports.NewImport;
+import file.imports.ImportList;
 import site_mapper.creators.ComponentWriter;
 import site_mapper.jaxb.pom.SiteMapInfo;
 
@@ -27,7 +25,7 @@ import site_mapper.jaxb.pom.SiteMapInfo;
  */
 public class ClassFile {
 	private final ClassPackage inPackage;
-	private final Import<?> imports;
+	private final ImportList imports;
 	private final Comment comment;
 	private final ClassDeclaration declaration;
 	private final ClassBody classBody;
@@ -63,7 +61,7 @@ public class ClassFile {
 	
 	public abstract static class Builder {
 		protected ClassPackage inPackage;
-		protected Import<?> imports;
+		protected ImportList imports;
 		protected Comment comment;
 		protected ClassDeclaration declaration;
 		protected ClassBody classBody;
@@ -74,7 +72,7 @@ public class ClassFile {
 	public static class ExistingClassFileBuilder extends Builder {
 		public ExistingClassFileBuilder(
 				ExistingClassPackage inPackage, 
-				ExistingImport imports, 
+				ImportList imports, 
 				ExistingComment comment, 
 				ClassDeclaration declaration, 
 				ClassBody classBody) {
@@ -110,7 +108,7 @@ public class ClassFile {
 		}
 
 		private void setImports() {
-			super.imports = new NewImport().setLines(componentWriter.getImportNames());
+			super.imports = new ImportList(componentWriter.getImportNames()); 
 		}
 
 		private void setComment() {

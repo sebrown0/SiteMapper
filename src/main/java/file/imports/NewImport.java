@@ -3,8 +3,6 @@
  */
 package file.imports;
 
-import java.util.List;
-
 import site_mapper.creators.ImportType;
 
 /**
@@ -16,24 +14,21 @@ import site_mapper.creators.ImportType;
  * Get the import from the ImportType.
  * 
  */
-public class NewImport extends Import<ImportType>{
+public class NewImport extends Import {
+	private ImportType line;
 	
-	public Import<ImportType> setLines(List<ImportType> lines) {
-		if(lines != null) {
-			this.lines.addAll(lines);
-		}else {
-			this.lines = lines;	
-		}		
+	public NewImport(ImportType line) {
+		this.line = line;
+	}
+
+	public Import addLine(ImportType line) {
+		this.line = line;
 		return this;
 	}
 	
 	@Override
-	public String toString() {
-		String result = "";
-		for (ImportType t : lines) {
-			result += t.getPath() + "\n";
-		}
-		return result;
-	}	
-	
+	public String toString() {		
+		return line.getPath() + "\n";
+	}
+
 }

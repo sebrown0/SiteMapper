@@ -4,7 +4,6 @@
 package tests;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -24,7 +23,8 @@ import file.class_package.NewClassPackage;
 import file.comment.ExistingComment;
 import file.comment.NewComment;
 import file.imports.ExistingImport;
-import file.imports.NewImport;
+import file.imports.Import;
+import file.imports.ImportList;
 import file.method.ExistingMethodBody;
 import file.method.Method;
 import file.variable.Argument;
@@ -65,6 +65,70 @@ class FilePojoElementsTests {
 		NewClassPackage cp = new NewClassPackage("a.payroll.Left.employees");
 		
 		assertEquals("package a.payroll.Left.employees;\n\n", cp.toString());
+	}
+
+	@Test
+	void newImports() {
+		ComponentWriter componentWriter = new ComponentWriterJsPanelWithIFrame();
+		List<Import> imprtList = new ArrayList<>();
+		imprtList.add(new ExistingImport("import java.util.List;"));
+		imprtList.add(new ExistingImport("import control_builder.*;"));		
+		ImportList imports = new ImportList(componentWriter.getImportNames());
+		
+		//DEPENDS ON THE IMPORTS IN ComponentWriterJsPanelWithIFrame
+		assertEquals(
+				"import java.util.List;\n" +
+				"import org.openqa.selenium.By;\n" +
+				"import control_builder.*;\n" +
+				"import site_mapper.annotations.SiteMap;\n" +
+				"/* Placeholder for missing import [JsPanelWithIFrame] */\n" +
+				"/* Placeholder for missing import [CoreData] */\n" , 
+				imports.toString());
+	}	
+	@Test
+	void existingImports() {
+		List<Import> imprtList = new ArrayList<>();
+		imprtList.add(new ExistingImport("import java.util.List;"));
+		imprtList.add(new ExistingImport("import control_builder.*;"));		
+		ImportList imports = new ImportList(imprtList);		
+		
+		assertEquals("import java.util.List;\nimport control_builder.*;\n", imports.toString());
+	}
+
+	@Test
+	void existingComment() {
+		ExistingComment comment = new ExistingComment();
+		comment
+			.addLine("/**")
+			.addLine("* Generated Class.")
+			.addLine("* ----------------")
+			.addLine("* Source:  C:/site_map.xml")
+			.addLine("* Author:  SteveBrown")
+			.addLine("* Version: 1.0.0")
+			.addLine("* Created: 07/01/2022 08:53:56")
+			.addLine("*/");
+		
+		assertEquals(COMMENT_RESULT, comment.toString());		
+	}
+	@Test
+	void newComment() {
+		SiteMapInfo info = new SiteMapInfo();
+		NewComment comment = new NewComment(
+				info
+					.setXmlSource("C:/site_map.xml")
+					.setAuthor("SteveBrown")
+					.setVersion("1.0.0"));
+				
+		assertEquals(
+				"/**\n" +
+				"* Generated Class.\n" +
+				"* ----------------\n" +
+				"* Source:  C:/site_map.xml\n" +
+				"* Author:  SteveBrown\n" +
+				"* Version: 1.0.0\n" +
+				"* Created: " + info.getTimeStamp() +
+				"\n*/\n", 
+				comment.toString());		
 	}
 	
 	@Test
@@ -147,71 +211,11 @@ class FilePojoElementsTests {
 	}
 	
 	@Test
-	void existingComment() {
-		ExistingComment comment = new ExistingComment();
-		comment
-			.addLine("/**")
-			.addLine("* Generated Class.")
-			.addLine("* ----------------")
-			.addLine("* Source:  C:/site_map.xml")
-			.addLine("* Author:  SteveBrown")
-			.addLine("* Version: 1.0.0")
-			.addLine("* Created: 07/01/2022 08:53:56")
-			.addLine("*/");
-		
-		assertEquals(COMMENT_RESULT, comment.toString());		
-	}
-	@Test
-	void newComment() {
-		SiteMapInfo info = new SiteMapInfo();
-		NewComment comment = new NewComment(
-				info
-					.setXmlSource("C:/site_map.xml")
-					.setAuthor("SteveBrown")
-					.setVersion("1.0.0"));
-				
-		assertEquals(
-				"/**\n" +
-				"* Generated Class.\n" +
-				"* ----------------\n" +
-				"* Source:  C:/site_map.xml\n" +
-				"* Author:  SteveBrown\n" +
-				"* Version: 1.0.0\n" +
-				"* Created: " + info.getTimeStamp() +
-				"\n*/\n", 
-				comment.toString());		
-	}
-	
-	@Test
 	void methodBody() {
 		ExistingMethodBody body = new ExistingMethodBody();
 		body.addLine("Line1").addLine("Line2");
 		
 		assertEquals("\t\tLine1\n\t\tLine2\n", body.toString());
-	}
-
-	@Test
-	void newImports() {
-		ComponentWriter componentWriter = new ComponentWriterJsPanelWithIFrame();
-		NewImport imps = new NewImport();
-		imps.setLines(componentWriter.getImportNames());
-
-		//DEPENDS ON THE IMPORTS IN ComponentWriterJsPanelWithIFrame
-		assertEquals(
-				"import java.util.List;\n" +
-				"import org.openqa.selenium.By;\n" +
-				"import control_builder.*;\n" +
-				"import site_mapper.annotations.SiteMap;\n" +
-				"/* Placeholder for missing import [JsPanelWithIFrame] */\n" +
-				"/* Placeholder for missing import [CoreData] */\n" , 
-				imps.toString());
-	}	
-	@Test
-	void existingImports() {
-		ExistingImport imps = new ExistingImport();
-		imps.addLine("import java.util.List;").addLine("import control_builder.*;");
-		
-		assertEquals("import java.util.List;\nimport control_builder.*;\n\n", imps.toString());
 	}
 	
 	@Test 
@@ -307,14 +311,19 @@ class FilePojoElementsTests {
 				.addLine("* Created: 07/01/2022 08:53:56")
 				.addLine("*/");
 		
-		ExistingImport imprt = 
-				(ExistingImport) new ExistingImport().addLine("import java.util.List;").addLine("import control_builder.*;");
+		List<Import> imprtList = new ArrayList<>();
+		imprtList.add(new ExistingImport("import java.util.List;"));
+		imprtList.add(new ExistingImport("import control_builder.*;"));
+		
+		ImportList imports = new ImportList(imprtList);
+//		ExistingImport imprt = 
+//				(ExistingImport) new ExistingImport().addLine("import java.util.List;").addLine("import control_builder.*;");
 		
 		ClassFile clazz = 
 				new ClassFile
 					.ExistingClassFileBuilder(
 						new ExistingClassPackage("package a.payroll.Left.employees;"), 
-						imprt, 
+						imports, 
 						comment, 
 						new ClassDeclaration("public", "EmployeeDetails").addExtended("JsPanelWithIFrame"), 
 						getTestClassBody())

@@ -13,6 +13,7 @@ import java.util.function.Predicate;
 import java.util.regex.Pattern;
 
 import file.annotation.ExistingAnnotation;
+import file.imports.ImportList;
 import file.variable.ClassVariable;
 
 /**
@@ -26,7 +27,7 @@ public class ExistingFileScanner {
 	private Scanner scanner;
 	private Optional<String> classPackage = Optional.ofNullable(null);
 	private Optional<String> classDeclaration = Optional.ofNullable(null);
-	private List<String> imports;
+	private Optional<ImportList> imports;
 	private List<String> linesInComment;
 	private List<String> classVariables;
 	
@@ -56,10 +57,10 @@ public class ExistingFileScanner {
 		return classVariables;
 	}
 
-	public List<String> getImports() {
+	public Optional<ImportList> getImports() {
 		return imports;
 	}
-
+	
 	public boolean setScanner(String filePath) {
 		if(filePath != null) {
 			try {
@@ -111,12 +112,12 @@ public class ExistingFileScanner {
 		classPackage = findByFirstWord(packageTest);
 	}
 	public void mapImports() {
-		imports = new ArrayList<>();
-		mapToList(imports, importTest);
+//		imports = new ArrayList<>();
+		mapLineToList(imports.get().getImports(), importTest);
 	}
 	public void mapComment() {
 		linesInComment = new ArrayList<>();
-		mapToList(linesInComment, commentTest);
+		mapLineToList(linesInComment, commentTest);
 	}
 	private void mapDeclaration() {
 		classDeclaration = findByFirstWord(declarationTest);
@@ -148,7 +149,8 @@ public class ExistingFileScanner {
 		}		
 	}
 	
-	private void mapToList(List<String> list, Predicate<String> p) {
+	@SuppressWarnings("unchecked")
+	private <T> void mapLineToList(List<T> list, Predicate<String> p) {
 		String line;		
 		boolean end = false;
 		boolean removedFirstBlankLine = false;
@@ -158,7 +160,7 @@ public class ExistingFileScanner {
 			if(line.length() > 0) {
 				removedFirstBlankLine = true;
 				if(p.test(line)) {
-					list.add(line); 	
+					list.add((T) line); 	
 				}
 			}else if (removedFirstBlankLine == false) {
 				removedFirstBlankLine = true;

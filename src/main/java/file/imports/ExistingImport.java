@@ -13,14 +13,15 @@ package file.imports;
  * the import as it's existing and should 
  * already have one.
  */
-public class ExistingImport extends Import<String>{
+public class ExistingImport extends Import{
+	private String line;
 	
+	public ExistingImport(String line) {
+		this.line = line;
+	}
+
 	@Override
-	public String toString() {
-		String result = "";
-		for (String s : lines) {
-			result += s + "\n";
-		}
-		return result + "\n";
+	public String toString() {		
+		return line + "\n";
 	}	
 }

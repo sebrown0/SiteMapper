@@ -9,6 +9,8 @@ import java.util.Arrays;
 import java.util.List;
 
 import exceptions.InvalidArgumentException;
+import file.imports.Import;
+import file.imports.NewImport;
 import site_mapper.elements.Element;
 import site_mapper.elements.ElementClass;
 import site_mapper.jaxb.menu_items.JsPanelWithIFrame;
@@ -28,15 +30,14 @@ public class ComponentWriterJsPanelWithIFrame implements ComponentWriterVisitor{
 	private SiteMapInfo siteMapInfo;
 	
 	@Override //ComponentWriter
-	public List<ImportType> getImportNames() {
+	public List<Import> getImportNames() {
 		return Arrays.asList(
-				new UseImport("java.util.List"),
-				new UseImport("org.openqa.selenium.By"),
-				new UseImport("control_builder.*"),
-				new UseImport("site_mapper.annotations.SiteMap"),
-
-				new FindImport("JsPanelWithIFrame", siteMapInfo),
-				new FindImport("CoreData", siteMapInfo));
+				new NewImport(new UseImport("java.util.List")),
+				new NewImport(new UseImport("org.openqa.selenium.By")),
+				new NewImport(new UseImport("control_builder.*")),
+				new NewImport(new UseImport("site_mapper.annotations.SiteMap")),
+				new NewImport(new FindImport("JsPanelWithIFrame", siteMapInfo)),
+				new NewImport(new FindImport("CoreData", siteMapInfo)));
 	}
 	@Override //ComponentWriter
 	public List<String> getSuperArgs() {

@@ -53,13 +53,13 @@ class StageTests {
 		assertEquals("package a.payroll.Left.employees;", scanner.getClassPackage().get());
 	}
 
-	@Test
-	void classImports() {
-		ExistingFileScanner scanner = new ExistingFileScanner();
-		scanner.setScanner(TEST_CLASS_PATH);
-		scanner.mapFile();
-		assertEquals(6, scanner.getImports().size());
-	}
+//	@Test
+//	void classImports() {
+//		ExistingFileScanner scanner = new ExistingFileScanner();
+//		scanner.setScanner(TEST_CLASS_PATH);
+//		scanner.mapFile();
+//		assertEquals(6, scanner.getImports().size());
+//	}
 	
 	@Test
 	void classComment() {
