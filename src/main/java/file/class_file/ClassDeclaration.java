@@ -6,7 +6,6 @@ package file.class_file;
 import java.util.ArrayList;
 import java.util.List;
 
-import file.class_file.ClassFile.Builder;
 import file.helpers.Formatter;
 
 /**
@@ -20,37 +19,42 @@ import file.helpers.Formatter;
 public class ClassDeclaration {	
 	private final String modifier;
 	private final String name;
-	private List<String> extended;
-	private List<String> implemented;
+	private final String extend;
+	private final List<String> implemented;
 	
-	private String theDeclaration;
+//	private String theDeclaration;
 	
-	public ClassDeclaration(String modifier, String name) {
-		this.modifier = modifier;
-		this.name = name;
+	public ClassDeclaration(Builder b) {
+		this.modifier = b.getModifier();
+		this.name = b.getName();
+		this.extend = b.getExtended();
+		this.implemented = b.getImplemented();
 	}
-
-	public ClassDeclaration addExtended(String extended) {
-		if(this.extended == null) { this.extended = new ArrayList<>(); }
-		this.extended.add(extended);
-		return this;
-	}		
-
-	public ClassDeclaration addImplemented(String implemented) {
-		if(this.implemented == null) { this.implemented = new ArrayList<>(); }
-		this.implemented.add(implemented);
-		return this;
-	}
+//	public ClassDeclaration(String modifier, String name) {
+//		this.modifier = modifier;
+//		this.name = name;
+//	}
+//
+//	public ClassDeclaration addExtended(String extended) {
+//		if(this.extended == null) { this.extended = new ArrayList<>(); }
+//		this.extended.add(extended);
+//		return this;
+//	}		
+//
+//	public ClassDeclaration addImplemented(String implemented) {
+//		if(this.implemented == null) { this.implemented = new ArrayList<>(); }
+//		this.implemented.add(implemented);
+//		return this;
+//	}
 	
 	@Override
 	public String toString() {		
-//		return modifier + " class " + name + getExtends() + getImplements() + " {\n";
-		return theDeclaration;
+		return modifier + " class " + name + getExtends() + getImplements() + " {\n";
+//		return theDeclaration;
 	}
 	
-	private String getExtends() {
-		String result = getCommaSepList(extended);
-		return (result.length() > 0) ? " extends " + result : "";
+	private String getExtends() {		
+		return (extend != null && extend.length() > 0) ? " extends " + extend : "";
 	}
 	private String getImplements() {
 		String result = getCommaSepList(implemented);
@@ -68,20 +72,73 @@ public class ClassDeclaration {
 	public static abstract class Builder {
 		protected String modifier;
 		protected String name;
-		protected List<String> extended;
+		protected String extend;
 		protected List<String> implemented;
 		
-		protected String theDeclaration;
-		
-		public abstract ClassDeclaration build();			
+		public abstract ClassDeclaration build();
+
+		public String getModifier() {
+			return modifier;
+		}
+		public String getName() {
+			return name;
+		}
+		public String getExtended() {
+			return extend;
+		}
+		public List<String> getImplemented() {
+			return implemented;
+		}		
 	}
 	
 	public static class ExistingDeclaration extends Builder {
+		private String declarationStr;
+		private int currentEnd;
+		
+		public ExistingDeclaration setDeclarationString(String declarationStr) {
+			this.declarationStr = declarationStr;
+			
+			setModifier();
+			setName();
+			setExtends();
+			setImplements();
+			
+			return this;
+		}
 
+		private void setModifier() {
+			currentEnd = declarationStr.indexOf(" ");
+			modifier = declarationStr.substring(0, currentEnd);
+		}
+		private void setName() {
+			var start = declarationStr
+					.indexOf(" ", declarationStr.indexOf("class", currentEnd) + 1) + 1;
+			currentEnd = declarationStr.indexOf(" ", start);
+			name = declarationStr.substring(start, currentEnd);
+		}
+		private void setExtends() {
+			var start = declarationStr.indexOf("extends", currentEnd) + 8;
+			if(start >= 8) {
+				currentEnd = declarationStr.indexOf(" ", start);
+				extend = declarationStr.substring(start, currentEnd);
+			}
+		}
+		private void setImplements() {
+			var start = declarationStr.indexOf("implements", currentEnd) + 10;
+			if(start >= 10) {
+				implemented = new ArrayList<>();
+				currentEnd = declarationStr.indexOf("{", start);
+				String[] parts = declarationStr.substring(start, currentEnd).split(",");
+				for(int idx=0; idx < parts.length; idx++) {
+					implemented.add(parts[idx].trim());
+				}
+			}
+		}
+		
 		@Override
 		public ClassDeclaration build() {
 			// TODO Auto-generated method stub
-			return null;
+			return new ClassDeclaration(this);
 		}
 		
 	}
