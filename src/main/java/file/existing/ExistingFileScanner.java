@@ -112,7 +112,6 @@ public class ExistingFileScanner {
 		classPackage = findByFirstWord(packageTest);
 	}
 	public void mapImports() {
-//		imports = new ArrayList<>();
 		mapLineToList(imports.get().getImports(), importTest);
 	}
 	public void mapComment() {
@@ -124,7 +123,6 @@ public class ExistingFileScanner {
 	}
 	public void mapVariables() {
 		classVariables = new ArrayList<>();
-//		mapToList(classVariables, variableTest);
 		
 		String line;		
 		boolean end = false;
