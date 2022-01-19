@@ -7,7 +7,6 @@ import file.annotation.ExistingAnnotation;
 import file.annotation.SiteMapAnnotation;
 import file.helpers.Formatter;
 import file.helpers.Lines;
-import file.method.MethodDeclarationMapper;
 import file.variable.ArgumentList;
 
 /**
@@ -59,19 +58,7 @@ public class ClassConstructor {
 		
 		protected abstract ClassConstructor build();
 		protected abstract ConstructorBuilder withAnnotation(String a);
-				
-		public void setCnstrAnnotation(SiteMapAnnotation cnstrAnnotation) {
-			this.cnstrAnnotation = cnstrAnnotation;
-		}
-		public void setModifier(String modifier) {
-			this.modifier = modifier;
-		}
-		public void setClassName(String className) {
-			this.className = className;
-		}
-		public void setArguments(ArgumentList arguments) {
-			this.argList = arguments;
-		}
+
 		public void addLine(String line) {
 			this.lines.addLine(line);
 		}
@@ -95,7 +82,7 @@ public class ClassConstructor {
 		}
 
 		public ExistingConstructorBuilder withConstructorDeclaration(String cnstrStr) {
-			MethodDeclarationMapper mapper = new MethodDeclarationMapper();
+			ConstructorDeclarationMapper mapper = new ConstructorDeclarationMapper();
 			mapper.mapDeclaration(cnstrStr);
 			super.modifier = mapper.getModifier().toString();
 			super.className = mapper.getName();

@@ -333,18 +333,12 @@ class FilePojoElementsTests {
 	
 	@Test
 	void testMethod() {
-		ExistingMethodBody body = new ExistingMethodBody();
-		body.addLine("Line1").addLine("Line2");
-		
-		Method m = new Method();
-		m
-			.setAnnotation(new ExistingAnnotation("@SiteMap(author=\"SB\", version=\"1.0.0\", date=\"01/01/2022\")"))
-			.setModifier("private")
-			.setReturnType("String")
-			.setName("aMethod")
-			.addVariables(new Argument("String", "str"))
-			.addVariables(new Argument("Integer", "idx"))
-			.setBody(body);
+		Method m = new Method.ExistingMethodBuilder()
+				.withAnnotation("@SiteMap(author=\"SB\", version=\"1.0.0\", date=\"01/01/2022\")")
+				.withDeclarationStr("private String aMethod(String str, Integer idx)")
+				.addLine("Line1")
+				.addLine("Line2")
+				.build();		
 		
 		assertEquals(
 				"\t" + ANNOTATION_RESULT + "\n" +
@@ -433,15 +427,11 @@ class FilePojoElementsTests {
 		ExistingMethodBody methodBody = new ExistingMethodBody();
 		methodBody.addLine("Line1").addLine("Line2");
 		
-		Method m = new Method();
-		m
-			.setAnnotation(annotation)
-			.setModifier("private")
-			.setReturnType("String")
-			.setName("aMethod")
-			.addVariables(new Argument("String", "str"))
-			.addVariables(new Argument("Integer", "idx"))
-			.setBody(methodBody);
+		Method m = new Method.ExistingMethodBuilder()
+				.withAnnotation("@SiteMap(author=\"SB\", version=\"1.0.0\", date=\"01/01/2022\")")
+				.withDeclarationStr("private String aMethod(String str, Integer idx")
+				.build();
+		
 						 	
 		/*
 		 * MAY NOT BE WORKING

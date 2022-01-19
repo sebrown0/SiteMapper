@@ -3,9 +3,9 @@
  */
 package file.method;
 
+import file.annotation.ExistingAnnotation;
 import file.annotation.SiteMapAnnotation;
 import file.helpers.Formatter;
-import file.variable.Argument;
 import file.variable.ArgumentList;
 
 /**
@@ -24,34 +24,42 @@ public class Method {
 	private ArgumentList arguments = new ArgumentList();
 	private ExistingMethodBody body;
 	
-	public Method setAnnotation(SiteMapAnnotation annotation) {
-		this.annotation = annotation;
-		return this;
+	private Method(MethodBuilder b) {
+		this.annotation = b.annotation;
+		this.modifier = b.modifier;
+		this.returnType = b.returnType;
+		this.name = b.name;
+		this.arguments = b.arguments;
+		this.body = b.body;
 	}
-	public Method setModifier(String modifier) {
-		this.modifier = modifier;
-		return this;
-	}
-	public Method setReturnType(String returnType) {
-		this.returnType = returnType;
-		return this;
-	}
-	public Method setName(String name) {
-		this.name = name;
-		return this;
-	}
-	public Method setVariables(ArgumentList args) {
-		this.arguments = args;
-		return this;
-	}
-	public Method addVariables(Argument arg) {
-		arguments.addArg(arg);
-		return this;
-	}
-	public Method setBody(ExistingMethodBody body) {
-		this.body = body;
-		return this;
-	}
+//	public Method setAnnotation(SiteMapAnnotation annotation) {
+//		this.annotation = annotation;
+//		return this;
+//	}
+//	public Method setModifier(String modifier) {
+//		this.modifier = modifier;
+//		return this;
+//	}
+//	public Method setReturnType(String returnType) {
+//		this.returnType = returnType;
+//		return this;
+//	}
+//	public Method setName(String name) {
+//		this.name = name;
+//		return this;
+//	}
+//	public Method setVariables(ArgumentList args) {
+//		this.arguments = args;
+//		return this;
+//	}
+//	public Method addVariables(Argument arg) {
+//		arguments.addArg(arg);
+//		return this;
+//	}
+//	public Method setBody(ExistingMethodBody body) {
+//		this.body = body;
+//		return this;
+//	}
 	
 	@Override
 	public String toString() {
@@ -65,23 +73,50 @@ public class Method {
 				body.toString());
 	}
 	
-	private abstract static class MethodBuilder {
+	/*
+	 * MethodDeclarationMapper
+	 */
+	public abstract static class MethodBuilder {
 		protected SiteMapAnnotation annotation;
 		protected String modifier = "public";
 		protected String returnType = "void";
 		protected String name;
 		protected ArgumentList arguments = new ArgumentList();
-		protected ExistingMethodBody body;
+		protected ExistingMethodBody body = new ExistingMethodBody();
 		
-		protected abstract Method build();
+		public abstract Method build();
+		protected abstract MethodBuilder withAnnotation(String a);
+
+		public MethodBuilder addLine(String line) {
+			body.addLine(line);
+			return this;
+		}
 	}
 	
 	public static class ExistingMethodBuilder extends MethodBuilder {
 
 		@Override
-		protected Method build() {
-			// TODO Auto-generated method stub
-			return null;
+		public ExistingMethodBuilder withAnnotation(String annoStr) {
+			if(annoStr != null) {
+				super.annotation = new ExistingAnnotation(annoStr);
+			}
+			return this;
+		}
+		
+		public ExistingMethodBuilder withDeclarationStr(String cnstrStr) {
+			MethodDeclarationMapper mapper = new MethodDeclarationMapper();
+			mapper.mapDeclaration(cnstrStr);
+			super.modifier = mapper.getModifier().toString();
+			super.returnType = mapper.getReturnType();
+			super.name = mapper.getName();
+			super.arguments = mapper.getArgs();
+
+			return this;
+		}
+		
+		@Override
+		public Method build() {
+			return new Method(this);
 		}
 		
 	}
