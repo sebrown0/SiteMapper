@@ -18,7 +18,7 @@ import file.class_file.ClassBody;
 import file.class_file.ClassDeclaration;
 import file.class_file.ClassFile;
 import file.class_file.ClassFile.NewClassFileBuilder;
-import file.class_file.ExistingConstructor;
+import file.class_file.ZZZ_ExistingConstructor;
 import file.class_package.ExistingClassPackage;
 import file.class_package.NewClassPackage;
 import file.comment.ExistingComment;
@@ -310,7 +310,7 @@ class FilePojoElementsTests {
 		lines.add("\t}");
 		
 		ExistingAnnotation annotation = new ExistingAnnotation("author=\"SB\", version=\"1.0.0\", date=\"01/01/2022\"");
-		ExistingConstructor cnstr = new ExistingConstructor(lines);
+		ZZZ_ExistingConstructor cnstr = new ZZZ_ExistingConstructor(lines);
 		cnstr.setAnnotation(annotation);
 		
 		System.out.println(cnstr.toString()); // TODO - remove or log 	

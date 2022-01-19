@@ -15,7 +15,7 @@ import file.helpers.Formatter;
  */
 public class MethodVariable extends Variable {
 	
-	public MethodVariable(Builder b) {
+	public MethodVariable(VariableBuilder b) {
 		super(b);
 	}
 	

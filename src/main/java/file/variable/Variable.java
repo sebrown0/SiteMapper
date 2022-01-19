@@ -24,7 +24,7 @@ public abstract class Variable {
 	protected String name;
 	protected String value;
 		
-	public Variable(Builder b) {
+	public Variable(VariableBuilder b) {
 		this.name = b.name;		
 		this.modifier = b.modifier;
 		this.type = b.type;
@@ -34,7 +34,7 @@ public abstract class Variable {
 		this.finalVar = b.finalVar;
 	}
 	
-	public abstract static class Builder {
+	public abstract static class VariableBuilder {
 		protected SiteMapAnnotation annotation;
 		protected String name;
 		protected String modifier;
@@ -44,21 +44,28 @@ public abstract class Variable {
 		protected String finalVar;
 		
 		public abstract Variable build();
-		public abstract Builder withAnnotation(SiteMapAnnotation a);
+		public abstract VariableBuilder withAnnotation(SiteMapAnnotation a);
+		public abstract VariableBuilder withVariable(String v);
 	}
 	
-	public static class FromString extends Builder {
+	public static class FromString extends VariableBuilder {
 		private String[] leftSide;
 		private String rightSide;		
-		private final String varStr;
+		private String varStr;
 
+		public FromString() {}
 		public FromString(String varStr) {
 			this.varStr = varStr;
 		}
 
 		@Override
-		public Builder withAnnotation(SiteMapAnnotation a) {
+		public VariableBuilder withAnnotation(SiteMapAnnotation a) {
 			this.annotation = a;
+			return this;
+		}
+		@Override
+		public VariableBuilder withVariable(String v) {
+			this.varStr = v;
 			return this;
 		}
 		
@@ -146,5 +153,6 @@ public abstract class Variable {
 			}
 			value = res;
 		}
+		
 	}
 }

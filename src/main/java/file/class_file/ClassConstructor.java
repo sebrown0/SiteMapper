@@ -3,10 +3,9 @@
  */
 package file.class_file;
 
-import java.util.List;
-
+import file.annotation.ExistingAnnotation;
 import file.annotation.SiteMapAnnotation;
-import file.variable.Argument;
+import file.variable.Variables;
 
 /**
  * @author SteveBrown
@@ -14,18 +13,66 @@ import file.variable.Argument;
  * 	Initial
  * @since 1.0
  */
-public abstract class ClassConstructor {
-	protected SiteMapAnnotation cnstrAnnotation;
+public class ClassConstructor {
+	private SiteMapAnnotation cnstrAnnotation;
 	private String modifier;
 	private String className;
-	protected List<Argument> arguments;
+	private Variables arguments;
 	
-//	public ClassConstructor(String modifier, String className) {
-//		this.modifier = modifier;
-//		this.className = className;
-//	}
-//	
-//	
+	private ClassConstructor(ConstructorBuilder b) {
+		this.cnstrAnnotation = b.cnstrAnnotation;
+		this.modifier = b.modifier;
+		this.className = b.className;
+		this.arguments = b.arguments;
+	}
+	
+	public abstract static class ConstructorBuilder {
+		private SiteMapAnnotation cnstrAnnotation;
+		private String modifier;
+		private String className;
+		private Variables arguments;
+		
+		protected abstract ClassConstructor build();
+		protected abstract ConstructorBuilder withAnnotation(String a);
+				
+		public void setCnstrAnnotation(SiteMapAnnotation cnstrAnnotation) {
+			this.cnstrAnnotation = cnstrAnnotation;
+		}
+		public void setModifier(String modifier) {
+			this.modifier = modifier;
+		}
+		public void setClassName(String className) {
+			this.className = className;
+		}
+		public void setArguments(Variables arguments) {
+			this.arguments = arguments;
+		}
+	}
+	
+	public static class ExistingConstructorBuilder extends ConstructorBuilder {
+
+		@Override
+		public ConstructorBuilder withAnnotation(String annoStr) {
+			if(annoStr != null) {
+				super.cnstrAnnotation = new ExistingAnnotation(annoStr);
+			}
+			return this;
+		}
+		public ConstructorBuilder withConstructor(String cnstrStr) {
+			if(cnstrStr != null) {
+				String m = cnstrStr.substring(0, cnstrStr.indexOf(" ")-1);
+				super.modifier = m;
+			}
+			return this;
+		}
+		
+		@Override
+		protected ClassConstructor build() {
+			return new ClassConstructor(this);
+		}
+
+
+	}
 
 	@Override
 	public String toString() {		

@@ -11,7 +11,6 @@ import java.util.Scanner;
 import java.util.function.Predicate;
 import java.util.regex.Pattern;
 
-import file.annotation.ExistingAnnotation;
 import file.class_file.ClassBody;
 import file.class_file.ClassBody.ExistingClassBody;
 import file.class_file.ClassDeclaration;
@@ -20,8 +19,7 @@ import file.class_file.ClassFile.ExistingClassFileBuilder;
 import file.class_package.ExistingClassPackage;
 import file.comment.ExistingComment;
 import file.imports.ImportList;
-import file.variable.ClassVariable;
-import file.variable.Variable.Builder;
+import file.variable.ExistingVariableMapper;
 import file.variable.Variables;
 
 /**
@@ -35,15 +33,15 @@ public class ExistingFileScanner {
 	private Scanner scanner;	
 	private ExistingClassFileBuilder classBuilder = new ClassFile.ExistingClassFileBuilder();
 		
-	Pattern modifierPattern = Pattern.compile(".*public.*|.*protected.*|.*private.*");
-	Pattern annotationPattern = Pattern.compile(".*@SiteMap.*");
+	public static final Pattern modifierPattern = Pattern.compile(".*public.*|.*protected.*|.*private.*");
+	public static final Pattern annotationPattern = Pattern.compile(".*@SiteMap.*");
 	
-	private Predicate<String> packageTest = s -> (s.startsWith("package"));
-	private Predicate<String> commentTest = s -> (s.startsWith("*") || s.startsWith("/"));
-	private Predicate<String> importTest = s -> (s.startsWith("import"));
-	private Predicate<String> declarationTest = s -> (s.contains(" class "));
-	private Predicate<String> annotationTest = s -> (annotationPattern.matcher(s).find());
-	private Predicate<String> variableTest = s -> (modifierPattern.matcher(s).find());
+	public static final Predicate<String> packageTest = s -> (s.startsWith("package"));
+	public static final  Predicate<String> commentTest = s -> (s.startsWith("*") || s.startsWith("/"));
+	public static final Predicate<String> importTest = s -> (s.startsWith("import"));
+	public static final Predicate<String> declarationTest = s -> (s.contains(" class "));
+	public static final Predicate<String> annotationTest = s -> (annotationPattern.matcher(s).find());
+	public static final Predicate<String> variableTest = s -> (modifierPattern.matcher(s).find());
 	
 	public ClassFile getClassFile() {
 		return classBuilder.build();
@@ -105,43 +103,11 @@ public class ExistingFileScanner {
 		//others...
 		classBuilder.setClassBody(bodyBuilder.build());
 	}
-	private Variables mapVariables() {		
-		Variables clazzVars = new Variables();		
-		String line;		
-		boolean end = false;
-//		ClassVariable variable;
-		
-		while(!end && scanner.hasNext()) {
-			line = scanner.nextLine();
-			if(line.length() > 0) {
-				Optional<Builder> builder = Optional.ofNullable(null);
-				
-				if(annotationTest.test(line)) {
-					ExistingAnnotation anno = new ExistingAnnotation(line);
-					line = scanner.nextLine();
-					if(variableTest.test(line)) {
-						builder = Optional.of(new ClassVariable.FromString(line).withAnnotation(anno));	
-					}
-					
-				}else if(variableTest.test(line)) {
-					builder = Optional.of(new ClassVariable.FromString(line));
-				}else {
-					end = true;
-				}
-				
-				builder.ifPresent(b -> {
-					clazzVars.addLine((ClassVariable) b.build());	
-				});
-				
-				
-//				classVariables.add(variable.toString()); //TODO
-			}else {
-				end = true;
-			}
-		}
-		return clazzVars;		
+	private Variables mapVariables() {
+		ExistingVariableMapper mapper = new ExistingVariableMapper(scanner);
+		return mapper.mapVariables();
 	}
-
+	
 	private Optional<String> findByFirstWord(Predicate<String> p) {
 		Optional<String> res = Optional.ofNullable(null);
 		String line;
