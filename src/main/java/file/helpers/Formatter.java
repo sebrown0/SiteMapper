@@ -17,6 +17,14 @@ import file.annotation.SiteMapAnnotation;
  */
 public class Formatter {
 
+	public static String getAnnotation(String tabs, SiteMapAnnotation annotation) {
+		if(annotation != null) {
+			String ano = annotation.toString();
+			return (ano != null) ? tabs + ano + "\n" : "";	
+		}else {
+			return "";
+		}		
+	}
 	public static String getAnnotation(SiteMapAnnotation annotation) {
 		if(annotation != null) {
 			String ano = annotation.toString();

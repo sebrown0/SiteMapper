@@ -4,6 +4,7 @@
 package file.variable;
 
 import file.annotation.SiteMapAnnotation;
+import file.modifier.Modifier;
 
 /**
  * @author SteveBrown

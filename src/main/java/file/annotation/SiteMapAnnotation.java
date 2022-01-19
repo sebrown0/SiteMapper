@@ -3,6 +3,9 @@
  */
 package file.annotation;
 
+import java.util.function.Predicate;
+import java.util.regex.Pattern;
+
 import file.helpers.Formatter;
 
 /**
@@ -18,6 +21,9 @@ public abstract class SiteMapAnnotation {
 	private String version;
 	private String date;
 		
+	public static final Pattern annotationPattern = Pattern.compile(".*@SiteMap.*");
+	public static final Predicate<String> annotationTest = s -> (annotationPattern.matcher(s).find());
+	
 	public SiteMapAnnotation setAuthor(String author) {
 		this.author = author;
 		return this;
@@ -38,6 +44,10 @@ public abstract class SiteMapAnnotation {
 				Formatter.getValuePair(author, "author"), 
 				Formatter.getValuePair(version, "version"),
 				Formatter.getValuePair(date, "date"));
+	}
+	
+	public static boolean isAnnotation(String line) {
+		return (annotationTest.test(line)) ? true : false;
 	}
 	
 }

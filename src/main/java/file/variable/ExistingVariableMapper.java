@@ -3,13 +3,13 @@
  */
 package file.variable;
 
-import static file.existing.ExistingFileScanner.annotationTest;
 import static file.existing.ExistingFileScanner.variableTest;
 
 import java.util.Optional;
 import java.util.Scanner;
 
 import file.annotation.ExistingAnnotation;
+import file.annotation.SiteMapAnnotation;
 import file.variable.Variable.VariableBuilder;
 
 
@@ -18,6 +18,9 @@ import file.variable.Variable.VariableBuilder;
  * @version 1.0
  * 	Initial
  * @since 1.0
+ * 
+ * Get the class variables along with any
+ * annotation from an existing class file.
  */
 public class ExistingVariableMapper {	
 	private Scanner scanner;	
@@ -35,7 +38,7 @@ public class ExistingVariableMapper {
 			line = scanner.nextLine();
 			if(line.length() > 0) {
 				Optional<VariableBuilder> varBuilder = Optional.ofNullable(null);				
-				if(isAnnotation(line)) {
+				if(SiteMapAnnotation.isAnnotation(line)) {
 					varBuilder = mapAnnotationAndVar(varBuilder, line);			
 				}else if(isVariable(line)) {
 					varBuilder = mapVar(varBuilder, line);
@@ -50,9 +53,9 @@ public class ExistingVariableMapper {
 		return clazzVars;		
 	}
 		
-	private boolean isAnnotation(String line) {
-		return (annotationTest.test(line)) ? true : false;
-	}
+//	private boolean isAnnotation(String line) {
+//		return (annotationTest.test(line)) ? true : false;
+//	}
 	
 	private boolean isVariable(String line) {
 		return (variableTest.test(line)) ? true : false;

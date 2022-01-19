@@ -29,6 +29,7 @@ import file.imports.ImportList;
 import file.method.ExistingMethodBody;
 import file.method.Method;
 import file.variable.Argument;
+import file.variable.ArgumentList;
 import file.variable.ClassVariable;
 import file.variable.Variable;
 import site_mapper.creators.ComponentWriter;
@@ -292,6 +293,20 @@ class FilePojoElementsTests {
 		
 		assertEquals("String str", v.toString());				 	
 	}
+	@Test
+	void listOfArguments_good() {
+		ArgumentList args = new ArgumentList();
+		args.createArgList("String str, int idx, CoreData cd");
+		
+		assertEquals("String str, int idx, CoreData cd", args.toString());
+	}
+	@Test
+	void listOfArguments_withBadArg() {
+		ArgumentList args = new ArgumentList();
+		args.createArgList("String str, idx, CoreData cd");
+		
+		assertEquals("String str, CoreData cd", args.toString());
+	}
 	
 	@Test
 	void methodBody() {
@@ -431,13 +446,14 @@ class FilePojoElementsTests {
 		/*
 		 * MAY NOT BE WORKING
 		 */
-		ClassBody classBody = new ClassBody.ExistingClassBody().build();
+//		ClassBody classBody = new ClassBody.ExistingClassBody().build();
 //		classBody
 //			.addVariable((ClassVariable) v1)
 //			.addVariable((ClassVariable) v2)
 //			.addMethod(m);
 		
-		return classBody;
+//		return classBody;
+		return null;
 	}
 	
 	@Test

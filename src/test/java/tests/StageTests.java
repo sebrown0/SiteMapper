@@ -13,7 +13,9 @@ import org.junit.jupiter.api.Test;
 
 import file.class_file.ClassBody;
 import file.class_file.ClassFile;
+import file.class_file.constructor.ClassConstructor;
 import file.existing.ExistingFileScanner;
+import file.modifier.Modifier;
 import file.stage.InitialStage;
 import file.stage.PackageStage;
 import file.stage.Stage;
@@ -28,6 +30,13 @@ class StageTests {
 	private static final String TEST_CLASS_PATH = 
 			"./src/test/resources/test_data/TestClass.java";
 
+	@Test
+	void startsWithModifierPattern() {
+		assertTrue(Modifier.startsWithValidModifier("zpublic blah blah"));
+		assertFalse(Modifier.startsWithValidModifier("\tpublicblah blah"));
+		assertTrue(Modifier.startsWithValidModifier("\tpublic blah blah"));
+		assertTrue(Modifier.startsWithValidModifier("public blah blah"));
+	}
 	@Test
 	void annotationPattern() {
 		Pattern pattern = Pattern.compile(".*@SiteMap.*");
@@ -88,7 +97,7 @@ class StageTests {
 	}
 	
 	@Test
-	void classBody() {
+	void classBody_classVars() {
 		ExistingFileScanner scanner = new ExistingFileScanner();
 		scanner.setScanner(TEST_CLASS_PATH);
 		scanner.mapFile();
@@ -98,14 +107,22 @@ class StageTests {
 	}
 	
 	@Test
-	void classVariables() {
+	void classBody_classConstructor() {
 		ExistingFileScanner scanner = new ExistingFileScanner();
 		scanner.setScanner(TEST_CLASS_PATH);
 		scanner.mapFile();
-		ClassFile clazz = scanner.getClassFile();
-		
-//		assertEquals(6, scanner.getClassVariables().size());
+		ClassBody body = scanner.getClassFile().getClassBody();
+		ClassConstructor cnstr = body.getCnstr();
+		System.out.println(cnstr.toString()); // TODO - remove or log 	
+		assertEquals(
+			"\t@SiteMap(author=\"SteveBrown\", version=\"1.0.0\", date=\"07/01/2022\")\n" +
+			"\tpublic EmployeeDetails(CoreData coreData){\n" +
+			"\t\tsuper(coreData,PANEL_TITLE);\n" +
+			"\t\tbuildMyControls();\n" +
+			"\t}", 
+			cnstr.toString());
 	}
+	
 	
 	@Test
 	void intial() {

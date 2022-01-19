@@ -3,12 +3,20 @@
  */
 package file.class_file;
 
+import static file.existing.ExistingFileScanner.commentTest;
+import static file.existing.ExistingFileScanner.declarationTest;
+import static file.existing.ExistingFileScanner.importTest;
+import static file.existing.ExistingFileScanner.packageTest;
+
+import java.util.Scanner;
+
 import file.class_package.ClassPackage;
 import file.class_package.ExistingClassPackage;
 import file.class_package.NewClassPackage;
 import file.comment.Comment;
 import file.comment.ExistingComment;
 import file.comment.NewComment;
+import file.helpers.LineMapper;
 import file.imports.ImportList;
 import site_mapper.creators.ComponentWriter;
 import site_mapper.elements.ElementClass;
@@ -90,44 +98,63 @@ public class ClassFile {
 		
 		public abstract ClassFile build();
 
-		public void setInPackage(ClassPackage inPackage) {
-			this.inPackage = inPackage;
+//		public void setInPackage(ClassPackage inPackage) {
+//			this.inPackage = inPackage;
+//		}
+//
+//		public void setImports(ImportList imports) {
+//			this.imports = imports;
+//		}
+//
+//		public void setComment(Comment comment) {
+//			this.comment = comment;
+//		}
+//
+//		public void setDeclaration(ClassDeclaration declaration) {
+//			this.declaration = declaration;
+//		}
+//
+//		public void setClassBody(ClassBody classBody) {
+//			this.classBody = classBody;
+//		}			
+	}
+	
+	public static class ExistingClassFileBuilder extends ClassBuilder {
+		private Scanner scanner;
+				
+		public ExistingClassFileBuilder(Scanner scanner) {
+			this.scanner = scanner;
 		}
 
-		public void setImports(ImportList imports) {
-			this.imports = imports;
+		public void setInPackage() {
+			LineMapper
+				.findByFirstWord(scanner, packageTest)
+				.ifPresent(p -> 
+					super.inPackage = new ExistingClassPackage(p));			
 		}
 
-		public void setComment(Comment comment) {
+		public void setImports() {
+			ImportList imports = new ImportList();
+			LineMapper.mapLineToList(scanner, imports.getImports(), importTest);
+			super.imports = imports;
+		}
+
+		public void setComment() {
+			ExistingComment comment = new ExistingComment();		
+			LineMapper.mapLineToList(scanner, comment.getLines(), commentTest);
 			this.comment = comment;
 		}
 
-		public void setDeclaration(ClassDeclaration declaration) {
-			this.declaration = declaration;
+		public void setDeclaration() {
+			LineMapper.findByFirstWord(scanner, declarationTest).ifPresent(d -> {
+				super.declaration =	
+						new ClassDeclaration.ExistingDeclaration().setDeclarationString(d).build();				
+			});			
 		}
 
 		public void setClassBody(ClassBody classBody) {
 			this.classBody = classBody;
-		}			
-	}
-	
-	public static class ExistingClassFileBuilder extends ClassBuilder {
-		
-		public ExistingClassFileBuilder() {}
-		
-		public ExistingClassFileBuilder(
-				ExistingClassPackage inPackage, 
-				ImportList imports, 
-				ExistingComment comment, 
-				ClassDeclaration declaration, 
-				ClassBody classBody) {
-			
-			this.inPackage = inPackage;
-			this.imports = imports;
-			this.comment = comment;
-			this.declaration = declaration;
-			this.classBody = classBody;
-		}
+		}		
 
 		@Override
 		public ClassFile build() {
