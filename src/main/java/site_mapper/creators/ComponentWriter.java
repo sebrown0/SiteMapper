@@ -6,7 +6,7 @@ package site_mapper.creators;
 import java.util.List;
 
 import file.imports.Import;
-import file.variable.ClassVariable;
+import file.variable.Variable;
 
 /**
  * @author SteveBrown
@@ -17,7 +17,7 @@ import file.variable.ClassVariable;
 public interface ComponentWriter {
 	String getClassName();
 	
-	List<ClassVariable> getClassVariables();
+	List<Variable> getClassVariables();
 	List<Import> getImportNames();
 	List<String> getSuperArgs();
 	List<String> getConstructorArgs();

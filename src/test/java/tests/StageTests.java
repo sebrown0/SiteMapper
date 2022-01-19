@@ -11,6 +11,7 @@ import java.util.regex.Pattern;
 
 import org.junit.jupiter.api.Test;
 
+import file.class_file.ClassFile;
 import file.existing.ExistingFileScanner;
 import file.stage.InitialStage;
 import file.stage.PackageStage;
@@ -50,24 +51,29 @@ class StageTests {
 		ExistingFileScanner scanner = new ExistingFileScanner();
 		scanner.setScanner(TEST_CLASS_PATH);
 		scanner.mapFile();
-		assertEquals("package a.payroll.Left.employees;", scanner.getClassPackage().get());
+		ClassFile clazz = scanner.getClassFile();
+		
+		assertEquals("package a.payroll.Left.employees;", clazz.getPackageStr());
 	}
 
-//	@Test
-//	void classImports() {
-//		ExistingFileScanner scanner = new ExistingFileScanner();
-//		scanner.setScanner(TEST_CLASS_PATH);
-//		scanner.mapFile();
-//		assertEquals(6, scanner.getImports().size());
-//	}
+	@Test
+	void classImports() {
+		ExistingFileScanner scanner = new ExistingFileScanner();
+		scanner.setScanner(TEST_CLASS_PATH);
+		scanner.mapFile();
+		ClassFile clazz = scanner.getClassFile();
+		
+		assertEquals(6, clazz.getImport().getImports().size());
+	}
 	
 	@Test
 	void classComment() {
 		ExistingFileScanner scanner = new ExistingFileScanner();
 		scanner.setScanner(TEST_CLASS_PATH);
 		scanner.mapFile();
-//		scanner.getLinesInComment().forEach(l -> System.out.println(l));
-		assertEquals(8, scanner.getLinesInComment().size());
+		ClassFile clazz = scanner.getClassFile();
+
+		assertEquals(8, clazz.getComment().getLines().size());
 	}
 	
 	@Test
@@ -75,7 +81,9 @@ class StageTests {
 		ExistingFileScanner scanner = new ExistingFileScanner();
 		scanner.setScanner(TEST_CLASS_PATH);
 		scanner.mapFile();
-		assertEquals("public class EmployeeDetails extends JsPanelWithIFrame {", scanner.getClassDeclaration().get());
+		ClassFile clazz = scanner.getClassFile();
+		
+		assertEquals("public class EmployeeDetails extends JsPanelWithIFrame {", clazz.getDeclarationStr());
 	}
 	
 	@Test
@@ -83,7 +91,9 @@ class StageTests {
 		ExistingFileScanner scanner = new ExistingFileScanner();
 		scanner.setScanner(TEST_CLASS_PATH);
 		scanner.mapFile();
-		assertEquals(6, scanner.getClassVariables().size());
+		ClassFile clazz = scanner.getClassFile();
+		
+//		assertEquals(6, scanner.getClassVariables().size());
 	}
 	
 	@Test

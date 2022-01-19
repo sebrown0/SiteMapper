@@ -13,9 +13,16 @@ import java.util.function.Predicate;
 import java.util.regex.Pattern;
 
 import file.annotation.ExistingAnnotation;
+import file.class_file.ClassBody;
+import file.class_file.ClassDeclaration;
+import file.class_file.ClassFile;
+import file.class_file.ClassFile.ExistingClassFileBuilder;
+import file.class_package.ExistingClassPackage;
+import file.comment.ExistingComment;
 import file.imports.ImportList;
 import file.variable.ClassVariable;
-import file.variable.ClassVariable.Builder;
+import file.variable.Variable.Builder;
+import file.variable.Variables;
 
 /**
  * @author SteveBrown
@@ -25,12 +32,10 @@ import file.variable.ClassVariable.Builder;
  */
 public class ExistingFileScanner {
 	private FileReader reader;
-	private Scanner scanner;
-	private Optional<String> classPackage = Optional.ofNullable(null);
-	private Optional<String> classDeclaration = Optional.ofNullable(null);
-	private Optional<ImportList> imports;
-	private List<String> linesInComment;
-	private List<String> classVariables;
+	private Scanner scanner;	
+	private ExistingClassFileBuilder builder = new ClassFile.ExistingClassFileBuilder();
+	
+	private ClassBody classBody = new ClassBody();
 	
 	Pattern modifierPattern = Pattern.compile(".*public.*|.*protected.*|.*private.*");
 	Pattern annotationPattern = Pattern.compile(".*@SiteMap.*");
@@ -42,26 +47,10 @@ public class ExistingFileScanner {
 	private Predicate<String> annotationTest = s -> (annotationPattern.matcher(s).find());
 	private Predicate<String> variableTest = s -> (modifierPattern.matcher(s).find());
 	
-	public Optional<String> getClassPackage() {
-		return classPackage;
+	public ClassFile getClassFile() {
+		return builder.build();
 	}
-
-	public List<String> getLinesInComment() {
-		return linesInComment;
-	}
-
-	public Optional<String> getClassDeclaration() {
-		return classDeclaration;
-	}
-
-	public List<String> getClassVariables() {
-		return classVariables;
-	}
-
-	public Optional<ImportList> getImports() {
-		return imports;
-	}
-	
+		
 	public boolean setScanner(String filePath) {
 		if(filePath != null) {
 			try {
@@ -89,41 +78,33 @@ public class ExistingFileScanner {
 			scanner.close();
 		}		
 	}
-
-	private Optional<String> findByFirstWord(Predicate<String> p) {
-		Optional<String> res = Optional.ofNullable(null);
-		String line;
-		
-		while(scanner.hasNext()) {
-			line = scanner.nextLine();
-			if(line.length() > 0) {
-				if(p.test(line)) {
-					res = Optional.of(line); 	
-					break;
-				}
-			}else {
-				line = scanner.nextLine();
-			}
-		}
-		
-		return res;
-	}
 		
 	private void mapPackage() {
-		classPackage = findByFirstWord(packageTest);
+		findByFirstWord(packageTest)
+			.ifPresent(p -> builder.setInPackage(new ExistingClassPackage(p)));		
 	}
 	public void mapImports() {
-		mapLineToList(imports.get().getImports(), importTest);
+		ImportList imports = new ImportList();
+		mapLineToList(imports.getImports(), importTest);
+		builder.setImports(imports);
 	}
 	public void mapComment() {
-		linesInComment = new ArrayList<>();
-		mapLineToList(linesInComment, commentTest);
+		ExistingComment comment = new ExistingComment();		
+		mapLineToList(comment.getLines(), commentTest);
+		builder.setComment(comment);
 	}
 	private void mapDeclaration() {
-		classDeclaration = findByFirstWord(declarationTest);
+		findByFirstWord(declarationTest).ifPresent(d -> {
+			builder.setDeclaration(
+					new ClassDeclaration.ExistingDeclaration().setDeclarationString(d).build()
+			);
+		});		
 	}
 	public void mapVariables() {
-		classVariables = new ArrayList<>();
+//		List<String> classVariables;
+//		classVariables = new ArrayList<>();
+		
+		Variables clazzVars = new Variables();
 		
 		String line;		
 		boolean end = false;
@@ -142,14 +123,33 @@ public class ExistingFileScanner {
 				}else {
 					end = true;
 				}
-				variable = builder.build();
-				classVariables.add(variable.toString()); //TODO
+				variable = (ClassVariable) builder.build();
+				clazzVars.addLine(variable);
+				
+//				classVariables.add(variable.toString()); //TODO
 			}else {
 				end = true;
 			}
 		}		
 	}
-	
+
+	private Optional<String> findByFirstWord(Predicate<String> p) {
+		Optional<String> res = Optional.ofNullable(null);
+		String line;
+		
+		while(scanner.hasNext()) {
+			line = scanner.nextLine();
+			if(line.length() > 0) {
+				if(p.test(line)) {
+					res = Optional.of(line); 	
+					break;
+				}
+			}else {
+				line = scanner.nextLine();
+			}
+		}		
+		return res;
+	}
 	@SuppressWarnings("unchecked")
 	private <T> void mapLineToList(List<T> list, Predicate<String> p) {
 		String line;		

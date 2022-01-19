@@ -44,12 +44,27 @@ public class ComponentWriterJsPanelWithIFrame implements ComponentWriterVisitor{
 				new NewImport(new FindImport("CoreData", siteMapInfo)));
 	}
 	@Override //ComponentWriter
-	public List<ClassVariable> getClassVariables() {
-//		SiteMapAnnotation annotation = new NewAnnotation(siteMapInfo);
-//
-//		return Arrays.asList( new ClassVariable().setAnnotation(annotation).setModifier("public"));
-		return null;
-	}
+	public List<Variable> getClassVariables() {
+		SiteMapAnnotation annotation = new NewAnnotation(siteMapInfo);
+/*
+ * WHERE ARE WE USING THIS????????????????????????????????????????????????????????????????
+ */
+		return 
+			Arrays.asList(  
+				new ClassVariable
+					.FromString("public static final String PANEL_TITLE = \"Employee Details\";")
+					.withAnnotation(annotation)
+					.build(),
+				new ClassVariable
+					.FromString("public static final String MENU_TITLE = \"Employee Details\";")
+					.withAnnotation(annotation)
+					.build(),
+				new ClassVariable
+					.FromString("public static final String MENU_PARENT_NAME = \"Employees\";")
+					.withAnnotation(annotation)
+					.build()
+			);		
+	}	
 	@Override //ComponentWriter
 	public List<String> getSuperArgs() {
 		return Arrays.asList("coreData", "PANEL_TITLE");

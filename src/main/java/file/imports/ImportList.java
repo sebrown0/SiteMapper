@@ -15,6 +15,8 @@ import java.util.List;
 public class ImportList {
 	private List<Import> imports = new ArrayList<>();
 
+	public ImportList() {}
+	
 	public ImportList(List<Import> imports) {
 		this.imports = imports;
 	}

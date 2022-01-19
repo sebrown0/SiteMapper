@@ -43,30 +43,44 @@ public class ClassFile {
 	public String toString() {
 		return String.format(
 				"%s\n\n%s\n\n%s\n%s\n%s\n}", 
-				inPackage, 
-				imports.toString(), 
-				getComment(), 
-				getDeclaration(), 
-				getClassBody());
-//		return 
-//				inPackage +
-//				imports.toString() +
-//				getComment() +
-//				getDeclaration() +
-//				getClassBody() + 
-//				"\n}";		
+				getPackageStr(), 
+				getImportStr(), 
+				getCommentStr(), 
+				getDeclarationStr(), 
+				getClassBodyStr());		
 	}
-	
-	private String getComment() {
+	public String getPackageStr() {
+		return (inPackage != null) ? inPackage.toString() : "/* PACKAGE NOT FOUND */\n";
+	}
+	public String getImportStr() {
+		return (imports != null) ? imports.toString() : "/* NO IMPORTS NOT FOUND */\n";
+	}
+	public String getCommentStr() {
 		return (comment != null) ? comment.toString() : "/* COMMENT NOT FOUND */\n";
 	}
-	private String getDeclaration() {
+	public String getDeclarationStr() {
 		return (declaration != null) ? declaration.toString() : "/* CLASS DECLARATION NOT FOUND */\n";
 	}
-	private String getClassBody() {
+	public String getClassBodyStr() {
 		return (classBody != null) ? classBody.toString() : "/* CLASS BODY NOT FOUND */\n";
 	}
 	
+	public ClassPackage getPackage() {
+		return inPackage;
+	}
+	public ImportList getImport() {
+		return imports;
+	}
+	public Comment getComment() {
+		return comment;
+	}
+	public ClassDeclaration getDeclaration() {
+		return declaration;
+	}
+	public ClassBody getClassBody() {
+		return classBody;
+	}
+		
 	public abstract static class Builder {
 		protected ClassPackage inPackage;
 		protected ImportList imports;
@@ -74,10 +88,33 @@ public class ClassFile {
 		protected ClassDeclaration declaration;
 		protected ClassBody classBody;
 		
-		public abstract ClassFile build();			
+		public abstract ClassFile build();
+
+		public void setInPackage(ClassPackage inPackage) {
+			this.inPackage = inPackage;
+		}
+
+		public void setImports(ImportList imports) {
+			this.imports = imports;
+		}
+
+		public void setComment(Comment comment) {
+			this.comment = comment;
+		}
+
+		public void setDeclaration(ClassDeclaration declaration) {
+			this.declaration = declaration;
+		}
+
+		public void setClassBody(ClassBody classBody) {
+			this.classBody = classBody;
+		}			
 	}
 	
 	public static class ExistingClassFileBuilder extends Builder {
+		
+		public ExistingClassFileBuilder() {}
+		
 		public ExistingClassFileBuilder(
 				ExistingClassPackage inPackage, 
 				ImportList imports, 
@@ -114,7 +151,7 @@ public class ClassFile {
 			setDeclaration();
 			setClassBody();
 		}
-
+		
 		private void setInPackage() {
 			super.inPackage = new NewClassPackage(clazz.getPackage());
 		}
@@ -145,4 +182,5 @@ public class ClassFile {
 			return new ClassFile(this);
 		}
 	}
+
 }

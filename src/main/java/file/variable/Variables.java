@@ -1,7 +1,7 @@
 /**
  * 
  */
-package file.comment;
+package file.variable;
 
 import java.util.List;
 
@@ -13,19 +13,19 @@ import file.helpers.Lines;
  * 	Initial
  * @since 1.0
  */
-public abstract class Comment {
-	Lines<String> lines = new Lines<>();
+public class Variables {
+	Lines<Variable> lines = new Lines<>();
 	
-	public void setLines(List<String> lines) {
+	public void setLines(List<Variable> lines) {
 		this.lines.setLines(lines);
 	}
 	
-	public Comment addLine(String line) {
+	public Variables addLine(Variable line) {
 		lines.addLine(line);
 		return this;
 	}
 
-	public List<String> getLines() {
+	public List<Variable> getLines() {
 		return lines.getLines();
 	}
 		

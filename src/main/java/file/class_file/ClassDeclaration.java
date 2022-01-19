@@ -24,35 +24,16 @@ public class ClassDeclaration {
 	private final String extend;
 	private final List<String> implemented;
 	
-//	private String theDeclaration;
-	
 	public ClassDeclaration(Builder b) {
 		this.modifier = b.getModifier();
 		this.name = b.getName();
 		this.extend = b.getExtended();
 		this.implemented = b.getImplemented();
 	}
-//	public ClassDeclaration(String modifier, String name) {
-//		this.modifier = modifier;
-//		this.name = name;
-//	}
-//
-//	public ClassDeclaration addExtended(String extended) {
-//		if(this.extended == null) { this.extended = new ArrayList<>(); }
-//		this.extended.add(extended);
-//		return this;
-//	}		
-//
-//	public ClassDeclaration addImplemented(String implemented) {
-//		if(this.implemented == null) { this.implemented = new ArrayList<>(); }
-//		this.implemented.add(implemented);
-//		return this;
-//	}
 	
 	@Override
 	public String toString() {		
-		return modifier + " class " + name + getExtends() + getImplements() + " {\n";
-//		return theDeclaration;
+		return modifier + " class " + name + getExtends() + getImplements() + " {";
 	}
 	
 	private String getExtends() {		

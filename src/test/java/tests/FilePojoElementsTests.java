@@ -31,6 +31,7 @@ import file.method.Method;
 import file.variable.Argument;
 import file.variable.ClassVariable;
 import file.variable.MethodVariable;
+import file.variable.Variable;
 import site_mapper.creators.ComponentWriter;
 import site_mapper.creators.ComponentWriterJsPanelWithIFrame;
 import site_mapper.elements.Element;
@@ -86,10 +87,10 @@ class FilePojoElementsTests {
 				.setMenuItemType(new MenuItemType().setAttributes(new JsPanelWithIFrame()))
 				.setElements(Arrays.asList(e1,e2));
 	
-	@Test
-	void uiuiuiuiui(){
-		System.out.println(menuItem.toString());
-	}
+//	@Test
+//	void uiuiuiuiui(){
+//		System.out.println(menuItem.toString());
+//	}
 	
 	@Test
 	void existing_package() {
@@ -227,7 +228,7 @@ class FilePojoElementsTests {
 	@Test
 	void testVariable_withString() {
 		ExistingAnnotation annotation = new ExistingAnnotation("@SiteMap(author=\"SB\", version=\"1.0.0\", date=\"01/01/2022\")");
-		ClassVariable v = 
+		Variable v = 
 				new ClassVariable
 					.FromString("public static final String PANEL_TITLE = Employee Details")
 					.withAnnotation(annotation).build();
@@ -240,21 +241,19 @@ class FilePojoElementsTests {
 	@Test
 	void testVariable_withInt() {
 		SiteMapAnnotation annotation = new ExistingAnnotation("@SiteMap(author=\"SB\", version=\"1.0.0\", date=\"01/01/2022\")");
-		MethodVariable v = new MethodVariable();
-		v
-			.setAnnotation(annotation)
-			.setModifier("public static final int")
-			.setName("PANEL_TITLE")
-			.setValue("1");
+		Variable v = 
+				new Variable
+					.FromString("public static final int PANEL_TITLE = 1")
+					.withAnnotation(annotation).build();
 		
 		assertEquals(
 				"\t" + ANNOTATION_RESULT + "\n" +
-				"\tpublic static final int PANEL_TITLE = 1", 
+				"\tpublic static final int PANEL_TITLE = 1;", 
 				v.toString());				 	
 	}	
 	@Test
 	void testClassVariable_fromStr_with_final() {
-		ClassVariable v = 
+		Variable v = 
 				new ClassVariable
 					.FromString("public final String MENU_TITLE = \"Employee Details\";")
 					.build();
@@ -263,7 +262,7 @@ class FilePojoElementsTests {
 	}
 	@Test
 	void testClassVariable_fromStr_with_staticFinal() {
-		ClassVariable v = 
+		Variable v = 
 				new ClassVariable
 					.FromString("public static final String MENU_TITLE = \"Employee Details\";")
 					.build();
@@ -272,7 +271,7 @@ class FilePojoElementsTests {
 	}
 	@Test
 	void testClassVariable_fromStr_with_value() {
-		ClassVariable v = 
+		Variable v = 
 				new ClassVariable
 					.FromString("public String MENU_TITLE = \"Employee Details\";")
 					.build();
@@ -281,7 +280,7 @@ class FilePojoElementsTests {
 	}
 	@Test
 	void testClassVariable_fromStr() {
-		ClassVariable v = 
+		Variable v = 
 				new ClassVariable
 					.FromString("public String MENU_TITLE;")
 					.build();
@@ -406,13 +405,13 @@ class FilePojoElementsTests {
 	private ClassBody getTestClassBody() {
 		SiteMapAnnotation annotation = new ExistingAnnotation("@SiteMap(author=\"SB\", version=\"1.0.0\", date=\"01/01/2022\")");
 		
-		ClassVariable v1 = 
+		Variable v1 = 
 				new ClassVariable
 					.FromString("public static final String PANEL_NAME = Employee Details")
 					.build();
 			
 		
-		ClassVariable v2 = 
+		Variable v2 = 
 				new ClassVariable
 					.FromString("private int idx")
 					.build();
@@ -431,10 +430,10 @@ class FilePojoElementsTests {
 			.setBody(methodBody);
 						 	
 		ClassBody classBody = new ClassBody();
-		classBody
-			.addVariable(v1)
-			.addVariable(v2)
-			.addMethod(m);
+//		classBody
+//			.addVariable((ClassVariable) v1)
+//			.addVariable((ClassVariable) v2)
+//			.addMethod(m);
 		
 		return classBody;
 	}
