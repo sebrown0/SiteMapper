@@ -48,7 +48,8 @@ public class ClassBody {
 		
 		protected abstract ClassBody build();
 		public abstract BodyBuilder setVars();
-		public abstract BodyBuilder setConstructor();			
+		public abstract BodyBuilder setConstructor();
+		public abstract BodyBuilder setMethods();			
 	}
 	
 	/** 
@@ -66,45 +67,33 @@ public class ClassBody {
 		public ExistingClassBody(Scanner scanner) {
 			this.scanner = scanner;
 		}
-		
+		@Override
 		public BodyBuilder setVars() {
 			ExistingVariableMapper mapper = new ExistingVariableMapper(scanner);
 			super.vars = mapper.mapVariables();			
 			return this;
 		}
+		@Override
 		public BodyBuilder setConstructor() {
 			ExistingConstructorMapper mapper = 
 					new ExistingConstructorMapper(
-							scanner, new ClassConstructor.ExistingConstructorBuilder(scanner));
+							scanner, new ClassConstructor.ExistingConstructorBuilder());
 			
 			super.cnstr = mapper.mapConstructor();
 			return this;
+		}
+		@Override
+		public BodyBuilder setMethods() {
+			// TODO Auto-generated method stub
+			return null;
 		}
 		
 		@Override
 		public ClassBody build() {
 			return new ClassBody(this);
 		}
+
 		
 	}
 
 }
-//private String insertVariables() {
-//String ret = "";
-//if(variables != null) {
-//for (ClassVariable v : variables) {
-//	ret += String.format("%s\n", v.toString());
-//}
-//}
-//return ret;
-//}
-//
-//private String insertMethods() {
-//String ret = "";
-//if(methods != null) {
-//for (Method m : methods) {
-//	ret += String.format("%s\n", m.toString());
-//}
-//}
-//return ret;
-//}

@@ -12,8 +12,14 @@ import java.util.regex.Pattern;
  * @since 1.0
  */
 public class Modifier {
-	public static final Pattern startsWithModifierPattern = Pattern.compile("^(public |protected | private)");
+	private String modifier;
+	
+	public static final Pattern startsWithModifierPattern = Pattern.compile("^(public |protected |private )");
 	public static final Pattern modifierPattern = Pattern.compile(".*public.*|.*protected.*|.*private.*");
+
+	public Modifier(String modifier) {
+		this.modifier = modifier;
+	}
 	
 	public static boolean startsWithValidModifier(String line) {
 		boolean res = false;
@@ -27,5 +33,14 @@ public class Modifier {
 	}
 	public static boolean isValidModifier(String modifier) {
 		return modifierPattern.matcher(modifier).find();
+	}
+
+	public String getModifier() {
+		return modifier;
+	}
+	
+	@Override
+	public String toString() {
+		return modifier;
 	}
 }

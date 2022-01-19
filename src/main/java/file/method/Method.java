@@ -3,12 +3,10 @@
  */
 package file.method;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import file.annotation.SiteMapAnnotation;
 import file.helpers.Formatter;
 import file.variable.Argument;
+import file.variable.ArgumentList;
 
 /**
  * @author SteveBrown
@@ -23,7 +21,7 @@ public class Method {
 	private String modifier = "public";
 	private String returnType = "void";
 	private String name;
-	private List<Argument> arguments;
+	private ArgumentList arguments = new ArgumentList();
 	private ExistingMethodBody body;
 	
 	public Method setAnnotation(SiteMapAnnotation annotation) {
@@ -42,13 +40,12 @@ public class Method {
 		this.name = name;
 		return this;
 	}
-	public Method setVariables(List<Argument> args) {
+	public Method setVariables(ArgumentList args) {
 		this.arguments = args;
 		return this;
 	}
 	public Method addVariables(Argument arg) {
-		if(arguments == null) { arguments = new ArrayList<>(); }
-		arguments.add(arg);
+		arguments.addArg(arg);
 		return this;
 	}
 	public Method setBody(ExistingMethodBody body) {
@@ -64,7 +61,28 @@ public class Method {
 				Formatter.getValueOf(modifier), 
 				Formatter.getValueOf(returnType), 
 				Formatter.getValueOf(name),
-				Formatter.getAsCommaSeparatedList(arguments),
+				arguments.toString(),
 				body.toString());
-	}		
+	}
+	
+	private abstract static class MethodBuilder {
+		protected SiteMapAnnotation annotation;
+		protected String modifier = "public";
+		protected String returnType = "void";
+		protected String name;
+		protected ArgumentList arguments = new ArgumentList();
+		protected ExistingMethodBody body;
+		
+		protected abstract Method build();
+	}
+	
+	public static class ExistingMethodBuilder extends MethodBuilder {
+
+		@Override
+		protected Method build() {
+			// TODO Auto-generated method stub
+			return null;
+		}
+		
+	}
 }

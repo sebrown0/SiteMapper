@@ -113,7 +113,7 @@ class StageTests {
 		scanner.mapFile();
 		ClassBody body = scanner.getClassFile().getClassBody();
 		ClassConstructor cnstr = body.getCnstr();
-		System.out.println(cnstr.toString()); // TODO - remove or log 	
+//		System.out.println(cnstr.toString()); // TODO - remove or log 	
 		assertEquals(
 			"\t@SiteMap(author=\"SteveBrown\", version=\"1.0.0\", date=\"07/01/2022\")\n" +
 			"\tpublic EmployeeDetails(CoreData coreData){\n" +

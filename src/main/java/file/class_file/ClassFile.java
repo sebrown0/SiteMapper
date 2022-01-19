@@ -97,26 +97,7 @@ public class ClassFile {
 		protected ClassBody classBody;
 		
 		public abstract ClassFile build();
-
-//		public void setInPackage(ClassPackage inPackage) {
-//			this.inPackage = inPackage;
-//		}
-//
-//		public void setImports(ImportList imports) {
-//			this.imports = imports;
-//		}
-//
-//		public void setComment(Comment comment) {
-//			this.comment = comment;
-//		}
-//
-//		public void setDeclaration(ClassDeclaration declaration) {
-//			this.declaration = declaration;
-//		}
-//
-//		public void setClassBody(ClassBody classBody) {
-//			this.classBody = classBody;
-//		}			
+	
 	}
 	
 	public static class ExistingClassFileBuilder extends ClassBuilder {

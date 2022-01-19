@@ -3,14 +3,12 @@
  */
 package file.class_file.constructor;
 
-import java.util.Scanner;
-
 import file.annotation.ExistingAnnotation;
 import file.annotation.SiteMapAnnotation;
 import file.helpers.Formatter;
 import file.helpers.Lines;
+import file.method.MethodDeclarationMapper;
 import file.variable.ArgumentList;
-import file.variable.Variables;
 
 /**
  * @author SteveBrown
@@ -87,11 +85,6 @@ public class ClassConstructor {
 	 * @since 1.0
 	 */
 	public static class ExistingConstructorBuilder extends ConstructorBuilder {
-		private Scanner scanner;	
-		
-		public ExistingConstructorBuilder(Scanner scanner) {
-			this.scanner = scanner;
-		}
 		
 		@Override
 		public ExistingConstructorBuilder withAnnotation(String annoStr) {
@@ -100,30 +93,17 @@ public class ClassConstructor {
 			}
 			return this;
 		}
-		public ExistingConstructorBuilder withConstructorStr(String cnstrStr) {
-			if(cnstrStr != null) {
-				int currentStart = cnstrStr.indexOf("p");
-				int currentEnd = cnstrStr.indexOf(" ");
-				super.modifier = cnstrStr.substring(currentStart, currentEnd);
-				currentStart = currentEnd + 1;
-				currentEnd = cnstrStr.indexOf("(", currentStart);
-				super.className = cnstrStr.substring(currentStart, currentEnd);
-				currentStart = currentEnd + 1;
-				currentEnd = cnstrStr.indexOf(")", currentStart);
-				
-				
-				String argStr = cnstrStr.substring(currentStart, currentEnd);
-				ArgumentList args = new ArgumentList();
-				args.createArgList(argStr);
-				super.argList = args;
-//				System.out.println(cnstrStr.substring(currentStart, currentEnd)); // TODO - remove or log 	
-			}
+
+		public ExistingConstructorBuilder withConstructorDeclaration(String cnstrStr) {
+			MethodDeclarationMapper mapper = new MethodDeclarationMapper();
+			mapper.mapDeclaration(cnstrStr);
+			super.modifier = mapper.getModifier().toString();
+			super.className = mapper.getName();
+			super.argList = mapper.getArgs();
+
 			return this;
 		}
-//		public ExistingConstructorBuilder addLine(String line) {
-//			super.lines.addLine(line);			
-//			return this;
-//		}
+		
 		@Override
 		protected ClassConstructor build() {
 			return new ClassConstructor(this);
