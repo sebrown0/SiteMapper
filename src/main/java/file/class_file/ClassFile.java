@@ -31,7 +31,7 @@ public class ClassFile {
 	private final ClassDeclaration declaration;
 	private final ClassBody classBody;
 
-	private ClassFile(Builder builder) {
+	private ClassFile(ClassBuilder builder) {
 		this.inPackage = builder.inPackage;
 		this.imports = builder.imports;
 		this.comment = builder.comment;
@@ -81,7 +81,7 @@ public class ClassFile {
 		return classBody;
 	}
 		
-	public abstract static class Builder {
+	public abstract static class ClassBuilder {
 		protected ClassPackage inPackage;
 		protected ImportList imports;
 		protected Comment comment;
@@ -111,7 +111,7 @@ public class ClassFile {
 		}			
 	}
 	
-	public static class ExistingClassFileBuilder extends Builder {
+	public static class ExistingClassFileBuilder extends ClassBuilder {
 		
 		public ExistingClassFileBuilder() {}
 		
@@ -135,7 +135,7 @@ public class ClassFile {
 		}
 	}
 	
-	public static class NewClassFileBuilder extends Builder {
+	public static class NewClassFileBuilder extends ClassBuilder {
 		private ComponentWriter componentWriter;
 		private ElementClass clazz;
 		private SiteMapInfo info;

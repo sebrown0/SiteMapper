@@ -3,11 +3,6 @@
  */
 package file.class_file;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import file.method.Method;
-import file.variable.ClassVariable;
 import file.variable.Variables;
 
 /**
@@ -22,25 +17,35 @@ import file.variable.Variables;
  */
 public class ClassBody {
 	private Variables vars;
-//	private List<ClassVariable> variables = new ArrayList<>();
-//	private List<Method> methods = new ArrayList<>();
-	
-//	public ClassBody addVariable(ClassVariable v) {
-//		variables.add(v);
-//		return this;
-//	}
-//	
-//	public ClassBody addMethod(Method m) {
-//		methods.add(m);
-//		return this;
-//	}
 
+	private ClassBody(BodyBuilder b) {
+		this.vars = b.vars;
+	}
+	
 	@Override
 	public String toString() {
 		return null;
 //		return insertVariables() + "\n" + insertMethods();
 	}
 	
+	public abstract static class BodyBuilder {
+		private Variables vars;
+		
+		protected abstract ClassBody build();
+
+		public void setVars(Variables vars) {
+			this.vars = vars;
+		}
+	}
+	
+	public static class ExistingClassBody extends BodyBuilder {
+
+		@Override
+		public ClassBody build() {
+			return new ClassBody(this);
+		}
+		
+	}
 //	private String insertVariables() {
 //		String ret = "";
 //		if(variables != null) {
@@ -60,4 +65,8 @@ public class ClassBody {
 //		}
 //		return ret;
 //	}
+
+	public Variables getVars() {
+		return vars;
+	}
 }

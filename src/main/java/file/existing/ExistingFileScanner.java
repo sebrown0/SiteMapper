@@ -5,7 +5,6 @@ package file.existing;
 
 import java.io.FileNotFoundException;
 import java.io.FileReader;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.Scanner;
@@ -14,6 +13,7 @@ import java.util.regex.Pattern;
 
 import file.annotation.ExistingAnnotation;
 import file.class_file.ClassBody;
+import file.class_file.ClassBody.ExistingClassBody;
 import file.class_file.ClassDeclaration;
 import file.class_file.ClassFile;
 import file.class_file.ClassFile.ExistingClassFileBuilder;
@@ -33,10 +33,8 @@ import file.variable.Variables;
 public class ExistingFileScanner {
 	private FileReader reader;
 	private Scanner scanner;	
-	private ExistingClassFileBuilder builder = new ClassFile.ExistingClassFileBuilder();
-	
-	private ClassBody classBody = new ClassBody();
-	
+	private ExistingClassFileBuilder classBuilder = new ClassFile.ExistingClassFileBuilder();
+		
 	Pattern modifierPattern = Pattern.compile(".*public.*|.*protected.*|.*private.*");
 	Pattern annotationPattern = Pattern.compile(".*@SiteMap.*");
 	
@@ -48,7 +46,7 @@ public class ExistingFileScanner {
 	private Predicate<String> variableTest = s -> (modifierPattern.matcher(s).find());
 	
 	public ClassFile getClassFile() {
-		return builder.build();
+		return classBuilder.build();
 	}
 		
 	public boolean setScanner(String filePath) {
@@ -73,7 +71,8 @@ public class ExistingFileScanner {
 			mapImports();
 			mapComment();
 			mapDeclaration();
-			mapVariables();
+			mapBody();
+//			mapVariables();
 			
 			scanner.close();
 		}		
@@ -81,56 +80,66 @@ public class ExistingFileScanner {
 		
 	private void mapPackage() {
 		findByFirstWord(packageTest)
-			.ifPresent(p -> builder.setInPackage(new ExistingClassPackage(p)));		
+			.ifPresent(p -> classBuilder.setInPackage(new ExistingClassPackage(p)));		
 	}
 	public void mapImports() {
 		ImportList imports = new ImportList();
 		mapLineToList(imports.getImports(), importTest);
-		builder.setImports(imports);
+		classBuilder.setImports(imports);
 	}
 	public void mapComment() {
 		ExistingComment comment = new ExistingComment();		
 		mapLineToList(comment.getLines(), commentTest);
-		builder.setComment(comment);
+		classBuilder.setComment(comment);
 	}
 	private void mapDeclaration() {
 		findByFirstWord(declarationTest).ifPresent(d -> {
-			builder.setDeclaration(
+			classBuilder.setDeclaration(
 					new ClassDeclaration.ExistingDeclaration().setDeclarationString(d).build()
 			);
 		});		
 	}
-	public void mapVariables() {
-//		List<String> classVariables;
-//		classVariables = new ArrayList<>();
-		
-		Variables clazzVars = new Variables();
-		
+	private void mapBody() {
+		ExistingClassBody bodyBuilder = new ClassBody.ExistingClassBody();
+		bodyBuilder.setVars(mapVariables());		 
+		//others...
+		classBuilder.setClassBody(bodyBuilder.build());
+	}
+	private Variables mapVariables() {		
+		Variables clazzVars = new Variables();		
 		String line;		
 		boolean end = false;
-		ClassVariable variable;
+//		ClassVariable variable;
 		
 		while(!end && scanner.hasNext()) {
 			line = scanner.nextLine();
 			if(line.length() > 0) {
-				Builder builder = new ClassVariable.FromString(line);
+				Optional<Builder> builder = Optional.ofNullable(null);
 				
 				if(annotationTest.test(line)) {
 					ExistingAnnotation anno = new ExistingAnnotation(line);
-					builder.withAnnotation(anno);					
+					line = scanner.nextLine();
+					if(variableTest.test(line)) {
+						builder = Optional.of(new ClassVariable.FromString(line).withAnnotation(anno));	
+					}
+					
 				}else if(variableTest.test(line)) {
-					// TODO
+					builder = Optional.of(new ClassVariable.FromString(line));
 				}else {
 					end = true;
 				}
-				variable = (ClassVariable) builder.build();
-				clazzVars.addLine(variable);
+				
+				builder.ifPresent(b -> {
+					clazzVars.addLine((ClassVariable) b.build());	
+				});
+				
 				
 //				classVariables.add(variable.toString()); //TODO
 			}else {
 				end = true;
 			}
-		}		
+		}
+		return clazzVars;		
 	}
 
 	private Optional<String> findByFirstWord(Predicate<String> p) {

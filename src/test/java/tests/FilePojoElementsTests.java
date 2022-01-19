@@ -30,7 +30,6 @@ import file.method.ExistingMethodBody;
 import file.method.Method;
 import file.variable.Argument;
 import file.variable.ClassVariable;
-import file.variable.MethodVariable;
 import file.variable.Variable;
 import site_mapper.creators.ComponentWriter;
 import site_mapper.creators.ComponentWriterJsPanelWithIFrame;
@@ -429,7 +428,10 @@ class FilePojoElementsTests {
 			.addVariables(new Argument("Integer", "idx"))
 			.setBody(methodBody);
 						 	
-		ClassBody classBody = new ClassBody();
+		/*
+		 * MAY NOT BE WORKING
+		 */
+		ClassBody classBody = new ClassBody.ExistingClassBody().build();
 //		classBody
 //			.addVariable((ClassVariable) v1)
 //			.addVariable((ClassVariable) v2)

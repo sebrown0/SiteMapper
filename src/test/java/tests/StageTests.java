@@ -11,6 +11,7 @@ import java.util.regex.Pattern;
 
 import org.junit.jupiter.api.Test;
 
+import file.class_file.ClassBody;
 import file.class_file.ClassFile;
 import file.existing.ExistingFileScanner;
 import file.stage.InitialStage;
@@ -84,6 +85,16 @@ class StageTests {
 		ClassFile clazz = scanner.getClassFile();
 		
 		assertEquals("public class EmployeeDetails extends JsPanelWithIFrame {", clazz.getDeclarationStr());
+	}
+	
+	@Test
+	void classBody() {
+		ExistingFileScanner scanner = new ExistingFileScanner();
+		scanner.setScanner(TEST_CLASS_PATH);
+		scanner.mapFile();
+		ClassBody body = scanner.getClassFile().getClassBody();
+		
+		assertEquals(3, body.getVars().getLines().size());
 	}
 	
 	@Test
