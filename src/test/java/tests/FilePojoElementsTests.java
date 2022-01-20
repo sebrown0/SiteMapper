@@ -6,7 +6,6 @@ package tests;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 import org.junit.jupiter.api.Test;
@@ -17,7 +16,6 @@ import file.annotation.SiteMapAnnotation;
 import file.class_file.ClassBody;
 import file.class_file.ClassDeclaration;
 import file.class_file.ClassFile;
-import file.class_file.ClassFile.NewClassFileBuilder;
 import file.class_package.ExistingClassPackage;
 import file.class_package.NewClassPackage;
 import file.comment.ExistingComment;
@@ -32,13 +30,9 @@ import file.variable.ArgumentList;
 import file.variable.ClassVariable;
 import file.variable.Variable;
 import helpers.TestClassBodyBuilder;
+import helpers.TestClassFileBuilder;
 import site_mapper.creators.ComponentWriter;
 import site_mapper.creators.ComponentWriterJsPanelWithIFrame;
-import site_mapper.elements.Element;
-import site_mapper.elements.ElementClass;
-import site_mapper.jaxb.menu_items.JsPanelWithIFrame;
-import site_mapper.jaxb.menu_items.MenuItem;
-import site_mapper.jaxb.menu_items.MenuItemType;
 import site_mapper.jaxb.pom.SiteMapInfo;
 
 /**
@@ -61,31 +55,31 @@ class FilePojoElementsTests {
 			"* Created: 07/01/2022 08:53:56\n" +
 			"*/\n";
 	
-	private static final Element e1 = 
-			new Element()
-				.setName("save")
-				.setType("button")
-				.setText("Save")
-				.setFafa("fa fa-save");
+//	private static final Element e1 = 
+//			new Element()
+//				.setName("save")
+//				.setType("button")
+//				.setText("Save")
+//				.setFafa("fa fa-save");
+//	
+//	private static final Element e2 = 
+//			new Element()
+//				.setName("search")
+//				.setType("button")
+//				.setText("Search")
+//				.setFafa("fa fa-search");
 	
-	private static final Element e2 = 
-			new Element()
-				.setName("search")
-				.setType("button")
-				.setText("Search")
-				.setFafa("fa fa-search");
+//	private static final SiteMapInfo info = 
+//			new SiteMapInfo().setAuthor("SteveBrown").setVersion("1.0.0").setXmlSource("c:\\src");
 	
-	private static final SiteMapInfo info = 
-			new SiteMapInfo().setAuthor("SteveBrown").setVersion("1.0.0").setXmlSource("c:\\src");
-	
-	private static final ElementClass menuItem = 
-			new MenuItem()
-				.setSiteMapInfo(info)
-				.setName("EmployeeDetails")
-				.setClassName("EmployeeDetails")
-				.setPackageName("a.payroll.Left.employees;")
-				.setMenuItemType(new MenuItemType().setAttributes(new JsPanelWithIFrame()))
-				.setElements(Arrays.asList(e1,e2));
+//	private static final ElementClass menuItem = 
+//			new MenuItem()
+//				.setSiteMapInfo(info)
+//				.setName("EmployeeDetails")
+//				.setClassName("EmployeeDetails")
+//				.setPackageName("a.payroll.Left.employees;")
+//				.setMenuItemType(new MenuItemType().setAttributes(new JsPanelWithIFrame()))
+//				.setElements(Arrays.asList(e1,e2));
 		
 	@Test
 	void existing_package() {
@@ -384,97 +378,49 @@ class FilePojoElementsTests {
 				+ "\t}", body.toString());
 	}
 	
-//	@Test
-//	void existing_classFile() {
-//		ExistingComment comment = 
-//			(ExistingComment) new ExistingComment()
-//				.addLine("/**")
-//				.addLine("* Generated Class.")
-//				.addLine("* ----------------")
-//				.addLine("* Source:  C:/site_map.xml")
-//				.addLine("* Author:  SteveBrown")
-//				.addLine("* Version: 1.0.0")
-//				.addLine("* Created: 07/01/2022 08:53:56")
-//				.addLine("*/");
-//		
-//		List<Import> imprtList = new ArrayList<>();
-//		imprtList.add(new ExistingImport("import java.util.List;"));
-//		imprtList.add(new ExistingImport("import control_builder.*;"));
-//		
-//		ImportList imports = new ImportList(imprtList);
-////		ExistingImport imprt = 
-////				(ExistingImport) new ExistingImport().addLine("import java.util.List;").addLine("import control_builder.*;");
-//		
-//		ClassFile clazz = 
-//				new ClassFile
-//					.ExistingClassFileBuilder(
-//						new ExistingClassPackage("package a.payroll.Left.employees;"), 
-//						imports, 
-//						comment, 
-//						new ClassDeclaration("public", "EmployeeDetails").addExtended("JsPanelWithIFrame"), 
-//						getTestClassBody())
-//					.build();
-//				
-////		System.out.println(clazz.toString()); // TODO - remove or log 	
-//		assertEquals(
-//			"package a.payroll.Left.employees;\n\n" +
-//			"import java.util.List;\nimport control_builder.*;\n\n" +
-//			COMMENT_RESULT +
-//			"public class EmployeeDetails extends JsPanelWithIFrame {\n" +
-//			"\t" + ANNOTATION_RESULT + "\n" +
-//			"\tpublic static final String PANEL_NAME = \"Employee Details\";\n" +
-//			"\tprivate int idx;\n\n" +
-//			"\t" + ANNOTATION_RESULT + "\n" +
-//			"\tprivate String aMethod(String str, Integer idx){\n" +
-//			"\t\tLine1\n\t\tLine2\n\t}\n" +
-//			"\n}"
-//			,
-//			clazz.toString());
-//		
-//	}
-	
-//	private ClassBody getTestClassBody() {
-//		SiteMapAnnotation annotation = new ExistingAnnotation("@SiteMap(author=\"SB\", version=\"1.0.0\", date=\"01/01/2022\")", 1);
-//		
-//		Variable v1 = 
-//				new ClassVariable
-//					.ClassVarFromString("public static final String PANEL_NAME = Employee Details")
-//					.build();
-//			
-//		
-//		Variable v2 = 
-//				new ClassVariable
-//					.ClassVarFromString("private int idx")
-//					.build();
-//		
-//		ExistingMethodBody methodBody = new ExistingMethodBody();
-//		methodBody.addLine("Line1").addLine("Line2");
-//		
-//		Method m = new Method.ExistingMethodBuilder(1)
-//				.withAnnotation("@SiteMap(author=\"SB\", version=\"1.0.0\", date=\"01/01/2022\")")
-//				.withDeclarationStr("private String aMethod(String str, Integer idx")
-//				.build();
-//		
-//						 	
-//		/*
-//		 * MAY NOT BE WORKING
-//		 */
-//		ClassBody classBody = new ClassBody.ExistingClassBody(null).build();
-////		classBody
-////			.addVariable((ClassVariable) v1)
-////			.addVariable((ClassVariable) v2)
-////			.addMethod(m);
-//		
-//		return classBody;
-//	}
-	
+	@Test
+	void classFile_fromTestClassFileBuilder() {
+		ClassFile clazzFile = new TestClassFileBuilder().build();
+
+		assertEquals(
+				"package a.payroll.Left.employees;\n"
+				+ "\n"
+				+ "import java.util.List;\n"
+				+ "import control_builder.*;\n"
+				+ "\n"
+				+ "/**\n"
+				+ "* Generated Class.\n"
+				+ "* ----------------\n"
+				+ "* Source:  C:/site_map.xml\n"
+				+ "* Author:  SteveBrown\n"
+				+ "* Version: 1.0.0\n"
+				+ "* Created: 07/01/2022 08:53:56\n"
+				+ "*/\n"
+				+ "public class EmployeeDetails extends JsPanelWithIFrame {\n"
+				+ "\t@SiteMap(author=\"SB\", version=\"1.0.0\", date=\"01/01/2022\")\n"
+				+ "\tpublic static final int PANEL_TITLE = 1;\n"
+				+ "\tpublic static final String MENU_TITLE = \"Employee Details\";\n"
+				+ "\n"
+				+ "\t@SiteMap(author=\"SB\", version=\"1.0.0\", date=\"01/01/2022\")\n"
+				+ "\tpublic EmployeeDetails(CoreData coreData){\n"
+				+ "\t}\n"
+				+ "\n"
+				+ "\t@SiteMap(author=\"SB\", version=\"1.0.0\", date=\"01/01/2022\")\n"
+				+ "\tprivate String aMethod(String str, Integer idx){\n"
+				+ "\t\tLine1\n"
+				+ "\t\tLine2\n"
+				+ "\t}\n"
+				+ "}", 
+				clazzFile.toString());
+	}
+		
 	@Test
 	void newClassFileBuilder() {
 		
-		NewClassFileBuilder builder = 
-				new ClassFile.NewClassFileBuilder(menuItem);
-		
-		ClassFile classFile = builder.build();
+//		NewClassFileBuilder builder = 
+//				new ClassFile.NewClassFileBuilder(menuItem);
+//		
+//		ClassFile classFile = builder.build();
 		
 //		System.out.println(classFile.toString()); // TODO - remove or log 	
 	}

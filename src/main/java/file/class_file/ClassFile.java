@@ -39,7 +39,7 @@ public class ClassFile {
 	private final ClassDeclaration declaration;
 	private final ClassBody classBody;
 
-	private ClassFile(ClassBuilder builder) {
+	public ClassFile(ClassBuilder builder) {
 		this.inPackage = builder.inPackage;
 		this.imports = builder.imports;
 		this.comment = builder.comment;
@@ -50,7 +50,7 @@ public class ClassFile {
 	@Override 
 	public String toString() {
 		return String.format(
-				"%s\n\n%s\n\n%s\n%s\n%s\n}", 
+				"%s\n\n%s\n%s%s\n%s\n}", 
 				getPackageStr(), 
 				getImportStr(), 
 				getCommentStr(), 
@@ -96,7 +96,12 @@ public class ClassFile {
 		protected ClassDeclaration declaration;
 		protected ClassBody classBody;
 		
-		public abstract ClassFile build();
+		protected abstract void setInPackage();
+		protected abstract void setImports();
+		protected abstract void setComment();
+		protected abstract void setDeclaration();
+		
+		protected abstract ClassFile build();
 	
 	}
 	
@@ -106,37 +111,36 @@ public class ClassFile {
 		public ExistingClassFileBuilder(Scanner scanner) {
 			this.scanner = scanner;
 		}
-
+		@Override
 		public void setInPackage() {
 			LineMapper
 				.findByFirstWord(scanner, packageTest)
 				.ifPresent(p -> 
 					super.inPackage = new ExistingClassPackage(p));			
 		}
-
+		@Override
 		public void setImports() {
 			ImportList imports = new ImportList();
 			LineMapper.mapLineToList(scanner, imports.getImports(), importTest);
 			super.imports = imports;
 		}
-
+		@Override
 		public void setComment() {
 			ExistingComment comment = new ExistingComment();		
 			LineMapper.mapLineToList(scanner, comment.getLines(), commentTest);
 			this.comment = comment;
 		}
-
+		@Override
 		public void setDeclaration() {
 			LineMapper.findByFirstWord(scanner, declarationTest).ifPresent(d -> {
 				super.declaration =	
 						new ClassDeclaration.ExistingDeclaration().setDeclarationString(d).build();				
 			});			
 		}
-
+		
 		public void setClassBody(ClassBody classBody) {
 			this.classBody = classBody;
 		}		
-
 		@Override
 		public ClassFile build() {
 			return new ClassFile(this);
@@ -160,19 +164,20 @@ public class ClassFile {
 			setClassBody();
 		}
 		
-		private void setInPackage() {
+		@Override
+		protected void setInPackage() {
 			super.inPackage = new NewClassPackage(clazz.getPackage());
 		}
-
-		private void setImports() {
+		@Override
+		protected void setImports() {
 			super.imports = new ImportList(componentWriter.getImportNames()); 
 		}
-
-		private void setComment() {
+		@Override
+		protected void setComment() {
 			super.comment = new NewComment(info);
 		}
-
-		private void setDeclaration() {
+		@Override
+		protected void setDeclaration() {
 			super.declaration = 
 				new ClassDeclaration
 					.NewDeclaration()
