@@ -28,6 +28,7 @@ import file.imports.Import;
 import file.imports.ImportList;
 import file.method.ExistingMethodBody;
 import file.method.Method;
+import file.method.MethodList;
 import file.variable.Argument;
 import file.variable.ArgumentList;
 import file.variable.ClassVariable;
@@ -307,7 +308,20 @@ class FilePojoElementsTests {
 		
 		assertEquals("String str, CoreData cd", args.toString());
 	}
-	
+	@Test
+	void listOfArguments_nullArgs() {
+		ArgumentList args = new ArgumentList();
+		args.createArgList(null);
+		
+		assertEquals("", args.toString());
+	}
+	@Test
+	void listOfArguments_noArgs() {
+		ArgumentList args = new ArgumentList();
+		args.createArgList("");
+		
+		assertEquals("", args.toString());
+	}
 	@Test
 	void methodBody() {
 		ExistingMethodBody body = new ExistingMethodBody();
@@ -347,7 +361,36 @@ class FilePojoElementsTests {
 				"\n\t}", 
 				m.toString());				 	
 	}	
-	
+	@Test
+	void testMethodList() {
+		Method m1 = new Method.ExistingMethodBuilder()
+				.withAnnotation("@SiteMap(author=\"SB\", version=\"1.0.0\", date=\"01/01/2022\")")
+				.withDeclarationStr("private String aMethodOne(String str, Integer idx)")
+				.addLine("Line1")
+				.addLine("Line2")
+				.build();
+		Method m2 = new Method.ExistingMethodBuilder()
+				.withAnnotation("@SiteMap(author=\"SB\", version=\"1.0.0\", date=\"01/01/2022\")")
+				.withDeclarationStr("private String aMethodTwo(boolean b, Integer idx)")
+				.addLine("Line1")
+				.addLine("Line2")
+				.build();		
+		MethodList ml = new MethodList();
+		ml.addMethod(m1).addMethod(m2);
+		System.out.println(	ml.toString());
+		assertEquals(
+				"\t@SiteMap(author=\"SB\", version=\"1.0.0\", date=\"01/01/2022\")\n" +
+				"\tprivate String aMethodOne(String str, Integer idx){\n" +
+				"\t\tLine1\n" +
+				"\t\tLine2\n" +
+				"\t}\n" +
+				"\t@SiteMap(author=\"SB\", version=\"1.0.0\", date=\"01/01/2022\")\n" +
+				"\tprivate String aMethodTwo(boolean b, Integer idx){\n" +
+				"\t\tLine1\n" +
+				"\t\tLine2\n" +
+				"\t}", 
+				String.valueOf(ml.toString()));
+	}
 	@Test
 	void testClassBody() {		 	
 		assertEquals(

@@ -66,6 +66,9 @@ public class Formatter {
 		return (value != null) ? " = " + value : "";
 	}
 	
+	public static <T> String getValueOf(T value) {
+		return (value != null) ? value.toString() : "";
+	}
 	public static String getValueOf(String value) {
 		return (value != null) ? value : "";
 	}

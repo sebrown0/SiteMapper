@@ -42,10 +42,10 @@ public class Lines <T> {
 	
 	@Override
 	public String toString() {
-		String res = "";
+		String res = "";		
 		for (T t : lines) {
 			res += indentLevel + t.toString() + "\n";
 		}
-		return res;
+		return res.substring(0, res.length()-1); //Remove last new line.
 	}
 }

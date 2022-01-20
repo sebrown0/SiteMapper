@@ -32,34 +32,6 @@ public class Method {
 		this.arguments = b.arguments;
 		this.body = b.body;
 	}
-//	public Method setAnnotation(SiteMapAnnotation annotation) {
-//		this.annotation = annotation;
-//		return this;
-//	}
-//	public Method setModifier(String modifier) {
-//		this.modifier = modifier;
-//		return this;
-//	}
-//	public Method setReturnType(String returnType) {
-//		this.returnType = returnType;
-//		return this;
-//	}
-//	public Method setName(String name) {
-//		this.name = name;
-//		return this;
-//	}
-//	public Method setVariables(ArgumentList args) {
-//		this.arguments = args;
-//		return this;
-//	}
-//	public Method addVariables(Argument arg) {
-//		arguments.addArg(arg);
-//		return this;
-//	}
-//	public Method setBody(ExistingMethodBody body) {
-//		this.body = body;
-//		return this;
-//	}
 	
 	@Override
 	public String toString() {
@@ -69,8 +41,9 @@ public class Method {
 				Formatter.getValueOf(modifier), 
 				Formatter.getValueOf(returnType), 
 				Formatter.getValueOf(name),
-				arguments.toString(),
-				body.toString());
+				Formatter.getValueOf(arguments),
+				Formatter.getValueOf(body)
+		);
 	}
 	
 	/*

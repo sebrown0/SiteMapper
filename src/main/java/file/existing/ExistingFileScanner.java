@@ -81,7 +81,8 @@ public class ExistingFileScanner {
 		ExistingClassBody bodyBuilder = new ClassBody.ExistingClassBody(scanner);
 		bodyBuilder
 			.setVars()
-			.setConstructor();		 
+			.setConstructor()
+			.setMethods();		 
 	 
 		//others...
 		classBuilder.setClassBody(bodyBuilder.build());

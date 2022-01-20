@@ -40,11 +40,11 @@ public class EmployeeDetails extends JsPanelWithIFrame {
 			);
 		super.buildPanelControls(myControls);
 	}
-
+	
 	private String aMethodNotFromSiteMapper(int idx){
 		String aStr = "";
 		//do some stuff...
-
+		
 		return aStr;
 	}
 	

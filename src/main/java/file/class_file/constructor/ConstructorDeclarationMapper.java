@@ -46,9 +46,11 @@ public class ConstructorDeclarationMapper implements DeclarationMapper {
 		currentStart = currentEnd + 1;
 		currentEnd = cnstrStr.indexOf(")", currentStart);			
 		
-		String argStr = getSubStr(cnstrStr,currentStart, currentEnd);
-		args = new ArgumentList();
-		args.createArgList(argStr);		
+		if((currentEnd - currentStart) >= 3){
+			String argStr = getSubStr(cnstrStr,currentStart, currentEnd);
+			args = new ArgumentList();
+			args.createArgList(argStr);
+		}
 	}
 
 	protected String getSubStr(String str, int s, int e) {

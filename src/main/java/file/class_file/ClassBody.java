@@ -7,6 +7,8 @@ import java.util.Scanner;
 
 import file.class_file.constructor.ClassConstructor;
 import file.class_file.constructor.ExistingConstructorMapper;
+import file.method.ExistingMethodMapper;
+import file.method.MethodList;
 import file.variable.ExistingVariableMapper;
 import file.variable.Variables;
 
@@ -23,10 +25,12 @@ import file.variable.Variables;
 public class ClassBody {
 	private Variables vars;
 	private ClassConstructor cnstr;
+	private MethodList methods;
 	
 	private ClassBody(BodyBuilder b) {
 		this.vars = b.vars;
 		this.cnstr = b.cnstr;
+		this.methods = b.methods;
 	}
 	
 	public Variables getVars() {
@@ -34,6 +38,9 @@ public class ClassBody {
 	}
 	public ClassConstructor getCnstr() {
 		return cnstr;
+	}
+	public MethodList getMethods() {
+		return methods;
 	}
 	
 	@Override
@@ -45,6 +52,7 @@ public class ClassBody {
 	public abstract static class BodyBuilder {
 		private Variables vars;
 		private ClassConstructor cnstr;
+		private MethodList methods;
 		
 		protected abstract ClassBody build();
 		public abstract BodyBuilder setVars();
@@ -84,8 +92,9 @@ public class ClassBody {
 		}
 		@Override
 		public BodyBuilder setMethods() {
-			// TODO Auto-generated method stub
-			return null;
+			ExistingMethodMapper mapper = new ExistingMethodMapper(scanner);
+			super.methods = mapper.mapMethods();
+			return this;
 		}
 		
 		@Override

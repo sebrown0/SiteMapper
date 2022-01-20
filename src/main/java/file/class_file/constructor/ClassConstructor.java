@@ -95,9 +95,6 @@ public class ClassConstructor {
 		protected ClassConstructor build() {
 			return new ClassConstructor(this);
 		}
-
-
 	}
-
 	
 }
