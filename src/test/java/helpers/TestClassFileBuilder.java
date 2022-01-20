@@ -13,7 +13,6 @@ import file.class_package.ExistingClassPackage;
 import file.comment.ExistingComment;
 import file.imports.ExistingImport;
 import file.imports.ImportList;
-import file.imports.NewImport;
 
 /**
  * @author SteveBrown

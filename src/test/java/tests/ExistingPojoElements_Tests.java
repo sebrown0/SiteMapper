@@ -40,8 +40,17 @@ import site_mapper.jaxb.pom.SiteMapInfo;
  * @version 1.0
  * 	Initial
  * @since 1.0
+ * 
+ * Tests for all elements that make up an 
+ * Existing Class File.
+ * 
+ * The overall object is built from ExistingClassFileBuilder.
+ * Objects that make up the ClassFile are built similarly.
+ * 
+ * There are two helper classes:
+ * 	TestClassFileBuilder/TestClassBodyBuilder
  */
-class FilePojoElementsTests {
+class ExistingPojoElements_Tests {
 	private static final String ANNOTATION_RESULT = 
 			"@SiteMap(author=\"SB\", version=\"1.0.0\", date=\"01/01/2022\")";
 	
