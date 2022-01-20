@@ -9,7 +9,7 @@ import file.class_file.constructor.ClassConstructor;
 import file.class_file.constructor.ExistingConstructorMapper;
 import file.method.ExistingMethodMapper;
 import file.method.MethodList;
-import file.variable.ExistingVariableMapper;
+import file.variable.ExistingClassVariableMapper;
 import file.variable.Variables;
 
 /**
@@ -23,11 +23,11 @@ import file.variable.Variables;
  * 
  */
 public class ClassBody {
-	private Variables vars;
-	private ClassConstructor cnstr;
-	private MethodList methods;
+	private final Variables vars;
+	private final ClassConstructor cnstr;
+	private final MethodList methods;
 	
-	private ClassBody(BodyBuilder b) {
+	public ClassBody(BodyBuilder b) {
 		this.vars = b.vars;
 		this.cnstr = b.cnstr;
 		this.methods = b.methods;
@@ -45,14 +45,17 @@ public class ClassBody {
 	
 	@Override
 	public String toString() {
-		return null;
-//		return insertVariables() + "\n" + insertMethods();
+		return String.format(
+				"%s\n%s\n\n%s", 
+				vars.toString(),
+				cnstr.toString(),
+				methods.toString());
 	}
 	
 	public abstract static class BodyBuilder {
-		private Variables vars;
-		private ClassConstructor cnstr;
-		private MethodList methods;
+		protected Variables vars;
+		protected ClassConstructor cnstr;
+		protected MethodList methods;
 		
 		protected abstract ClassBody build();
 		public abstract BodyBuilder setVars();
@@ -77,7 +80,7 @@ public class ClassBody {
 		}
 		@Override
 		public BodyBuilder setVars() {
-			ExistingVariableMapper mapper = new ExistingVariableMapper(scanner);
+			ExistingClassVariableMapper mapper = new ExistingClassVariableMapper(scanner);
 			super.vars = mapper.mapVariables();			
 			return this;
 		}
@@ -92,7 +95,7 @@ public class ClassBody {
 		}
 		@Override
 		public BodyBuilder setMethods() {
-			ExistingMethodMapper mapper = new ExistingMethodMapper(scanner);
+			ExistingMethodMapper mapper = new ExistingMethodMapper(scanner, 1);
 			super.methods = mapper.mapMethods();
 			return this;
 		}

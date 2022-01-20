@@ -45,22 +45,22 @@ public class ComponentWriterJsPanelWithIFrame implements ComponentWriterVisitor{
 	}
 	@Override //ComponentWriter
 	public List<Variable> getClassVariables() {
-		SiteMapAnnotation annotation = new NewAnnotation(siteMapInfo);
+		SiteMapAnnotation annotation = new NewAnnotation(siteMapInfo, 1);
 /*
  * WHERE ARE WE USING THIS????????????????????????????????????????????????????????????????
  */
 		return 
 			Arrays.asList(  
 				new ClassVariable
-					.FromString("public static final String PANEL_TITLE = \"Employee Details\";")
+					.ClassVarFromString("public static final String PANEL_TITLE = \"Employee Details\";")
 					.withAnnotation(annotation)
 					.build(),
 				new ClassVariable
-					.FromString("public static final String MENU_TITLE = \"Employee Details\";")
+					.ClassVarFromString("public static final String MENU_TITLE = \"Employee Details\";")
 					.withAnnotation(annotation)
 					.build(),
 				new ClassVariable
-					.FromString("public static final String MENU_PARENT_NAME = \"Employees\";")
+					.ClassVarFromString("public static final String MENU_PARENT_NAME = \"Employees\";")
 					.withAnnotation(annotation)
 					.build()
 			);		

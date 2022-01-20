@@ -20,22 +20,22 @@ public class ExistingMethodMapper {
 	private Scanner scanner;
 	private MethodList methods = new MethodList();
 	private int openBraces;
+	private int indent;
 	
-	public ExistingMethodMapper(Scanner scanner) {
+	public ExistingMethodMapper(Scanner scanner, int indent) {
 		this.scanner = scanner;
+		this.indent = indent;
 	}
 	
 	public MethodList mapMethods() {
 		while(scanner.hasNext()) {
-//			skipBlanks();
 			mapMethod();
 		}
 		return methods;
 	}
 	
-
 	private void mapMethod() {
-		ExistingMethodBuilder builder = new ExistingMethodBuilder();
+		ExistingMethodBuilder builder = new ExistingMethodBuilder(indent);
 		String line;		
 		boolean end = false, validMethod = false;
 		
@@ -49,7 +49,7 @@ public class ExistingMethodMapper {
 					validMethod = true;
 					builder.withDeclarationStr(line);	
 				}else if(isLine(line)) {
-					builder.addLine(line);
+					addLine(line, builder);
 				}else {
 					end = true;
 				}				
@@ -59,6 +59,10 @@ public class ExistingMethodMapper {
 		if(validMethod) {
 			methods.addMethod(builder.build());	
 		}
+	}
+	
+	private void addLine(String line, ExistingMethodBuilder builder) {
+		builder.addLine(line);
 	}
 	private void setBraces(String line) {
 		if(line.contains("{")){
@@ -80,9 +84,4 @@ public class ExistingMethodMapper {
 		return (line.contains("}") && openBraces == 0) ? false : true;
 	}
 	
-//private void skipBlanks() {
-//while(scanner.hasNext("")) {
-//	System.out.println("->" + scanner.nextLine() + "<-"); // TODO - remove or log 	
-//}
-//}
 }

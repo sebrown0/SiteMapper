@@ -14,15 +14,7 @@ import java.util.List;
  */
 public class Lines <T> {
 	private List<T> lines = new ArrayList<>();
-	private String indentLevel = ""; //NO DEFAULT INDENT
-	
-	public void indent(int numTabs) {
-		indentLevel="";
-		for(int idx=1; idx <= numTabs; idx++) {
-			indentLevel+="\t";	
-		}
-	}
-	
+		
 	public void setLines(List<T> lines) {
 		if(lines != null) {
 			this.lines.addAll(lines);
@@ -44,8 +36,9 @@ public class Lines <T> {
 	public String toString() {
 		String res = "";		
 		for (T t : lines) {
-			res += indentLevel + t.toString() + "\n";
+			res += t.toString() + "\n";
 		}
-		return res.substring(0, res.length()-1); //Remove last new line.
+		return res;
 	}
+
 }

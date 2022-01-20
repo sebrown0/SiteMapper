@@ -34,7 +34,7 @@ public class ClassConstructor {
 	public String toString() {		
 		return String.format(
 			"%s%s%s(%s){\n%s\t}",
-			Formatter.getAnnotation("\t", cnstrAnnotation),
+			Formatter.getAnnotation(cnstrAnnotation),
 			Formatter.getValueOf("\t", modifier),
 			Formatter.getValueOf(" ", className), 
 			Formatter.getValueOf(argList.toString()),
@@ -49,7 +49,7 @@ public class ClassConstructor {
 	 * 	Initial
 	 * @since 1.0
 	 */
-	public abstract static class ConstructorBuilder {
+	public abstract static class ConstructorBuilder {		
 		private SiteMapAnnotation cnstrAnnotation;
 		private String modifier;
 		private String className;
@@ -76,7 +76,7 @@ public class ClassConstructor {
 		@Override
 		public ExistingConstructorBuilder withAnnotation(String annoStr) {
 			if(annoStr != null) {
-				super.cnstrAnnotation = new ExistingAnnotation(annoStr);
+				super.cnstrAnnotation = new ExistingAnnotation(annoStr, 1);
 			}
 			return this;
 		}
@@ -92,7 +92,7 @@ public class ClassConstructor {
 		}
 		
 		@Override
-		protected ClassConstructor build() {
+		public ClassConstructor build() {
 			return new ClassConstructor(this);
 		}
 	}

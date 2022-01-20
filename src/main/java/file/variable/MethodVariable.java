@@ -15,15 +15,16 @@ import file.helpers.Formatter;
  */
 public class MethodVariable extends Variable {
 	
-	public MethodVariable(VariableBuilder b) {
+	public MethodVariable(VariableBuilder b, int numTabs) {
 		super(b);
+		super.setIndent(numTabs);	
 	}
 	
 	@Override
 	public String toString() {		
 		return String.format(
 				"%s%s%s%s%s;", 
-				Formatter.getAnnotation(annotation, "\t"), 
+				Formatter.getAnnotation(annotation), 
 				Formatter.getValueOf("\t", modifier),
 				Formatter.getValueOf(" ", finalVar),
 				Formatter.getValueOf(" ", type),				

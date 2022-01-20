@@ -14,7 +14,7 @@ import file.helpers.Lines;
  * @since 1.0
  */
 public class Variables {
-	Lines<Variable> lines = new Lines<>();
+	private Lines<Variable> lines = new Lines<>();
 	
 	public void setLines(List<Variable> lines) {
 		this.lines.setLines(lines);
@@ -29,4 +29,9 @@ public class Variables {
 		return lines.getLines();
 	}
 		
+	@Override
+	public String toString() {
+		return lines.toString();
+	}
+	
 }

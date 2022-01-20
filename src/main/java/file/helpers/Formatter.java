@@ -34,15 +34,6 @@ public class Formatter {
 		}		
 	}
 	
-	public static String getAnnotation(SiteMapAnnotation annotation, String withTabs) {
-		if(annotation != null) {
-			String ano = annotation.toString();
-			return (ano != null) ? withTabs + ano + "\n" : "";	
-		}else {
-			return "";
-		}		
-	}
-	
 	public static String getVariableValue(String value, String type) {
 		String ret = "";
 		if(value != null) {
@@ -74,6 +65,9 @@ public class Formatter {
 	}
 	public static String getValueOf(String prepend, String value) {
 		return (value != null) ? prepend + value : "";
+	}
+	public static String trimValueOf(String value) {
+		return (value != null) ? value.trim() : null;
 	}
 	
 	public static String getValuePair(String value, String valueTag) {

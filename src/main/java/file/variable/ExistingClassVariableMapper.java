@@ -22,10 +22,10 @@ import file.variable.Variable.VariableBuilder;
  * Get the class variables along with any
  * annotation from an existing class file.
  */
-public class ExistingVariableMapper {	
+public class ExistingClassVariableMapper {	
 	private Scanner scanner;	
 	
-	public ExistingVariableMapper(Scanner scanner) {
+	public ExistingClassVariableMapper(Scanner scanner) {
 		this.scanner = scanner;
 	}
 
@@ -52,27 +52,23 @@ public class ExistingVariableMapper {
 		}
 		return clazzVars;		
 	}
-		
-//	private boolean isAnnotation(String line) {
-//		return (annotationTest.test(line)) ? true : false;
-//	}
 	
 	private boolean isVariable(String line) {
 		return (variableTest.test(line)) ? true : false;
 	}
 	
 	private Optional<VariableBuilder> mapAnnotationAndVar(Optional<VariableBuilder> varBuilder, String line) {
-		ExistingAnnotation anno = new ExistingAnnotation(line);
+		ExistingAnnotation anno = new ExistingAnnotation(line, 1); //If this is made into generic class for vars the indent will have to be assessed.
 		line = scanner.nextLine();
 		if(isVariable(line)) {
-			varBuilder = Optional.of(new ClassVariable.FromString(line).withAnnotation(anno));	
+			varBuilder = Optional.of(new ClassVariable.ClassVarFromString(line).withAnnotation(anno));	
 		}
 		return varBuilder;				
 	}
 	
 	private Optional<VariableBuilder> mapVar(Optional<VariableBuilder> varBuilder, String line) {
 		if(isVariable(line)) {
-			varBuilder = Optional.of(new ClassVariable.FromString(line));	
+			varBuilder = Optional.of(new ClassVariable.ClassVarFromString(line));	
 		}
 		return varBuilder;				
 	}

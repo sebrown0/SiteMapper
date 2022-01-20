@@ -14,7 +14,7 @@ import file.helpers.Lines;
  * @since 1.0
  */
 public abstract class Comment {
-	Lines<String> lines = new Lines<>();
+	protected Lines<String> lines = new Lines<>();
 	
 	public void setLines(List<String> lines) {
 		this.lines.setLines(lines);

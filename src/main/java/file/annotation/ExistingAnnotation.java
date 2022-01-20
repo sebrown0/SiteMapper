@@ -18,7 +18,19 @@ package file.annotation;
 public class ExistingAnnotation extends SiteMapAnnotation {
 	private String annotationStr;
 	
-	public ExistingAnnotation(String annotationStr) {
+	/*
+	 * No indent for the annotation. 
+	 * Use the element it's part to set the indent.
+	 */
+	public ExistingAnnotation(String annotationStr) {		
+		this.annotationStr = annotationStr;
+		setParts(annotationStr);
+	}
+	/*
+	 * Indent the annotation [numTabs].
+	 */
+	public ExistingAnnotation(String annotationStr, int numTabs) {
+		super.setIndent(numTabs);
 		this.annotationStr = annotationStr;
 		setParts(annotationStr);
 	}

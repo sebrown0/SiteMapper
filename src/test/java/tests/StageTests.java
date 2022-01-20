@@ -7,7 +7,6 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-import java.util.List;
 import java.util.regex.Pattern;
 
 import org.junit.jupiter.api.Test;
@@ -16,12 +15,12 @@ import file.class_file.ClassBody;
 import file.class_file.ClassFile;
 import file.class_file.constructor.ClassConstructor;
 import file.existing.ExistingFileScanner;
+import file.helpers.LineTabs;
 import file.method.MethodList;
 import file.modifier.Modifier;
 import file.stage.InitialStage;
 import file.stage.PackageStage;
 import file.stage.Stage;
-import site_mapper.annotations.SiteMap;
 
 /**
  * @author SteveBrown
@@ -33,6 +32,21 @@ class StageTests {
 	private static final String TEST_CLASS_PATH = 
 			"./src/test/resources/test_data/TestClass.java";
 
+	@Test
+	void numTabs() {
+		final String TABS = "\t\t\t";
+		assertTrue(new LineTabs(TABS).getNumTabs() == 3);
+	}
+	@Test
+	void tabString() {
+		final String STR = "a string";
+		assertEquals("\t\t\t" + STR, new LineTabs().getLineWithTabs(3, STR));
+	}
+	@Test
+	void justTabs() {		
+		assertEquals("\t\t\t", LineTabs.getTabStr(3));		
+	}
+	
 	@Test
 	void startsWithModifierPattern() {
 		assertTrue(Modifier.startsWithValidModifier("zpublic blah blah"));

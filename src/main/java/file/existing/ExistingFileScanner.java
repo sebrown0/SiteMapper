@@ -7,7 +7,6 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.util.Scanner;
 import java.util.function.Predicate;
-import java.util.regex.Pattern;
 
 import file.class_file.ClassBody;
 import file.class_file.ClassBody.ExistingClassBody;

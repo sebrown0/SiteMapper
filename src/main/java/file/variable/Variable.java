@@ -4,6 +4,8 @@
 package file.variable;
 
 import file.annotation.SiteMapAnnotation;
+import file.helpers.IndentedElement;
+import file.helpers.LineTabs;
 import file.modifier.Modifier;
 
 /**
@@ -15,15 +17,15 @@ import file.modifier.Modifier;
  * Abstract POJO for variables in SiteMap class file.
  */
 
-public abstract class Variable {
+public abstract class Variable implements IndentedElement<Variable> {
 	protected SiteMapAnnotation annotation;	
 	protected String staticVar;
-	protected String finalVar;
-	
+	protected String finalVar;	
 	protected String modifier;
 	protected String type;
 	protected String name;
 	protected String value;
+	protected int numTabs;
 		
 	public Variable(VariableBuilder b) {
 		this.name = b.name;		
@@ -35,6 +37,14 @@ public abstract class Variable {
 		this.finalVar = b.finalVar;
 	}
 	
+	@Override //IndentedElement
+	public Variable setIndent(int numTabs) {
+		this.numTabs = numTabs;
+		return this;
+	}
+	public String getIndent() {
+		return LineTabs.getTabStr(numTabs);
+	}
 	public abstract static class VariableBuilder {
 		protected SiteMapAnnotation annotation;
 		protected String name;
@@ -49,24 +59,25 @@ public abstract class Variable {
 		public abstract VariableBuilder withVariable(String v);
 	}
 	
-	public static class FromString extends VariableBuilder {
+	public static class ClassVarFromString extends VariableBuilder {
 		private String[] leftSide;
 		private String rightSide;		
 		private String varStr;
 
-		public FromString() {}
-		public FromString(String varStr) {
+		public ClassVarFromString() {}
+		public ClassVarFromString(String varStr) {
 			this.varStr = varStr;
 		}
 
 		@Override
 		public VariableBuilder withAnnotation(SiteMapAnnotation a) {
 			this.annotation = a;
+			this.annotation.setIndent(1);
 			return this;
 		}
 		@Override
 		public VariableBuilder withVariable(String v) {
-			this.varStr = v;
+			this.varStr = LineTabs.getLineWithTabs(1, v);
 			return this;
 		}
 		
@@ -142,7 +153,11 @@ public abstract class Variable {
 			return true;
 		}
 		private void mapName(String n) {
-			name = n;
+			if(n.endsWith(";")) {
+				name = n.replace(";", "");
+			}else {
+				name = n;	
+			}			
 		}
 		private boolean hasValue() {
 			return (rightSide != null && rightSide.length() > 0) ? true : false;
@@ -153,7 +168,7 @@ public abstract class Variable {
 				res = res.substring(0, res.length()-1);
 			}
 			value = res;
-		}
-		
+		}		
 	}
+	
 }

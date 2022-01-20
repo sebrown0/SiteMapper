@@ -18,7 +18,6 @@ import file.class_file.ClassBody;
 import file.class_file.ClassDeclaration;
 import file.class_file.ClassFile;
 import file.class_file.ClassFile.NewClassFileBuilder;
-import file.class_file.ZZZ_ExistingConstructor;
 import file.class_package.ExistingClassPackage;
 import file.class_package.NewClassPackage;
 import file.comment.ExistingComment;
@@ -26,13 +25,13 @@ import file.comment.NewComment;
 import file.imports.ExistingImport;
 import file.imports.Import;
 import file.imports.ImportList;
-import file.method.ExistingMethodBody;
 import file.method.Method;
 import file.method.MethodList;
 import file.variable.Argument;
 import file.variable.ArgumentList;
 import file.variable.ClassVariable;
 import file.variable.Variable;
+import helpers.TestClassBodyBuilder;
 import site_mapper.creators.ComponentWriter;
 import site_mapper.creators.ComponentWriterJsPanelWithIFrame;
 import site_mapper.elements.Element;
@@ -87,12 +86,7 @@ class FilePojoElementsTests {
 				.setPackageName("a.payroll.Left.employees;")
 				.setMenuItemType(new MenuItemType().setAttributes(new JsPanelWithIFrame()))
 				.setElements(Arrays.asList(e1,e2));
-	
-//	@Test
-//	void uiuiuiuiui(){
-//		System.out.println(menuItem.toString());
-//	}
-	
+		
 	@Test
 	void existing_package() {
 		ExistingClassPackage cp = new ExistingClassPackage("package a.payroll.Left.employees;");
@@ -179,7 +173,7 @@ class FilePojoElementsTests {
 					.setDeclarationString("public class EmployeeDetails {")
 					.build();
 		
-		assertEquals("public class EmployeeDetails {\n", declaration.toString());
+		assertEquals("public class EmployeeDetails {", declaration.toString());
 	}
 	@Test 
 	void existing_classDeclaration_with_extends(){
@@ -189,7 +183,7 @@ class FilePojoElementsTests {
 					.setDeclarationString("public class EmployeeDetails extends JsPanelWithIFrame {")
 					.build();
 		
-		assertEquals("public class EmployeeDetails extends JsPanelWithIFrame {\n", declaration.toString());
+		assertEquals("public class EmployeeDetails extends JsPanelWithIFrame {", declaration.toString());
 	}
 	@Test 
 	void existing_classDeclaration_with_implements(){
@@ -199,7 +193,7 @@ class FilePojoElementsTests {
 					.setDeclarationString("public class EmployeeDetails implements Imp1, Imp2 {")
 					.build();
 		
-		assertEquals("public class EmployeeDetails implements Imp1, Imp2 {\n", declaration.toString());
+		assertEquals("public class EmployeeDetails implements Imp1, Imp2 {", declaration.toString());
 	}
 	@Test 
 	void existing_classDeclaration_with_extends_implements(){
@@ -209,29 +203,29 @@ class FilePojoElementsTests {
 					.setDeclarationString("public class EmployeeDetails extends JsPanelWithIFrame implements Imp1, Imp2 {")
 					.build();
 		
-		assertEquals("public class EmployeeDetails extends JsPanelWithIFrame implements Imp1, Imp2 {\n", declaration.toString());
+		assertEquals("public class EmployeeDetails extends JsPanelWithIFrame implements Imp1, Imp2 {", declaration.toString());
 	}
 	
 	@Test
 	void testExistingAnnotation() {		
-		ExistingAnnotation annotation = new ExistingAnnotation("@SiteMap(author=\"SB\", version=\"1.0.0\", date=\"01/01/2022\")");
+		ExistingAnnotation annotation = new ExistingAnnotation("@SiteMap(author=\"SB\", version=\"1.0.0\", date=\"01/01/2022\")", 1);
 		
-		assertEquals(ANNOTATION_RESULT, annotation.toString());
+		assertEquals("\t" + ANNOTATION_RESULT, annotation.toString());
 	}
 	@Test
 	void testNewAnnotation() {
 		SiteMapInfo info = new SiteMapInfo().setAuthor("SteveBrown").setVersion("1.0.0");
-		NewAnnotation annotation = new NewAnnotation(info);
+		NewAnnotation annotation = new NewAnnotation(info, 1);
 		
-		assertEquals("@SiteMap(author=\"SteveBrown\", version=\"1.0.0\", date=\"" + info.getDate() + "\")", annotation.toString());
+		assertEquals("\t@SiteMap(author=\"SteveBrown\", version=\"1.0.0\", date=\"" + info.getDate() + "\")", annotation.toString());
 	}
 	
 	@Test
 	void testVariable_withString() {
-		ExistingAnnotation annotation = new ExistingAnnotation("@SiteMap(author=\"SB\", version=\"1.0.0\", date=\"01/01/2022\")");
+		ExistingAnnotation annotation = new ExistingAnnotation("@SiteMap(author=\"SB\", version=\"1.0.0\", date=\"01/01/2022\")", 1);
 		Variable v = 
 				new ClassVariable
-					.FromString("public static final String PANEL_TITLE = Employee Details")
+					.ClassVarFromString("public static final String PANEL_TITLE = Employee Details")
 					.withAnnotation(annotation).build();
 		
 		assertEquals(
@@ -241,10 +235,10 @@ class FilePojoElementsTests {
 	}
 	@Test
 	void testVariable_withInt() {
-		SiteMapAnnotation annotation = new ExistingAnnotation("@SiteMap(author=\"SB\", version=\"1.0.0\", date=\"01/01/2022\")");
+		SiteMapAnnotation annotation = new ExistingAnnotation("@SiteMap(author=\"SB\", version=\"1.0.0\", date=\"01/01/2022\")", 1);
 		Variable v = 
 				new Variable
-					.FromString("public static final int PANEL_TITLE = 1")
+					.ClassVarFromString("public static final int PANEL_TITLE = 1")
 					.withAnnotation(annotation).build();
 		
 		assertEquals(
@@ -256,7 +250,7 @@ class FilePojoElementsTests {
 	void testClassVariable_fromStr_with_final() {
 		Variable v = 
 				new ClassVariable
-					.FromString("public final String MENU_TITLE = \"Employee Details\";")
+					.ClassVarFromString("public final String MENU_TITLE = \"Employee Details\";")
 					.build();
 				
 		assertEquals("\tpublic final String MENU_TITLE = \"Employee Details\";", v.toString());
@@ -265,7 +259,7 @@ class FilePojoElementsTests {
 	void testClassVariable_fromStr_with_staticFinal() {
 		Variable v = 
 				new ClassVariable
-					.FromString("public static final String MENU_TITLE = \"Employee Details\";")
+					.ClassVarFromString("public static final String MENU_TITLE = \"Employee Details\";")
 					.build();
 				 	
 		assertEquals("\tpublic static final String MENU_TITLE = \"Employee Details\";", v.toString());
@@ -274,7 +268,7 @@ class FilePojoElementsTests {
 	void testClassVariable_fromStr_with_value() {
 		Variable v = 
 				new ClassVariable
-					.FromString("public String MENU_TITLE = \"Employee Details\";")
+					.ClassVarFromString("public String MENU_TITLE = \"Employee Details\";")
 					.build();
 				 	
 		assertEquals("\tpublic String MENU_TITLE = \"Employee Details\";", v.toString());
@@ -283,7 +277,7 @@ class FilePojoElementsTests {
 	void testClassVariable_fromStr() {
 		Variable v = 
 				new ClassVariable
-					.FromString("public String MENU_TITLE;")
+					.ClassVarFromString("public String MENU_TITLE;")
 					.build();
 				 	
 		assertEquals("\tpublic String MENU_TITLE;", v.toString());
@@ -322,32 +316,10 @@ class FilePojoElementsTests {
 		
 		assertEquals("", args.toString());
 	}
-	@Test
-	void methodBody() {
-		ExistingMethodBody body = new ExistingMethodBody();
-		body.addLine("Line1").addLine("Line2");
-		
-		assertEquals("\t\tLine1\n\t\tLine2\n", body.toString());
-	}
-		
-	@Test
-	void constructor() {
-		List<String> lines = new ArrayList<>();
-		lines.add("\tpublic EmployeeDetails(CoreData coreData) {");
-		lines.add("\t\tsuper(coreData,PANEL_TITLE);");
-		lines.add("\t\tbuildMyControls();");
-		lines.add("\t}");
-		
-		ExistingAnnotation annotation = new ExistingAnnotation("author=\"SB\", version=\"1.0.0\", date=\"01/01/2022\"");
-		ZZZ_ExistingConstructor cnstr = new ZZZ_ExistingConstructor(lines);
-		cnstr.setAnnotation(annotation);
-		
-		System.out.println(cnstr.toString()); // TODO - remove or log 	
-	}
-	
+			
 	@Test
 	void testMethod() {
-		Method m = new Method.ExistingMethodBuilder()
+		Method m = new Method.ExistingMethodBuilder(1)
 				.withAnnotation("@SiteMap(author=\"SB\", version=\"1.0.0\", date=\"01/01/2022\")")
 				.withDeclarationStr("private String aMethod(String str, Integer idx)")
 				.addLine("Line1")
@@ -363,21 +335,22 @@ class FilePojoElementsTests {
 	}	
 	@Test
 	void testMethodList() {
-		Method m1 = new Method.ExistingMethodBuilder()
+		Method m1 = new Method.ExistingMethodBuilder(1)
 				.withAnnotation("@SiteMap(author=\"SB\", version=\"1.0.0\", date=\"01/01/2022\")")
 				.withDeclarationStr("private String aMethodOne(String str, Integer idx)")
 				.addLine("Line1")
 				.addLine("Line2")
 				.build();
-		Method m2 = new Method.ExistingMethodBuilder()
+		Method m2 = new Method.ExistingMethodBuilder(1)
 				.withAnnotation("@SiteMap(author=\"SB\", version=\"1.0.0\", date=\"01/01/2022\")")
 				.withDeclarationStr("private String aMethodTwo(boolean b, Integer idx)")
 				.addLine("Line1")
 				.addLine("Line2")
 				.build();		
+		
 		MethodList ml = new MethodList();
 		ml.addMethod(m1).addMethod(m2);
-		System.out.println(	ml.toString());
+		
 		assertEquals(
 				"\t@SiteMap(author=\"SB\", version=\"1.0.0\", date=\"01/01/2022\")\n" +
 				"\tprivate String aMethodOne(String str, Integer idx){\n" +
@@ -391,18 +364,25 @@ class FilePojoElementsTests {
 				"\t}", 
 				String.valueOf(ml.toString()));
 	}
+	
 	@Test
-	void testClassBody() {		 	
+	void classBody_fromTestBodyBuilder() {
+		ClassBody body = new TestClassBodyBuilder().build();
 		assertEquals(
-				"\t" + ANNOTATION_RESULT + "\n" +
-				"\tpublic static final String PANEL_NAME = \"Employee Details\";\n" +
-				"\tprivate int idx;\n\n" +
-				"\t" + ANNOTATION_RESULT + "\n" +
-				"\tprivate String aMethod(String str, Integer idx){\n" +
-				"\t\tLine1\n\t\tLine2\n" +
-				"\t}\n"
-				, getTestClassBody().toString());
-	}	
+				"\t@SiteMap(author=\"SB\", version=\"1.0.0\", date=\"01/01/2022\")\n"
+				+ "\tpublic static final int PANEL_TITLE = 1;\n"
+				+ "\tpublic static final String MENU_TITLE = \"Employee Details\";\n"
+				+ "\n"
+				+ "\t@SiteMap(author=\"SB\", version=\"1.0.0\", date=\"01/01/2022\")\n"
+				+ "\tpublic EmployeeDetails(CoreData coreData){\n"
+				+ "\t}\n"
+				+ "\n"
+				+ "\t@SiteMap(author=\"SB\", version=\"1.0.0\", date=\"01/01/2022\")\n"
+				+ "\tprivate String aMethod(String str, Integer idx){\n"
+				+ "\t\tLine1\n"
+				+ "\t\tLine2\n"
+				+ "\t}", body.toString());
+	}
 	
 //	@Test
 //	void existing_classFile() {
@@ -453,41 +433,40 @@ class FilePojoElementsTests {
 //		
 //	}
 	
-	private ClassBody getTestClassBody() {
-		SiteMapAnnotation annotation = new ExistingAnnotation("@SiteMap(author=\"SB\", version=\"1.0.0\", date=\"01/01/2022\")");
-		
-		Variable v1 = 
-				new ClassVariable
-					.FromString("public static final String PANEL_NAME = Employee Details")
-					.build();
-			
-		
-		Variable v2 = 
-				new ClassVariable
-					.FromString("private int idx")
-					.build();
-		
-		ExistingMethodBody methodBody = new ExistingMethodBody();
-		methodBody.addLine("Line1").addLine("Line2");
-		
-		Method m = new Method.ExistingMethodBuilder()
-				.withAnnotation("@SiteMap(author=\"SB\", version=\"1.0.0\", date=\"01/01/2022\")")
-				.withDeclarationStr("private String aMethod(String str, Integer idx")
-				.build();
-		
-						 	
-		/*
-		 * MAY NOT BE WORKING
-		 */
-//		ClassBody classBody = new ClassBody.ExistingClassBody().build();
-//		classBody
-//			.addVariable((ClassVariable) v1)
-//			.addVariable((ClassVariable) v2)
-//			.addMethod(m);
-		
+//	private ClassBody getTestClassBody() {
+//		SiteMapAnnotation annotation = new ExistingAnnotation("@SiteMap(author=\"SB\", version=\"1.0.0\", date=\"01/01/2022\")", 1);
+//		
+//		Variable v1 = 
+//				new ClassVariable
+//					.ClassVarFromString("public static final String PANEL_NAME = Employee Details")
+//					.build();
+//			
+//		
+//		Variable v2 = 
+//				new ClassVariable
+//					.ClassVarFromString("private int idx")
+//					.build();
+//		
+//		ExistingMethodBody methodBody = new ExistingMethodBody();
+//		methodBody.addLine("Line1").addLine("Line2");
+//		
+//		Method m = new Method.ExistingMethodBuilder(1)
+//				.withAnnotation("@SiteMap(author=\"SB\", version=\"1.0.0\", date=\"01/01/2022\")")
+//				.withDeclarationStr("private String aMethod(String str, Integer idx")
+//				.build();
+//		
+//						 	
+//		/*
+//		 * MAY NOT BE WORKING
+//		 */
+//		ClassBody classBody = new ClassBody.ExistingClassBody(null).build();
+////		classBody
+////			.addVariable((ClassVariable) v1)
+////			.addVariable((ClassVariable) v2)
+////			.addMethod(m);
+//		
 //		return classBody;
-		return null;
-	}
+//	}
 	
 	@Test
 	void newClassFileBuilder() {
@@ -497,7 +476,7 @@ class FilePojoElementsTests {
 		
 		ClassFile classFile = builder.build();
 		
-		System.out.println(classFile.toString()); // TODO - remove or log 	
+//		System.out.println(classFile.toString()); // TODO - remove or log 	
 	}
 	
 //	@Test

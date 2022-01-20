@@ -27,14 +27,9 @@ public class ExistingMethodBody {
 		return this;
 	}
 	
-	
 	@Override
 	public String toString() {
-		String body = "";
-		for (String s : lines.getLines()) {
-			body += "\t\t" + s + "\n";
-		}
-		return body;
+		return lines.toString();
 	}	
 	
 }

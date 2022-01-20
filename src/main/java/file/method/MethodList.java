@@ -15,7 +15,7 @@ import file.helpers.Lines;
  */
 public class MethodList {
 	private Lines<Method> methods = new Lines<>();
-	
+		
 	public MethodList addMethod(Method m) {
 		methods.addLine(m);
 		return this;
@@ -31,7 +31,7 @@ public class MethodList {
 
 	@Override
 	public String toString() {
-		return methods.toString();
+		return methods.toString().stripTrailing();
 	}	
 	
 }
