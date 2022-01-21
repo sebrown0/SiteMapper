@@ -10,7 +10,7 @@ import object_models.pages.homepage.CoreData;
 /**
 * Generated Class.
 * ----------------
-* Source:  C:/Users/SteveBrown/eclipse-workspace/2021/DTest/src/main/resources/site_map/site_map.xml
+* Source:  C:/site_map.xml
 * Author:  SteveBrown
 * Version: 1.0.0
 * Created: 07/01/2022 08:53:56
@@ -26,12 +26,12 @@ public class EmployeeDetails extends JsPanelWithIFrame {
 
 	@SiteMap(author="SteveBrown", version="1.0.0", date="07/01/2022")
 	public EmployeeDetails(CoreData coreData) {
-		super(coreData,PANEL_TITLE);
+		super(coreData, PANEL_TITLE);
 		buildMyControls();
 	}
 
 	@SiteMap(author="SteveBrown", version="1.0.0", date="07/01/2022")
-	private void buildMyControls() {
+	private void buildMyControls(){
 		var myControls = 
 			List.of(
 				new ControlData("save", new ControlGetterButton(coreData, By.cssSelector("button[name='SAVE']"))),

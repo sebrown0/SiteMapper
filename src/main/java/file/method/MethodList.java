@@ -15,9 +15,15 @@ import file.helpers.Lines;
  */
 public class MethodList {
 	private Lines<Method> methods = new Lines<>();
-		
+	private String indent = "";
+	
+	public MethodList withIndent(String indent) {
+		this.indent = indent;
+		return this;
+	}
+	
 	public MethodList addMethod(Method m) {
-		methods.addLine(m);
+		methods.withIndent(indent + "\t").addLine(m);
 		return this;
 	}
 
@@ -31,7 +37,11 @@ public class MethodList {
 
 	@Override
 	public String toString() {
-		return methods.toString().stripTrailing();
+		return 
+		  methods
+				.withIndent(indent)
+				.toString()
+				.stripTrailing();
 	}	
 	
 }

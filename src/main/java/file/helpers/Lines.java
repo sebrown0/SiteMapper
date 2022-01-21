@@ -14,7 +14,13 @@ import java.util.List;
  */
 public class Lines <T> {
 	private List<T> lines = new ArrayList<>();
-		
+	private String indent = "";
+	
+	public Lines<T> withIndent(String indent) {
+		this.indent = indent;
+		return this;
+	}
+	
 	public void setLines(List<T> lines) {
 		if(lines != null) {
 			this.lines.addAll(lines);
@@ -36,7 +42,7 @@ public class Lines <T> {
 	public String toString() {
 		String res = "";		
 		for (T t : lines) {
-			res += t.toString() + "\n";
+			res += indent + t.toString() + "\n";
 		}
 		return res;
 	}

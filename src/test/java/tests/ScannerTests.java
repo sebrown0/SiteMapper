@@ -28,7 +28,7 @@ import file.stage.Stage;
  * 	Initial
  * @since 1.0
  */
-class StageTests {
+class ScannerTests {
 	private static final String TEST_CLASS_PATH = 
 			"./src/test/resources/test_data/TestClass.java";
 
@@ -40,7 +40,8 @@ class StageTests {
 	@Test
 	void tabString() {
 		final String STR = "a string";
-		assertEquals("\t\t\t" + STR, new LineTabs().getLineWithTabs(3, STR));
+		new LineTabs();
+		assertEquals("\t\t\t" + STR, LineTabs.getLineWithTabs(3, STR));
 	}
 	@Test
 	void justTabs() {		

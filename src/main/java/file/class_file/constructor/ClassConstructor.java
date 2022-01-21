@@ -3,6 +3,8 @@
  */
 package file.class_file.constructor;
 
+import java.util.List;
+
 import file.annotation.ExistingAnnotation;
 import file.annotation.SiteMapAnnotation;
 import file.helpers.Formatter;
@@ -20,7 +22,7 @@ public class ClassConstructor {
 	private String modifier;
 	private String className;
 	private ArgumentList argList;
-	private Lines<String> lines;
+	private Lines<Object> lines;
 
 	private ClassConstructor(ConstructorBuilder b) {
 		this.cnstrAnnotation = b.cnstrAnnotation;
@@ -54,14 +56,16 @@ public class ClassConstructor {
 		private String modifier;
 		private String className;
 		private ArgumentList argList;
-		private Lines<String> lines = new Lines<>();
+		private Lines<Object> lines = new Lines<>().withIndent("\t\t");
 		
-		protected abstract ClassConstructor build();
+		public abstract ClassConstructor build();
 		protected abstract ConstructorBuilder withAnnotation(String a);
 
-		public void addLine(String line) {
-			this.lines.addLine(line);
+		public ConstructorBuilder addLine(Object obj) {
+			this.lines.addLine(obj);
+			return this;
 		}
+		
 	}
 	
 	/**

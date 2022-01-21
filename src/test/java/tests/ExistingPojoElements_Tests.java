@@ -3,25 +3,33 @@
  */
 package tests;
 
+import static helpers.TestClassFileBuilder.ANNOTATION;
+import static helpers.TestClassFileBuilder.ANNO_RESULT;
+import static helpers.TestClassFileBuilder.COMMENT_RESULT;
+import static helpers.TestClassFileBuilder.EXISTING_PACKAGE;
+import static helpers.TestClassFileBuilder.IMPORT_RESULT;
+import static helpers.TestClassFileBuilder.NEW_PACKAGE;
+import static helpers.TestClassFileBuilder.PACKAGE_RESULT;
+import static helpers.TestClassFileBuilder.EXISTING_COMMENT;
+import static helpers.TestClassFileBuilder.DECLARATION;
+import static helpers.TestClassBodyBuilder.VAR1_RESULT;
+import static helpers.TestClassBodyBuilder.VAR2_RESULT;
+import static helpers.TestClassBodyBuilder.VAR3_RESULT;
+import static helpers.TestClassBodyBuilder.CNSTR_LINES;
+import static helpers.TestClassBodyBuilder.CONSTRUCTOR_DEC;
+import static helpers.TestClassBodyBuilder.BUILD_MY_CONTROLS_DEC;
+import static helpers.TestClassBodyBuilder.CONTROLS_LINES;
+import static helpers.TestClassBodyBuilder.NOT_FROM_SITEMAPPER_DEC;
+import static helpers.TestClassBodyBuilder.NOT_FROM_SITEMAPPER_LINES;
 import static org.junit.jupiter.api.Assertions.assertEquals;
-
-import java.util.ArrayList;
-import java.util.List;
 
 import org.junit.jupiter.api.Test;
 
-import file.annotation.ExistingAnnotation;
-import file.annotation.NewAnnotation;
-import file.annotation.SiteMapAnnotation;
 import file.class_file.ClassBody;
 import file.class_file.ClassDeclaration;
 import file.class_file.ClassFile;
 import file.class_package.ExistingClassPackage;
 import file.class_package.NewClassPackage;
-import file.comment.ExistingComment;
-import file.comment.NewComment;
-import file.imports.ExistingImport;
-import file.imports.Import;
 import file.imports.ImportList;
 import file.method.Method;
 import file.method.MethodList;
@@ -31,9 +39,6 @@ import file.variable.ClassVariable;
 import file.variable.Variable;
 import helpers.TestClassBodyBuilder;
 import helpers.TestClassFileBuilder;
-import site_mapper.creators.ComponentWriter;
-import site_mapper.creators.ComponentWriterJsPanelWithIFrame;
-import site_mapper.jaxb.pom.SiteMapInfo;
 
 /**
  * @author SteveBrown
@@ -47,127 +52,83 @@ import site_mapper.jaxb.pom.SiteMapInfo;
  * The overall object is built from ExistingClassFileBuilder.
  * Objects that make up the ClassFile are built similarly.
  * 
- * There are two helper classes:
- * 	TestClassFileBuilder/TestClassBodyBuilder
+ * There are two helper classes: TestClassFileBuilder/TestClassBodyBuilder.
+ * 
+ * Data is either taken from the them or the test method.
+ * 
+ * ScannerTests does the same thing but takes the data from 
+ * an existing class: src/test/resources/test_data/TestClass.java
  */
-class ExistingPojoElements_Tests {
-	private static final String ANNOTATION_RESULT = 
-			"@SiteMap(author=\"SB\", version=\"1.0.0\", date=\"01/01/2022\")";
+class ExistingPojoElements_Tests {	
 	
-	private static final String COMMENT_RESULT = 
-			"/**\n" +
-			"* Generated Class.\n" +
-			"* ----------------\n" +
-			"* Source:  C:/site_map.xml\n" +
-			"* Author:  SteveBrown\n" +
-			"* Version: 1.0.0\n" +
-			"* Created: 07/01/2022 08:53:56\n" +
-			"*/\n";
-	
-//	private static final Element e1 = 
-//			new Element()
-//				.setName("save")
-//				.setType("button")
-//				.setText("Save")
-//				.setFafa("fa fa-save");
-//	
-//	private static final Element e2 = 
-//			new Element()
-//				.setName("search")
-//				.setType("button")
-//				.setText("Search")
-//				.setFafa("fa fa-search");
-	
-//	private static final SiteMapInfo info = 
-//			new SiteMapInfo().setAuthor("SteveBrown").setVersion("1.0.0").setXmlSource("c:\\src");
-	
-//	private static final ElementClass menuItem = 
-//			new MenuItem()
-//				.setSiteMapInfo(info)
-//				.setName("EmployeeDetails")
-//				.setClassName("EmployeeDetails")
-//				.setPackageName("a.payroll.Left.employees;")
-//				.setMenuItemType(new MenuItemType().setAttributes(new JsPanelWithIFrame()))
-//				.setElements(Arrays.asList(e1,e2));
-		
 	@Test
 	void existing_package() {
-		ExistingClassPackage cp = new ExistingClassPackage("package a.payroll.Left.employees;");
-		
-		assertEquals("package a.payroll.Left.employees;", cp.toString());
+		ExistingClassPackage cp = new ExistingClassPackage(EXISTING_PACKAGE);		
+		assertEquals(PACKAGE_RESULT, cp.toString());
 	}
 	@Test
 	void new_package() {
-		NewClassPackage cp = new NewClassPackage("a.payroll.Left.employees");
-		
-		assertEquals("package a.payroll.Left.employees", cp.toString());
+		NewClassPackage cp = new NewClassPackage(NEW_PACKAGE);		
+		assertEquals(PACKAGE_RESULT, cp.toString());
 	}
 
-	@Test
-	void newImports() {
-		ComponentWriter componentWriter = new ComponentWriterJsPanelWithIFrame();
-		List<Import> imprtList = new ArrayList<>();
-		imprtList.add(new ExistingImport("import java.util.List;"));
-		imprtList.add(new ExistingImport("import control_builder.*;"));		
-		ImportList imports = new ImportList(componentWriter.getImportNames());
-		
-		//DEPENDS ON THE IMPORTS IN ComponentWriterJsPanelWithIFrame
-		assertEquals(
-				"import java.util.List;\n" +
-				"import org.openqa.selenium.By;\n" +
-				"import control_builder.*;\n" +
-				"import site_mapper.annotations.SiteMap;\n" +
-				"/* Placeholder for missing import [JsPanelWithIFrame] */\n" +
-				"/* Placeholder for missing import [CoreData] */\n" , 
-				imports.toString());
-	}	
+//	@Test
+//	void newImports() {
+//		ComponentWriter componentWriter = new ComponentWriterJsPanelWithIFrame();
+////		List<Import> imprtList = new ArrayList<>();
+////		imprtList.add(new ExistingImport("import java.util.List;"));
+////		imprtList.add(new ExistingImport("import control_builder.*;"));		
+//		ImportList imports = new ImportList(componentWriter.getImportNames());
+//		
+//		//DEPENDS ON THE IMPORTS IN ComponentWriterJsPanelWithIFrame
+//		assertEquals(
+//				"import java.util.List;\n" +
+//				"import org.openqa.selenium.By;\n" +
+//				"import control_builder.*;\n" +
+//				"import site_mapper.annotations.SiteMap;\n" +
+//				"/* Placeholder for missing import [JsPanelWithIFrame] */\n" +
+//				"/* Placeholder for missing import [CoreData] */\n" , 
+//				imports.toString());
+//	}	
 	@Test
 	void existingImports() {
-		List<Import> imprtList = new ArrayList<>();
-		imprtList.add(new ExistingImport("import java.util.List;"));
-		imprtList.add(new ExistingImport("import control_builder.*;"));		
-		ImportList imports = new ImportList(imprtList);		
+		ImportList imports = new ImportList(TestClassFileBuilder.IMPORT_LIST);		
 		
-		assertEquals("import java.util.List;\nimport control_builder.*;\n", imports.toString());
-	}
-
-	@Test
-	void existingComment() {
-		ExistingComment comment = new ExistingComment();
-		comment
-			.addLine("/**")
-			.addLine("* Generated Class.")
-			.addLine("* ----------------")
-			.addLine("* Source:  C:/site_map.xml")
-			.addLine("* Author:  SteveBrown")
-			.addLine("* Version: 1.0.0")
-			.addLine("* Created: 07/01/2022 08:53:56")
-			.addLine("*/");
-		
-		assertEquals(COMMENT_RESULT, comment.toString());		
-	}
-	@Test
-	void newComment() {
-		SiteMapInfo info = new SiteMapInfo();
-		NewComment comment = new NewComment(
-				info
-					.setXmlSource("C:/site_map.xml")
-					.setAuthor("SteveBrown")
-					.setVersion("1.0.0"));
-				
 		assertEquals(
-				"/**\n" +
-				"* Generated Class.\n" +
-				"* ----------------\n" +
-				"* Source:  C:/site_map.xml\n" +
-				"* Author:  SteveBrown\n" +
-				"* Version: 1.0.0\n" +
-				"* Created: " + info.getTimeStamp() +
-				"\n*/\n", 
-				comment.toString());		
+				"import java.util.List;\n" + 
+				"import org.openqa.selenium.By;\n" + 
+				"import control_builder.*;\n" +
+				"import site_mapper.annotations.SiteMap;\n" +
+				"import object_models.panels.JsPanelWithIFrame;\n" +
+				"import object_models.pages.homepage.CoreData;\n",
+				imports.toString());
 	}
-	
 
+	@Test
+	void existingComment() {		
+		assertEquals(COMMENT_RESULT, EXISTING_COMMENT.toString());		
+	}
+//	@Test
+//	void newComment() {
+//		SiteMapInfo info = new SiteMapInfo();
+//		NewComment comment = new NewComment(
+//				info
+//					.setXmlSource("C:/site_map.xml")
+//					.setAuthor("SteveBrown")
+//					.setVersion("1.0.0"));
+//				
+//		assertEquals(
+//				"/**\n" +
+//				"* Generated Class.\n" +
+//				"* ----------------\n" +
+//				"* Source:  C:/site_map.xml\n" +
+//				"* Author:  SteveBrown\n" +
+//				"* Version: 1.0.0\n" +
+//				"* Created: " + info.getTimeStamp() +
+//				"\n*/\n", 
+//				comment.toString());		
+//	}
+	
 	@Test 
 	void existing_classDeclaration_without_extends_or_implements(){
 		ClassDeclaration declaration = 
@@ -211,41 +172,37 @@ class ExistingPojoElements_Tests {
 	
 	@Test
 	void testExistingAnnotation() {		
-		ExistingAnnotation annotation = new ExistingAnnotation("@SiteMap(author=\"SB\", version=\"1.0.0\", date=\"01/01/2022\")", 1);
-		
-		assertEquals("\t" + ANNOTATION_RESULT, annotation.toString());
+		assertEquals("\t" + ANNO_RESULT, ANNOTATION.toString());
 	}
-	@Test
-	void testNewAnnotation() {
-		SiteMapInfo info = new SiteMapInfo().setAuthor("SteveBrown").setVersion("1.0.0");
-		NewAnnotation annotation = new NewAnnotation(info, 1);
-		
-		assertEquals("\t@SiteMap(author=\"SteveBrown\", version=\"1.0.0\", date=\"" + info.getDate() + "\")", annotation.toString());
-	}
+//	@Test
+//	void testNewAnnotation() {
+//		SiteMapInfo info = new SiteMapInfo().setAuthor("SteveBrown").setVersion("1.0.0");
+//		NewAnnotation annotation = new NewAnnotation(info, 1);
+//		
+//		assertEquals("\t@SiteMap(author=\"SteveBrown\", version=\"1.0.0\", date=\"" + info.getDate() + "\")", annotation.toString());
+//	}
 	
 	@Test
 	void testVariable_withString() {
-		ExistingAnnotation annotation = new ExistingAnnotation("@SiteMap(author=\"SB\", version=\"1.0.0\", date=\"01/01/2022\")", 1);
 		Variable v = 
 				new ClassVariable
 					.ClassVarFromString("public static final String PANEL_TITLE = Employee Details")
-					.withAnnotation(annotation).build();
+					.withAnnotation(ANNOTATION).build();
 		
 		assertEquals(
-				"\t" + ANNOTATION_RESULT + "\n" +
+				"\t" + ANNO_RESULT + "\n" +
 				"\tpublic static final String PANEL_TITLE = \"Employee Details\";", 
 				v.toString());				 	
 	}
 	@Test
-	void testVariable_withInt() {
-		SiteMapAnnotation annotation = new ExistingAnnotation("@SiteMap(author=\"SB\", version=\"1.0.0\", date=\"01/01/2022\")", 1);
+	void testVariable_withInt() {		
 		Variable v = 
 				new Variable
 					.ClassVarFromString("public static final int PANEL_TITLE = 1")
-					.withAnnotation(annotation).build();
+					.withAnnotation(ANNOTATION).build();
 		
 		assertEquals(
-				"\t" + ANNOTATION_RESULT + "\n" +
+				"\t" + ANNO_RESULT + "\n" +
 				"\tpublic static final int PANEL_TITLE = 1;", 
 				v.toString());				 	
 	}	
@@ -323,14 +280,14 @@ class ExistingPojoElements_Tests {
 	@Test
 	void testMethod() {
 		Method m = new Method.ExistingMethodBuilder(1)
-				.withAnnotation("@SiteMap(author=\"SB\", version=\"1.0.0\", date=\"01/01/2022\")")
+				.withAnnotation(ANNOTATION.toString())
 				.withDeclarationStr("private String aMethod(String str, Integer idx)")
 				.addLine("Line1")
 				.addLine("Line2")
 				.build();		
 		
 		assertEquals(
-				"\t" + ANNOTATION_RESULT + "\n" +
+				"\t" + ANNO_RESULT + "\n" +
 				"\tprivate String aMethod(String str, Integer idx){\n" +
 				"\t\tLine1\n\t\tLine2" +
 				"\n\t}", 
@@ -339,13 +296,13 @@ class ExistingPojoElements_Tests {
 	@Test
 	void testMethodList() {
 		Method m1 = new Method.ExistingMethodBuilder(1)
-				.withAnnotation("@SiteMap(author=\"SB\", version=\"1.0.0\", date=\"01/01/2022\")")
+				.withAnnotation(ANNOTATION.toString())
 				.withDeclarationStr("private String aMethodOne(String str, Integer idx)")
 				.addLine("Line1")
 				.addLine("Line2")
 				.build();
 		Method m2 = new Method.ExistingMethodBuilder(1)
-				.withAnnotation("@SiteMap(author=\"SB\", version=\"1.0.0\", date=\"01/01/2022\")")
+				.withAnnotation(ANNOTATION.toString())
 				.withDeclarationStr("private String aMethodTwo(boolean b, Integer idx)")
 				.addLine("Line1")
 				.addLine("Line2")
@@ -355,76 +312,82 @@ class ExistingPojoElements_Tests {
 		ml.addMethod(m1).addMethod(m2);
 		
 		assertEquals(
-				"\t@SiteMap(author=\"SB\", version=\"1.0.0\", date=\"01/01/2022\")\n" +
+				"\t" + ANNO_RESULT + "\n" +
 				"\tprivate String aMethodOne(String str, Integer idx){\n" +
 				"\t\tLine1\n" +
 				"\t\tLine2\n" +
 				"\t}\n" +
-				"\t@SiteMap(author=\"SB\", version=\"1.0.0\", date=\"01/01/2022\")\n" +
+				"\t" + ANNO_RESULT + "\n" +
 				"\tprivate String aMethodTwo(boolean b, Integer idx){\n" +
 				"\t\tLine1\n" +
 				"\t\tLine2\n" +
 				"\t}", 
-				String.valueOf(ml.toString()));
+				ml.toString());
 	}
 	
 	@Test
 	void classBody_fromTestBodyBuilder() {
 		ClassBody body = new TestClassBodyBuilder().build();
 		assertEquals(
-				"\t@SiteMap(author=\"SB\", version=\"1.0.0\", date=\"01/01/2022\")\n"
+				"\t" + ANNO_RESULT + "\n" 
 				+ "\tpublic static final int PANEL_TITLE = 1;\n"
 				+ "\tpublic static final String MENU_TITLE = \"Employee Details\";\n"
 				+ "\n"
-				+ "\t@SiteMap(author=\"SB\", version=\"1.0.0\", date=\"01/01/2022\")\n"
+				+ "\t" + ANNO_RESULT + "\n" 
 				+ "\tpublic EmployeeDetails(CoreData coreData){\n"
 				+ "\t}\n"
 				+ "\n"
-				+ "\t@SiteMap(author=\"SB\", version=\"1.0.0\", date=\"01/01/2022\")\n"
+				+ "\t" + ANNO_RESULT + "\n" 
 				+ "\tprivate String aMethod(String str, Integer idx){\n"
 				+ "\t\tLine1\n"
 				+ "\t\tLine2\n"
-				+ "\t}", body.toString());
+				+ "\t}", body.toString());		
 	}
 	
 	@Test
 	void classFile_fromTestClassFileBuilder() {
 		ClassFile clazzFile = new TestClassFileBuilder().build();
-
+		
 		assertEquals(
-				"package a.payroll.Left.employees;\n"
-				+ "\n"
-				+ "import java.util.List;\n"
-				+ "import control_builder.*;\n"
-				+ "\n"
-				+ "/**\n"
-				+ "* Generated Class.\n"
-				+ "* ----------------\n"
-				+ "* Source:  C:/site_map.xml\n"
-				+ "* Author:  SteveBrown\n"
-				+ "* Version: 1.0.0\n"
-				+ "* Created: 07/01/2022 08:53:56\n"
-				+ "*/\n"
-				+ "public class EmployeeDetails extends JsPanelWithIFrame {\n"
-				+ "\t@SiteMap(author=\"SB\", version=\"1.0.0\", date=\"01/01/2022\")\n"
-				+ "\tpublic static final int PANEL_TITLE = 1;\n"
-				+ "\tpublic static final String MENU_TITLE = \"Employee Details\";\n"
-				+ "\n"
-				+ "\t@SiteMap(author=\"SB\", version=\"1.0.0\", date=\"01/01/2022\")\n"
-				+ "\tpublic EmployeeDetails(CoreData coreData){\n"
-				+ "\t}\n"
-				+ "\n"
-				+ "\t@SiteMap(author=\"SB\", version=\"1.0.0\", date=\"01/01/2022\")\n"
-				+ "\tprivate String aMethod(String str, Integer idx){\n"
-				+ "\t\tLine1\n"
-				+ "\t\tLine2\n"
-				+ "\t}\n"
+				PACKAGE_RESULT +
+				"\n\n" +
+				IMPORT_RESULT +
+				"\n" +				
+				COMMENT_RESULT +
+				DECLARATION +
+				"\n" +
+				"\t" + ANNO_RESULT + "\n" +
+				"\t" + VAR1_RESULT +
+				"\n" +
+				"\t" + ANNO_RESULT + "\n" +
+				"\t" + VAR2_RESULT +
+				"\n" +
+				"\t" + ANNO_RESULT + "\n" +
+				"\t" + VAR3_RESULT +
+				"\n\n" +
+				"\t" + ANNO_RESULT + "\n" + 
+				"\t" + CONSTRUCTOR_DEC +
+				"\n" + CNSTR_LINES.withIndent("\t\t").toString() +
+				
+				
+				"\t}\n\n" +
+				
+				"\t" + ANNO_RESULT + "\n" +
+				"\t" + BUILD_MY_CONTROLS_DEC +
+				"\n" + CONTROLS_LINES.withIndent("\t\t").toString() +
+				"\t}\n" + 
+				
+				"\t" + ANNO_RESULT + "\n" +
+				"\t" + NOT_FROM_SITEMAPPER_DEC +
+				"\n" + NOT_FROM_SITEMAPPER_LINES.withIndent("\t\t").toString() +				
+				"\t}\n"
+				
 				+ "}", 
 				clazzFile.toString());
 	}
 		
-	@Test
-	void newClassFileBuilder() {
+//	@Test
+//	void newClassFileBuilder() {
 		
 //		NewClassFileBuilder builder = 
 //				new ClassFile.NewClassFileBuilder(menuItem);
@@ -432,7 +395,7 @@ class ExistingPojoElements_Tests {
 //		ClassFile classFile = builder.build();
 		
 //		System.out.println(classFile.toString()); // TODO - remove or log 	
-	}
+//	}
 	
 //	@Test
 //	void newClassFileBuilder() {

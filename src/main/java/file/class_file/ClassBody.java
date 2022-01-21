@@ -95,8 +95,9 @@ public class ClassBody {
 		}
 		@Override
 		public BodyBuilder setMethods() {
-			ExistingMethodMapper mapper = new ExistingMethodMapper(scanner, 1);
-			super.methods = mapper.mapMethods();
+			ExistingMethodMapper mapper = 
+					new ExistingMethodMapper(scanner, 1);
+			super.methods = mapper.mapMethods().withIndent("\t");
 			return this;
 		}
 		
