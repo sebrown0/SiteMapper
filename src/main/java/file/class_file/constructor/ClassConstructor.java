@@ -4,10 +4,13 @@
 package file.class_file.constructor;
 
 import file.annotation.ExistingAnnotation;
+import file.annotation.NewAnnotation;
 import file.annotation.SiteMapAnnotation;
 import file.helpers.Formatter;
 import file.helpers.Lines;
 import file.variable.ArgumentList;
+import site_mapper.creators.ComponentInfo;
+import site_mapper.jaxb.pom.SiteMapInfo;
 
 /**
  * @author SteveBrown
@@ -43,7 +46,6 @@ public class ClassConstructor {
 	}
 		
 	/**
-	 * 
 	 * @author SteveBrown
 	 * @version 1.0
 	 * 	Initial
@@ -56,14 +58,45 @@ public class ClassConstructor {
 		private ArgumentList argList;
 		private Lines<Object> lines = new Lines<>().withIndent("\t\t");
 		
-		public abstract ClassConstructor build();
-		protected abstract ConstructorBuilder withAnnotation(String a);
-
 		public ConstructorBuilder addLine(Object obj) {
 			this.lines.addLine(obj);
 			return this;
 		}
 		
+		public ClassConstructor build() {
+			return new ClassConstructor(this);
+		}
+	}
+	
+	/**
+	 * @author SteveBrown
+	 * @version 1.0
+	 * 	Initial
+	 * @since 1.0
+	 */
+	public static class NewConstructorBuilder extends ConstructorBuilder {
+		private SiteMapInfo siteInfo;
+		private ComponentInfo compInfo;
+		
+		public NewConstructorBuilder(SiteMapInfo siteInfo, ComponentInfo info) {
+			this.siteInfo = siteInfo;
+			this.compInfo = info;
+		}
+
+		public NewConstructorBuilder withAnnotation() {
+			if(siteInfo != null) {
+				super.cnstrAnnotation = new NewAnnotation(siteInfo, 1);
+			}
+			return this;
+		}
+		
+		public NewConstructorBuilder withComponentInfo() {			
+			super.modifier = compInfo.getModifier();
+			super.className = "TODO NewConstructorBuilder withComponentInfo";
+			super.argList =	new ArgumentList().createArgList(compInfo.getConstructorArgs());
+			super.lines = new Lines<>().setLines(compInfo.getConstructorLines());
+			return this;
+		}
 	}
 	
 	/**
@@ -75,7 +108,6 @@ public class ClassConstructor {
 	 */
 	public static class ExistingConstructorBuilder extends ConstructorBuilder {
 		
-		@Override
 		public ExistingConstructorBuilder withAnnotation(String annoStr) {
 			if(annoStr != null) {
 				super.cnstrAnnotation = new ExistingAnnotation(annoStr, 1);
@@ -93,10 +125,6 @@ public class ClassConstructor {
 			return this;
 		}
 		
-		@Override
-		public ClassConstructor build() {
-			return new ClassConstructor(this);
-		}
 	}
-	
+		
 }

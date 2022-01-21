@@ -7,10 +7,13 @@ import java.util.Scanner;
 
 import file.class_file.constructor.ClassConstructor;
 import file.class_file.constructor.ExistingConstructorMapper;
+import file.helpers.Formatter;
 import file.method.ExistingMethodMapper;
 import file.method.MethodList;
 import file.variable.ExistingClassVariableMapper;
 import file.variable.Variables;
+import site_mapper.creators.ComponentInfo;
+import site_mapper.jaxb.pom.SiteMapInfo;
 
 /**
  * @author SteveBrown
@@ -47,9 +50,9 @@ public class ClassBody {
 	public String toString() {
 		return String.format(
 				"%s\n%s\n\n%s", 
-				vars.toString(),
-				cnstr.toString(),
-				methods.toString());
+				Formatter.getValueOf(vars),
+				Formatter.getValueOf(cnstr),
+				Formatter.getValueOf(methods));
 	}
 	
 	public abstract static class BodyBuilder {
@@ -109,4 +112,53 @@ public class ClassBody {
 		
 	}
 
+	/** 
+	 * @author SteveBrown
+	 * @version 1.0
+	 * 	Initial
+	 * @since 1.0
+	 * 
+	 * Create a new ClassBody from ComponentWriter.
+	 */
+	public static class NewClassBody extends BodyBuilder {
+		private ComponentInfo componentWriter;
+		private SiteMapInfo info;
+		
+		public NewClassBody(ComponentInfo componentWriter, SiteMapInfo info) {
+			this.componentWriter = componentWriter;
+			this.info = info;
+		}
+
+		@Override
+		public BodyBuilder setVars() {			
+			super.vars = 
+				new Variables()
+					.setLines(componentWriter.getClassVariables());
+			return this;
+		}
+
+		@Override
+		public BodyBuilder setConstructor() {
+			super.cnstr = 
+					new ClassConstructor.NewConstructorBuilder(info, componentWriter)
+						.withAnnotation()
+						.withComponentInfo()
+						.build();
+			
+			// TODO Auto-generated method stub
+			return this;
+		}
+
+		@Override
+		public BodyBuilder setMethods() {
+			// TODO Auto-generated method stub
+			return this;
+		}
+
+		@Override
+		protected ClassBody build() {
+			setVars().setConstructor().setMethods();//TODO - move to method??
+			return new ClassBody(this);
+		}	
+	}
 }

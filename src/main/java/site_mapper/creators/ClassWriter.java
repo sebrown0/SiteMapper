@@ -87,15 +87,16 @@ public class ClassWriter implements ClassWriterActions {
 		logger.debug("Writing comments");
 		writer.write(Comments.getClassComments(elementClass.getSiteMapInfo()));
 	}
-	public void writeIndividualElements(ComponentWriter compWriter) throws IOException {
-		if(compWriter instanceof ComponentWriterVisitor ) {
-			logger.debug("Writing class specific components");
-			((ComponentWriterVisitor) compWriter)
-				.setElementClass(elementClass)
-				.setFileOutWriter(this)
-				.setSiteMapInfo(elementClass.getSiteMapInfo())
-				.writeComponents();		
-		}		
+	public void writeIndividualElements(ComponentInfo compWriter) throws IOException {
+		System.out.println("ClassWriter -> ComponentWriterJsPanelWithIFrame.writeComponents DEPRECIATED!!!!!!"); // TODO - remove or log
+//		if(compWriter instanceof ComponentWriterVisitor ) {
+//			logger.debug("Writing class specific components");
+//			((ComponentWriterVisitor) compWriter)
+//				.setElementClass(elementClass)
+//				.setFileOutWriter(this)
+//				.setSiteMapInfo(elementClass.getSiteMapInfo())
+//				.writeComponents();		
+//		}		
 	}
 	
 	public void openClass(String type) throws IOException {

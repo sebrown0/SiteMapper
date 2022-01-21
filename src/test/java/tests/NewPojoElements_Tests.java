@@ -41,7 +41,7 @@ import file.variable.Variable;
 import helpers.ExistingTestClassBodyBuilder;
 import helpers.ExistingTestClassFileBuilder;
 import helpers.NewTestClassFileBuilder;
-import site_mapper.creators.ComponentWriter;
+import site_mapper.creators.ComponentInfo;
 import site_mapper.creators.ComponentWriterJsPanelWithIFrame;
 import site_mapper.jaxb.pom.SiteMapInfo;
 
@@ -65,7 +65,11 @@ import site_mapper.jaxb.pom.SiteMapInfo;
 class NewPojoElements_Tests {	
 	
 	@Test
-	void jkkjjkjkjk() {
+	void constructorMapper() {
+		
+	}
+	@Test
+	void classFile() {
 		ClassFile classFile = NewTestClassFileBuilder.getClassFile();
 		System.out.println(classFile.toString()); // TODO - remove or log 	
 	}
@@ -78,7 +82,7 @@ class NewPojoElements_Tests {
 
 	@Test
 	void newImports() {
-		ComponentWriter componentWriter = new ComponentWriterJsPanelWithIFrame();
+		ComponentInfo componentWriter = new ComponentWriterJsPanelWithIFrame();
 //		List<Import> imprtList = new ArrayList<>();
 //		imprtList.add(new ExistingImport("import java.util.List;"));
 //		imprtList.add(new ExistingImport("import control_builder.*;"));		

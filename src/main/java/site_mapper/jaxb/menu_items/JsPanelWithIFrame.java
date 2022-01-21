@@ -7,7 +7,7 @@ import jakarta.xml.bind.annotation.XmlAccessType;
 import jakarta.xml.bind.annotation.XmlAccessorType;
 import jakarta.xml.bind.annotation.XmlElement;
 import jakarta.xml.bind.annotation.XmlRootElement;
-import site_mapper.creators.ComponentWriter;
+import site_mapper.creators.ComponentInfo;
 import site_mapper.creators.ComponentWriterJsPanelWithIFrame;
 
 /**
@@ -51,7 +51,7 @@ public class JsPanelWithIFrame extends TypeAttributes {
 		return "JsPanelWithIFrame";
 	}
 	@Override //TypeAttributes
-	public ComponentWriter getComponentWriter() {
+	public ComponentInfo getComponentWriter() {
 		return new ComponentWriterJsPanelWithIFrame();
 	}
 

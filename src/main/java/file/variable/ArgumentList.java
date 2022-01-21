@@ -22,7 +22,7 @@ public class ArgumentList {
 		}
 	}
 	
-	public void createArgList(String ofArgs) {
+	public ArgumentList createArgList(String ofArgs) {
 		if(ofArgs != null) {
 			String[] allArgs = ofArgs.split(",");
 			if(allArgs != null && allArgs.length > 0) {				
@@ -41,6 +41,7 @@ public class ArgumentList {
 		}else {
 			logBadArg("Cannot create args from null list", ofArgs);
 		}
+		return this;
 	}
 	
 	private void logBadArg(String msg, String ofArgs) {

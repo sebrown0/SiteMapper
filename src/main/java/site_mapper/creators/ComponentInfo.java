@@ -14,12 +14,13 @@ import file.variable.Variable;
  * 	Initial
  * @since 1.0
  */
-public interface ComponentWriter {
-	String getClassName();
+public interface ComponentInfo {
+//	String getClassName();
+	String getModifier();
+	String getConstructorArgs();
+	String getSuperArgs();
 	
 	List<Variable> getClassVariables();
-	List<Import> getImportNames();
-	List<String> getSuperArgs();
-	List<String> getConstructorArgs();
-	List<String> getConstructorLines();
+	List<Import> getImportNames();	
+	List<Object> getConstructorLines();
 }

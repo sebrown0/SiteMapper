@@ -21,12 +21,13 @@ public class Lines <T> {
 		return this;
 	}
 	
-	public void setLines(List<T> lines) {
+	public Lines<T> setLines(List<T> lines) {
 		if(lines != null) {
 			this.lines.addAll(lines);
 		}else {
 			this.lines = lines;	
 		}		
+		return this;
 	}
 
 	public Lines<T> addLine(T line) {

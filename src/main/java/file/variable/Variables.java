@@ -16,8 +16,9 @@ import file.helpers.Lines;
 public class Variables {
 	private Lines<Variable> lines = new Lines<>();
 	
-	public void setLines(List<Variable> lines) {
+	public Variables setLines(List<Variable> lines) {
 		this.lines.setLines(lines);
+		return this;
 	}
 	
 	public Variables addLine(Variable line) {

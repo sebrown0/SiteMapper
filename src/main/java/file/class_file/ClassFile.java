@@ -18,7 +18,7 @@ import file.comment.ExistingComment;
 import file.comment.NewComment;
 import file.helpers.LineMapper;
 import file.imports.ImportList;
-import site_mapper.creators.ComponentWriter;
+import site_mapper.creators.ComponentInfo;
 import site_mapper.creators.ComponentWriterVisitor;
 import site_mapper.elements.ElementClass;
 import site_mapper.jaxb.menu_items.TestElement;
@@ -148,7 +148,7 @@ public class ClassFile {
 	}
 	
 	public static class NewClassFileBuilder extends ClassBuilder {
-		private ComponentWriter componentWriter;
+		private ComponentInfo componentWriter;
 		private ElementClass clazz;
 		private SiteMapInfo info;
 		
@@ -188,9 +188,9 @@ public class ClassFile {
 					.build();
 		}
 
-		private void setClassBody() {
-//			ClassBody classBody = new ;
-//			super.classBody = classBody;
+		private void setClassBody() {			
+			ClassBody classBody = new ClassBody.NewClassBody(componentWriter, info).build();
+			super.classBody = classBody;
 		}
 
 		@Override

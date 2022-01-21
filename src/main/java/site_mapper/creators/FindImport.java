@@ -12,6 +12,10 @@ import site_mapper.jaxb.pom.SiteMapInfo;
  * @author SteveBrown
  * @version 1.0
  * 	Initial
+ * @version 1.0
+ * 	Remove "src.main.java." from start of path.
+ * 	This is because it could be in the element library
+ *  which could be in a diiferent project, workspace etc.
  * @since 1.0
  */
 public class FindImport implements ImportType{
