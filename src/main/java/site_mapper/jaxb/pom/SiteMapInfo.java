@@ -27,6 +27,8 @@ public class SiteMapInfo {
 	private String version;
 	@XmlElement(name="RootDir")	
 	private String rootDir;
+	@XmlElement(name="ElementLibrary")	
+	private String elementLibrary;
 	@XmlElement(name="ParentPackage")
 	private String parentPackage;
 	@XmlElement(name="OverwriteExisting")
@@ -49,11 +51,26 @@ public class SiteMapInfo {
 		this.version = version;
 		return this;
 	}
+	public SiteMapInfo setElementLibrary(String elementLibrary) {
+		this.elementLibrary = elementLibrary;
+		return this;
+	}
+	public SiteMapInfo setRootDir(String rootDir) {
+		this.rootDir = rootDir;
+		return this;
+	}
 	public SiteMapInfo setXmlSource(String xmlSource) {
 		this.xmlSource = xmlSource;
 		return this;
 	}
-	
+	public SiteMapInfo setDate(String date) {
+		this.date = date;
+		return this;
+	}
+	public SiteMapInfo setTime(String time) {
+		this.time = time;
+		return this;
+	}
 	public String getAuthor() {
 		return author;
 	}
@@ -71,9 +88,12 @@ public class SiteMapInfo {
 	}
 	public String getTimeStamp() {
 		return date + " " + time;
-	}	
+	}
 	public String getRootDir() {
 		return rootDir;
+	}
+	public String getElementLibrary() {
+		return elementLibrary;
 	}
 	public String getParentPackage() {
 		return parentPackage;

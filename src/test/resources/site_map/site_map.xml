@@ -5,6 +5,7 @@
     <Author>SteveBrown</Author>
     <Version>1.0.0</Version>
     <RootDir>C:/Users/SteveBrown/eclipse-workspace/2021/SiteMapper</RootDir>
+    <ElementLibrary>C:/Users/SteveBrown/eclipse-workspace/2021/DTest</ElementLibrary>
     <ParentPackage>mapped</ParentPackage>
     <OverwriteExisting>true</OverwriteExisting>
   </Info>
@@ -21,7 +22,7 @@
     <Menus>
       <Menu name="Left" package="left_menu">      
         <MenuItem name="Employee Details" package="employees" class="EmployeeDetails">          
-          <Type name="JsPanelWithIFrame">
+          <Type name="JsPanelWithIFrame"> <!-- TypeAttributes - can get the ComponentWriter from this -->
             <JsPanelWithIFrame>
               <PanelTitle>Employee Details</PanelTitle>
               <MenuTitle>Employee Details</MenuTitle>

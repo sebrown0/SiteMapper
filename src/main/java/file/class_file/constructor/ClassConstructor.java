@@ -3,8 +3,6 @@
  */
 package file.class_file.constructor;
 
-import java.util.List;
-
 import file.annotation.ExistingAnnotation;
 import file.annotation.SiteMapAnnotation;
 import file.helpers.Formatter;

@@ -28,8 +28,9 @@ public class FindImport implements ImportType{
 		String importPath = "";
 		if(siteMapInfo != null) {
 			importPath = FileFinder
-				.findPathWithoutRootAndExtension(siteMapInfo.getRootDir(), importStr + ".java")
-				.replaceAll("\\\\", ".");								
+				.findPathWithoutRootAndExtension(siteMapInfo.getElementLibrary(), importStr + ".java")
+				.replaceAll("\\\\", ".")
+				.replace("src.main.java.", "");								
 		}else {
 			LogManager
 				.getLogger(FindImport.class)

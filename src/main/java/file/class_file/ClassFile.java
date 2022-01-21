@@ -19,7 +19,9 @@ import file.comment.NewComment;
 import file.helpers.LineMapper;
 import file.imports.ImportList;
 import site_mapper.creators.ComponentWriter;
+import site_mapper.creators.ComponentWriterVisitor;
 import site_mapper.elements.ElementClass;
+import site_mapper.jaxb.menu_items.TestElement;
 import site_mapper.jaxb.pom.SiteMapInfo;
 
 /**
@@ -99,10 +101,8 @@ public class ClassFile {
 		protected abstract void setInPackage();
 		protected abstract void setImports();
 		protected abstract void setComment();
-		protected abstract void setDeclaration();
-		
-		protected abstract ClassFile build();
-	
+		protected abstract void setDeclaration();		
+		protected abstract ClassFile build();	
 	}
 	
 	public static class ExistingClassFileBuilder extends ClassBuilder {
@@ -152,10 +152,13 @@ public class ClassFile {
 		private ElementClass clazz;
 		private SiteMapInfo info;
 		
-		public NewClassFileBuilder(ElementClass clazz) {
-			this.clazz = clazz;
-			this.componentWriter = clazz.getMenuItemType().getAttributes().getComponentWriter();
-			this.info = clazz.getSiteMapInfo();
+		public NewClassFileBuilder(TestElement clazz) {
+			this.clazz = (ElementClass) clazz;
+			this.info = this.clazz.getSiteMapInfo();
+			this.componentWriter = this.clazz.getMenuItemType().getAttributes().getComponentWriter();
+			
+			ComponentWriterVisitor v = (ComponentWriterVisitor) componentWriter;
+			v.setSiteMapInfo(info);
 			
 			setInPackage();
 			setImports();

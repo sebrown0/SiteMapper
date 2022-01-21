@@ -25,9 +25,11 @@ import site_mapper.jaxb.pom.SiteMapInfo;
  * @version 1.2
  * 	Put all the tests into a Map.
  * @since 1.0
+ * 
+ * Is the ClassFile.
  */
 @XmlRootElement(name="MenuItem")
-public class MenuItem implements ElementClass {
+public class MenuItem implements ElementClass, TestElement {
 	@XmlAttribute(name="name")
 	private String name;
 	@XmlAttribute(name="package")
@@ -106,28 +108,35 @@ public class MenuItem implements ElementClass {
 		return name;
 	}
 	
-	public MenuItem setName(String name) {
-		this.name = name;
+	@Override //TestElement
+	public TestElement setTestPackage(String str) {
+		this.packageName = str;
 		return this;
 	}
-	public MenuItem setPackageName(String packageName) {
-		this.packageName = packageName;
+	@Override //TestElement
+	public TestElement setTestClassName(String str) {
+		this.className = str;
 		return this;
 	}
-	public MenuItem setClassName(String className) {
-		this.className = className;
-		return this;
-	}
-	public MenuItem setMenuItemType(MenuItemType menuItemType) {
+	@Override //TestElement
+	public TestElement setTestItemType(MenuItemType menuItemType) {
 		this.menuItemType = menuItemType;
 		return this;
 	}
-	public MenuItem setElements(List<Element> elements) {
-		this.elements = elements;
-		return this;
-	}	
-	public MenuItem setSiteMapInfo(SiteMapInfo info) {
+	@Override //TestElement
+	public TestElement setSiteMapInfo(SiteMapInfo info) {
 		this.siteMapInfo = info;
 		return this;
-	}	
+	}
+	
+//	public MenuItem setName(String name) {
+//		this.name = name;
+//		return this;
+//	}
+//	public MenuItem setElements(List<Element> elements) {
+//		this.elements = elements;
+//		return this;
+//	}	
+	
+
 }

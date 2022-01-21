@@ -3,6 +3,8 @@
  */
 package helpers;
 
+import static helpers.ExistingTestClassBodyBuilder.BODY_RESULT;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -25,7 +27,13 @@ import file.imports.ImportList;
  * 	Initial
  * @since 1.0
  */
-public class TestClassFileBuilder extends ClassBuilder {
+public class ExistingTestClassFileBuilder extends ClassBuilder {
+	public static final String AUTHOR = "SteveBrown";
+	public static final String VERSION = "1.0.0";
+	public static final String XML_SOURCE = "C:/site_map.xml";
+	public static final String DATE = "07/01/2022";
+	public static final String TIME = "08:53:56";
+	
 	public static final String EXISTING_PACKAGE = 
 						"package a.payroll.Left.employees;";
 	public static final String NEW_PACKAGE = 
@@ -34,7 +42,9 @@ public class TestClassFileBuilder extends ClassBuilder {
 						"package a.payroll.Left.employees;";
 	
 	public static final String ANNO_STR = 
-					"author=\"SteveBrown\", version=\"1.0.0\", date=\"07/01/2022\"";
+					"author=\"" + AUTHOR + "\", " + 
+					"version=\"" + VERSION + "\", " + 
+					"date=\"" + DATE + "\"";
 	public static final String ANNO_RESULT = 
 					"@SiteMap(" + ANNO_STR + ")";	
 	public static final SiteMapAnnotation ANNOTATION = 
@@ -63,24 +73,36 @@ public class TestClassFileBuilder extends ClassBuilder {
 			"/**\n" +
 			"* Generated Class.\n" +
 			"* ----------------\n" +
-			"* Source:  C:/site_map.xml\n" +
-			"* Author:  SteveBrown\n" +
-			"* Version: 1.0.0\n" +
-			"* Created: 07/01/2022 08:53:56\n" +
+			"* Source:  " + XML_SOURCE + "\n" +
+			"* Author:  " + AUTHOR + "\n" +
+			"* Version: " + VERSION + "\n" +
+			"* Created: " + DATE + " " + TIME + "\n" +
 			"*/\n";
 	
 	public static final String DECLARATION = 
 			"public class EmployeeDetails extends JsPanelWithIFrame {";
+	
+	public static final String CLASS_RESULT = 
+			PACKAGE_RESULT +
+			"\n\n" +
+			IMPORT_RESULT +
+			"\n" +				
+			COMMENT_RESULT +
+			DECLARATION +
+			"\n" +
+			BODY_RESULT +
+			"\n" +			
+			"}";
 	
 	static {
 		EXISTING_COMMENT
 		.addLine("/**")
 		.addLine("* Generated Class.")
 		.addLine("* ----------------")
-		.addLine("* Source:  C:/site_map.xml")
-		.addLine("* Author:  SteveBrown")
-		.addLine("* Version: 1.0.0")
-		.addLine("* Created: 07/01/2022 08:53:56")
+		.addLine("* Source:  " + XML_SOURCE)
+		.addLine("* Author:  " + AUTHOR)
+		.addLine("* Version: " + VERSION)
+		.addLine("* Created: " + DATE + " " + TIME)
 		.addLine("*/");
 	}
 	
@@ -119,7 +141,7 @@ public class TestClassFileBuilder extends ClassBuilder {
 		this.setImports();
 		this.setComment();
 		this.setDeclaration();
-		this.setClassBody(new TestClassBodyBuilder().build());
+		this.setClassBody(new ExistingTestClassBodyBuilder().build());
 		return new ClassFile(this);
 	}
 

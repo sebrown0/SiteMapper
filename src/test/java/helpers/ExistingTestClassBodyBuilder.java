@@ -3,7 +3,8 @@
  */
 package helpers;
 
-import static helpers.TestClassFileBuilder.ANNO_STR;
+import static helpers.ExistingTestClassFileBuilder.ANNO_RESULT;
+import static helpers.ExistingTestClassFileBuilder.ANNO_STR;
 
 import file.annotation.ExistingAnnotation;
 import file.class_file.ClassBody;
@@ -24,7 +25,7 @@ import file.variable.Variables;
  * 	Initial
  * @since 1.0
  */
-public class TestClassBodyBuilder extends BodyBuilder{
+public class ExistingTestClassBodyBuilder extends BodyBuilder{
 	public static final String VAR1_RESULT = 
 			"public static final String PANEL_TITLE = \"Employee Details\";";
 	public static final String VAR2_RESULT = 
@@ -71,6 +72,31 @@ public class TestClassBodyBuilder extends BodyBuilder{
 				.addLine("")
 				.addLine("return aStr;");
 	
+	public static final String BODY_RESULT =		
+		"\t" + ANNO_RESULT + "\n" +
+		"\t" + VAR1_RESULT +
+		"\n" +
+		"\t" + ANNO_RESULT + "\n" +
+		"\t" + VAR2_RESULT +
+		"\n" +
+		"\t" + ANNO_RESULT + "\n" +
+		"\t" + VAR3_RESULT +
+		"\n\n" +
+		"\t" + ANNO_RESULT + "\n" + 
+		"\t" + CONSTRUCTOR_DEC +
+		"\n" + CNSTR_LINES.withIndent("\t\t").toString() +				
+		"\t}\n\n" +
+		
+		"\t" + ANNO_RESULT + "\n" +
+		"\t" + BUILD_MY_CONTROLS_DEC +
+		"\n" + CONTROLS_LINES.withIndent("\t\t").toString() +
+		"\t}\n" + 
+		
+		"\t" + ANNO_RESULT + "\n" +
+		"\t" + NOT_FROM_SITEMAPPER_DEC +
+		"\n" + NOT_FROM_SITEMAPPER_LINES.withIndent("\t\t").toString() +				
+		"\t}"; 
+			
 	@Override
 	public BodyBuilder setVars() {
 		Variables clazzVars = new Variables();

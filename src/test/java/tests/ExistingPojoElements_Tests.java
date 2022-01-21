@@ -3,24 +3,14 @@
  */
 package tests;
 
-import static helpers.TestClassFileBuilder.ANNOTATION;
-import static helpers.TestClassFileBuilder.ANNO_RESULT;
-import static helpers.TestClassFileBuilder.COMMENT_RESULT;
-import static helpers.TestClassFileBuilder.EXISTING_PACKAGE;
-import static helpers.TestClassFileBuilder.IMPORT_RESULT;
-import static helpers.TestClassFileBuilder.NEW_PACKAGE;
-import static helpers.TestClassFileBuilder.PACKAGE_RESULT;
-import static helpers.TestClassFileBuilder.EXISTING_COMMENT;
-import static helpers.TestClassFileBuilder.DECLARATION;
-import static helpers.TestClassBodyBuilder.VAR1_RESULT;
-import static helpers.TestClassBodyBuilder.VAR2_RESULT;
-import static helpers.TestClassBodyBuilder.VAR3_RESULT;
-import static helpers.TestClassBodyBuilder.CNSTR_LINES;
-import static helpers.TestClassBodyBuilder.CONSTRUCTOR_DEC;
-import static helpers.TestClassBodyBuilder.BUILD_MY_CONTROLS_DEC;
-import static helpers.TestClassBodyBuilder.CONTROLS_LINES;
-import static helpers.TestClassBodyBuilder.NOT_FROM_SITEMAPPER_DEC;
-import static helpers.TestClassBodyBuilder.NOT_FROM_SITEMAPPER_LINES;
+import static helpers.ExistingTestClassBodyBuilder.BODY_RESULT;
+import static helpers.ExistingTestClassFileBuilder.ANNOTATION;
+import static helpers.ExistingTestClassFileBuilder.ANNO_RESULT;
+import static helpers.ExistingTestClassFileBuilder.CLASS_RESULT;
+import static helpers.ExistingTestClassFileBuilder.COMMENT_RESULT;
+import static helpers.ExistingTestClassFileBuilder.EXISTING_COMMENT;
+import static helpers.ExistingTestClassFileBuilder.EXISTING_PACKAGE;
+import static helpers.ExistingTestClassFileBuilder.PACKAGE_RESULT;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import org.junit.jupiter.api.Test;
@@ -29,7 +19,6 @@ import file.class_file.ClassBody;
 import file.class_file.ClassDeclaration;
 import file.class_file.ClassFile;
 import file.class_package.ExistingClassPackage;
-import file.class_package.NewClassPackage;
 import file.imports.ImportList;
 import file.method.Method;
 import file.method.MethodList;
@@ -37,8 +26,8 @@ import file.variable.Argument;
 import file.variable.ArgumentList;
 import file.variable.ClassVariable;
 import file.variable.Variable;
-import helpers.TestClassBodyBuilder;
-import helpers.TestClassFileBuilder;
+import helpers.ExistingTestClassBodyBuilder;
+import helpers.ExistingTestClassFileBuilder;
 
 /**
  * @author SteveBrown
@@ -52,10 +41,18 @@ import helpers.TestClassFileBuilder;
  * The overall object is built from ExistingClassFileBuilder.
  * Objects that make up the ClassFile are built similarly.
  * 
- * There are two helper classes: TestClassFileBuilder/TestClassBodyBuilder.
+ * There are two helper classes: 
+ * 	ExistingTestClassFileBuilder/ExistingTestClassBodyBuilder.
  * 
  * Data is either taken from the them or the test method.
- * 
+ * ********************************************************
+ * If the ClassFile is created with the helpers then this *
+ * should be an exact copy of TestClass.									*
+ * 																												*
+ * And the 'build method' mirrors that of building the		*
+ * ClassFile from an existing class, i.e. TestClass				*
+ * ********************************************************
+ *  
  * ScannerTests does the same thing but takes the data from 
  * an existing class: src/test/resources/test_data/TestClass.java
  */
@@ -66,33 +63,10 @@ class ExistingPojoElements_Tests {
 		ExistingClassPackage cp = new ExistingClassPackage(EXISTING_PACKAGE);		
 		assertEquals(PACKAGE_RESULT, cp.toString());
 	}
-	@Test
-	void new_package() {
-		NewClassPackage cp = new NewClassPackage(NEW_PACKAGE);		
-		assertEquals(PACKAGE_RESULT, cp.toString());
-	}
-
-//	@Test
-//	void newImports() {
-//		ComponentWriter componentWriter = new ComponentWriterJsPanelWithIFrame();
-////		List<Import> imprtList = new ArrayList<>();
-////		imprtList.add(new ExistingImport("import java.util.List;"));
-////		imprtList.add(new ExistingImport("import control_builder.*;"));		
-//		ImportList imports = new ImportList(componentWriter.getImportNames());
-//		
-//		//DEPENDS ON THE IMPORTS IN ComponentWriterJsPanelWithIFrame
-//		assertEquals(
-//				"import java.util.List;\n" +
-//				"import org.openqa.selenium.By;\n" +
-//				"import control_builder.*;\n" +
-//				"import site_mapper.annotations.SiteMap;\n" +
-//				"/* Placeholder for missing import [JsPanelWithIFrame] */\n" +
-//				"/* Placeholder for missing import [CoreData] */\n" , 
-//				imports.toString());
-//	}	
+	
 	@Test
 	void existingImports() {
-		ImportList imports = new ImportList(TestClassFileBuilder.IMPORT_LIST);		
+		ImportList imports = new ImportList(ExistingTestClassFileBuilder.IMPORT_LIST);		
 		
 		assertEquals(
 				"import java.util.List;\n" + 
@@ -108,26 +82,6 @@ class ExistingPojoElements_Tests {
 	void existingComment() {		
 		assertEquals(COMMENT_RESULT, EXISTING_COMMENT.toString());		
 	}
-//	@Test
-//	void newComment() {
-//		SiteMapInfo info = new SiteMapInfo();
-//		NewComment comment = new NewComment(
-//				info
-//					.setXmlSource("C:/site_map.xml")
-//					.setAuthor("SteveBrown")
-//					.setVersion("1.0.0"));
-//				
-//		assertEquals(
-//				"/**\n" +
-//				"* Generated Class.\n" +
-//				"* ----------------\n" +
-//				"* Source:  C:/site_map.xml\n" +
-//				"* Author:  SteveBrown\n" +
-//				"* Version: 1.0.0\n" +
-//				"* Created: " + info.getTimeStamp() +
-//				"\n*/\n", 
-//				comment.toString());		
-//	}
 	
 	@Test 
 	void existing_classDeclaration_without_extends_or_implements(){
@@ -174,13 +128,6 @@ class ExistingPojoElements_Tests {
 	void testExistingAnnotation() {		
 		assertEquals("\t" + ANNO_RESULT, ANNOTATION.toString());
 	}
-//	@Test
-//	void testNewAnnotation() {
-//		SiteMapInfo info = new SiteMapInfo().setAuthor("SteveBrown").setVersion("1.0.0");
-//		NewAnnotation annotation = new NewAnnotation(info, 1);
-//		
-//		assertEquals("\t@SiteMap(author=\"SteveBrown\", version=\"1.0.0\", date=\"" + info.getDate() + "\")", annotation.toString());
-//	}
 	
 	@Test
 	void testVariable_withString() {
@@ -327,99 +274,13 @@ class ExistingPojoElements_Tests {
 	
 	@Test
 	void classBody_fromTestBodyBuilder() {
-		ClassBody body = new TestClassBodyBuilder().build();
-		assertEquals(
-				"\t" + ANNO_RESULT + "\n" 
-				+ "\tpublic static final int PANEL_TITLE = 1;\n"
-				+ "\tpublic static final String MENU_TITLE = \"Employee Details\";\n"
-				+ "\n"
-				+ "\t" + ANNO_RESULT + "\n" 
-				+ "\tpublic EmployeeDetails(CoreData coreData){\n"
-				+ "\t}\n"
-				+ "\n"
-				+ "\t" + ANNO_RESULT + "\n" 
-				+ "\tprivate String aMethod(String str, Integer idx){\n"
-				+ "\t\tLine1\n"
-				+ "\t\tLine2\n"
-				+ "\t}", body.toString());		
+		ClassBody body = new ExistingTestClassBodyBuilder().build();
+		assertEquals(BODY_RESULT, body.toString());		
 	}
 	
 	@Test
 	void classFile_fromTestClassFileBuilder() {
-		ClassFile clazzFile = new TestClassFileBuilder().build();
-		
-		assertEquals(
-				PACKAGE_RESULT +
-				"\n\n" +
-				IMPORT_RESULT +
-				"\n" +				
-				COMMENT_RESULT +
-				DECLARATION +
-				"\n" +
-				"\t" + ANNO_RESULT + "\n" +
-				"\t" + VAR1_RESULT +
-				"\n" +
-				"\t" + ANNO_RESULT + "\n" +
-				"\t" + VAR2_RESULT +
-				"\n" +
-				"\t" + ANNO_RESULT + "\n" +
-				"\t" + VAR3_RESULT +
-				"\n\n" +
-				"\t" + ANNO_RESULT + "\n" + 
-				"\t" + CONSTRUCTOR_DEC +
-				"\n" + CNSTR_LINES.withIndent("\t\t").toString() +
-				
-				
-				"\t}\n\n" +
-				
-				"\t" + ANNO_RESULT + "\n" +
-				"\t" + BUILD_MY_CONTROLS_DEC +
-				"\n" + CONTROLS_LINES.withIndent("\t\t").toString() +
-				"\t}\n" + 
-				
-				"\t" + ANNO_RESULT + "\n" +
-				"\t" + NOT_FROM_SITEMAPPER_DEC +
-				"\n" + NOT_FROM_SITEMAPPER_LINES.withIndent("\t\t").toString() +				
-				"\t}\n"
-				
-				+ "}", 
-				clazzFile.toString());
-	}
-		
-//	@Test
-//	void newClassFileBuilder() {
-		
-//		NewClassFileBuilder builder = 
-//				new ClassFile.NewClassFileBuilder(menuItem);
-//		
-//		ClassFile classFile = builder.build();
-		
-//		System.out.println(classFile.toString()); // TODO - remove or log 	
-//	}
-	
-//	@Test
-//	void newClassFileBuilder() {
-//		NewImport imprt = 
-//				(NewImport) new NewImport().addLine("import java.util.List;").addLine("import control_builder.*;");
-//		
-//		NewComment comment = 
-//			new NewComment(
-//				new SiteMapInfo()
-//					.setXmlSource("C:/site_map.xml")
-//					.setAuthor("SteveBrown")
-//					.setVersion("1.0.0"));
-//		
-//		
-//		NewClassFileBuilder builder = new ClassFile.NewClassFileBuilder();
-//		builder
-//			.setInPackage(new NewClassPackage("package a.payroll.Left.employees"))
-//			.setImports(imprt)
-//			.setComment(comment)
-//			.setDeclaration(null)
-//			.setClassBody(getTestClassBody());
-//		
-//		ClassFile classFile = builder.build();
-//		
-//		System.out.println(classFile.toString()); // TODO - remove or log 	
-//	}
+		ClassFile clazzFile = new ExistingTestClassFileBuilder().build();		
+		assertEquals(CLASS_RESULT, clazzFile.toString());
+	}		
 }
