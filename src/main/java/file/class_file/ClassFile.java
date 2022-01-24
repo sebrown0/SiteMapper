@@ -159,6 +159,7 @@ public class ClassFile {
 			
 			ComponentWriterVisitor v = (ComponentWriterVisitor) componentWriter;
 			v.setSiteMapInfo(info);
+			v.setElementClass(this.clazz);
 			
 			setInPackage();
 			setImports();

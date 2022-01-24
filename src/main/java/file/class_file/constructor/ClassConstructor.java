@@ -10,6 +10,7 @@ import file.helpers.Formatter;
 import file.helpers.Lines;
 import file.variable.ArgumentList;
 import site_mapper.creators.ComponentInfo;
+import site_mapper.elements.ElementConstructor;
 import site_mapper.jaxb.pom.SiteMapInfo;
 
 /**
@@ -76,11 +77,11 @@ public class ClassConstructor {
 	 */
 	public static class NewConstructorBuilder extends ConstructorBuilder {
 		private SiteMapInfo siteInfo;
-		private ComponentInfo compInfo;
+		private ElementConstructor cnstrInfo;
 		
-		public NewConstructorBuilder(SiteMapInfo siteInfo, ComponentInfo info) {
+		public NewConstructorBuilder(SiteMapInfo siteInfo, ElementConstructor cnstrInfo) {
 			this.siteInfo = siteInfo;
-			this.compInfo = info;
+			this.cnstrInfo = cnstrInfo;
 		}
 
 		public NewConstructorBuilder withAnnotation() {
@@ -91,10 +92,10 @@ public class ClassConstructor {
 		}
 		
 		public NewConstructorBuilder withComponentInfo() {			
-			super.modifier = compInfo.getModifier();
-			super.className = "TODO NewConstructorBuilder withComponentInfo";
-			super.argList =	new ArgumentList().createArgList(compInfo.getConstructorArgs());
-			super.lines = new Lines<>().setLines(compInfo.getConstructorLines());
+			super.modifier = cnstrInfo.getModifier();
+			super.className = cnstrInfo.getClassName();
+			super.argList =	new ArgumentList().createArgList(cnstrInfo.getConstructorArgs());
+			super.lines = new Lines<>().setLines(cnstrInfo.getConstructorLines());
 			return this;
 		}
 	}

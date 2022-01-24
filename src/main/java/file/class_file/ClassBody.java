@@ -13,6 +13,7 @@ import file.method.MethodList;
 import file.variable.ExistingClassVariableMapper;
 import file.variable.Variables;
 import site_mapper.creators.ComponentInfo;
+import site_mapper.elements.ElementConstructor;
 import site_mapper.jaxb.pom.SiteMapInfo;
 
 /**
@@ -121,11 +122,11 @@ public class ClassBody {
 	 * Create a new ClassBody from ComponentWriter.
 	 */
 	public static class NewClassBody extends BodyBuilder {
-		private ComponentInfo componentWriter;
+		private ComponentInfo componentInfo;
 		private SiteMapInfo info;
 		
 		public NewClassBody(ComponentInfo componentWriter, SiteMapInfo info) {
-			this.componentWriter = componentWriter;
+			this.componentInfo = componentWriter;
 			this.info = info;
 		}
 
@@ -133,14 +134,14 @@ public class ClassBody {
 		public BodyBuilder setVars() {			
 			super.vars = 
 				new Variables()
-					.setLines(componentWriter.getClassVariables());
+					.setLines(componentInfo.getClassVariables());
 			return this;
 		}
 
 		@Override
 		public BodyBuilder setConstructor() {
 			super.cnstr = 
-					new ClassConstructor.NewConstructorBuilder(info, componentWriter)
+					new ClassConstructor.NewConstructorBuilder(info, (ElementConstructor) componentInfo)
 						.withAnnotation()
 						.withComponentInfo()
 						.build();

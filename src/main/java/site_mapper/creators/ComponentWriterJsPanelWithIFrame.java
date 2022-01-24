@@ -13,6 +13,7 @@ import file.imports.NewImport;
 import file.variable.ClassVariable;
 import file.variable.Variable;
 import site_mapper.elements.ElementClass;
+import site_mapper.elements.ElementConstructor;
 import site_mapper.jaxb.pom.SiteMapInfo;
 
 /**
@@ -21,14 +22,13 @@ import site_mapper.jaxb.pom.SiteMapInfo;
  * 	Initial
  * @since 1.0
  */
-public class ComponentWriterJsPanelWithIFrame implements ComponentWriterVisitor {
-//	private ClassWriterActions fileOut;
-	private String className;
-//	private JsPanelWithIFrame jsPanel;
-//	private List<Element> elements;
+public class ComponentWriterJsPanelWithIFrame 
+	implements ComponentWriterVisitor, ElementConstructor	{
+	
+	private ElementClass elementClass;
 	private SiteMapInfo siteMapInfo;
 		
-	@Override //ComponentWriter
+	@Override //ComponentInfo
 	public List<Import> getImportNames() {
 		return Arrays.asList(
 				new NewImport(new UseImport("java.util.List")),
@@ -38,7 +38,7 @@ public class ComponentWriterJsPanelWithIFrame implements ComponentWriterVisitor 
 				new NewImport(new FindImport("JsPanelWithIFrame", siteMapInfo)),
 				new NewImport(new FindImport("CoreData", siteMapInfo)));
 	}
-	@Override //ComponentWriter
+	@Override //ComponentInfo
 	public List<Variable> getClassVariables() {
 		SiteMapAnnotation annotation = new NewAnnotation(siteMapInfo, 1);
 		
@@ -58,32 +58,28 @@ public class ComponentWriterJsPanelWithIFrame implements ComponentWriterVisitor 
 					.build()
 			);		
 	}	
-	@Override //ComponentWriter
+	
+	@Override //ElementConstructor/ComponentInfo
+	public String getClassName() {		
+		return elementClass.getClassName();
+	}
+	@Override //ElementConstructor
+	public String getModifier() {
+		return "public"; //DEFAULT
+	}
+	@Override //ElementConstructor
 	public String getSuperArgs() {
 		return "coreData, PANEL_TITLE";
 	}	
-	@Override //ComponentWriter
+	@Override //ElementConstructor
 	public String getConstructorArgs() {
 		return "CoreData coreData";
 	}
-	@Override
+	@Override //ElementConstructor
 	public List<Object> getConstructorLines() {
 		return Arrays.asList("\n\t\tbuildMyControls();");
 	}
-//	@Override //ComponentWriter
-//	public String getClassName() {		
-//		return className;
-//	}
-	@Override //ComponentWriter
-	public String getModifier() {
-		return "public";
-	}
-	
-//	@Override //ComponentWriterVisitor
-//	public ComponentWriterVisitor setFileOutWriter(ClassWriterActions fileOut) {
-////		this.fileOut = fileOut;
-////		return this;
-//	}
+			
 	@Override //ComponentWriterVisitor
 	public ComponentWriterVisitor setSiteMapInfo(SiteMapInfo siteMapInfo) {
 		this.siteMapInfo = siteMapInfo;
@@ -91,9 +87,7 @@ public class ComponentWriterJsPanelWithIFrame implements ComponentWriterVisitor 
 	}
 	@Override //ComponentWriterVisitor
 	public ComponentWriterVisitor setElementClass(ElementClass elementClass) {
-//		this.jsPanel = (JsPanelWithIFrame) elementClass.getMenuItemType().getAttributes();
-//		this.elements = elementClass.getElements();
-		this.className = elementClass.getClassName();
+		this.elementClass = elementClass;
 		return this;
 	}
 	

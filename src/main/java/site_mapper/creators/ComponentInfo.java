@@ -15,7 +15,7 @@ import file.variable.Variable;
  * @since 1.0
  */
 public interface ComponentInfo {
-//	String getClassName();
+	String getClassName();
 	String getModifier();
 	String getConstructorArgs();
 	String getSuperArgs();

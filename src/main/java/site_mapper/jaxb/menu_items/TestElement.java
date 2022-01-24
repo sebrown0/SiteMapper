@@ -3,10 +3,6 @@
  */
 package site_mapper.jaxb.menu_items;
 
-import java.util.List;
-
-import site_mapper.elements.Element;
-import site_mapper.jaxb.menu_items.MenuItemType;
 import site_mapper.jaxb.pom.SiteMapInfo;
 
 /**
