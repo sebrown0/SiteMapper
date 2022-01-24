@@ -13,6 +13,8 @@ import file.method.MethodList;
 import file.variable.ExistingClassVariableMapper;
 import file.variable.Variables;
 import site_mapper.creators.ComponentWriter;
+import site_mapper.creators.ControlDataFunction;
+import site_mapper.elements.ElementClass;
 import site_mapper.elements.ElementConstructor;
 import site_mapper.jaxb.pom.SiteMapInfo;
 
@@ -30,11 +32,13 @@ public class ClassBody {
 	private final Variables vars;
 	private final ClassConstructor cnstr;
 	private final MethodList methods;
+	private final ControlDataFunction dataFunc;
 	
 	public ClassBody(BodyBuilder b) {
 		this.vars = b.vars;
 		this.cnstr = b.cnstr;
 		this.methods = b.methods;
+		this.dataFunc= b.dataFunc;
 	}
 	
 	public Variables getVars() {
@@ -50,16 +54,18 @@ public class ClassBody {
 	@Override
 	public String toString() {
 		return String.format(
-				"%s\n%s\n\n%s", 
+				"%s\n%s\n\n%s%s", 
 				Formatter.getValueOf(vars),
 				Formatter.getValueOf(cnstr),
+				Formatter.getValueOf(dataFunc),
 				Formatter.getValueOf(methods));
 	}
 	
 	public abstract static class BodyBuilder {
 		protected Variables vars;
 		protected ClassConstructor cnstr;
-		protected MethodList methods;
+		private ControlDataFunction dataFunc;
+		protected MethodList methods;//TODO PUT IN EXISTING
 		
 		protected abstract ClassBody build();
 		public abstract BodyBuilder setVars();
@@ -75,28 +81,31 @@ public class ClassBody {
 	 * Create a new ClassBody from ComponentWriter.
 	 */
 	public static class NewClassBody extends BodyBuilder {
-		private ComponentWriter componentInfo;
+		private ComponentWriter componentWriter;
 		private SiteMapInfo info;
+		private ElementClass clazz;
 		
-		public NewClassBody(ComponentWriter componentWriter, SiteMapInfo info) {
-			this.componentInfo = componentWriter;
+		public NewClassBody(ComponentWriter componentWriter, ElementClass clazz, SiteMapInfo info) {
+			this.componentWriter = componentWriter;
 			this.info = info;
+			this.clazz = clazz;
 		}
 
 		@Override
 		public BodyBuilder setVars() {			
 			super.vars = 
 				new Variables()
-					.setLines(componentInfo.getClassVariables());
+					.setLines(componentWriter.getClassVariables());
 			return this;
 		}
 
 		@Override
 		public BodyBuilder setConstructor() {
 			super.cnstr = 
-					new ClassConstructor.NewConstructorBuilder(info, (ElementConstructor) componentInfo)
+					new ClassConstructor.NewConstructorBuilder(info, (ElementConstructor) componentWriter)
 						.withAnnotation()
 						.withComponentInfo()
+						.callsBuildMyControls(clazz.hasControlList())
 						.build();
 			
 			return this;
@@ -106,8 +115,8 @@ public class ClassBody {
 		 * Take the list of elements from ElementClass
 		 * and add them to the buildMyControls function.
 		 */
-		public BodyBuilder setElements() {
-			// TODO Auto-generated method stub
+		public BodyBuilder setElements() {	
+			super.dataFunc = new ControlBuilder((ElementClass) clazz).buildControlFunction();
 			return this;
 		}
 

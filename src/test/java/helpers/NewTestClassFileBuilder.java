@@ -32,6 +32,18 @@ public class NewTestClassFileBuilder {
 	public static SiteMapInfo SITE_MAP_INFO;
 	public static TestElement MENU_ITEM;
 	
+	public static String BUILD_MY_CONTROLS_RES = 
+			ANNO_RESULT + "\n" + 
+			"\tprivate void buildMyControls(){\n" +
+			"\t\tvar myControls =\n" +
+			"\t\t\tList.of(\n" +
+			"\t\t\t\tnew ControlData(\"save\", new ControlGetterButton(coreData, By.cssSelector(\"button[name='SAVE']\"))),\n" +
+			"\t\t\t\tnew ControlData(\"search\", new ControlGetterButton(coreData, By.cssSelector(\"button[name='QBF1']\"))),\n" +
+			"\t\t\t\tnew ControlData(\"code\", new ControlGetterTextOut(coreData, By.cssSelector(\"input[id='FORM_ID']\")))\n" +
+			"\t\t\t);\n" +
+			"\t\t\tsuper.buildPanelControls(myControls);\n" +
+			"\t}";
+	
 	static {
 		JsPanelWithIFrame attributes = new JsPanelWithIFrame();		
 		attributes.setMenuParentName("Employees");
@@ -55,9 +67,9 @@ public class NewTestClassFileBuilder {
 		/*
 		 * create elements and add to menuItem below.......
 		 */
-		SAVE_BUTTON = new Element().setName("save").setBy("css").setLocator("\"button[name='SAVE']\"");
-		SEARCH_BUTTON = new Element().setName("search").setBy("css").setLocator("\"button[name='QBF1']\"");
-		EMP_CODE_TEXT_OUT = new Element().setName("code").setBy("css").setLocator("\"input[id='FORM_ID']\"");
+		SAVE_BUTTON = new Element().setType("button").setName("save").setBy("css").setLocator("\"button[name='SAVE']\"");
+		SEARCH_BUTTON = new Element().setType("button").setName("search").setBy("css").setLocator("\"button[name='QBF1']\"");
+		EMP_CODE_TEXT_OUT = new Element().setType("text_out").setName("code").setBy("css").setLocator("\"input[id='FORM_ID']\"");
 		
 		MENU_ITEM = new MenuItem();
 		MENU_ITEM

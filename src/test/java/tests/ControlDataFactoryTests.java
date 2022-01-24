@@ -11,7 +11,8 @@ import java.util.Arrays;
 import org.junit.jupiter.api.Test;
 
 import exceptions.InvalidArgumentException;
-import site_mapper.creators.ControlDataStringFactory;
+import file.annotation.ExistingAnnotation;
+import site_mapper.creators.ControlDataFunctionFactory;
 import site_mapper.creators.ControlDataValues;
 import site_mapper.elements.Element;
 
@@ -37,7 +38,7 @@ class ControlDataFactoryTests {
 		
 		Exception ex = assertThrows(
 			InvalidArgumentException.class, 
-			() -> ControlDataStringFactory.getControlData(new ControlDataValues(e)));
+			() -> ControlDataFunctionFactory.getControlData(new ControlDataValues(e)));
 		assertEquals("[null] is not a valid control type name.", ex.getMessage());
 	}
 	@Test
@@ -47,7 +48,7 @@ class ControlDataFactoryTests {
 		
 		Exception ex = assertThrows(
 			InvalidArgumentException.class, 
-			() -> ControlDataStringFactory.getControlData(new ControlDataValues(e)));
+			() -> ControlDataFunctionFactory.getControlData(new ControlDataValues(e)));
 		assertEquals("[null] is not a valid By type name.", ex.getMessage());
 	}
 	@Test
@@ -55,7 +56,7 @@ class ControlDataFactoryTests {
 		Element e = new Element();
 		e.setName("search").setType("button").setLocator("\"button[name='QBF1']\"").setBy("css");
 		
-		String s = ControlDataStringFactory.getControlData(new ControlDataValues(e)).get();
+		String s = ControlDataFunctionFactory.getControlData(new ControlDataValues(e)).get();
 		assertEquals("new ControlData(\"search\", new ControlGetterButton(coreData, By.cssSelector(\"\"button[name='QBF1']\"\")))", s);
 	}
 	@Test
@@ -63,7 +64,7 @@ class ControlDataFactoryTests {
 		Element e = new Element();
 		e.setName("search").setType("button").setLocator("\"button[name='QBF1']\"").setBy("xpath");
 		
-		String s = ControlDataStringFactory.getControlData(new ControlDataValues(e)).get();
+		String s = ControlDataFunctionFactory.getControlData(new ControlDataValues(e)).get();
 		assertEquals("new ControlData(\"search\", new ControlGetterButton(coreData, By.xpath(\"\"button[name='QBF1']\"\")))", s);
 	}
 	@Test
@@ -71,12 +72,13 @@ class ControlDataFactoryTests {
 		Element e = new Element();
 		e.setName("search").setType("button").setLocator("\"button[name='QBF1']\"").setBy("id");
 		
-		String s = ControlDataStringFactory.getControlData(new ControlDataValues(e)).get(); 	
+		String s = ControlDataFunctionFactory.getControlData(new ControlDataValues(e)).get(); 	
 		assertEquals("new ControlData(\"search\", new ControlGetterButton(coreData, By.id(\"\"button[name='QBF1']\"\")))", s);		 	
 	}
 	@Test
 	void buildControlsFunction() throws InvalidArgumentException {
 		String expected = 
+				"\t@SiteMap(author=\"SteveBrown\", version=\"1.0.0\", date=\"07/01/2022\")\n" +
 				"\tprivate void buildMyControls() {\n" +
 				"\t\tvar myControls = \r\n" +
 				"\t\t\tList.of(" +
@@ -89,21 +91,23 @@ class ControlDataFactoryTests {
 		Element e2 = new Element();
 		e2.setName("save").setType("button").setLocator("\"button[name='QBF2']\"").setBy("css");
 		
-		ControlDataStringFactory fact = 
-				new ControlDataStringFactory(
+		ControlDataFunctionFactory fact = 
+				new ControlDataFunctionFactory(
 						Arrays.asList(
 								new ControlDataValues(e1),
-								new ControlDataValues(e2)));
+								new ControlDataValues(e2)
+						), 
+						new ExistingAnnotation("@SiteMap(author=\"SteveBrown\", version=\"1.0.0\", date=\"07/01/2022\")").setIndent(1));
 		
-		assertEquals(expected, fact.getFunctionBuildMyControls());
+		assertEquals(expected, fact.getFunctionBuildMyControls().toString());
 	}
 	@Test
 	void build_empty_ControlsFunction() throws InvalidArgumentException {
 		String expected = 
 				"\t\tprivate void buildMyControls() {}";
 		
-		ControlDataStringFactory fact = 
-				new ControlDataStringFactory(null); 	
-		assertEquals(expected, fact.getFunctionBuildMyControls());
+		ControlDataFunctionFactory fact = 
+				new ControlDataFunctionFactory(null, null); 	
+		assertEquals(expected, fact.getFunctionBuildMyControls().toString());
 	}
 }

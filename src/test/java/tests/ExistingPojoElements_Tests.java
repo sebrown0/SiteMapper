@@ -3,10 +3,10 @@
  */
 package tests;
 
-import static helpers.ExistingTestClassBodyBuilder.BODY_RESULT;
+import static helpers.ExistingTestClassBodyBuilder.BODY_RESULT_WITH_EXTRA_METHOD;
 import static helpers.ExistingTestClassFileBuilder.ANNOTATION;
 import static helpers.ExistingTestClassFileBuilder.ANNO_RESULT;
-import static helpers.ExistingTestClassFileBuilder.CLASS_RESULT;
+import static helpers.ExistingTestClassFileBuilder.CLASS_RESULT_FULL;
 import static helpers.ExistingTestClassFileBuilder.COMMENT_RESULT;
 import static helpers.ExistingTestClassFileBuilder.EXISTING_COMMENT;
 import static helpers.ExistingTestClassFileBuilder.EXISTING_PACKAGE;
@@ -276,12 +276,12 @@ class ExistingPojoElements_Tests {
 	@Test
 	void classBody_fromTestBodyBuilder() {
 		ClassBody body = new ExistingTestClassBodyBuilder().build();
-		assertEquals(BODY_RESULT, body.toString());		
+		assertEquals(BODY_RESULT_WITH_EXTRA_METHOD, body.toString());		
 	}
 	
 	@Test
 	void classFile_fromTestClassFileBuilder() {
 		ClassFile clazzFile = new ExistingTestClassFileBuilder().build();		
-		assertEquals(CLASS_RESULT, clazzFile.toString());
+		assertEquals(CLASS_RESULT_FULL, clazzFile.toString());
 	}		
 }

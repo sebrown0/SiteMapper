@@ -33,15 +33,15 @@ public class ExistingTestClassBodyBuilder extends BodyBuilder{
 	public static final String VAR3_RESULT = 
 			"\tpublic static final String MENU_PARENT_NAME = \"Employees\";";
 	public static final Variable VAR1 = new ClassVariable
-			.ClassVarFromString(VAR1_RESULT)
+			.ClassVarFromString("public static final String PANEL_TITLE = \"Employee Details\";")
 			.withAnnotation(new ExistingAnnotation(ANNO_STR))
 			.build(); 
 	public static final Variable VAR2 = new ClassVariable
-			.ClassVarFromString(VAR2_RESULT)
+			.ClassVarFromString("public static final String MENU_TITLE = \"Employee Details\";")
 			.withAnnotation(new ExistingAnnotation(ANNO_STR))
 			.build(); 
 	public static final Variable VAR3 = new ClassVariable
-			.ClassVarFromString(VAR3_RESULT)
+			.ClassVarFromString("public static final String MENU_PARENT_NAME = \"Employees\";")
 			.withAnnotation(new ExistingAnnotation(ANNO_STR))
 			.build(); 
 	
@@ -56,12 +56,13 @@ public class ExistingTestClassBodyBuilder extends BodyBuilder{
 			"private void buildMyControls(){";
 	public static final Lines<Object> CONTROLS_LINES = 
 			new Lines<>()
-				.addLine("List.of(")
-				.addLine("\tnew ControlData(\"save\", new ControlGetterButton(coreData, By.cssSelector(\"button[name='SAVE']\"))),")
-				.addLine("\tnew ControlData(\"search\", new ControlGetterButton(coreData, By.cssSelector(\"button[name='QBF1']\"))),")
-				.addLine("\tnew ControlData(\"code\", new ControlGetterTextOut(coreData, By.cssSelector(\"input[id='FORM_ID']\")))")
-				.addLine(");")
-				.addLine("super.buildPanelControls(myControls);");
+				.addLine("var myControls =")
+				.addLine("\tList.of(")
+				.addLine("\t\tnew ControlData(\"save\", new ControlGetterButton(coreData, By.cssSelector(\"button[name='SAVE']\"))),")
+				.addLine("\t\tnew ControlData(\"search\", new ControlGetterButton(coreData, By.cssSelector(\"button[name='QBF1']\"))),")
+				.addLine("\t\tnew ControlData(\"code\", new ControlGetterTextOut(coreData, By.cssSelector(\"input[id='FORM_ID']\")))")
+				.addLine("\t);")
+				.addLine("\tsuper.buildPanelControls(myControls);");
 	
 	public static final String NOT_FROM_SITEMAPPER_DEC = 
 			"private String aMethodNotFromSiteMapper(int idx){";
@@ -73,25 +74,27 @@ public class ExistingTestClassBodyBuilder extends BodyBuilder{
 				.addLine("return aStr;");
 	
 	public static final String BODY_RESULT =		
-		ANNO_RESULT + "\n" +
-		"\t" + VAR1_RESULT +
-		"\n" +
-		ANNO_RESULT + "\n" +
-		"\t" + VAR2_RESULT +
-		"\n" +
-		ANNO_RESULT + "\n" +
-		"\t" + VAR3_RESULT +
-		"\n\n" +
-		ANNO_RESULT + "\n" + 
-		"\t" + CONSTRUCTOR_DEC +
-		"\n" + CNSTR_LINES.withIndent("\t\t").toString() +				
-		"\t}\n\n" +
-		
-		ANNO_RESULT + "\n" +
-		"\t" + BUILD_MY_CONTROLS_DEC +
-		"\n" + CONTROLS_LINES.withIndent("\t\t").toString() +
-		"\t}\n" + 
-		
+			ANNO_RESULT + "\n" +
+			VAR1_RESULT +
+			"\n" +
+			ANNO_RESULT + "\n" +
+			VAR2_RESULT +
+			"\n" +
+			ANNO_RESULT + "\n" +
+			VAR3_RESULT +
+			"\n\n" +
+			ANNO_RESULT + "\n" + 
+			"\t" + CONSTRUCTOR_DEC +
+			"\n" + CNSTR_LINES.withIndent("\t\t").toString() +				
+			"\t}\n\n" +
+			
+			ANNO_RESULT + "\n" +
+			"\t" + BUILD_MY_CONTROLS_DEC +
+			"\n" + CONTROLS_LINES.withIndent("\t\t").toString() +
+			"\t}\n"; 
+	
+	public static final String BODY_RESULT_WITH_EXTRA_METHOD =		
+		BODY_RESULT +		
 		ANNO_RESULT + "\n" +
 		"\t" + NOT_FROM_SITEMAPPER_DEC +
 		"\n" + NOT_FROM_SITEMAPPER_LINES.withIndent("\t\t").toString() +				
@@ -120,6 +123,7 @@ public class ExistingTestClassBodyBuilder extends BodyBuilder{
 				builder
 					.withAnnotation(ANNO_STR)
 					.withConstructorDeclaration(CONSTRUCTOR_DEC)
+					
 					.build();
 		
 		return this;

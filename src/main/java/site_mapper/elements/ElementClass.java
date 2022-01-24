@@ -33,4 +33,5 @@ public interface ElementClass {
 	List<Element> getElements();
 	SiteMapInfo getSiteMapInfo();
 	ComponentWriter getComponentWriter();
+	boolean hasControlList();
 }

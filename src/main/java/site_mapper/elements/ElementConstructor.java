@@ -16,5 +16,5 @@ public interface ElementConstructor {
 	String getClassName();
 	String getSuperArgs();
 	String getConstructorArgs();
-	List<Object> getConstructorLines();	
+	List<Object> getConstructorLines();
 }

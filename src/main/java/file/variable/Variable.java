@@ -77,7 +77,8 @@ public abstract class Variable implements IndentedElement<Variable> {
 		}
 		@Override
 		public VariableBuilder withVariable(String v) {
-			this.varStr = LineTabs.getLineWithTabs(1, v);
+//			this.varStr = LineTabs.getLineWithTabs(1, v);
+			this.varStr = v;
 			return this;
 		}
 		

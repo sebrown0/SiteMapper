@@ -18,10 +18,23 @@ import file.variable.ArgumentList;
 public class ConstructorDeclarationMapper implements DeclarationMapper {
 	private Modifier modifier;
 	private String name;
-	private ArgumentList args;
+	private ArgumentList cnstrArgs;
 	
 	protected int currentStart;
 	protected int currentEnd;
+	
+	public static String mapSuperArgs(String superDec) {
+		String res = "";
+		if(superDec != null && superDec.contains("super(")) {
+			res = 
+				superDec
+					.replace("\t", "")
+					.replace("super(", "")
+					.replace(");", "")
+					.trim();			 	
+		}
+		return res;
+	}
 	
 	@Override
 	public void mapDeclaration(String cnstrStr) {
@@ -48,8 +61,8 @@ public class ConstructorDeclarationMapper implements DeclarationMapper {
 		
 		if((currentEnd - currentStart) >= 3){
 			String argStr = getSubStr(cnstrStr,currentStart, currentEnd);
-			args = new ArgumentList();
-			args.createArgList(argStr);
+			cnstrArgs = new ArgumentList();
+			cnstrArgs.createArgList(argStr);
 		}
 	}
 
@@ -72,7 +85,7 @@ public class ConstructorDeclarationMapper implements DeclarationMapper {
 		return name;
 	}
 	public ArgumentList getArgs() {
-		return args;
+		return cnstrArgs;
 	}
 	
 }

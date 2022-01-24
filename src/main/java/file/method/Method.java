@@ -6,7 +6,6 @@ package file.method;
 import file.annotation.ExistingAnnotation;
 import file.annotation.SiteMapAnnotation;
 import file.helpers.Formatter;
-import file.helpers.IndentedElement;
 import file.helpers.LineTabs;
 import file.variable.ArgumentList;
 
@@ -18,14 +17,14 @@ import file.variable.ArgumentList;
  * 
  * POJO for a method.
  */
-public class Method implements IndentedElement<Method> {
+public class Method {//implements IndentedElement<Method> {
 	private SiteMapAnnotation annotation;
 	private String modifier = "public";
 	private String returnType = "void";
 	private String name;
 	private ArgumentList arguments = new ArgumentList();
 	private ExistingMethodBody body;
-	private int numTabs;
+//	private int numTabs;
 	
 	private Method(MethodBuilder b) {
 		this.annotation = b.annotation;
@@ -34,14 +33,18 @@ public class Method implements IndentedElement<Method> {
 		this.name = b.name;
 		this.arguments = b.arguments;
 		this.body = b.body;
-		this.numTabs = b.indent;
+//		this.numTabs = b.indent;
 	}
 
-	@Override //IndentedElement
-	public Method setIndent(int numTabs) {
-		this.numTabs = numTabs;
-		return this;
+	public SiteMapAnnotation getAnnotation() {
+		return annotation;
 	}
+
+//	@Override //IndentedElement
+//	public Method setIndent(int numTabs) {
+//		this.numTabs = numTabs;
+//		return this;
+//	}
 		
 	@Override
 	public String toString() {
@@ -56,9 +59,9 @@ public class Method implements IndentedElement<Method> {
 		);
 	}
 
-	public String getIndent() {
-		return LineTabs.getTabStr(numTabs);
-	}
+//	public String getIndent() {
+//		return LineTabs.getTabStr(numTabs);
+//	}
 	
 	/**
 	 * @author SteveBrown
@@ -89,34 +92,16 @@ public class Method implements IndentedElement<Method> {
 			body.addLine(LineTabs.getLineWithTabs(indent+1, line));
 			return this;
 		}
+		public MethodBuilder addLineWithAdditionalIndents(String line, int addIntents) {
+			body.addLine(LineTabs.getLineWithTabs(indent+addIntents, line));
+			return this;
+		}
 
 		public Method build() {
 			return new Method(this);
 		}
 	}
 
-//	public static class NewMethodBuilder extends MethodBuilder {		
-//		private SiteMapInfo siteInfo;
-//		private Element element;
-//		
-//		
-//		public NewMethodBuilder(int indent, SiteMapInfo siteInfo, Element element) {
-//			super(indent);
-//			
-//			this.siteInfo = siteInfo;
-//			this.element = element;
-//		}
-//		
-//		public MethodBuilder includeAnnotation() {
-//			super.annotation = new NewAnnotation(siteInfo, indent);
-//			return this;
-//		}
-//		
-////	.withDeclarationStr("private String aMethod(String str, Integer idx)")
-////	.addLine("Line1")
-////	.addLine("Line2")
-//
-//	}
 	
 	/**
 	 * @author SteveBrown
@@ -145,8 +130,7 @@ public class Method implements IndentedElement<Method> {
 			super.arguments = mapper.getArgs();
 
 			return this;
-		}
-				
+		}				
 	}
 
 }

@@ -3,6 +3,7 @@
  */
 package helpers;
 
+import static helpers.ExistingTestClassBodyBuilder.BODY_RESULT_WITH_EXTRA_METHOD;
 import static helpers.ExistingTestClassBodyBuilder.BODY_RESULT;
 
 import java.util.ArrayList;
@@ -82,7 +83,19 @@ public class ExistingTestClassFileBuilder extends ClassBuilder {
 	public static final String DECLARATION = 
 			"public class EmployeeDetails extends JsPanelWithIFrame {";
 	
-	public static final String CLASS_RESULT = 
+	public static final String CLASS_RESULT_FULL = 
+			PACKAGE_RESULT +
+			"\n\n" +
+			IMPORT_RESULT +
+			"\n" +				
+			COMMENT_RESULT +
+			DECLARATION +
+			"\n" +
+			BODY_RESULT_WITH_EXTRA_METHOD +
+			"\n\n" +			
+			"}";
+	
+	public static final String CLASS_RESULT_WITHOUT_EXTRA_METHOD = 
 			PACKAGE_RESULT +
 			"\n\n" +
 			IMPORT_RESULT +

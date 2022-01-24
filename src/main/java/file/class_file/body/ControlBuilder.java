@@ -4,12 +4,17 @@
 package file.class_file.body;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
+import org.apache.logging.log4j.LogManager;
+
+import exceptions.InvalidArgumentException;
 import file.annotation.NewAnnotation;
-import site_mapper.elements.Element;
+import site_mapper.creators.ControlDataFunction;
+import site_mapper.creators.ControlDataFunctionFactory;
+import site_mapper.creators.ControlDataValues;
 import site_mapper.elements.ElementClass;
 import site_mapper.elements.ElementCreation;
-import site_mapper.jaxb.pom.SiteMapInfo;
 
 /**
  * @author SteveBrown
@@ -26,29 +31,41 @@ import site_mapper.jaxb.pom.SiteMapInfo;
  * 
  */
 public class ControlBuilder {
-	private List<Element> elements;
-	private SiteMapInfo info;
 	private NewAnnotation annotation;
+	private ControlDataFunctionFactory fact;
+	private ElementClass clazz;
 	
 	public ControlBuilder(ElementClass clazz) {
-		elements = clazz.getElements();
-		info = clazz.getSiteMapInfo();
-
-		buildControlFunction();
+		this.clazz = clazz;		
+		setAnnotation();
 	}
 	
-	private void buildControlFunction() {
-		setAnnotation();
-		for (ElementCreation e : elements) {
-			System.out.println(e.getElementName()); // TODO - remove or log 	
-		}
+	public ControlDataFunction buildControlFunction() {
+		ControlDataFunction func = null;		
+		
+		List<ControlDataValues> vals = 
+				clazz.getElements().stream()
+					.map(e -> (ElementCreation)e)
+						.map(e -> new ControlDataValues(e))
+						.collect(Collectors.toList());
+						
+		fact = new ControlDataFunctionFactory(vals, annotation);
+		try {
+			func = fact.getFunctionBuildMyControls();
+		} catch (InvalidArgumentException e1) {
+			LogManager
+				.getLogger(this.getClass())
+					.error("Error creating control data function [" + e1 + "]");
+		} 	
+		return func;
 	}
 
 	private void setAnnotation() {
-		annotation = new NewAnnotation(info, 1);
+		annotation = new NewAnnotation(clazz.getSiteMapInfo(), 1);
 	}
 	
 	public NewAnnotation getAnnotation() {
 		return annotation;
 	}
+	
 }

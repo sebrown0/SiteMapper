@@ -108,6 +108,10 @@ public class MenuItem implements ElementClass, TestElement {
 	public ComponentWriter getComponentWriter() {
 		return menuItemType.getAttributes().getComponentWriter();
 	}
+	@Override //ElementClass
+	public boolean hasControlList() {
+		return (elements != null && elements.size() > 0) ? true : false;
+	}
 	public String getName() {
 		return name;
 	}

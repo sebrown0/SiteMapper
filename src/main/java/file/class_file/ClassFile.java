@@ -52,7 +52,7 @@ public class ClassFile {
 	@Override 
 	public String toString() {
 		return String.format(
-				"%s\n\n%s\n%s%s\n%s\n}", 
+				"%s\n\n%s\n%s%s\n%s\n\n}", 
 				getPackageStr(), 
 				getImportStr(), 
 				getCommentStr(), 
@@ -194,7 +194,7 @@ public class ClassFile {
 		}
 
 		private void setClassBody() {			
-			ClassBody classBody = new ClassBody.NewClassBody(componentWriter, info).build();
+			ClassBody classBody = new ClassBody.NewClassBody(componentWriter, clazz, info).build();
 			super.classBody = classBody;
 		}
 

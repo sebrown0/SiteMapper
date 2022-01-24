@@ -7,6 +7,7 @@ import java.util.List;
 import java.util.Optional;
 
 import exceptions.InvalidArgumentException;
+import file.annotation.SiteMapAnnotation;
 
 /**
  * @author SteveBrown
@@ -22,21 +23,23 @@ import exceptions.InvalidArgumentException;
  * 		new ControlGetterTextOut(coreData, By.id("FORM_ID")))"
  * 
  */
-public class ControlDataStringFactory {
+public class ControlDataFunctionFactory {
 	private List<ControlDataValues> values;
 	private String func = "";
 	private int numControls;
+	private SiteMapAnnotation anno;
 	
-	public ControlDataStringFactory(List<ControlDataValues> values) {
+	public ControlDataFunctionFactory(List<ControlDataValues> values, SiteMapAnnotation anno) {
 		this.values = values;
+		this.anno = anno;
 	}
 	
-	public String getFunctionBuildMyControls() throws InvalidArgumentException {
+	public ControlDataFunction getFunctionBuildMyControls() throws InvalidArgumentException {
 		if(values != null && values.size() > 0) {
 			numControls = values.size();		
 			func = 
-				"\tprivate void buildMyControls() {\n" +
-				"\t\tvar myControls = \r\n" +
+				"\tprivate void buildMyControls(){\n" +
+				"\t\tvar myControls =\n" +
 				"\t\t\tList.of(";
 		
 			for (ControlDataValues v : values) {
@@ -45,11 +48,11 @@ public class ControlDataStringFactory {
 					addControlToFunction(s);
 				});
 			}			
-			func += "\n\t\t\t);\n\t\tsuper.buildPanelControls(myControls);\n\t}";		
+			func += "\n\t\t\t);\n\t\t\tsuper.buildPanelControls(myControls);\n\t}";		
 		}else {
 			func = "\t\tprivate void buildMyControls() {}";
 		}	
-		return func;
+		return new ControlDataFunction(anno, func);
 	}
 	private void addControlToFunction(String cntrlString) {
 		if(numControls > 0) {
@@ -111,10 +114,9 @@ public class ControlDataStringFactory {
 				"new ControlData(" + 
 				"\"" + controlName + "\", new " +
 				controlGetter + "(coreData, " +
-				byActualType +"(\"" +
+				byActualType +"(" +
 				byValue;
 
-		return str += "\")))";
+		return str += ")))";
 	}
-
 }
