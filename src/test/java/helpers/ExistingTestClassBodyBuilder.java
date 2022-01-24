@@ -129,7 +129,6 @@ public class ExistingTestClassBodyBuilder extends BodyBuilder{
 		return this;
 	}
 
-//	@Override
 	public BodyBuilder setMethods() {		
 		super.methods = 
 			new MethodList()

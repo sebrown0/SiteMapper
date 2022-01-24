@@ -111,10 +111,6 @@ public class ClassBody {
 			return this;
 		}
 
-		/* 
-		 * Take the list of elements from ElementClass
-		 * and add them to the buildMyControls function.
-		 */
 		public BodyBuilder setElements() {	
 			super.dataFunc = new ControlBuilder((ElementClass) clazz).buildControlFunction();
 			return this;

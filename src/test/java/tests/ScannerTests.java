@@ -21,6 +21,7 @@ import file.modifier.Modifier;
 import file.stage.InitialStage;
 import file.stage.PackageStage;
 import file.stage.Stage;
+import helpers.ExistingTestClassBodyBuilder;
 
 /**
  * @author SteveBrown
@@ -135,7 +136,7 @@ class ScannerTests {
 		assertEquals(
 			"\t@SiteMap(author=\"SteveBrown\", version=\"1.0.0\", date=\"07/01/2022\")\n" +
 			"\tpublic EmployeeDetails(CoreData coreData){\n" +
-			"\t\tsuper(coreData,PANEL_TITLE);\n" +
+			"\t\tsuper(coreData, PANEL_TITLE);\n" +
 			"\t\tbuildMyControls();\n" +
 			"\t}", 
 			cnstr.toString());
@@ -148,7 +149,9 @@ class ScannerTests {
 		scanner.mapFile();
 		ClassBody body = scanner.getClassFile().getClassBody();
 		MethodList methods = body.getMethods();
-		System.out.println(methods.toString() ); // TODO - remove or log 	
+//		System.out.println(methods.toString() ); // TODO - remove or log 	
+		
+		System.out.println(ExistingTestClassBodyBuilder.BUILD_MY_CONTROLS_DEC);
 		assertEquals(
 				"\t@SiteMap(author=\"SteveBrown\", version=\"1.0.0\", date=\"07/01/2022\")\r\n"
 				+ "\tprivate void buildMyControls() {\r\n"

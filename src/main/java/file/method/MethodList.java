@@ -27,6 +27,13 @@ public class MethodList {
 		return this;
 	}
 
+	public Method getMethod(String methodName) {
+		Method res = null;
+		for (Method m : methods.getLines()) {
+			
+		}
+		return res;
+	}
 	public Lines<Method> getMethods() {
 		return methods;
 	}

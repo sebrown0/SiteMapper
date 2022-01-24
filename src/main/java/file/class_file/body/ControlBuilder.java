@@ -22,13 +22,9 @@ import site_mapper.elements.ElementCreation;
  * 	Initial
  * @since 1.0
  * 
- * Take a list of elements and create the 
- * 'method' for building controls in the class body.
- * 
- * The elements come from the XML file 
- * [MenuItem.elements] or [NewTestClassFileBuilder.elements]
- * and are of type [ElementCreation].
- * 
+ * Take a list of elements from ElementClass and create the 
+ * 'method string' for building controls in the class body.
+ *  
  */
 public class ControlBuilder {
 	private NewAnnotation annotation;
