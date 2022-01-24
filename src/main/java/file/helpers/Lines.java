@@ -5,6 +5,7 @@ package file.helpers;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 /**
  * @author SteveBrown
@@ -35,6 +36,14 @@ public class Lines <T> {
 		return this;
 	}
 
+	public Optional<T> getLine(int idx) {
+		Optional<T> res = Optional.ofNullable(null);
+		if(idx >= 0 && idx <= lines.size()) {
+			res = Optional.of(lines.get(idx));
+		}
+		return res;
+	}
+	
 	public List<T> getLines() {
 		return lines;
 	}

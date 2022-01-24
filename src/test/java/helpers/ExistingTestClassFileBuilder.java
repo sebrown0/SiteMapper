@@ -11,10 +11,10 @@ import java.util.List;
 
 import file.annotation.ExistingAnnotation;
 import file.annotation.SiteMapAnnotation;
-import file.class_file.ClassBody;
 import file.class_file.ClassDeclaration;
 import file.class_file.ClassFile;
 import file.class_file.ClassFile.ClassBuilder;
+import file.class_file.body.ClassBody;
 import file.class_package.ExistingClassPackage;
 import file.comment.ExistingComment;
 import file.imports.ExistingImport;
@@ -46,7 +46,7 @@ public class ExistingTestClassFileBuilder extends ClassBuilder {
 					"version=\"" + VERSION + "\", " + 
 					"date=\"" + DATE + "\"";
 	public static final String ANNO_RESULT = 
-					"@SiteMap(" + ANNO_STR + ")";	
+					"\t@SiteMap(" + ANNO_STR + ")";	
 	public static final SiteMapAnnotation ANNOTATION = 
 					new ExistingAnnotation(ANNO_RESULT, 1);
 		

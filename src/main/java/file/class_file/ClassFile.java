@@ -10,6 +10,7 @@ import static file.existing.ExistingFileScanner.packageTest;
 
 import java.util.Scanner;
 
+import file.class_file.body.ClassBody;
 import file.class_package.ClassPackage;
 import file.class_package.ExistingClassPackage;
 import file.class_package.NewClassPackage;

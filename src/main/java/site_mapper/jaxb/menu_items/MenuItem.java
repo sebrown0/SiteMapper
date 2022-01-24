@@ -132,6 +132,11 @@ public class MenuItem implements ElementClass, TestElement {
 		this.siteMapInfo = info;
 		return this;
 	}
+	@Override //TestElement
+	public TestElement setElements(List<Element> elements) {
+		this.elements = elements;
+		return this;
+	}
 	
 //	public MenuItem setName(String name) {
 //		this.name = name;

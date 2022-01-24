@@ -7,8 +7,8 @@ import static helpers.ExistingTestClassFileBuilder.ANNO_RESULT;
 import static helpers.ExistingTestClassFileBuilder.ANNO_STR;
 
 import file.annotation.ExistingAnnotation;
-import file.class_file.ClassBody;
-import file.class_file.ClassBody.BodyBuilder;
+import file.class_file.body.ClassBody;
+import file.class_file.body.ClassBody.BodyBuilder;
 import file.class_file.constructor.ClassConstructor;
 import file.class_file.constructor.ClassConstructor.ExistingConstructorBuilder;
 import file.helpers.Lines;
@@ -27,11 +27,11 @@ import file.variable.Variables;
  */
 public class ExistingTestClassBodyBuilder extends BodyBuilder{
 	public static final String VAR1_RESULT = 
-			"public static final String PANEL_TITLE = \"Employee Details\";";
+			"\tpublic static final String PANEL_TITLE = \"Employee Details\";";
 	public static final String VAR2_RESULT = 
-			"public static final String MENU_TITLE = \"Employee Details\";";
+			"\tpublic static final String MENU_TITLE = \"Employee Details\";";
 	public static final String VAR3_RESULT = 
-			"public static final String MENU_PARENT_NAME = \"Employees\";";
+			"\tpublic static final String MENU_PARENT_NAME = \"Employees\";";
 	public static final Variable VAR1 = new ClassVariable
 			.ClassVarFromString(VAR1_RESULT)
 			.withAnnotation(new ExistingAnnotation(ANNO_STR))
@@ -73,26 +73,26 @@ public class ExistingTestClassBodyBuilder extends BodyBuilder{
 				.addLine("return aStr;");
 	
 	public static final String BODY_RESULT =		
-		"\t" + ANNO_RESULT + "\n" +
+		ANNO_RESULT + "\n" +
 		"\t" + VAR1_RESULT +
 		"\n" +
-		"\t" + ANNO_RESULT + "\n" +
+		ANNO_RESULT + "\n" +
 		"\t" + VAR2_RESULT +
 		"\n" +
-		"\t" + ANNO_RESULT + "\n" +
+		ANNO_RESULT + "\n" +
 		"\t" + VAR3_RESULT +
 		"\n\n" +
-		"\t" + ANNO_RESULT + "\n" + 
+		ANNO_RESULT + "\n" + 
 		"\t" + CONSTRUCTOR_DEC +
 		"\n" + CNSTR_LINES.withIndent("\t\t").toString() +				
 		"\t}\n\n" +
 		
-		"\t" + ANNO_RESULT + "\n" +
+		ANNO_RESULT + "\n" +
 		"\t" + BUILD_MY_CONTROLS_DEC +
 		"\n" + CONTROLS_LINES.withIndent("\t\t").toString() +
 		"\t}\n" + 
 		
-		"\t" + ANNO_RESULT + "\n" +
+		ANNO_RESULT + "\n" +
 		"\t" + NOT_FROM_SITEMAPPER_DEC +
 		"\n" + NOT_FROM_SITEMAPPER_LINES.withIndent("\t\t").toString() +				
 		"\t}"; 
@@ -125,7 +125,7 @@ public class ExistingTestClassBodyBuilder extends BodyBuilder{
 		return this;
 	}
 
-	@Override
+//	@Override
 	public BodyBuilder setMethods() {		
 		super.methods = 
 			new MethodList()
@@ -150,7 +150,7 @@ public class ExistingTestClassBodyBuilder extends BodyBuilder{
 
 	@Override
 	public ClassBody build() {
-		this.setVars().setConstructor().setMethods();
+		((ExistingTestClassBodyBuilder) this.setVars().setConstructor()).setMethods();
 		return new ClassBody(this);
 	}
 }

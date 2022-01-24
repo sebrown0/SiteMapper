@@ -1,7 +1,7 @@
 /**
  * 
  */
-package file.class_file;
+package file.class_file.body;
 
 import java.util.Scanner;
 
@@ -63,54 +63,7 @@ public class ClassBody {
 		
 		protected abstract ClassBody build();
 		public abstract BodyBuilder setVars();
-		public abstract BodyBuilder setConstructor();
-		public abstract BodyBuilder setMethods();			
-	}
-	
-	/** 
-	 * @author SteveBrown
-	 * @version 1.0
-	 * 	Initial
-	 * @since 1.0
-	 * 
-	 * Use the file scanner to get the existing
-	 * lines from the file. Then map to POJOs.
-	 */
-	public static class ExistingClassBody extends BodyBuilder {
-		private Scanner scanner;	
-		
-		public ExistingClassBody(Scanner scanner) {
-			this.scanner = scanner;
-		}
-		@Override
-		public BodyBuilder setVars() {
-			ExistingClassVariableMapper mapper = new ExistingClassVariableMapper(scanner);
-			super.vars = mapper.mapVariables();			
-			return this;
-		}
-		@Override
-		public BodyBuilder setConstructor() {
-			ExistingConstructorMapper mapper = 
-					new ExistingConstructorMapper(
-							scanner, new ClassConstructor.ExistingConstructorBuilder());
-			
-			super.cnstr = mapper.mapConstructor();
-			return this;
-		}
-		@Override
-		public BodyBuilder setMethods() {
-			ExistingMethodMapper mapper = 
-					new ExistingMethodMapper(scanner, 1);
-			super.methods = mapper.mapMethods().withIndent("\t");
-			return this;
-		}
-		
-		@Override
-		public ClassBody build() {
-			return new ClassBody(this);
-		}
-
-		
+		public abstract BodyBuilder setConstructor();		
 	}
 
 	/** 
@@ -146,20 +99,69 @@ public class ClassBody {
 						.withComponentInfo()
 						.build();
 			
+			return this;
+		}
+
+		/* 
+		 * Take the list of elements from ElementClass
+		 * and add them to the buildMyControls function.
+		 */
+		public BodyBuilder setElements() {
 			// TODO Auto-generated method stub
 			return this;
 		}
 
 		@Override
-		public BodyBuilder setMethods() {
-			// TODO Auto-generated method stub
-			return this;
-		}
-
-		@Override
-		protected ClassBody build() {
-			setVars().setConstructor().setMethods();//TODO - move to method??
+		public ClassBody build() {
+			setVars();
+			setConstructor();
+			setElements();
 			return new ClassBody(this);
 		}	
 	}
+	
+	/** 
+	 * @author SteveBrown
+	 * @version 1.0
+	 * 	Initial
+	 * @since 1.0
+	 * 
+	 * Use the file scanner to get the existing
+	 * lines from the file. Then map to POJOs.
+	 */
+	public static class ExistingClassBody extends BodyBuilder {
+		private Scanner scanner;	
+		
+		public ExistingClassBody(Scanner scanner) {
+			this.scanner = scanner;
+		}
+		@Override
+		public BodyBuilder setVars() {
+			ExistingClassVariableMapper mapper = new ExistingClassVariableMapper(scanner);
+			super.vars = mapper.mapVariables();			
+			return this;
+		}
+		@Override
+		public BodyBuilder setConstructor() {
+			ExistingConstructorMapper mapper = 
+					new ExistingConstructorMapper(
+							scanner, new ClassConstructor.ExistingConstructorBuilder());
+			
+			super.cnstr = mapper.mapConstructor();
+			return this;
+		}
+
+		public ExistingClassBody setMethods() {
+			ExistingMethodMapper mapper = 
+					new ExistingMethodMapper(scanner, 1);
+			super.methods = mapper.mapMethods().withIndent("\t");
+			return this;
+		}
+		
+		@Override
+		public ClassBody build() {
+			return new ClassBody(this);
+		}		
+	}
+
 }

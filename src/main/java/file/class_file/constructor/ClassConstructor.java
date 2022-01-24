@@ -123,8 +123,7 @@ public class ClassConstructor {
 			super.argList = mapper.getArgs();
 
 			return this;
-		}
-		
+		}		
 	}
 		
 }

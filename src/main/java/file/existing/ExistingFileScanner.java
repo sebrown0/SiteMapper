@@ -8,10 +8,10 @@ import java.io.FileReader;
 import java.util.Scanner;
 import java.util.function.Predicate;
 
-import file.class_file.ClassBody;
-import file.class_file.ClassBody.ExistingClassBody;
 import file.class_file.ClassFile;
 import file.class_file.ClassFile.ExistingClassFileBuilder;
+import file.class_file.body.ClassBody;
+import file.class_file.body.ClassBody.ExistingClassBody;
 import file.modifier.Modifier;
 
 /**
@@ -78,9 +78,9 @@ public class ExistingFileScanner {
 	}
 	private void mapBody() {
 		ExistingClassBody bodyBuilder = new ClassBody.ExistingClassBody(scanner);
-		bodyBuilder
+		((ExistingClassBody) bodyBuilder
 			.setVars()
-			.setConstructor()
+			.setConstructor())
 			.setMethods();		 
 	 
 		//others...

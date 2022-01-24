@@ -149,7 +149,7 @@ public class ClassDeclaration {
 			modifier = "public"; 			/** Default to public. **/
 		}
 		private void setName() {
-			name = clazz.getClassName();
+			name = clazz.getClassName().trim();
 		}
 		private void setExtends() {			
 			extend = attributes.getExtends();

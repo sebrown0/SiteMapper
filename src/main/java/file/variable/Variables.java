@@ -4,6 +4,7 @@
 package file.variable;
 
 import java.util.List;
+import java.util.Optional;
 
 import file.helpers.Lines;
 
@@ -29,7 +30,11 @@ public class Variables {
 	public List<Variable> getLines() {
 		return lines.getLines();
 	}
-		
+	
+	public Optional<Variable> getLine(int idx) {
+		return lines.getLine(idx);
+	}
+	
 	@Override
 	public String toString() {
 		return lines.toString();

@@ -11,13 +11,14 @@ import static helpers.ExistingTestClassFileBuilder.COMMENT_RESULT;
 import static helpers.ExistingTestClassFileBuilder.EXISTING_COMMENT;
 import static helpers.ExistingTestClassFileBuilder.EXISTING_PACKAGE;
 import static helpers.ExistingTestClassFileBuilder.PACKAGE_RESULT;
+import static helpers.ExistingTestClassBodyBuilder.*;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import org.junit.jupiter.api.Test;
 
-import file.class_file.ClassBody;
 import file.class_file.ClassDeclaration;
 import file.class_file.ClassFile;
+import file.class_file.body.ClassBody;
 import file.class_package.ExistingClassPackage;
 import file.imports.ImportList;
 import file.method.Method;
@@ -126,7 +127,7 @@ class ExistingPojoElements_Tests {
 	
 	@Test
 	void testExistingAnnotation() {		
-		assertEquals("\t" + ANNO_RESULT, ANNOTATION.toString());
+		assertEquals(ANNO_RESULT, ANNOTATION.toString());
 	}
 	
 	@Test
@@ -137,8 +138,8 @@ class ExistingPojoElements_Tests {
 					.withAnnotation(ANNOTATION).build();
 		
 		assertEquals(
-				"\t" + ANNO_RESULT + "\n" +
-				"\tpublic static final String PANEL_TITLE = \"Employee Details\";", 
+				ANNO_RESULT + "\n" +
+				VAR1_RESULT,
 				v.toString());				 	
 	}
 	@Test
@@ -149,7 +150,7 @@ class ExistingPojoElements_Tests {
 					.withAnnotation(ANNOTATION).build();
 		
 		assertEquals(
-				"\t" + ANNO_RESULT + "\n" +
+				ANNO_RESULT + "\n" +
 				"\tpublic static final int PANEL_TITLE = 1;", 
 				v.toString());				 	
 	}	
@@ -234,7 +235,7 @@ class ExistingPojoElements_Tests {
 				.build();		
 		
 		assertEquals(
-				"\t" + ANNO_RESULT + "\n" +
+				ANNO_RESULT + "\n" +
 				"\tprivate String aMethod(String str, Integer idx){\n" +
 				"\t\tLine1\n\t\tLine2" +
 				"\n\t}", 
@@ -259,12 +260,12 @@ class ExistingPojoElements_Tests {
 		ml.addMethod(m1).addMethod(m2);
 		
 		assertEquals(
-				"\t" + ANNO_RESULT + "\n" +
+				ANNO_RESULT + "\n" +
 				"\tprivate String aMethodOne(String str, Integer idx){\n" +
 				"\t\tLine1\n" +
 				"\t\tLine2\n" +
 				"\t}\n" +
-				"\t" + ANNO_RESULT + "\n" +
+				ANNO_RESULT + "\n" +
 				"\tprivate String aMethodTwo(boolean b, Integer idx){\n" +
 				"\t\tLine1\n" +
 				"\t\tLine2\n" +

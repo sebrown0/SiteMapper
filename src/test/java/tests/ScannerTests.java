@@ -11,8 +11,8 @@ import java.util.regex.Pattern;
 
 import org.junit.jupiter.api.Test;
 
-import file.class_file.ClassBody;
 import file.class_file.ClassFile;
+import file.class_file.body.ClassBody;
 import file.class_file.constructor.ClassConstructor;
 import file.existing.ExistingFileScanner;
 import file.helpers.LineTabs;

@@ -14,6 +14,8 @@ import file.helpers.Formatter;
  * 
  */
 public class ClassVariable extends Variable {
+	private boolean includeAnnotation = true;
+	
 	public ClassVariable(VariableBuilder b) {
 		super(b);	
 		super.setIndent(1);	
@@ -23,7 +25,7 @@ public class ClassVariable extends Variable {
 	public String toString() {		
 		return String.format(
 				"%s%s%s%s%s%s%s%s;",				
-				Formatter.getAnnotation(annotation),
+				getAnnotation(),
 				super.getIndent(),
 				Formatter.getValueOf(modifier),
 				Formatter.getValueOf(" ", staticVar),
@@ -33,6 +35,17 @@ public class ClassVariable extends Variable {
 				Formatter.getVariableValue(Formatter.trimValueOf(value), type));
 	}
 
+	public ClassVariable includeAnnotation() {
+		includeAnnotation = true;
+		return this;
+	}
+	public ClassVariable excludeAnnotation() {
+		includeAnnotation = false;
+		return this;
+	}
+	private String getAnnotation() {
+		return (includeAnnotation==true) ? Formatter.getAnnotation(annotation) : "";
+	}
 }
 		
 

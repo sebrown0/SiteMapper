@@ -46,9 +46,8 @@ public class Method implements IndentedElement<Method> {
 	@Override
 	public String toString() {
 		return String.format(
-				"%s%s%s %s %s(%s){\n%s\t}", 
+				"%s%s %s %s(%s){\n%s\t}", 
 				Formatter.getAnnotation(annotation),
-				getIndent(),
 				Formatter.getValueOf(modifier), 
 				Formatter.getValueOf(returnType), 
 				Formatter.getValueOf(name),
@@ -69,6 +68,9 @@ public class Method implements IndentedElement<Method> {
 	 */
 	public abstract static class MethodBuilder {
 		protected SiteMapAnnotation annotation;
+		protected ExistingMethodBody body  = new ExistingMethodBody();
+		protected int indent;
+		
 		/*
 		 * TODO THESE SHOULD BE OBJECT DECLARATION.
 		 */
@@ -77,17 +79,44 @@ public class Method implements IndentedElement<Method> {
 		protected String name;
 		protected ArgumentList arguments = new ArgumentList();
 		//----------------------------------------------------
-		protected ExistingMethodBody body  = new ExistingMethodBody();
-		private int indent;
 		
-		public abstract Method build();
-		protected abstract MethodBuilder withAnnotation(String a);
+		
+		public MethodBuilder(int indent) {
+			this.indent = indent;
+		}
 		
 		public MethodBuilder addLine(String line) {
-			body.addLine(LineTabs.getLineWithTabs(indent+2, line));
+			body.addLine(LineTabs.getLineWithTabs(indent+1, line));
 			return this;
 		}
+
+		public Method build() {
+			return new Method(this);
+		}
 	}
+
+//	public static class NewMethodBuilder extends MethodBuilder {		
+//		private SiteMapInfo siteInfo;
+//		private Element element;
+//		
+//		
+//		public NewMethodBuilder(int indent, SiteMapInfo siteInfo, Element element) {
+//			super(indent);
+//			
+//			this.siteInfo = siteInfo;
+//			this.element = element;
+//		}
+//		
+//		public MethodBuilder includeAnnotation() {
+//			super.annotation = new NewAnnotation(siteInfo, indent);
+//			return this;
+//		}
+//		
+////	.withDeclarationStr("private String aMethod(String str, Integer idx)")
+////	.addLine("Line1")
+////	.addLine("Line2")
+//
+//	}
 	
 	/**
 	 * @author SteveBrown
@@ -95,17 +124,14 @@ public class Method implements IndentedElement<Method> {
 	 * 	Initial
 	 * @since 1.0
 	 */
-	public static class ExistingMethodBuilder extends MethodBuilder {
-		private int indent;
-		
+	public static class ExistingMethodBuilder extends MethodBuilder {		
 		public ExistingMethodBuilder(int indent) {
-			this.indent = indent;
+			super(indent);
 		}
-
-		@Override
+		
 		public ExistingMethodBuilder withAnnotation(String annoStr) {
 			if(annoStr != null) {
-				super.annotation = new ExistingAnnotation(annoStr, super.indent).setIndent(indent); 
+				super.annotation = new ExistingAnnotation(annoStr, super.indent);//.setIndent(indent); 
 			}
 			return this;
 		}
@@ -120,12 +146,7 @@ public class Method implements IndentedElement<Method> {
 
 			return this;
 		}
-		
-		@Override
-		public Method build() {
-			return new Method(this);
-		}
-		
+				
 	}
 
 }
