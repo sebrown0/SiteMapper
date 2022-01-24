@@ -30,12 +30,12 @@ public class ClassWriter2 implements ClassWriterActions {
 	private PackageHierarchy ph;	
 	private String className;
 	private BufferedWriter writer;
-	private ComponentWriterVisitor componentWriter;
+	private ComponentWriterSetter componentWriter;
 	private ElementClass elementClass;
 	private AnnotationWriter annotationWriter;
 	Logger logger = LogManager.getLogger(ClassWriter2.class);
 	
-	public ClassWriter2(ElementClass elementClass, PackageHierarchy ph, BufferedWriter writer, ComponentWriterVisitor componentWriter) {
+	public ClassWriter2(ElementClass elementClass, PackageHierarchy ph, BufferedWriter writer, ComponentWriterSetter componentWriter) {
 		this.elementClass = elementClass;
 		this.className = elementClass.getClassName();
 		this.annotationWriter = new AnnotationWriter(writer, elementClass.getSiteMapInfo());
@@ -75,7 +75,7 @@ public class ClassWriter2 implements ClassWriterActions {
 		logger.debug("Writing comments");
 		writer.write(Comments.getClassComments(elementClass.getSiteMapInfo()));
 	}
-	public void writeIndividualElements(ComponentInfo compWriter) throws IOException {
+	public void writeIndividualElements(ComponentWriter compWriter) throws IOException {
 //		if(compWriter instanceof ComponentWriterVisitor ) {
 //			logger.debug("Writing class specific components");
 //			((ComponentWriterVisitor) compWriter)

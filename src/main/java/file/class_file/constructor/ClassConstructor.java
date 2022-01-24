@@ -9,7 +9,6 @@ import file.annotation.SiteMapAnnotation;
 import file.helpers.Formatter;
 import file.helpers.Lines;
 import file.variable.ArgumentList;
-import site_mapper.creators.ComponentInfo;
 import site_mapper.elements.ElementConstructor;
 import site_mapper.jaxb.pom.SiteMapInfo;
 

@@ -18,10 +18,9 @@ import file.comment.ExistingComment;
 import file.comment.NewComment;
 import file.helpers.LineMapper;
 import file.imports.ImportList;
-import site_mapper.creators.ComponentInfo;
-import site_mapper.creators.ComponentWriterVisitor;
+import site_mapper.creators.ComponentWriter;
+import site_mapper.creators.ComponentWriterSetter;
 import site_mapper.elements.ElementClass;
-import site_mapper.jaxb.menu_items.TestElement;
 import site_mapper.jaxb.pom.SiteMapInfo;
 
 /**
@@ -148,24 +147,28 @@ public class ClassFile {
 	}
 	
 	public static class NewClassFileBuilder extends ClassBuilder {
-		private ComponentInfo componentWriter;
+		private ComponentWriter componentWriter;
 		private ElementClass clazz;
 		private SiteMapInfo info;
 		
-		public NewClassFileBuilder(TestElement clazz) {
-			this.clazz = (ElementClass) clazz;
-			this.info = this.clazz.getSiteMapInfo();
-			this.componentWriter = this.clazz.getMenuItemType().getAttributes().getComponentWriter();
-			
-			ComponentWriterVisitor v = (ComponentWriterVisitor) componentWriter;
-			v.setSiteMapInfo(info);
-			v.setElementClass(this.clazz);
+		public NewClassFileBuilder(ElementClass clazz) {
+			this.clazz = clazz;
+			this.info = clazz.getSiteMapInfo();
+						
+			setComponentWriter();
 			
 			setInPackage();
 			setImports();
 			setComment();
 			setDeclaration();
 			setClassBody();
+		}
+		
+		//Set the component writer with necessary objects.
+		private void setComponentWriter() {
+			componentWriter = clazz.getComponentWriter();
+			((ComponentWriterSetter) componentWriter).setSiteMapInfo(info);
+			((ComponentWriterSetter) componentWriter).setElementClass(clazz);
 		}
 		
 		@Override

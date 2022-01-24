@@ -13,7 +13,6 @@ import org.apache.logging.log4j.Logger;
 
 import file.class_file.ClassFile;
 import site_mapper.elements.ElementClass;
-import site_mapper.jaxb.menu_items.TestElement;
 import site_mapper.jaxb.pom.PackageHierarchy;
 
 /**
@@ -50,7 +49,7 @@ public class ClassMaker {
 		if(elementClass.getSiteMapInfo().isOverwritingExisting()) {
 			ClassFile classFile = 
 					new ClassFile
-						.NewClassFileBuilder((TestElement) elementClass)//, compWriter)//TODO CHANGED TO TestElement AND NOT TESTED
+						.NewClassFileBuilder(elementClass)//, compWriter)
 						.build();
 			
 			ClassWriter classWriter = new ClassWriter(classFile);
@@ -83,8 +82,8 @@ public class ClassMaker {
 			fileOut.ifPresent(fileWriter -> {
 				logger.info("Creating class [" + className + "].");
 				
-				ComponentWriterVisitor compWriter = 
-						(ComponentWriterVisitor) ZZZ_ClassComponentFactory.getComponentWriter(elementClass.getTypeName());
+				ComponentWriterSetter compWriter = 
+						(ComponentWriterSetter) ZZZ_ClassComponentFactory.getComponentWriter(elementClass.getTypeName());
 				
 				ClassWriter classWriter = 
 						new ClassWriter(elementClass, packageHierarchy, fileWriter, compWriter);

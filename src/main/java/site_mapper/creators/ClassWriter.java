@@ -31,7 +31,7 @@ public class ClassWriter implements ClassWriterActions {
 	private PackageHierarchy ph;	
 	private String className;
 	private BufferedWriter writer;
-	private ComponentWriterVisitor componentWriter;
+	private ComponentWriterSetter componentWriter;
 	private ElementClass elementClass;
 	private AnnotationWriter annotationWriter;
 	private Logger logger = LogManager.getLogger(ClassWriter.class);
@@ -47,7 +47,7 @@ public class ClassWriter implements ClassWriterActions {
 //		writer.write(classFile.toString());
 	}
 	
-	public ClassWriter(ElementClass elementClass, PackageHierarchy ph, BufferedWriter writer, ComponentWriterVisitor componentWriter) {
+	public ClassWriter(ElementClass elementClass, PackageHierarchy ph, BufferedWriter writer, ComponentWriterSetter componentWriter) {
 		this.elementClass = elementClass;
 		this.className = elementClass.getClassName();
 		this.annotationWriter = new AnnotationWriter(writer, elementClass.getSiteMapInfo());
@@ -87,7 +87,7 @@ public class ClassWriter implements ClassWriterActions {
 		logger.debug("Writing comments");
 		writer.write(Comments.getClassComments(elementClass.getSiteMapInfo()));
 	}
-	public void writeIndividualElements(ComponentInfo compWriter) throws IOException {
+	public void writeIndividualElements(ComponentWriter compWriter) throws IOException {
 		System.out.println("ClassWriter -> ComponentWriterJsPanelWithIFrame.writeComponents DEPRECIATED!!!!!!"); // TODO - remove or log
 //		if(compWriter instanceof ComponentWriterVisitor ) {
 //			logger.debug("Writing class specific components");

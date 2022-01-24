@@ -3,7 +3,7 @@
  */
 package site_mapper.jaxb.menu_items;
 
-import site_mapper.creators.ComponentInfo;
+import site_mapper.creators.ComponentWriter;
 
 /**
  * @author SteveBrown
@@ -24,5 +24,5 @@ import site_mapper.creators.ComponentInfo;
  */
 public abstract class TypeAttributes {
 	public abstract String getExtends();
-	public abstract ComponentInfo getComponentWriter();
+	public abstract ComponentWriter getComponentWriter();
 }

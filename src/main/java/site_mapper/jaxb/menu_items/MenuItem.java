@@ -10,6 +10,7 @@ import jakarta.xml.bind.annotation.XmlElement;
 import jakarta.xml.bind.annotation.XmlElementWrapper;
 import jakarta.xml.bind.annotation.XmlRootElement;
 import site_mapper.creators.ClassMaker;
+import site_mapper.creators.ComponentWriter;
 import site_mapper.creators.PackageMaker;
 import site_mapper.elements.Element;
 import site_mapper.elements.ElementClass;
@@ -103,7 +104,10 @@ public class MenuItem implements ElementClass, TestElement {
 	public SiteMapInfo getSiteMapInfo() {
 		return siteMapInfo;
 	}	
-	
+	@Override //ElementClass
+	public ComponentWriter getComponentWriter() {
+		return menuItemType.getAttributes().getComponentWriter();
+	}
 	public String getName() {
 		return name;
 	}

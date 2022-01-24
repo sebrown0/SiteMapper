@@ -5,6 +5,7 @@ package site_mapper.elements;
 
 import java.util.List;
 
+import site_mapper.creators.ComponentWriter;
 import site_mapper.jaxb.menu_items.MenuItemType;
 import site_mapper.jaxb.pom.SiteMapInfo;
 
@@ -31,4 +32,5 @@ public interface ElementClass {
 	MenuItemType getMenuItemType();
 	List<Element> getElements();
 	SiteMapInfo getSiteMapInfo();
+	ComponentWriter getComponentWriter();
 }

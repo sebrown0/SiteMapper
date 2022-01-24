@@ -41,7 +41,7 @@ import file.variable.Variable;
 import helpers.ExistingTestClassBodyBuilder;
 import helpers.ExistingTestClassFileBuilder;
 import helpers.NewTestClassFileBuilder;
-import site_mapper.creators.ComponentInfo;
+import site_mapper.creators.ComponentWriter;
 import site_mapper.creators.ComponentWriterJsPanelWithIFrame;
 import site_mapper.jaxb.pom.SiteMapInfo;
 
@@ -82,7 +82,7 @@ class NewPojoElements_Tests {
 
 	@Test
 	void newImports() {
-		ComponentInfo componentWriter = new ComponentWriterJsPanelWithIFrame();
+		ComponentWriter componentWriter = new ComponentWriterJsPanelWithIFrame();
 //		List<Import> imprtList = new ArrayList<>();
 //		imprtList.add(new ExistingImport("import java.util.List;"));
 //		imprtList.add(new ExistingImport("import control_builder.*;"));		

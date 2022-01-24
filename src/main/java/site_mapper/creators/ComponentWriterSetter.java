@@ -12,7 +12,7 @@ import site_mapper.jaxb.pom.SiteMapInfo;
  * 	Initial
  * @since 1.0
  */
-public interface ComponentWriterVisitor extends ComponentInfo {	
-	ComponentWriterVisitor setElementClass(ElementClass elementClass);
-	ComponentWriterVisitor setSiteMapInfo(SiteMapInfo siteMapInfo);
+public interface ComponentWriterSetter extends ComponentWriter {	
+	ComponentWriterSetter setElementClass(ElementClass elementClass);
+	ComponentWriterSetter setSiteMapInfo(SiteMapInfo siteMapInfo);
 }

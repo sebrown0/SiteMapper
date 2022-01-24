@@ -5,6 +5,7 @@ package helpers;
 import static helpers.ExistingTestClassFileBuilder.*;
 import file.class_file.ClassFile;
 import file.class_file.ClassFile.NewClassFileBuilder;
+import site_mapper.elements.ElementClass;
 import site_mapper.jaxb.menu_items.JsPanelWithIFrame;
 import site_mapper.jaxb.menu_items.MenuItem;
 import site_mapper.jaxb.menu_items.MenuItemType;
@@ -47,7 +48,7 @@ public class NewTestClassFileBuilder {
 			.setTestItemType(menuItemType)
 			.setSiteMapInfo(info);
 		
-		classFile = new NewClassFileBuilder(menuItem).build();
+		classFile = new NewClassFileBuilder((ElementClass) menuItem).build();
 	}
 
 	public static ClassFile getClassFile() {

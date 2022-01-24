@@ -23,7 +23,7 @@ import site_mapper.jaxb.pom.SiteMapInfo;
  * @since 1.0
  */
 public class ComponentWriterJsPanelWithIFrame 
-	implements ComponentWriterVisitor, ElementConstructor	{
+	implements ComponentWriterSetter, ElementConstructor	{
 	
 	private ElementClass elementClass;
 	private SiteMapInfo siteMapInfo;
@@ -81,12 +81,12 @@ public class ComponentWriterJsPanelWithIFrame
 	}
 			
 	@Override //ComponentWriterVisitor
-	public ComponentWriterVisitor setSiteMapInfo(SiteMapInfo siteMapInfo) {
+	public ComponentWriterSetter setSiteMapInfo(SiteMapInfo siteMapInfo) {
 		this.siteMapInfo = siteMapInfo;
 		return this;
 	}
 	@Override //ComponentWriterVisitor
-	public ComponentWriterVisitor setElementClass(ElementClass elementClass) {
+	public ComponentWriterSetter setElementClass(ElementClass elementClass) {
 		this.elementClass = elementClass;
 		return this;
 	}
