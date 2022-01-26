@@ -48,7 +48,7 @@ public class ControlDataFunctionFactory {
 					addControlToFunction(s);
 				});
 			}			
-			func += "\n\t\t\t);\n\t\t\tsuper.buildPanelControls(myControls);\n\t}";		
+			func += "\n\t\t\t);\n\t\tsuper.buildPanelControls(myControls);\n\t}";		
 		}else {
 			func = "\t\tprivate void buildMyControls() {}";
 		}	

@@ -50,7 +50,7 @@ public class Lines <T> {
 	
 	@Override
 	public String toString() {
-		String res = "";		
+		String res = "";
 		for (T t : lines) {
 			res += indent + t.toString() + "\n";
 		}

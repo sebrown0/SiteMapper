@@ -52,7 +52,7 @@ public class ClassBody {
 	}
 	
 	@Override
-	public String toString() {
+	public String toString() {		
 		return String.format(
 				"%s\n%s\n\n%s%s", 
 				Formatter.getValueOf(vars),
@@ -159,7 +159,7 @@ public class ClassBody {
 		public ExistingClassBody setMethods() {
 			ExistingMethodMapper mapper = 
 					new ExistingMethodMapper(scanner, 1);
-			super.methods = mapper.mapMethods().withIndent("\t");
+			super.methods = mapper.mapMethods();
 			return this;
 		}
 		

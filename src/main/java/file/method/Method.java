@@ -89,7 +89,8 @@ public class Method {//implements IndentedElement<Method> {
 		}
 		
 		public MethodBuilder addLine(String line) {
-			body.addLine(LineTabs.getLineWithTabs(indent+1, line));
+//			body.addLine(LineTabs.getLineWithTabs(indent+1, line));
+			body.addLine(LineTabs.getLineWithTabs(indent, line));
 			return this;
 		}
 		public MethodBuilder addLineWithAdditionalIndents(String line, int addIntents) {
@@ -116,9 +117,13 @@ public class Method {//implements IndentedElement<Method> {
 		
 		public ExistingMethodBuilder withAnnotation(String annoStr) {
 			if(annoStr != null) {
-				super.annotation = new ExistingAnnotation(annoStr, super.indent);//.setIndent(indent); 
+				super.annotation = new ExistingAnnotation(annoStrWithoutTabs(annoStr), super.indent);//.setIndent(indent); 
 			}
 			return this;
+		}
+		
+		private String annoStrWithoutTabs(String annoStr) {
+			return annoStr.replace("\t", "");
 		}
 		
 		public ExistingMethodBuilder withDeclarationStr(String cnstrStr) {

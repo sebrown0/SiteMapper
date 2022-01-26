@@ -29,7 +29,7 @@ public class ControlDataFunction {
 	}
 	
 	@Override
-	public String toString() {
+	public String toString() {		
 		return String.format(
 				"%s%s", 
 				Formatter.getAnnotation(annotation),

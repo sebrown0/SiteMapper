@@ -86,32 +86,7 @@ public class ExistingFileScanner {
 		//others...
 		classBuilder.setClassBody(bodyBuilder.build());
 	}
-	
-//	public void declaration(Scanner scanner) {
-//		if(scanner.hasNext()) {
-//			String line = scanner.nextLine();
-//			if(line.length() > 0 && (line.startsWith("\t p"))) {
-//				System.out.println(line); // TODO - remove or log 	
-//			}else {
-//				//TODO - error it should be the declaration
-//			}
-//		}
-//	}
-//	
-//	public void classVars(Scanner scanner) {
-//		boolean end = false;
-//		String line;
-//		scanner.useDelimiter(";");
-//		while(!end && scanner.hasNext()) {
-//			line = scanner.nextLine();
-//			if(line.length() > 0) {
-//				System.out.println(line); // TODO - remove or log 	
-//			}else {
-//				end = true;
-//			}
-//		}
-//	}
-	
+		
 	public void constructor(Scanner scanner) {
 		getMethod(scanner);
 	}

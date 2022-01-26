@@ -179,9 +179,7 @@ class ScannerTests {
 		scanner.setScanner(TEST_CLASS_PATH);
 		scanner.mapFile();
 		ClassBody body = scanner.getClassFile().getClassBody();
-		
-		System.out.println(BUILD_MY_CONTROLS_DEC);
-		
+				
 		assertEquals(BODY_RESULT_WITH_EXTRA_METHOD, body.toString());
 	}
 	

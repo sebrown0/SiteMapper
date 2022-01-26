@@ -33,7 +33,7 @@ public class ExistingMethodMapper {
 		}
 		return methods;
 	}
-	
+		
 	private void mapMethod() {
 		ExistingMethodBuilder builder = new ExistingMethodBuilder(indent);
 		String line;		
@@ -41,7 +41,8 @@ public class ExistingMethodMapper {
 		
 		while(!end && scanner.hasNext()) {
 			line = scanner.nextLine();
-			if(line.length() > 0) {								
+			if(line.length() > 0) {					
+				line = removeUnwantedChars(line);				
 				setBraces(line);				
 				if(isAnnotation(line)) {
 					builder.withAnnotation(line);			
@@ -59,6 +60,27 @@ public class ExistingMethodMapper {
 		if(validMethod) {
 			methods.addMethod(builder.build());	
 		}
+	}
+	
+	private String  removeUnwantedChars(String line) {		
+		return removeLeading(removeTrailing(line));
+	}	
+	private String removeLeading(String line) {
+		if(line.startsWith("\t")) { //add more chars that we want to strip	
+			line = line.substring(1);
+		}
+		return line;
+	}
+	private String removeTrailing(String line) {
+		int numCharsToStrip = 0;
+		for(int idx=line.length()-1; idx>0; idx--) {
+			if(line.charAt(idx)==32) {//add more chars that we want to strip
+				numCharsToStrip++;
+			}else {
+				break;
+			}
+		}
+		return line.substring(0, line.length() - numCharsToStrip);		
 	}
 	
 	private void addLine(String line, ExistingMethodBuilder builder) {

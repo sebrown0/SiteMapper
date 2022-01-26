@@ -168,7 +168,6 @@ class NewPojoElements_Tests {
 	void classFile() {
 		ClassFile classFile = NewTestClassFileBuilder.getClassFile();
 		
-		System.out.println(classFile.toString()); // TODO - remove or log 	
 		assertEquals(CLASS_RESULT_WITHOUT_EXTRA_METHOD, classFile.toString());		
 	}
 		

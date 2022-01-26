@@ -230,8 +230,8 @@ class ExistingPojoElements_Tests {
 		Method m = new Method.ExistingMethodBuilder(1)
 				.withAnnotation(ANNOTATION.toString())
 				.withDeclarationStr("private String aMethod(String str, Integer idx)")
-				.addLine("Line1")
-				.addLine("Line2")
+				.addLine("\tLine1")
+				.addLine("\tLine2")
 				.build();		
 		
 		assertEquals(
@@ -246,14 +246,14 @@ class ExistingPojoElements_Tests {
 		Method m1 = new Method.ExistingMethodBuilder(1)
 				.withAnnotation(ANNOTATION.toString())
 				.withDeclarationStr("private String aMethodOne(String str, Integer idx)")
-				.addLine("Line1")
-				.addLine("Line2")
+				.addLine("\tLine1")
+				.addLine("\tLine2")
 				.build();
 		Method m2 = new Method.ExistingMethodBuilder(1)
 				.withAnnotation(ANNOTATION.toString())
 				.withDeclarationStr("private String aMethodTwo(boolean b, Integer idx)")
-				.addLine("Line1")
-				.addLine("Line2")
+				.addLine("\tLine1")
+				.addLine("\tLine2")
 				.build();		
 		
 		MethodList ml = new MethodList();

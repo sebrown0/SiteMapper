@@ -23,7 +23,8 @@ public class MethodList {
 	}
 	
 	public MethodList addMethod(Method m) {
-		methods.withIndent(indent + "\t").addLine(m);
+//		methods.withIndent(indent + "\t").addLine(m);
+		methods.withIndent(indent).addLine(m);
 		return this;
 	}
 
@@ -48,7 +49,7 @@ public class MethodList {
 	public String toString() {
 		return 
 		  methods
-				.withIndent(indent)
+//				.withIndent(indent)
 				.toString()
 				.stripTrailing();
 	}	

@@ -41,7 +41,7 @@ public class NewTestClassFileBuilder {
 			"\t\t\t\tnew ControlData(\"search\", new ControlGetterButton(coreData, By.cssSelector(\"button[name='QBF1']\"))),\n" +
 			"\t\t\t\tnew ControlData(\"code\", new ControlGetterTextOut(coreData, By.cssSelector(\"input[id='FORM_ID']\")))\n" +
 			"\t\t\t);\n" +
-			"\t\t\tsuper.buildPanelControls(myControls);\n" +
+			"\t\tsuper.buildPanelControls(myControls);\n" +
 			"\t}";
 	
 	static {

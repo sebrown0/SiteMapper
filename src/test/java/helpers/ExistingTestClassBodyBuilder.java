@@ -56,22 +56,22 @@ public class ExistingTestClassBodyBuilder extends BodyBuilder{
 			"private void buildMyControls(){";
 	public static final Lines<Object> CONTROLS_LINES = 
 			new Lines<>()
-				.addLine("var myControls =")
-				.addLine("\tList.of(")
-				.addLine("\t\tnew ControlData(\"save\", new ControlGetterButton(coreData, By.cssSelector(\"button[name='SAVE']\"))),")
-				.addLine("\t\tnew ControlData(\"search\", new ControlGetterButton(coreData, By.cssSelector(\"button[name='QBF1']\"))),")
-				.addLine("\t\tnew ControlData(\"code\", new ControlGetterTextOut(coreData, By.cssSelector(\"input[id='FORM_ID']\")))")
-				.addLine("\t);")
+				.addLine("\tvar myControls =")
+				.addLine("\t\tList.of(")
+				.addLine("\t\t\tnew ControlData(\"save\", new ControlGetterButton(coreData, By.cssSelector(\"button[name='SAVE']\"))),")
+				.addLine("\t\t\tnew ControlData(\"search\", new ControlGetterButton(coreData, By.cssSelector(\"button[name='QBF1']\"))),")
+				.addLine("\t\t\tnew ControlData(\"code\", new ControlGetterTextOut(coreData, By.cssSelector(\"input[id='FORM_ID']\")))")
+				.addLine("\t\t);")
 				.addLine("\tsuper.buildPanelControls(myControls);");
 	
 	public static final String NOT_FROM_SITEMAPPER_DEC = 
 			"private String aMethodNotFromSiteMapper(int idx){";
 	public static final Lines<Object> NOT_FROM_SITEMAPPER_LINES = 
 			new Lines<>()
-				.addLine("String aStr = \"\";")
-				.addLine("//do some stuff...")
-				.addLine("")
-				.addLine("return aStr;");
+				.addLine("\tString aStr = \"\";")
+				.addLine("\t//do some stuff...")
+				.addLine("\t")
+				.addLine("\treturn aStr;");
 	
 	public static final String BODY_RESULT =		
 			ANNO_RESULT + "\n" +
@@ -90,14 +90,18 @@ public class ExistingTestClassBodyBuilder extends BodyBuilder{
 			
 			ANNO_RESULT + "\n" +
 			"\t" + BUILD_MY_CONTROLS_DEC +
-			"\n" + CONTROLS_LINES.withIndent("\t\t").toString() +
+			"\n" + CONTROLS_LINES.withIndent("\t").toString() +
 			"\t}\n"; 
+//			ANNO_RESULT + "\n" +
+//			"\t" + BUILD_MY_CONTROLS_DEC +
+//			"\n" + CONTROLS_LINES.withIndent("\t\t").toString() +
+//			"\t}\n"; 
 	
 	public static final String BODY_RESULT_WITH_EXTRA_METHOD =		
 		BODY_RESULT +		
-		ANNO_RESULT + "\n" +
+//		ANNO_RESULT + "\n" +
 		"\t" + NOT_FROM_SITEMAPPER_DEC +
-		"\n" + NOT_FROM_SITEMAPPER_LINES.withIndent("\t\t").toString() +				
+		"\n" + NOT_FROM_SITEMAPPER_LINES.withIndent("\t").toString() +				
 		"\t}"; 
 			
 	@Override
