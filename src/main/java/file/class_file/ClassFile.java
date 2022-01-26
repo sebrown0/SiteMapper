@@ -68,7 +68,7 @@ public class ClassFile {
 		return (imports != null) ? imports.toString() : "/* NO IMPORTS NOT FOUND */\n";
 	}
 	public String getCommentStr() {
-		return (comment != null) ? comment.toString() : "/* COMMENT NOT FOUND */\n";
+		return (comment != null) ? comment.toString() + "\n": "/* COMMENT NOT FOUND */\n";
 	}
 	public String getDeclarationStr() {
 		return (declaration != null) ? declaration.toString() : "/* CLASS DECLARATION NOT FOUND */\n";

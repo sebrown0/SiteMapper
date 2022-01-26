@@ -1,5 +1,7 @@
 package tests.mapping_tests;
 
+import static helpers.ExistingTestClassFileBuilder.CLASS_RESULT_FULL;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
@@ -18,17 +20,22 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestMethodOrder;
 
 import app.PomMapper;
+import file.class_file.ClassFile;
+import file.existing.ExistingFileScanner;
 
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 class PomMapperTests {
-	static final String ROOT = 
+	private static final String ROOT = 
 			"C:/Users/SteveBrown/eclipse-workspace/2021/SiteMapper";
-	static final String XML_SOURCE = 
+	private static final String XML_SOURCE = 
 			ROOT + "/src/test/resources/site_map/site_map.xml";
 
 	// This should be the same as ParentPackage in the XML file above.
-	static final String PARENT_PACKAGE = 
+	private static final String PARENT_PACKAGE = 
 			ROOT + "/mapped/classes"; 
+
+	private static final String TEST_CLASS_PATH = 
+			PARENT_PACKAGE + "/payroll/Left/employees/EmployeeDetails.java";
 			
 	@BeforeAll
 	static void setup() {
@@ -46,16 +53,18 @@ class PomMapperTests {
 	
 	@Test @Order(2)
 	void createPomsFromXML() {		
+		//Existing classes deleted above. Create new.
 		PomMapper mapper = new PomMapper(XML_SOURCE);
 		mapper.createPoms();
+		//Check the result.
+		ExistingFileScanner scanner = new ExistingFileScanner();
+		scanner.setScanner(TEST_CLASS_PATH);
+		scanner.mapFile();
+		ClassFile classFile = scanner.getClassFile();
+				
+		assertEquals(CLASS_RESULT_FULL, classFile.toString());
 	}
-	
-//	@Test @Order(3)
-//	void createClassFileFromXML() {		
-//		PomMapper mapper = new PomMapper(XML_SOURCE);
-//		mapper.createClassFile();
-//	}
-	
+		
 	@Test @Order(4)
 	void filesCreated() throws NoSuchFileException{
 		assertTrue(Files.exists(Paths.get(PARENT_PACKAGE)));

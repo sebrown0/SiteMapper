@@ -44,7 +44,7 @@ public class ClassConstructor {
 			Formatter.getAnnotation(cnstrAnnotation),
 			Formatter.getValueOf("\t", modifier),
 			Formatter.getValueOf(" ", className), 
-			Formatter.getValueOf(argList.toString()),
+			Formatter.getValueOf(argList),
 			getSuper(),
 			insertCallToMyControls(),
 			lines.toString()

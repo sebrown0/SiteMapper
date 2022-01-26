@@ -20,9 +20,6 @@ import file.existing.ExistingFileScanner;
 import file.helpers.LineTabs;
 import file.method.MethodList;
 import file.modifier.Modifier;
-import file.stage.InitialStage;
-import file.stage.PackageStage;
-import file.stage.Stage;
 
 /**
  * @author SteveBrown
@@ -192,12 +189,5 @@ class ScannerTests {
 		assertEquals(CLASS_RESULT_FULL, classFile.toString());
 	}
 	
-	@Test
-	void intial() {
-		//TODO - DO WE NEED Stage???? 
-		Stage s = new InitialStage();
-		assertTrue(s instanceof InitialStage);
-		assertTrue(s.getNext() instanceof PackageStage);
-	}
 
 }

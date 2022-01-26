@@ -15,7 +15,6 @@ import object_models.pages.homepage.CoreData;
 * Version: 1.0.0
 * Created: 07/01/2022 08:53:56
 */
-
 public class EmployeeDetails extends JsPanelWithIFrame {
 	@SiteMap(author="SteveBrown", version="1.0.0", date="07/01/2022")
 	public static final String PANEL_TITLE = "Employee Details";
