@@ -12,6 +12,8 @@ import file.modifier.Modifier;
  * @author SteveBrown
  * @version 1.0
  * 	Intial
+ * @version 1.1
+ *  Remove tabs from the given variable.
  * @since 1.0
  * 
  * Abstract POJO for variables in SiteMap class file.
@@ -66,7 +68,11 @@ public abstract class Variable implements IndentedElement<Variable> {
 
 		public ClassVarFromString() {}
 		public ClassVarFromString(String varStr) {
-			this.varStr = varStr;
+			setVarStr(varStr);
+		}
+		
+		private void setVarStr(String varStr) {
+			this.varStr = varStr.replace("\t", "");
 		}
 
 		@Override
@@ -77,8 +83,7 @@ public abstract class Variable implements IndentedElement<Variable> {
 		}
 		@Override
 		public VariableBuilder withVariable(String v) {
-//			this.varStr = LineTabs.getLineWithTabs(1, v);
-			this.varStr = v;
+			setVarStr(v);
 			return this;
 		}
 		

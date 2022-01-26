@@ -6,7 +6,7 @@ package tests;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-
+import static helpers.ExistingTestClassBodyBuilder.*;
 import java.util.regex.Pattern;
 
 import org.junit.jupiter.api.Test;
@@ -151,7 +151,7 @@ class ScannerTests {
 		MethodList methods = body.getMethods();
 //		System.out.println(methods.toString() ); // TODO - remove or log 	
 		
-		System.out.println(ExistingTestClassBodyBuilder.BUILD_MY_CONTROLS_DEC);
+//		System.out.println(BUILD_MY_CONTROLS_DEC);
 		assertEquals(
 				"\t@SiteMap(author=\"SteveBrown\", version=\"1.0.0\", date=\"07/01/2022\")\r\n"
 				+ "\tprivate void buildMyControls() {\r\n"
@@ -174,7 +174,20 @@ class ScannerTests {
 	}
 	
 	@Test
+	void classBody() {
+		ExistingFileScanner scanner = new ExistingFileScanner();
+		scanner.setScanner(TEST_CLASS_PATH);
+		scanner.mapFile();
+		ClassBody body = scanner.getClassFile().getClassBody();
+		
+		System.out.println(BUILD_MY_CONTROLS_DEC);
+		
+		assertEquals(BODY_RESULT_WITH_EXTRA_METHOD, body.toString());
+	}
+	
+	@Test
 	void intial() {
+		//TODO - DO WE NEED Stage???? 
 		Stage s = new InitialStage();
 		assertTrue(s instanceof InitialStage);
 		assertTrue(s.getNext() instanceof PackageStage);
