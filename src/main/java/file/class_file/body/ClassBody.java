@@ -63,9 +63,10 @@ public class ClassBody {
 	
 	public abstract static class BodyBuilder {
 		protected Variables vars;
-		protected ClassConstructor cnstr;
-		private ControlDataFunction dataFunc;
+		protected ClassConstructor cnstr;		
 		protected MethodList methods;//TODO PUT IN EXISTING
+		
+		private ControlDataFunction dataFunc;
 		
 		protected abstract ClassBody build();
 		public abstract BodyBuilder setVars();

@@ -4,6 +4,7 @@
 package tests;
 
 import static helpers.ExistingTestClassBodyBuilder.BODY_RESULT_WITH_EXTRA_METHOD;
+import static helpers.ExistingTestClassFileBuilder.CLASS_RESULT_FULL;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -179,6 +180,16 @@ class ScannerTests {
 		ClassBody body = scanner.getClassFile().getClassBody();
 				
 		assertEquals(BODY_RESULT_WITH_EXTRA_METHOD, body.toString());
+	}
+	
+	@Test
+	void classFile() {
+		ExistingFileScanner scanner = new ExistingFileScanner();
+		scanner.setScanner(TEST_CLASS_PATH);
+		scanner.mapFile();
+		ClassFile classFile = scanner.getClassFile();
+				
+		assertEquals(CLASS_RESULT_FULL, classFile.toString());
 	}
 	
 	@Test

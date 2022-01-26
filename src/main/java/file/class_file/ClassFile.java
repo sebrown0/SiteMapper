@@ -3,10 +3,12 @@
  */
 package file.class_file;
 
-import static file.existing.ExistingFileScanner.commentTest;
-import static file.existing.ExistingFileScanner.declarationTest;
-import static file.existing.ExistingFileScanner.importTest;
-import static file.existing.ExistingFileScanner.packageTest;
+import static file.existing.ExistingFileScanner.COMMENT_TEST;
+import static file.existing.ExistingFileScanner.DECLARATION_TEST;
+import static file.existing.ExistingFileScanner.IMPORT_SUPPLIER;
+import static file.existing.ExistingFileScanner.IMPORT_TEST;
+import static file.existing.ExistingFileScanner.PACKAGE_TEST;
+import static file.existing.ExistingFileScanner.STRING_SUPPLIER;
 
 import java.util.Scanner;
 
@@ -114,25 +116,25 @@ public class ClassFile {
 		@Override
 		public void setInPackage() {
 			LineMapper
-				.findByFirstWord(scanner, packageTest)
+				.findByFirstWord(scanner, PACKAGE_TEST)
 				.ifPresent(p -> 
 					super.inPackage = new ExistingClassPackage(p));			
 		}
 		@Override
 		public void setImports() {
 			ImportList imports = new ImportList();
-			LineMapper.mapLineToList(scanner, imports.getImports(), importTest);
+			LineMapper.mapLinesToList(scanner, imports.getImports(), IMPORT_TEST, IMPORT_SUPPLIER);
 			super.imports = imports;
 		}
 		@Override
 		public void setComment() {
-			ExistingComment comment = new ExistingComment();		
-			LineMapper.mapLineToList(scanner, comment.getLines(), commentTest);
+			ExistingComment comment = new ExistingComment();
+			LineMapper.mapLinesToList(scanner, comment.getLines(), COMMENT_TEST, STRING_SUPPLIER);
 			this.comment = comment;
 		}
 		@Override
 		public void setDeclaration() {
-			LineMapper.findByFirstWord(scanner, declarationTest).ifPresent(d -> {
+			LineMapper.findByFirstWord(scanner, DECLARATION_TEST).ifPresent(d -> {
 				super.declaration =	
 						new ClassDeclaration.ExistingDeclaration().setDeclarationString(d).build();				
 			});			

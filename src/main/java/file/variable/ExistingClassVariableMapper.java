@@ -3,7 +3,7 @@
  */
 package file.variable;
 
-import static file.existing.ExistingFileScanner.variableTest;
+import static file.existing.ExistingFileScanner.VARIABLE_TEST;
 
 import java.util.Optional;
 import java.util.Scanner;
@@ -54,7 +54,7 @@ public class ExistingClassVariableMapper {
 	}
 	
 	private boolean isVariable(String line) {
-		return (variableTest.test(line)) ? true : false;
+		return (VARIABLE_TEST.test(line)) ? true : false;
 	}
 	
 	private Optional<VariableBuilder> mapAnnotationAndVar(Optional<VariableBuilder> varBuilder, String line) {

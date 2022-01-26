@@ -6,6 +6,7 @@ package file.helpers;
 import java.util.List;
 import java.util.Optional;
 import java.util.Scanner;
+import java.util.function.Function;
 import java.util.function.Predicate;
 
 /**
@@ -35,8 +36,7 @@ public class LineMapper {
 		return res;
 	}
 	
-	@SuppressWarnings("unchecked")
-	public static <T> void mapLineToList(Scanner scanner, List<T> list, Predicate<String> p) {
+	public static <T> void mapLinesToList(Scanner scanner, List<T> list, Predicate<String> p, Function<String, T> func) {
 		String line;		
 		boolean end = false;
 		boolean removedFirstBlankLine = false;
@@ -45,8 +45,8 @@ public class LineMapper {
 			line = scanner.nextLine();
 			if(line.length() > 0) {
 				removedFirstBlankLine = true;
-				if(p.test(line)) {
-					list.add((T) line); 	
+				if(p.test(line)) {					
+					list.add(func.apply(line)); 	
 				}
 			}else if (removedFirstBlankLine == false) {
 				removedFirstBlankLine = true;
@@ -55,4 +55,5 @@ public class LineMapper {
 			}
 		}			
 	}
+	
 }
