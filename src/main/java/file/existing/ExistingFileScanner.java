@@ -3,6 +3,8 @@
  */
 package file.existing;
 
+import static file.modifier.Modifier.MODIFIER_PATTERN;
+
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.util.Scanner;
@@ -15,7 +17,6 @@ import file.class_file.body.ClassBody;
 import file.class_file.body.ClassBody.ExistingClassBody;
 import file.imports.ExistingImport;
 import file.imports.Import;
-import file.modifier.Modifier;
 
 /**
  * @author SteveBrown
@@ -32,7 +33,7 @@ public class ExistingFileScanner {
 	public static final Predicate<String> COMMENT_TEST = s -> (s.startsWith("*") || s.startsWith("/"));
 	public static final Predicate<String> IMPORT_TEST = s -> (s.startsWith("import"));
 	public static final Predicate<String> DECLARATION_TEST = s -> (s.contains(" class "));
-	public static final Predicate<String> VARIABLE_TEST = s -> (Modifier.modifierPattern.matcher(s).find());
+	public static final Predicate<String> VARIABLE_TEST = s -> (MODIFIER_PATTERN.matcher(s).find());
 	
 	public static final Function<String, Import> IMPORT_SUPPLIER = s -> new ExistingImport(s);
 	public static final Function<String, String> STRING_SUPPLIER = s -> String.valueOf(s);

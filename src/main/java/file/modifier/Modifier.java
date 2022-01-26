@@ -14,8 +14,8 @@ import java.util.regex.Pattern;
 public class Modifier {
 	private String modifier;
 	
-	public static final Pattern startsWithModifierPattern = Pattern.compile("^(public |protected |private )");
-	public static final Pattern modifierPattern = Pattern.compile(".*public.*|.*protected.*|.*private.*");
+	public static final Pattern STARTS_WITH_MODIFIER_PATTERN = Pattern.compile("^(public |protected |private )");
+	public static final Pattern MODIFIER_PATTERN = Pattern.compile(".*public.*|.*protected.*|.*private.*");
 
 	public Modifier(String modifier) {
 		this.modifier = modifier;
@@ -26,13 +26,13 @@ public class Modifier {
 		if(line != null) {
 			int start = line.indexOf("p");
 			if(start >= 0) {
-				res = startsWithModifierPattern.matcher(line.substring(start)).find();	
+				res = STARTS_WITH_MODIFIER_PATTERN.matcher(line.substring(start)).find();	
 			}				
 		}
 		return res;		
 	}
 	public static boolean isValidModifier(String modifier) {
-		return modifierPattern.matcher(modifier).find();
+		return MODIFIER_PATTERN.matcher(modifier).find();
 	}
 
 	public String getModifier() {
