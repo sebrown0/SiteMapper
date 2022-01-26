@@ -23,19 +23,9 @@ public class MethodList {
 	}
 	
 	public MethodList addMethod(Method m) {
-//		methods.withIndent(indent + "\t").addLine(m);
 		methods.withIndent(indent).addLine(m);
 		return this;
 	}
-
-//	TODO
-//	public Method getMethod(String methodName) {
-//		Method res = null;
-//		for (Method m : methods.getLines()) {
-//			
-//		}
-//		return res;
-//	}
 	
 	public Lines<Method> getMethods() {
 		return methods;
@@ -49,7 +39,6 @@ public class MethodList {
 	public String toString() {
 		return 
 		  methods
-//				.withIndent(indent)
 				.toString()
 				.stripTrailing();
 	}	

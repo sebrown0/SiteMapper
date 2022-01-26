@@ -17,14 +17,13 @@ import file.variable.ArgumentList;
  * 
  * POJO for a method.
  */
-public class Method {//implements IndentedElement<Method> {
+public class Method {
 	private SiteMapAnnotation annotation;
 	private String modifier = "public";
 	private String returnType = "void";
 	private String name;
 	private ArgumentList arguments = new ArgumentList();
 	private ExistingMethodBody body;
-//	private int numTabs;
 	
 	private Method(MethodBuilder b) {
 		this.annotation = b.annotation;
@@ -33,18 +32,11 @@ public class Method {//implements IndentedElement<Method> {
 		this.name = b.name;
 		this.arguments = b.arguments;
 		this.body = b.body;
-//		this.numTabs = b.indent;
 	}
 
 	public SiteMapAnnotation getAnnotation() {
 		return annotation;
 	}
-
-//	@Override //IndentedElement
-//	public Method setIndent(int numTabs) {
-//		this.numTabs = numTabs;
-//		return this;
-//	}
 		
 	@Override
 	public String toString() {
@@ -58,10 +50,6 @@ public class Method {//implements IndentedElement<Method> {
 				Formatter.getValueOf(body)
 		);
 	}
-
-//	public String getIndent() {
-//		return LineTabs.getTabStr(numTabs);
-//	}
 	
 	/**
 	 * @author SteveBrown
@@ -89,7 +77,6 @@ public class Method {//implements IndentedElement<Method> {
 		}
 		
 		public MethodBuilder addLine(String line) {
-//			body.addLine(LineTabs.getLineWithTabs(indent+1, line));
 			body.addLine(LineTabs.getLineWithTabs(indent, line));
 			return this;
 		}
@@ -102,7 +89,6 @@ public class Method {//implements IndentedElement<Method> {
 			return new Method(this);
 		}
 	}
-
 	
 	/**
 	 * @author SteveBrown

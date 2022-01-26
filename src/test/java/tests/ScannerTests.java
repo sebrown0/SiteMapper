@@ -3,10 +3,11 @@
  */
 package tests;
 
+import static helpers.ExistingTestClassBodyBuilder.BODY_RESULT_WITH_EXTRA_METHOD;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static helpers.ExistingTestClassBodyBuilder.*;
+
 import java.util.regex.Pattern;
 
 import org.junit.jupiter.api.Test;
@@ -21,7 +22,6 @@ import file.modifier.Modifier;
 import file.stage.InitialStage;
 import file.stage.PackageStage;
 import file.stage.Stage;
-import helpers.ExistingTestClassBodyBuilder;
 
 /**
  * @author SteveBrown
@@ -149,25 +149,23 @@ class ScannerTests {
 		scanner.mapFile();
 		ClassBody body = scanner.getClassFile().getClassBody();
 		MethodList methods = body.getMethods();
-//		System.out.println(methods.toString() ); // TODO - remove or log 	
-		
-//		System.out.println(BUILD_MY_CONTROLS_DEC);
+
 		assertEquals(
-				"\t@SiteMap(author=\"SteveBrown\", version=\"1.0.0\", date=\"07/01/2022\")\r\n"
-				+ "\tprivate void buildMyControls() {\r\n"
-				+ "\t\tvar myControls = \r\n"
-				+ "\t\t\tList.of(\r\n"
-				+ "\t\t\t\tnew ControlData(\"save\", new ControlGetterButton(coreData, By.cssSelector(\"button[name='SAVE']\"))),\r\n"
-				+ "\t\t\t\tnew ControlData(\"search\", new ControlGetterButton(coreData, By.cssSelector(\"button[name='QBF1']\"))),\r\n"
-				+ "\t\t\t\tnew ControlData(\"code\", new ControlGetterTextOut(coreData, By.cssSelector(\"input[id='FORM_ID']\")))\r\n"
-				+ "\t\t\t);\r\n"
-				+ "\t\tsuper.buildPanelControls(myControls);\r\n"
-				+ "\t}\r\n"
-				+ "\tprivate String aMethodNotFromSiteMapper(int idx){\r\n"
-				+ "\t\tString aStr = \"\";\r\n"
-				+ "\t\t//do some stuff...\r\n"
-				+ "\t\t\r\n"
-				+ "\t\treturn aStr;\r\n"
+				"\t@SiteMap(author=\"SteveBrown\", version=\"1.0.0\", date=\"07/01/2022\")\n"
+				+ "\tprivate void buildMyControls(){\n"
+				+ "\t\tvar myControls =\n"
+				+ "\t\t\tList.of(\n"
+				+ "\t\t\t\tnew ControlData(\"save\", new ControlGetterButton(coreData, By.cssSelector(\"button[name='SAVE']\"))),\n"
+				+ "\t\t\t\tnew ControlData(\"search\", new ControlGetterButton(coreData, By.cssSelector(\"button[name='QBF1']\"))),\n"
+				+ "\t\t\t\tnew ControlData(\"code\", new ControlGetterTextOut(coreData, By.cssSelector(\"input[id='FORM_ID']\")))\n"
+				+ "\t\t\t);\n"
+				+ "\t\tsuper.buildPanelControls(myControls);\n"
+				+ "\t}\n"
+				+ "\tprivate String aMethodNotFromSiteMapper(int idx){\n"
+				+ "\t\tString aStr = \"\";\n"
+				+ "\t\t//do some stuff...\n"
+				+ "\t\t\n"
+				+ "\t\treturn aStr;\n"
 				+ "\t}", 
 				methods.toString()
 		);

@@ -91,15 +91,10 @@ public class ExistingTestClassBodyBuilder extends BodyBuilder{
 			ANNO_RESULT + "\n" +
 			"\t" + BUILD_MY_CONTROLS_DEC +
 			"\n" + CONTROLS_LINES.withIndent("\t").toString() +
-			"\t}\n"; 
-//			ANNO_RESULT + "\n" +
-//			"\t" + BUILD_MY_CONTROLS_DEC +
-//			"\n" + CONTROLS_LINES.withIndent("\t\t").toString() +
-//			"\t}\n"; 
+			"\t}\n";  
 	
 	public static final String BODY_RESULT_WITH_EXTRA_METHOD =		
 		BODY_RESULT +		
-//		ANNO_RESULT + "\n" +
 		"\t" + NOT_FROM_SITEMAPPER_DEC +
 		"\n" + NOT_FROM_SITEMAPPER_LINES.withIndent("\t").toString() +				
 		"\t}"; 
@@ -136,11 +131,24 @@ public class ExistingTestClassBodyBuilder extends BodyBuilder{
 	public BodyBuilder setMethods() {		
 		super.methods = 
 			new MethodList()
-				.addMethod(buildMethod(BUILD_MY_CONTROLS_DEC, CONTROLS_LINES))
+				.addMethod(buildMethod(BUILD_MY_CONTROLS_DEC, CONTROLS_LINES, ANNO_STR))
 				.addMethod(buildMethod(NOT_FROM_SITEMAPPER_DEC, NOT_FROM_SITEMAPPER_LINES));
 		return this;
 	}
 	
+	private Method buildMethod(String decStr, Lines<Object> methodLines, String anno) {
+		ExistingMethodBuilder builder = new Method.ExistingMethodBuilder(1);
+		
+		for (Object obj : methodLines.getLines()) {
+			builder.addLine(obj.toString());
+		}
+		
+		return
+			builder
+				.withAnnotation(anno)
+				.withDeclarationStr(decStr)
+				.build();		
+	}
 	private Method buildMethod(String decStr, Lines<Object> methodLines) {
 		ExistingMethodBuilder builder = new Method.ExistingMethodBuilder(1);
 		
@@ -150,7 +158,6 @@ public class ExistingTestClassBodyBuilder extends BodyBuilder{
 		
 		return
 			builder
-				.withAnnotation(ANNO_STR)
 				.withDeclarationStr(decStr)
 				.build();		
 	}
