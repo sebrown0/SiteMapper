@@ -158,5 +158,9 @@ public class ClassDeclaration {
 			
 		}
 	}
+
+	public String getName() {
+		return name;
+	}
 	
 }

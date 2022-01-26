@@ -206,4 +206,8 @@ public class ClassFile {
 		}
 	}
 
+	public String getClassName() {
+		return declaration.getName();
+	}
+	
 }

@@ -6,7 +6,7 @@
     <Version>1.0.0</Version>
     <RootDir>C:/Users/SteveBrown/eclipse-workspace/2021/SiteMapper</RootDir>
     <ElementLibrary>C:/Users/SteveBrown/eclipse-workspace/2021/DTest</ElementLibrary>
-    <ParentPackage>mapped</ParentPackage>
+    <ParentPackage>mapped/classes</ParentPackage>
     <OverwriteExisting>true</OverwriteExisting>
   </Info>
   

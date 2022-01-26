@@ -96,4 +96,9 @@ public class PomMapper {
 		}	 
 		return app;
 	}
+
+	public void createClassFile() {
+		// TODO Auto-generated method stub
+		
+	}
 }

@@ -1,13 +1,5 @@
 package site_mapper.creators;
 
-import java.io.BufferedWriter;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.OutputStreamWriter;
-import java.nio.charset.StandardCharsets;
-import java.util.Optional;
-
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -21,106 +13,43 @@ import site_mapper.jaxb.pom.PackageHierarchy;
  * 	Initial
  * @since 1.0
  * 
- * Direct the creation of each required
- * element of the class.
+ * Create/Overwrite class file.
  * 
  */
 public class ClassMaker {
 	private ElementClass elementClass;
 	private PackageHierarchy packageHierarchy;
-	private String className;
-	private Optional<BufferedWriter> fileOut;
+	private ClassFile classFile;
+
+	@SuppressWarnings("unused")
 	private Logger logger = LogManager.getLogger(ClassMaker.class);
-	
-//	private ClassFile classFile;
-	
-	
+		
 	public ClassMaker(ElementClass elementClass, PackageHierarchy ph) {
 		this.elementClass = elementClass;
-		this.className = elementClass.getClassName();
 		this.packageHierarchy = ph;
 	}
 
 	public void makeClass() {
-//		String filePath = getFilePath();
-//		ComponentWriterVisitor compWriter = 
-//				(ComponentWriterVisitor) ZZZ_ClassComponentFactory.getComponentWriter(elementClass.getTypeName());
-		
-		if(elementClass.getSiteMapInfo().isOverwritingExisting()) {
-			ClassFile classFile = 
-					new ClassFile
-						.NewClassFileBuilder(elementClass)//, compWriter)
-						.build();
-			
-			ClassWriter classWriter = new ClassWriter(classFile);
-			try {
-				classWriter.writeClass();
-			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-			
-//			overwrite(filePath);
+		if(overWritingExisting()) {
+			setClassFile();
+			writeClassFile();			
 		}else {
-			System.out.println("NOT OVER WRITTING"); // TODO - remove or log
-			
-			/*
-			 * Have to diff the files
-			 */
+			System.out.println("NOT OVER WRITTING - NOT IMPLEMENTED"); // TODO - remove or log			
 		}
 		
 	}
 	
-	private void overwrite(String filePath) {
-		System.out.println("OVER WRITTING"); // TODO - remove or log
-		try {
-			fileOut = 				
-					Optional.ofNullable(new BufferedWriter(
-						new OutputStreamWriter(
-								new FileOutputStream(filePath),	StandardCharsets.UTF_8)));
-			
-			fileOut.ifPresent(fileWriter -> {
-				logger.info("Creating class [" + className + "].");
-				
-				ComponentWriterSetter compWriter = 
-						(ComponentWriterSetter) ZZZ_ClassComponentFactory.getComponentWriter(elementClass.getTypeName());
-				
-				ClassWriter classWriter = 
-						new ClassWriter(elementClass, packageHierarchy, fileWriter, compWriter);
-					
-				try {				
-					classWriter.writePackage();
-					classWriter.writeImports();
-					classWriter.writeComments();
-					classWriter.openClass(elementClass.getTypeName());				
-					// Write elements specific to the class. 
-					classWriter.writeIndividualElements(compWriter);				
-					classWriter.closeClass();				
-				} catch (IOException e) {
-					logger.error("Error creating class [" + className + "]");
-				}
-				closeFile();
-			});
-		} catch (FileNotFoundException e) {
-			logger.error("Error file output stream [" + filePath + "]");
-		}	
+	private boolean overWritingExisting() {
+		return elementClass.getSiteMapInfo().isOverwritingExisting();
 	}
-	
-	private String getFilePath() {
-		return 
-				packageHierarchy.getRoot() + "/" + 
-				packageHierarchy.getHierarchyFwdSlashNotation() + "/" + 
-				className + ".java";
+	private void setClassFile() {
+		classFile = 
+				new ClassFile
+					.NewClassFileBuilder(elementClass)
+					.build();
 	}
-	
-	private void closeFile() {
-		fileOut.ifPresent(w -> {
-			try {
-				w.close();
-			} catch (IOException e) {
-				logger.error("Error closing file");
-			}
-		});
+	private void writeClassFile() {
+		ClassWriter writer = new ClassWriter(classFile, packageHierarchy);
+		writer.writeClass();
 	}
-
 }
