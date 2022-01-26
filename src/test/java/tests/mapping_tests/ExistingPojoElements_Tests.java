@@ -1,7 +1,7 @@
 /**
  * 
  */
-package tests;
+package tests.mapping_tests;
 
 import static helpers.ExistingTestClassBodyBuilder.BODY_RESULT_WITH_EXTRA_METHOD;
 import static helpers.ExistingTestClassFileBuilder.ANNOTATION;

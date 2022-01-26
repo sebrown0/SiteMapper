@@ -1,7 +1,7 @@
 /**
  * 
  */
-package tests;
+package tests.mapping_tests;
 
 import static helpers.ExistingTestClassBodyBuilder.*;
 import static helpers.ExistingTestClassFileBuilder.*;
