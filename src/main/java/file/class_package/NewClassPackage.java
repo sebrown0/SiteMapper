@@ -12,6 +12,6 @@ package file.class_package;
  */
 public class NewClassPackage extends ClassPackage {
 	public NewClassPackage(String p) {
-		super.setPackagePath("package " + p);
+		super.setPackagePath("package " + p + ";");
 	}
 }

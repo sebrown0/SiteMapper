@@ -38,6 +38,11 @@ public class SiteMapInfo {
 	private String date;
 	private String time;
 	
+	public SiteMapInfo(String date, String time) {
+		this.date = date;
+		this.time = time;
+	}
+	
 	public SiteMapInfo() {
 		date = DateTimeFormatter.ofPattern("dd/MM/yyyy").format(LocalDate.now());
 		time = DateTimeFormatter.ofPattern("HH:mm:ss").format(LocalTime.now());
@@ -103,7 +108,6 @@ public class SiteMapInfo {
 		if(overwriteExisting == null) {
 			return false;
 		}else {
-			System.out.println("isOverwritingExisting ->" + overwriteExisting); // TODO - remove or log 	
 			return (overwriteExisting.equalsIgnoreCase("TRUE")) ? true : false;	
 		}
 		

@@ -3,8 +3,6 @@
  */
 package helpers;
 
-import static helpers.ExistingTestClassBodyBuilder.BODY_RESULT_WITH_EXTRA_METHOD;
-import static helpers.ExistingTestClassBodyBuilder.BODY_RESULT;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -29,28 +27,54 @@ import file.imports.ImportList;
  * @since 1.0
  */
 public class ExistingTestClassFileBuilder extends ClassBuilder {
-	public static final String AUTHOR = "SteveBrown";
-	public static final String VERSION = "1.0.0";
-	public static final String XML_SOURCE = "C:/site_map.xml";
-	public static final String DATE = "07/01/2022";
-	public static final String TIME = "08:53:56";
+	public final String AUTHOR;
+	public final String VERSION;
+	public final String XML_SOURCE;
+	public final String DATE;
+	public final String TIME;
 	
-	public static final String EXISTING_PACKAGE = 
-						"package a.payroll.Left.employees;";
-	public static final String NEW_PACKAGE = 
-						"a.payroll.Left.employees;";
-	public static final String PACKAGE_RESULT = 
-						"package a.payroll.Left.employees;";
+	private ExistingTestClassBodyBuilder bodyBuilder;
 	
-	public static final String ANNO_STR = 
-					"author=\"" + AUTHOR + "\", " + 
-					"version=\"" + VERSION + "\", " + 
-					"date=\"" + DATE + "\"";
-	public static final String ANNO_RESULT = 
-					"\t@SiteMap(" + ANNO_STR + ")";	
-	public static final SiteMapAnnotation ANNOTATION = 
-					new ExistingAnnotation(ANNO_RESULT, 1);
+	public ExistingTestClassFileBuilder() {
+		AUTHOR = "SteveBrown";
+		VERSION = "1.0.0";
+		XML_SOURCE = "C:/site_map.xml";
+		DATE = "07/01/2022";
+		TIME = "08:53:56";
+		setExistingComment();
+		this.bodyBuilder = new ExistingTestClassBodyBuilder(this);		 	
+	}
+	public ExistingTestClassFileBuilder(
+			String aUTHOR, String vERSION, String xML_SOURCE, String dATE, String tIME) {
 		
+		AUTHOR = aUTHOR;
+		VERSION = vERSION;
+		XML_SOURCE = xML_SOURCE;
+		DATE = dATE;
+		TIME = tIME;
+		setExistingComment();
+		this.bodyBuilder = new ExistingTestClassBodyBuilder(this);
+	}
+
+	public static final String EXISTING_PACKAGE = 
+				"package employees;";
+	public static final String NEW_PACKAGE = 
+				"employees";
+	public static final String PACKAGE_RESULT = 
+				"package employees;";
+	
+	public String ANNO_STR() { 
+		return 
+				"author=\"" + AUTHOR + "\", " + 
+				"version=\"" + VERSION + "\", " + 
+				"date=\"" + DATE + "\"";
+	}
+	public String ANNO_RESULT() { 
+		return "\t@SiteMap(" + ANNO_STR() + ")";
+	}
+	public SiteMapAnnotation ANNOTATION() { 
+		return new ExistingAnnotation(ANNO_RESULT(), 1);
+	}
 	public static final List<Import> IMPORT_LIST = 
 			new ArrayList<>(Arrays.asList(
 					new ExistingImport("import java.util.List;"),
@@ -70,44 +94,48 @@ public class ExistingTestClassFileBuilder extends ClassBuilder {
 	
 	public static final ExistingComment EXISTING_COMMENT = 
 			new ExistingComment();
-	public static final String COMMENT_RESULT = 
-			"/**\n" +
+	
+	public String COMMENT_RESULT() { 
+		return	"/**\n" +
 			"* Generated Class.\n" +
 			"* ----------------\n" +
 			"* Source:  " + XML_SOURCE + "\n" +
 			"* Author:  " + AUTHOR + "\n" +
 			"* Version: " + VERSION + "\n" +
 			"* Created: " + DATE + " " + TIME + "\n" +
-			"*/\n";
-	
+			"*/\n\n"; //Extra line feed for space between comment and class declaration.
+	}
 	public static final String DECLARATION = 
 			"public class EmployeeDetails extends JsPanelWithIFrame {";
 	
-	public static final String CLASS_RESULT_FULL = 
+	public String CLASS_RESULT_FULL() { 
+		return
 			PACKAGE_RESULT +
 			"\n\n" +
 			IMPORT_RESULT +
 			"\n" +				
-			COMMENT_RESULT +
+			COMMENT_RESULT() +
 			DECLARATION +
 			"\n" +
-			BODY_RESULT_WITH_EXTRA_METHOD +
+			bodyBuilder.BODY_RESULT_WITH_EXTRA_METHOD() +
 			"\n\n" +			
 			"}";
-	
-	public static final String CLASS_RESULT_WITHOUT_EXTRA_METHOD = 
+	}
+	public String CLASS_RESULT_WITHOUT_EXTRA_METHOD() {
+		return
 			PACKAGE_RESULT +
 			"\n\n" +
 			IMPORT_RESULT +
 			"\n" +				
-			COMMENT_RESULT +
+			COMMENT_RESULT() +
 			DECLARATION +
 			"\n" +
-			BODY_RESULT +
+			bodyBuilder.BODY_RESULT() +
 			"\n" +			
 			"}";
+	}
 	
-	static {
+	private void setExistingComment() {
 		EXISTING_COMMENT
 		.addLine("/**")
 		.addLine("* Generated Class.")
@@ -117,6 +145,7 @@ public class ExistingTestClassFileBuilder extends ClassBuilder {
 		.addLine("* Version: " + VERSION)
 		.addLine("* Created: " + DATE + " " + TIME)
 		.addLine("*/");
+//		.addLine("*\n");
 	}
 	
 	@Override
@@ -132,6 +161,7 @@ public class ExistingTestClassFileBuilder extends ClassBuilder {
 	@Override
 	public void setComment() {
 		super.comment = EXISTING_COMMENT;
+		System.out.println(EXISTING_COMMENT); // TODO - remove or log 	
 	}
 	@Override
 	public void setDeclaration() {
@@ -154,7 +184,7 @@ public class ExistingTestClassFileBuilder extends ClassBuilder {
 		this.setImports();
 		this.setComment();
 		this.setDeclaration();
-		this.setClassBody(new ExistingTestClassBodyBuilder().build());
+		this.setClassBody(bodyBuilder.build());
 		return new ClassFile(this);
 	}
 

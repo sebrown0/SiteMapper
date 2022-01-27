@@ -142,14 +142,4 @@ public class MenuItem implements ElementClass, TestElement {
 		return this;
 	}
 	
-//	public MenuItem setName(String name) {
-//		this.name = name;
-//		return this;
-//	}
-//	public MenuItem setElements(List<Element> elements) {
-//		this.elements = elements;
-//		return this;
-//	}	
-	
-
 }

@@ -1,6 +1,5 @@
 package tests.mapping_tests;
 
-import static helpers.ExistingTestClassFileBuilder.CLASS_RESULT_FULL;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -20,13 +19,17 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestMethodOrder;
 
 import app.PomMapper;
+import app.PomMapperVisitor;
 import file.class_file.ClassFile;
 import file.existing.ExistingFileScanner;
+import helpers.ExistingTestClassFileBuilder;
+import site_mapper.jaxb.pom.SiteMapInfo;
 
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
-class PomMapperTests {
-	private static final String ROOT = 
+class PomMapperTests {		
+	private static final String ROOT = 			
 			"C:/Users/SteveBrown/eclipse-workspace/2021/SiteMapper";
+	
 	private static final String XML_SOURCE = 
 			ROOT + "/src/test/resources/site_map/site_map.xml";
 
@@ -36,7 +39,25 @@ class PomMapperTests {
 
 	private static final String TEST_CLASS_PATH = 
 			PARENT_PACKAGE + "/payroll/Left/employees/EmployeeDetails.java";
-			
+	
+	private static final ExistingTestClassFileBuilder FILE_BUILDER = 
+			new ExistingTestClassFileBuilder(
+					"SteveBrown", 
+					"1.0.0", 
+					XML_SOURCE, 
+					"07/01/2020", 
+					"08:53:56");
+	
+	// Set the SiteMapInfo with the test data, i.e. date & time.
+	public class PomTestData implements PomMapperVisitor {
+		@Override
+		public void setSiteMapInfo(SiteMapInfo info) {
+			info
+				.setDate("07/01/2020")
+				.setTime("08:53:56");			
+		}
+	}
+	
 	@BeforeAll
 	static void setup() {
 		 try {
@@ -54,15 +75,16 @@ class PomMapperTests {
 	@Test @Order(2)
 	void createPomsFromXML() {		
 		//Existing classes deleted above. Create new.
-		PomMapper mapper = new PomMapper(XML_SOURCE);
-		mapper.createPoms();
+		PomMapper mapper = new PomMapper(XML_SOURCE);		
+		mapper.createTestPoms(new PomTestData());
+		
 		//Check the result.
 		ExistingFileScanner scanner = new ExistingFileScanner();
 		scanner.setScanner(TEST_CLASS_PATH);
 		scanner.mapFile();
 		ClassFile classFile = scanner.getClassFile();
 				
-		assertEquals(CLASS_RESULT_FULL, classFile.toString());
+		assertEquals(FILE_BUILDER.CLASS_RESULT_WITHOUT_EXTRA_METHOD(), classFile.toString());
 	}
 		
 	@Test @Order(4)

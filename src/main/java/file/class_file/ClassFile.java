@@ -196,7 +196,10 @@ public class ClassFile {
 		}
 
 		private void setClassBody() {			
-			ClassBody classBody = new ClassBody.NewClassBody(componentWriter, clazz, info).build();
+			ClassBody classBody = 
+					new ClassBody
+						.NewClassBody(componentWriter, clazz, info)
+						.build();
 			super.classBody = classBody;
 		}
 

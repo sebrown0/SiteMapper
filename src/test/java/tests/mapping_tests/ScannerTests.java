@@ -3,8 +3,6 @@
  */
 package tests.mapping_tests;
 
-import static helpers.ExistingTestClassBodyBuilder.BODY_RESULT_WITH_EXTRA_METHOD;
-import static helpers.ExistingTestClassFileBuilder.CLASS_RESULT_FULL;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -20,6 +18,8 @@ import file.existing.ExistingFileScanner;
 import file.helpers.LineTabs;
 import file.method.MethodList;
 import file.modifier.Modifier;
+import helpers.ExistingTestClassBodyBuilder;
+import helpers.ExistingTestClassFileBuilder;
 
 /**
  * @author SteveBrown
@@ -31,6 +31,8 @@ class ScannerTests {
 	private static final String TEST_CLASS_PATH = 
 			"./src/test/resources/test_data/TestClass.java";
 
+	private static final ExistingTestClassFileBuilder FILE_BUILDER = new ExistingTestClassFileBuilder();
+	
 	@Test
 	void numTabs() {
 		final String TABS = "\t\t\t";
@@ -80,7 +82,7 @@ class ScannerTests {
 		scanner.mapFile();
 		ClassFile clazz = scanner.getClassFile();
 		
-		assertEquals("package a.payroll.Left.employees;", clazz.getPackageStr());
+		assertEquals("package employees;", clazz.getPackageStr());
 	}
 
 	@Test
@@ -175,8 +177,9 @@ class ScannerTests {
 		scanner.setScanner(TEST_CLASS_PATH);
 		scanner.mapFile();
 		ClassBody body = scanner.getClassFile().getClassBody();
-				
-		assertEquals(BODY_RESULT_WITH_EXTRA_METHOD, body.toString());
+		
+		final ExistingTestClassBodyBuilder builder = new ExistingTestClassBodyBuilder(FILE_BUILDER);
+		assertEquals(builder.BODY_RESULT_WITH_EXTRA_METHOD(), body.toString());
 	}
 	
 	@Test
@@ -185,8 +188,8 @@ class ScannerTests {
 		scanner.setScanner(TEST_CLASS_PATH);
 		scanner.mapFile();
 		ClassFile classFile = scanner.getClassFile();
-				
-		assertEquals(CLASS_RESULT_FULL, classFile.toString());
+						
+		assertEquals(FILE_BUILDER.CLASS_RESULT_FULL(), classFile.toString());
 	}
 	
 

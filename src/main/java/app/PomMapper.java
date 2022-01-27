@@ -33,30 +33,32 @@ public class PomMapper {
 	public PomMapper(final String XML_SOURCE) {
 		this.XML_SOURCE = XML_SOURCE;	
 	}
-	
-//	public Optional<Object> getUnmarshalledSource() {
-//		Optional<PomMapperApp> pomMapperApp = Optional.ofNullable(null);
-//		try {
-//			setJaxContext();
-//			unmarshallSource();
-//			getSource().ifPresent(src -> getMapper(src).ifPresent(m -> pomMapperApp = Optional.ofNullable(m)));
-////			pomMapperApp = getMapper(null)
-//		} catch (JAXBException e) {
-//			logger.error("Could not unmarshall XML");
-//		}
-//		return Optional.ofNullable(pomMapperApp);
-//	}
-	
-	public void createPoms() {
+		
+	public void  createProdPoms() {
+		//TODO...
+		
+	}
+	public void  createTestPoms(PomMapperVisitor visitor) {
 		writeLogHeader();
 		try {
 			setJaxContext();
 			unmarshallSource();
-			mapPoms();
+			mapTestPoms(visitor);
 		} catch (JAXBException e) {
 			logger.error("Could not create JAXB context. Quitting");
 		}
 	}
+	
+//	private void createPoms() {
+//		writeLogHeader();
+//		try {
+//			setJaxContext();
+//			unmarshallSource();
+//			mapTestPoms();
+//		} catch (JAXBException e) {
+//			logger.error("Could not create JAXB context. Quitting");
+//		}
+//	}
 	
 	private void writeLogHeader() {
 		logger.info("Creating POMs");
@@ -70,11 +72,11 @@ public class PomMapper {
     unmarshaller.setProperty("eclipselink.media-type", "application/xml");      
     unmarshaller.setProperty(UnmarshallerProperties.DISABLE_SECURE_PROCESSING, Boolean.TRUE);  
 	}
-	private void mapPoms() throws JAXBException {    
+	private void mapTestPoms(PomMapperVisitor visitor) throws JAXBException {    
 		getSource().ifPresentOrElse(
 				src -> {
 					getMapper(src).ifPresent(
-							m -> m.createPoms(XML_SOURCE));								
+							m -> m.createTestPoms(XML_SOURCE, visitor));								
 				}, 
 				new Runnable() {					
 					@Override
@@ -97,8 +99,4 @@ public class PomMapper {
 		return app;
 	}
 
-	public void createClassFile() {
-		// TODO Auto-generated method stub
-		
-	}
 }

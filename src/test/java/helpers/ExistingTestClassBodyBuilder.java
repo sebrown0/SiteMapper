@@ -3,9 +3,6 @@
  */
 package helpers;
 
-import static helpers.ExistingTestClassFileBuilder.ANNO_RESULT;
-import static helpers.ExistingTestClassFileBuilder.ANNO_STR;
-
 import file.annotation.ExistingAnnotation;
 import file.class_file.body.ClassBody;
 import file.class_file.body.ClassBody.BodyBuilder;
@@ -26,25 +23,41 @@ import file.variable.Variables;
  * @since 1.0
  */
 public class ExistingTestClassBodyBuilder extends BodyBuilder{
+	private final ExistingTestClassFileBuilder classFileBuilder;
+		
+	public ExistingTestClassBodyBuilder(ExistingTestClassFileBuilder classFileBuilder) {
+		this.classFileBuilder = classFileBuilder;
+	}
+
 	public static final String VAR1_RESULT = 
 			"\tpublic static final String PANEL_TITLE = \"Employee Details\";";
 	public static final String VAR2_RESULT = 
 			"\tpublic static final String MENU_TITLE = \"Employee Details\";";
 	public static final String VAR3_RESULT = 
 			"\tpublic static final String MENU_PARENT_NAME = \"Employees\";";
-	public static final Variable VAR1 = new ClassVariable
-			.ClassVarFromString("public static final String PANEL_TITLE = \"Employee Details\";")
-			.withAnnotation(new ExistingAnnotation(ANNO_STR))
-			.build(); 
-	public static final Variable VAR2 = new ClassVariable
-			.ClassVarFromString("public static final String MENU_TITLE = \"Employee Details\";")
-			.withAnnotation(new ExistingAnnotation(ANNO_STR))
-			.build(); 
-	public static final Variable VAR3 = new ClassVariable
-			.ClassVarFromString("public static final String MENU_PARENT_NAME = \"Employees\";")
-			.withAnnotation(new ExistingAnnotation(ANNO_STR))
-			.build(); 
 	
+	public Variable VAR1() {
+		return
+		new ClassVariable
+				.ClassVarFromString("public static final String PANEL_TITLE = \"Employee Details\";")
+				.withAnnotation(new ExistingAnnotation(classFileBuilder.ANNO_STR()))
+				.build(); 
+	}
+	
+	public Variable VAR2() {
+		return 
+			new ClassVariable
+				.ClassVarFromString("public static final String MENU_TITLE = \"Employee Details\";")
+				.withAnnotation(new ExistingAnnotation(classFileBuilder.ANNO_STR()))
+				.build(); 
+	}
+	public Variable VAR3() {
+		return
+			new ClassVariable
+				.ClassVarFromString("public static final String MENU_PARENT_NAME = \"Employees\";")
+				.withAnnotation(new ExistingAnnotation(classFileBuilder.ANNO_STR()))
+				.build(); 
+	}
 	public static final String CONSTRUCTOR_DEC = 
 			"public EmployeeDetails(CoreData coreData){";
 	public static final Lines<Object> CNSTR_LINES = 
@@ -61,7 +74,7 @@ public class ExistingTestClassBodyBuilder extends BodyBuilder{
 				.addLine("\t\t\tnew ControlData(\"save\", new ControlGetterButton(coreData, By.cssSelector(\"button[name='SAVE']\"))),")
 				.addLine("\t\t\tnew ControlData(\"search\", new ControlGetterButton(coreData, By.cssSelector(\"button[name='QBF1']\"))),")
 				.addLine("\t\t\tnew ControlData(\"code\", new ControlGetterTextOut(coreData, By.cssSelector(\"input[id='FORM_ID']\")))")
-				.addLine("\t\t);")
+				.addLine("\t\t);")	
 				.addLine("\tsuper.buildPanelControls(myControls);");
 	
 	public static final String NOT_FROM_SITEMAPPER_DEC = 
@@ -73,38 +86,42 @@ public class ExistingTestClassBodyBuilder extends BodyBuilder{
 				.addLine("\t")
 				.addLine("\treturn aStr;");
 	
-	public static final String BODY_RESULT =		
-			ANNO_RESULT + "\n" +
+	public String BODY_RESULT() {
+		return 
+			classFileBuilder.ANNO_RESULT() + "\n" +
 			VAR1_RESULT +
 			"\n" +
-			ANNO_RESULT + "\n" +
+			classFileBuilder.ANNO_RESULT() + "\n" +
 			VAR2_RESULT +
 			"\n" +
-			ANNO_RESULT + "\n" +
+			classFileBuilder.ANNO_RESULT() + "\n" +
 			VAR3_RESULT +
 			"\n\n" +
-			ANNO_RESULT + "\n" + 
+			classFileBuilder.ANNO_RESULT() + "\n" + 
 			"\t" + CONSTRUCTOR_DEC +
 			"\n" + CNSTR_LINES.withIndent("\t\t").toString() +				
 			"\t}\n\n" +
 			
-			ANNO_RESULT + "\n" +
+			classFileBuilder.ANNO_RESULT() + "\n" +
 			"\t" + BUILD_MY_CONTROLS_DEC +
 			"\n" + CONTROLS_LINES.withIndent("\t").toString() +
 			"\t}\n";  
+	}
 	
-	public static final String BODY_RESULT_WITH_EXTRA_METHOD =		
-		BODY_RESULT +		
-		"\t" + NOT_FROM_SITEMAPPER_DEC +
-		"\n" + NOT_FROM_SITEMAPPER_LINES.withIndent("\t").toString() +				
-		"\t}"; 
-			
+	public String BODY_RESULT_WITH_EXTRA_METHOD() {		
+		return
+			BODY_RESULT() +		
+			"\t" + NOT_FROM_SITEMAPPER_DEC +
+			"\n" + NOT_FROM_SITEMAPPER_LINES.withIndent("\t").toString() +				
+			"\t}"; 
+	}		
+		
 	@Override
 	public BodyBuilder setVars() {
 		Variables clazzVars = new Variables();
-		clazzVars.addLine(VAR1);
-		clazzVars.addLine(VAR2);
-		clazzVars.addLine(VAR3);
+		clazzVars.addLine(VAR1());
+		clazzVars.addLine(VAR2());
+		clazzVars.addLine(VAR3());
 		
 		super.vars = clazzVars;			
 		return this;
@@ -120,7 +137,7 @@ public class ExistingTestClassBodyBuilder extends BodyBuilder{
 		
 		super.cnstr =
 				builder
-					.withAnnotation(ANNO_STR)
+					.withAnnotation(classFileBuilder.ANNO_STR())
 					.withConstructorDeclaration(CONSTRUCTOR_DEC)
 					
 					.build();
@@ -131,7 +148,7 @@ public class ExistingTestClassBodyBuilder extends BodyBuilder{
 	public BodyBuilder setMethods() {		
 		super.methods = 
 			new MethodList()
-				.addMethod(buildMethod(BUILD_MY_CONTROLS_DEC, CONTROLS_LINES, ANNO_STR))
+				.addMethod(buildMethod(BUILD_MY_CONTROLS_DEC, CONTROLS_LINES, classFileBuilder.ANNO_STR()))
 				.addMethod(buildMethod(NOT_FROM_SITEMAPPER_DEC, NOT_FROM_SITEMAPPER_LINES));
 		return this;
 	}

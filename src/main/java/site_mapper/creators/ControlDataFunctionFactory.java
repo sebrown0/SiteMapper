@@ -109,14 +109,17 @@ public class ControlDataFunctionFactory {
 		return Optional.ofNullable(ret);
 	}
 
-	private static String getControlDataStr(String controlName, String controlGetter, String byValue, String byActualType) {
+	private static String getControlDataStr(
+			String controlName, String controlGetter, String byValue, String byActualType) {
+		
 		String str = 
 				"new ControlData(" + 
 				"\"" + controlName + "\", new " +
 				controlGetter + "(coreData, " +
-				byActualType +"(" +
+				byActualType +"(\"" +
 				byValue;
 
-		return str += ")))";
+		return str += "\")))";
 	}
+
 }

@@ -3,31 +3,27 @@
  */
 package tests.mapping_tests;
 
-import static helpers.ExistingTestClassBodyBuilder.*;
-import static helpers.ExistingTestClassFileBuilder.*;
-import static helpers.ExistingTestClassFileBuilder.COMMENT_RESULT;
+import static helpers.ExistingTestClassBodyBuilder.VAR1_RESULT;
 import static helpers.ExistingTestClassFileBuilder.DECLARATION;
 import static helpers.ExistingTestClassFileBuilder.IMPORT_RESULT;
 import static helpers.ExistingTestClassFileBuilder.NEW_PACKAGE;
 import static helpers.ExistingTestClassFileBuilder.PACKAGE_RESULT;
-import static helpers.NewTestClassFileBuilder.BUILD_MY_CONTROLS_RES;
-import static helpers.NewTestClassFileBuilder.MENU_ITEM;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
 import file.annotation.NewAnnotation;
 import file.class_file.ClassFile;
-import file.class_file.body.ControlBuilder;
 import file.class_package.NewClassPackage;
 import file.comment.NewComment;
 import file.imports.ImportList;
 import file.variable.ClassVariable;
 import file.variable.Variables;
+import helpers.ExistingTestClassFileBuilder;
 import helpers.NewTestClassFileBuilder;
 import site_mapper.creators.ComponentWriter;
 import site_mapper.creators.ComponentWriterJsPanelWithIFrame;
-import site_mapper.elements.ElementClass;
 import site_mapper.jaxb.pom.SiteMapInfo;
 
 /**
@@ -48,6 +44,17 @@ import site_mapper.jaxb.pom.SiteMapInfo;
  * 
  */
 class NewPojoElements_Tests {	
+	private static final ExistingTestClassFileBuilder FILE_BUILDER =
+			new ExistingTestClassFileBuilder();
+	
+//	private static String ANNO_RESULT;
+	private static String COMMENT_RESULT;
+	
+	@BeforeAll
+	static void setup() {
+		COMMENT_RESULT = FILE_BUILDER.COMMENT_RESULT();
+//		ANNO_RESULT = FILE_BUILDER.ANNO_RESULT();
+	}
 	
 	/*
 	 * Elements of the class without using a builder(s).
@@ -124,31 +131,36 @@ class NewPojoElements_Tests {
 	 */
 	@Test
 	void testPackage() {
-		ClassFile classFile = NewTestClassFileBuilder.getClassFile();
+		NewTestClassFileBuilder builder = new NewTestClassFileBuilder();
+		ClassFile classFile = builder.getClassFile();
 		assertEquals(PACKAGE_RESULT, classFile.getPackageStr());		
 	}
 	
 	@Test
 	void testImports() {
-		ClassFile classFile = NewTestClassFileBuilder.getClassFile();
+		NewTestClassFileBuilder builder = new NewTestClassFileBuilder();
+		ClassFile classFile = builder.getClassFile();
 		assertEquals(IMPORT_RESULT, classFile.getImportStr());		
 	}
 	
 	@Test
 	void testComment() {
-		ClassFile classFile = NewTestClassFileBuilder.getClassFile();
+		NewTestClassFileBuilder builder = new NewTestClassFileBuilder();
+		ClassFile classFile = builder.getClassFile();
 		assertEquals(COMMENT_RESULT, classFile.getCommentStr());		
 	}
 
 	@Test
 	void testDeclaration() {
-		ClassFile classFile = NewTestClassFileBuilder.getClassFile();
+		NewTestClassFileBuilder builder = new NewTestClassFileBuilder();
+		ClassFile classFile = builder.getClassFile();
 		assertEquals(DECLARATION, classFile.getDeclarationStr());		
 	}
 	
 	@Test
 	void testClassVar() {
-		ClassFile classFile = NewTestClassFileBuilder.getClassFile();
+		NewTestClassFileBuilder builder = new NewTestClassFileBuilder();
+		ClassFile classFile = builder.getClassFile();
 		Variables vars = classFile.getClassBody().getVars();
 		ClassVariable v = (ClassVariable) vars.getLine(0).get();
 		assertEquals(VAR1_RESULT, v.excludeAnnotation().toString());		
@@ -156,19 +168,20 @@ class NewPojoElements_Tests {
 	
 	//TODO constructor??????
 	
-	@Test
-	void testBuildMyControls() {
-		ControlBuilder builder = new ControlBuilder((ElementClass) MENU_ITEM);		
-		
-		assertEquals(ANNO_RESULT, builder.getAnnotation().toString());
-		assertEquals(BUILD_MY_CONTROLS_RES, builder.buildControlFunction().toString()); 	
-	}	
+//	@Test
+//	void testBuildMyControls() {
+//		ControlBuilder builder = new ControlBuilder((ElementClass) MENU_ITEM);		
+//		
+//		assertEquals(ANNO_RESULT, builder.getAnnotation().toString());
+//		assertEquals(BUILD_MY_CONTROLS_RES, builder.buildControlFunction().toString()); 	
+//	}	
 	
 	@Test
 	void classFile() {
-		ClassFile classFile = NewTestClassFileBuilder.getClassFile();
+		NewTestClassFileBuilder builder = new NewTestClassFileBuilder();
+		ClassFile classFile = builder.getClassFile();
 		
-		assertEquals(CLASS_RESULT_WITHOUT_EXTRA_METHOD, classFile.toString());		
+		assertEquals(FILE_BUILDER.CLASS_RESULT_WITHOUT_EXTRA_METHOD(), classFile.toString());		
 	}
 		
 }
