@@ -5,6 +5,7 @@ package site_mapper.jaxb.menu_items;
 
 import java.util.List;
 
+import exceptions.NotImplemented;
 import jakarta.xml.bind.annotation.XmlAttribute;
 import jakarta.xml.bind.annotation.XmlElement;
 import jakarta.xml.bind.annotation.XmlElementWrapper;
@@ -49,13 +50,16 @@ public class MenuItem implements ElementClass, TestElement {
 	private String moduleName;	
 	private SiteMapInfo siteMapInfo;
 	
-	public void createPoms(SiteMapInfo siteMap, PackageHierarchy ph){
+	public void createPoms(SiteMapInfo siteMap, PackageHierarchy ph, String moduleName) throws NotImplemented{
 		this.siteMapInfo = siteMap;
+		this.moduleName = moduleName;
+		this.menuPackageName = ph.getCurrent();
+		
 		boolean createPackage = createPackageForClassIfNecessary(siteMap, ph);
 		createClass(ph);
 		removeThisClassPackageFromHierarchy(createPackage, ph);		
 	}
-	private void createClass(PackageHierarchy ph) {
+	private void createClass(PackageHierarchy ph) throws NotImplemented {
 		ClassMaker cm = new ClassMaker(this, ph);
 		cm.makeClass();
 	}

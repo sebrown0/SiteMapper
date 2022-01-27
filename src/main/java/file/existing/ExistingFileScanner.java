@@ -11,6 +11,9 @@ import java.util.Scanner;
 import java.util.function.Function;
 import java.util.function.Predicate;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 import file.class_file.ClassFile;
 import file.class_file.ClassFile.ExistingClassFileBuilder;
 import file.class_file.body.ClassBody;
@@ -28,7 +31,8 @@ public class ExistingFileScanner {
 	private FileReader reader;
 	private Scanner scanner;	
 	private ExistingClassFileBuilder classBuilder;
-		
+	private Logger logger = LogManager.getLogger(ExistingFileScanner.class);
+	
 	public static final Predicate<String> PACKAGE_TEST = s -> (s.startsWith("package"));
 	public static final Predicate<String> COMMENT_TEST = s -> (s.startsWith("*") || s.startsWith("/"));
 	public static final Predicate<String> IMPORT_TEST = s -> (s.startsWith("import"));
@@ -41,7 +45,7 @@ public class ExistingFileScanner {
 	public ClassFile getClassFile() {
 		return classBuilder.build();
 	}
-		
+		//C:/Users/SteveBrown/eclipse-workspace/2021/SiteMapper/mapped/classes/payroll/Left/employees/EmployeeDetails.java
 	public boolean setScanner(String filePath) {
 		if(filePath != null) {
 			try {
@@ -50,11 +54,11 @@ public class ExistingFileScanner {
 				classBuilder = new ClassFile.ExistingClassFileBuilder(scanner);
 				return true;
 			} catch (FileNotFoundException e) {
-				//TODO - log error.
+				logger.error("Could not find file to scan [" + filePath + "]");
 				return false;
 			}			
 		}else {
-			//TODO - log error.
+			logger.error("File Path is null");
 			return false;
 		}
 	}

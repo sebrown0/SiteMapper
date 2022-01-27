@@ -4,10 +4,38 @@
   <Info>
     <Author>SteveBrown</Author>
     <Version>1.0.0</Version>
+    
+    <!-- 
+      CreationMethod
+      ==============
+      How the class files are created. Possible values are:
+      1. OverwriteExisting existing files.
+      2. DiffExisting: only write differences between new and existing.
+      3. IgnoreExisting: ignore existing files.
+    -->
+    <CreationMethod>IgnoreExisting</CreationMethod>
+    
+    <!-- 
+      RootDir
+      =======
+      Top level package/directory. This has the ParentPackage under it.
+     -->
     <RootDir>C:/Users/SteveBrown/eclipse-workspace/2021/SiteMapper</RootDir>
-    <ElementLibrary>C:/Users/SteveBrown/eclipse-workspace/2021/DTest</ElementLibrary>
-    <ParentPackage>mapped/classes</ParentPackage>
-    <OverwriteExisting>true</OverwriteExisting>
+    
+    <!-- 
+      ParentPackage
+      =============
+      The package under the RootDir, to where the class files are written.
+     -->
+    <ParentPackage>mapped/classes</ParentPackage>    
+    
+    <!-- 
+      ElementLibrary
+      ==============
+      Where to find generic elements/imports, i.e. JsPanelWithIFrame/CoreData, used in the created class file. 
+      At present this is in DTest, but this will be moved into a separate project [ElementLibrary?].  
+     -->
+    <ElementLibrary>C:/Users/SteveBrown/eclipse-workspace/2021/DTest</ElementLibrary>        
   </Info>
   
   <!-- TODO The included elements should be in separate file. -->

@@ -64,7 +64,6 @@ public class ClassWriter {
 	
 	private void writeFile() {
 		fileOut.ifPresent(fileWriter -> {
-			logger.info("Creating class [" + clazz.getClassName() + "].");
 			try {
 				fileWriter.write(clazz.toString());
 			} catch (IOException e) {

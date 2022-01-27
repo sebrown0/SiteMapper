@@ -31,8 +31,8 @@ public class SiteMapInfo {
 	private String elementLibrary;
 	@XmlElement(name="ParentPackage")
 	private String parentPackage;
-	@XmlElement(name="OverwriteExisting")
-	private String overwriteExisting;
+	@XmlElement(name="CreationMethod")
+	private String creationMethod;
 	
 	private String xmlSource;
 	private String date;
@@ -103,14 +103,23 @@ public class SiteMapInfo {
 	public String getParentPackage() {
 		return parentPackage;
 	}
-	public boolean isOverwritingExisting() {
-		// Default to not over writing if value cannot be found.
-		if(overwriteExisting == null) {
-			return false;
-		}else {
-			return (overwriteExisting.equalsIgnoreCase("TRUE")) ? true : false;	
+	public boolean isIgnoringExisting() {
+		if(creationMethod != null && creationMethod.equalsIgnoreCase("IgnoreExisting")) {
+			return true;
 		}
-		
+		return false;
+	}
+	public boolean isOverwritingExisting() {
+		if(creationMethod != null && creationMethod.equalsIgnoreCase("OverwriteExisting")) {
+			return true;
+		}
+		return false;
+	}
+	public boolean isDiffExisting() {
+		if(creationMethod != null && creationMethod.equalsIgnoreCase("DiffExisting")) {
+			return true;
+		}
+		return false;
 	}
 
 	@Override

@@ -34,7 +34,7 @@ public class Module {
   	logger.info("Found module [" + name + "]. Attempting to map menus");
 		if(menus != null) {			
 			menus.forEach(m -> {								 					
-				m.getMenuContainers(siteMap, ph);
+				m.getMenuContainers(siteMap, ph, name);
 	  	});	
 		}  	
 		return this;

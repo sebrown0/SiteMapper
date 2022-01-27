@@ -168,14 +168,6 @@ class NewPojoElements_Tests {
 	
 	//TODO constructor??????
 	
-//	@Test
-//	void testBuildMyControls() {
-//		ControlBuilder builder = new ControlBuilder((ElementClass) MENU_ITEM);		
-//		
-//		assertEquals(ANNO_RESULT, builder.getAnnotation().toString());
-//		assertEquals(BUILD_MY_CONTROLS_RES, builder.buildControlFunction().toString()); 	
-//	}	
-	
 	@Test
 	void classFile() {
 		NewTestClassFileBuilder builder = new NewTestClassFileBuilder();

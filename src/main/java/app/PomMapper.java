@@ -48,18 +48,7 @@ public class PomMapper {
 			logger.error("Could not create JAXB context. Quitting");
 		}
 	}
-	
-//	private void createPoms() {
-//		writeLogHeader();
-//		try {
-//			setJaxContext();
-//			unmarshallSource();
-//			mapTestPoms();
-//		} catch (JAXBException e) {
-//			logger.error("Could not create JAXB context. Quitting");
-//		}
-//	}
-	
+		
 	private void writeLogHeader() {
 		logger.info("Creating POMs");
 	}
