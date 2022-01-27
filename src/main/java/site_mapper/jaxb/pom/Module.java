@@ -5,6 +5,7 @@ import java.util.List;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import file.class_package.PackageSetter;
 import jakarta.xml.bind.annotation.XmlAttribute;
 import jakarta.xml.bind.annotation.XmlElement;
 import jakarta.xml.bind.annotation.XmlElementWrapper;
@@ -29,12 +30,12 @@ public class Module {
     
   private Logger logger = LogManager.getLogger(Module.class);
   
-  public Module getModuleContainers(PackageHierarchy ph, final SiteMapInfo siteMap) {  	
+  public Module getModuleContainers(PackageSetter packageSetter, PackageHierarchy ph, final SiteMapInfo siteMap) {  	
   	PackageMaker.makeWithPackageInfo(siteMap, ph.reset().addCurrent(name));
   	logger.info("Found module [" + name + "]. Attempting to map menus");
 		if(menus != null) {			
 			menus.forEach(m -> {								 					
-				m.getMenuContainers(siteMap, ph, name);
+				m.getMenuContainers(packageSetter, siteMap, ph, name);
 	  	});	
 		}  	
 		return this;

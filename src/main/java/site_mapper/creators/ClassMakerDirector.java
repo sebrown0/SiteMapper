@@ -3,8 +3,8 @@ package site_mapper.creators;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import exceptions.NotImplemented;
 import file.class_file.ClassFile;
+import file.class_package.PackageSetter;
 import site_mapper.elements.ElementClass;
 import site_mapper.jaxb.pom.PackageHierarchy;
 
@@ -23,21 +23,23 @@ public class ClassMakerDirector {
 	@SuppressWarnings("unused")
 	private ClassFile classFile;
 	private Logger logger = LogManager.getLogger(ClassMakerDirector.class);
-		
-	public ClassMakerDirector(ElementClass elementClass, PackageHierarchy ph) {
+	private PackageSetter packageSetter;
+	
+	public ClassMakerDirector(ElementClass elementClass, PackageHierarchy ph, PackageSetter packageSetter) {
 		this.elementClass = elementClass;
 		this.packageHierarchy = ph;
+		this.packageSetter = packageSetter;
 	}
 
-	public void makeClass() throws NotImplemented {
+	public void makeClass() {
 		ClassMaker classMaker = null;
 		
 		if(overWritingExisting()) {
-			classMaker = new OverwriteClass(elementClass, packageHierarchy);			
+			classMaker = new OverwriteClass(elementClass, packageHierarchy, packageSetter);			
 		}else if (ignoringExisting()) {
-			classMaker = new IgnoreClass(elementClass, packageHierarchy);			
+			classMaker = new IgnoreClass(elementClass, packageHierarchy, packageSetter);			
 		}else if (diffExisting()) {
-			classMaker = new DiffClass(elementClass, packageHierarchy);
+			classMaker = new DiffClass(elementClass, packageHierarchy, packageSetter);
 		}else {
 			logger.error(
 					String.format("Incorrect mode specified for class [%s] in module [%s]", 

@@ -16,6 +16,7 @@ import file.class_file.body.ClassBody;
 import file.class_package.ClassPackage;
 import file.class_package.ExistingClassPackage;
 import file.class_package.NewClassPackage;
+import file.class_package.PackageSetter;
 import file.comment.Comment;
 import file.comment.ExistingComment;
 import file.comment.NewComment;
@@ -153,11 +154,13 @@ public class ClassFile {
 		private ComponentWriter componentWriter;
 		private ElementClass clazz;
 		private SiteMapInfo info;
+		private PackageSetter packageSetter;
 		
-		public NewClassFileBuilder(ElementClass clazz) {
+		public NewClassFileBuilder(ElementClass clazz, PackageSetter packageSetter) {
 			this.clazz = clazz;
 			this.info = clazz.getSiteMapInfo();
-						
+			this.packageSetter = packageSetter;
+			
 			setComponentWriter();
 			
 			setInPackage();
@@ -175,16 +178,8 @@ public class ClassFile {
 		}
 		
 		@Override
-		protected void setInPackage() {
-			String s = clazz.getParentPackage();
-			System.out.println("->" +s ); // TODO - remove or log 	
-			//a.payroll.left_menu.employees
-			
-			s = info.getParentPackage() + "." + clazz.getModuleName() + "." + clazz.getParentPackage() + "." + clazz.getPackage();
-			System.out.println("->" +s ); // TODO - remove or log 
-			
-//			super.inPackage = new NewClassPackage(clazz.getPackage());
-			super.inPackage = new NewClassPackage(s);
+		protected void setInPackage() {			
+			super.inPackage = new NewClassPackage(packageSetter.getPackage(clazz));
 		}
 		@Override
 		protected void setImports() {

@@ -3,6 +3,9 @@ package site_mapper.jaxb.pom;
 import java.util.List;
 
 import app.PomMapperVisitor;
+import file.class_package.PackageSetter;
+import file.class_package.ProdPackageSetter;
+import file.class_package.TestPackageSetter;
 import jakarta.xml.bind.annotation.XmlElement;
 import jakarta.xml.bind.annotation.XmlElementWrapper;
 import jakarta.xml.bind.annotation.XmlRootElement;
@@ -29,11 +32,11 @@ public class PomMapperApp {
 	@XmlElementWrapper(name="Modules")
   @XmlElement(name="Module")
   private List<Module> modules;
-	
+		
 	public void createProdPoms(final String XML_SOURCE) {
 		if(siteMapInfo != null) {
 			siteMapInfo.setXmlSource(XML_SOURCE);			
-			createPoms(XML_SOURCE);	
+			createPoms(new ProdPackageSetter(siteMapInfo), XML_SOURCE);	
 		}else {
 			//TODO LOG ERROR
 		}
@@ -43,19 +46,19 @@ public class PomMapperApp {
 		if(siteMapInfo != null) {
 			siteMapInfo.setXmlSource(XML_SOURCE);
 			visitor.setSiteMapInfo(siteMapInfo);
-			createPoms(XML_SOURCE);	
+			createPoms(new TestPackageSetter(), XML_SOURCE);	
 		}else {
 			//TODO LOG ERROR
 		}
 	}
 	
-	private void createPoms(final String XML_SOURCE) {		
+	private void createPoms(PackageSetter packageSetter, final String XML_SOURCE) {		
 		PackageHierarchy packageHierarchy = 
 				new PackageHierarchy(siteMapInfo.getRootDir(), siteMapInfo.getParentPackage());
 		
 		PackageMaker.makeParentWithPackageInfo(siteMapInfo, packageHierarchy);
 		for (Module module : modules) {
-			module.getModuleContainers(packageHierarchy, siteMapInfo);
+			module.getModuleContainers(packageSetter, packageHierarchy, siteMapInfo);
 		}					
 	}
 

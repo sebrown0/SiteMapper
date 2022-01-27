@@ -4,6 +4,7 @@
 package site_mapper.creators;
 
 import file.class_file.ClassFile;
+import file.class_package.PackageSetter;
 import site_mapper.elements.ElementClass;
 import site_mapper.jaxb.pom.PackageHierarchy;
 
@@ -17,10 +18,12 @@ public class OverwriteClass implements ClassMaker {
 	protected ClassFile classFile;
 	protected ElementClass elementClass;
 	protected PackageHierarchy packageHierarchy;
+	protected PackageSetter packageSetter;
 	
-	public OverwriteClass(ElementClass elementClass, PackageHierarchy packageHierarchy) {
+	public OverwriteClass(ElementClass elementClass, PackageHierarchy packageHierarchy, PackageSetter packageSetter) {
 		this.elementClass = elementClass;
 		this.packageHierarchy = packageHierarchy;
+		this.packageSetter = packageSetter;
 	}
 
 	@Override //ClassMaker
@@ -42,7 +45,7 @@ public class OverwriteClass implements ClassMaker {
 	protected void setClassFile() {
 		classFile = 
 			new ClassFile
-				.NewClassFileBuilder(elementClass)
+				.NewClassFileBuilder(elementClass, packageSetter)
 				.build();
 	}
 	

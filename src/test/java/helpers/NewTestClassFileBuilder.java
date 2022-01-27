@@ -6,6 +6,7 @@ import java.util.Arrays;
 
 import file.class_file.ClassFile;
 import file.class_file.ClassFile.NewClassFileBuilder;
+import file.class_package.TestPackageSetter;
 import site_mapper.elements.Element;
 import site_mapper.elements.ElementClass;
 import site_mapper.elements.ElementCreation;
@@ -95,7 +96,7 @@ public class NewTestClassFileBuilder {
 			.setElements(Arrays.asList((Element)SAVE_BUTTON, (Element)SEARCH_BUTTON, (Element)EMP_CODE_TEXT_OUT));
 	}
 	private void setClassFile() {
-		classFile = new NewClassFileBuilder((ElementClass) MENU_ITEM).build();
+		classFile = new NewClassFileBuilder((ElementClass) MENU_ITEM, new TestPackageSetter()).build();
 	}
 
 	public ClassFile getClassFile() {

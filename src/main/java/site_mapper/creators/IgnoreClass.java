@@ -6,6 +6,7 @@ package site_mapper.creators;
 import org.apache.logging.log4j.LogManager;
 
 import file.class_file.ClassFile;
+import file.class_package.PackageSetter;
 import file.helpers.ExistingFileDetails;
 import file.helpers.FileFinder;
 import site_mapper.elements.ElementClass;
@@ -18,8 +19,8 @@ import site_mapper.jaxb.pom.PackageHierarchy;
  * @since 1.0
  */
 public class IgnoreClass extends OverwriteClass implements ClassMaker {
-	public IgnoreClass(ElementClass elementClass, PackageHierarchy packageHierarchy) {
-		super(elementClass, packageHierarchy);
+	public IgnoreClass(ElementClass elementClass, PackageHierarchy packageHierarchy, PackageSetter packageSetter) {
+		super(elementClass, packageHierarchy, packageSetter);
 	}
 
 	@Override //ClassMaker

@@ -5,7 +5,7 @@ package site_mapper.jaxb.menu_items;
 
 import java.util.List;
 
-import exceptions.NotImplemented;
+import file.class_package.PackageSetter;
 import jakarta.xml.bind.annotation.XmlAttribute;
 import jakarta.xml.bind.annotation.XmlElement;
 import jakarta.xml.bind.annotation.XmlElementWrapper;
@@ -49,8 +49,28 @@ public class MenuItem implements ElementClass, TestElement {
 	private String menuPackageName;
 	private String moduleName;	
 	private SiteMapInfo siteMapInfo;
+	private PackageSetter packageSetter;
 	
-	public void createPoms(SiteMapInfo siteMap, PackageHierarchy ph, String moduleName) throws NotImplemented{
+	/**
+	 * 
+	 * @param packageSetter
+	 *  Set the class's package for test or production.
+	 * @param siteMap
+	 *  All the info from site_map.xml.
+	 * @param ph
+	 * 	The classes package hierarchy; create, get etc.
+	 * @param moduleName
+	 *  The module the class is in.
+	 * 
+	 */
+	public void createPoms(
+			PackageSetter packageSetter, 
+			SiteMapInfo siteMap, 
+			PackageHierarchy ph, 
+			String moduleName) { 
+					
+		
+		this.packageSetter = packageSetter;
 		this.siteMapInfo = siteMap;
 		this.moduleName = moduleName;
 		this.menuPackageName = ph.getCurrent();
@@ -59,8 +79,8 @@ public class MenuItem implements ElementClass, TestElement {
 		createClass(ph);
 		removeThisClassPackageFromHierarchy(createPackage, ph);		
 	}
-	private void createClass(PackageHierarchy ph) throws NotImplemented {
-		ClassMakerDirector cm = new ClassMakerDirector(this, ph);
+	private void createClass(PackageHierarchy ph) {
+		ClassMakerDirector cm = new ClassMakerDirector(this, ph, packageSetter);
 		cm.makeClass();
 	}
 	private boolean createPackageForClassIfNecessary(SiteMapInfo siteMap, PackageHierarchy ph) {

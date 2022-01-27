@@ -5,7 +5,7 @@ import java.util.List;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import exceptions.NotImplemented;
+import file.class_package.PackageSetter;
 import jakarta.xml.bind.annotation.XmlAttribute;
 import jakarta.xml.bind.annotation.XmlElement;
 import jakarta.xml.bind.annotation.XmlRootElement;
@@ -36,17 +36,13 @@ public class Menu {
     
   private Logger logger = LogManager.getLogger(Menu.class);
   
-  public Menu getMenuContainers(SiteMapInfo siteMap, PackageHierarchy ph, String moduleName) {
+  public Menu getMenuContainers(PackageSetter packageSetter, SiteMapInfo siteMap, PackageHierarchy ph, String moduleName) {
   	ph.setMenuPackageName(packageName);
 		PackageMaker.makeWithPackageInfo(siteMap, ph.addCurrent(packageName));		
 		logger.info("Found menu [" + name + "]. Attempting to map menu items");
 		if(menuItems != null) {
 			menuItems.forEach(item -> {
-				try {
-					item.createPoms(siteMap, ph, moduleName);
-				} catch (NotImplemented e) {
-					logger.error("Error creating POM class file [" + e + "]");
-				}
+				item.createPoms(packageSetter, siteMap, ph, moduleName);
 			});	
 		}		
 		return this;
