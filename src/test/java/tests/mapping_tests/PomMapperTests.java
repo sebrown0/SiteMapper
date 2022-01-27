@@ -3,6 +3,7 @@ package tests.mapping_tests;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.fail;
 
 import java.io.IOException;
 import java.nio.file.Files;
@@ -20,7 +21,6 @@ import org.junit.jupiter.api.TestMethodOrder;
 
 import app.PomMapper;
 import app.PomMapperVisitor;
-import file.class_file.ClassFile;
 import file.existing.ExistingFileScanner;
 import helpers.ExistingTestClassFileBuilder;
 import site_mapper.jaxb.pom.SiteMapInfo;
@@ -38,7 +38,7 @@ class PomMapperTests {
 			ROOT + "/mapped/classes"; 
 
 	private static final String TEST_CLASS_PATH = 
-			PARENT_PACKAGE + "/payroll/Left/employees/EmployeeDetails.java";
+			PARENT_PACKAGE + "/payroll/left_menu/employees/EmployeeDetails.java";
 	
 	private static final ExistingTestClassFileBuilder FILE_BUILDER = 
 			new ExistingTestClassFileBuilder(
@@ -82,9 +82,17 @@ class PomMapperTests {
 		ExistingFileScanner scanner = new ExistingFileScanner();
 		scanner.setScanner(TEST_CLASS_PATH);
 		scanner.mapFile();
-		ClassFile classFile = scanner.getClassFile();
-				
-		assertEquals(FILE_BUILDER.CLASS_RESULT_WITHOUT_EXTRA_METHOD(), classFile.toString());
+		
+		scanner.getClassFile().ifPresentOrElse(
+				cf -> {
+					assertEquals(FILE_BUILDER.CLASS_RESULT_WITHOUT_EXTRA_METHOD(), cf.toString());
+				},
+				new Runnable() {					
+					@Override
+					public void run() {
+						fail("Class file is null.");						
+					}
+				});		
 	}
 		
 	@Test @Order(4)

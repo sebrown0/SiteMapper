@@ -1,7 +1,7 @@
 /**
  * 
  */
-package file;
+package file.helpers;
 
 import java.io.IOException;
 import java.nio.file.Files;
@@ -24,6 +24,10 @@ public class FileFinder {
 	private static String result;
 	private static Logger logger = LogManager.getLogger(FileFinder.class);
 	
+	public static boolean fileExists(ExistingFileDetails fileDetails) {		
+		return fileExists(fileDetails.getPath(), fileDetails.getFileWithClassFileExtension());
+	}
+			
 	public static boolean fileExists(final String ROOT, final String fileName) {
 		try {
 			return (findFilePath(ROOT, fileName).isPresent()) ? true : false;
@@ -31,7 +35,7 @@ public class FileFinder {
 			return false;
 		}
 	}
-	
+
 	public static String findPathWithoutRootAndExtension(final String ROOT, final String fileName) {
 		result = findPathWithoutRoot(ROOT, fileName);
 		if(result.length() > 0) {

@@ -7,6 +7,7 @@ import static file.modifier.Modifier.MODIFIER_PATTERN;
 
 import java.io.FileNotFoundException;
 import java.io.FileReader;
+import java.util.Optional;
 import java.util.Scanner;
 import java.util.function.Function;
 import java.util.function.Predicate;
@@ -42,10 +43,11 @@ public class ExistingFileScanner {
 	public static final Function<String, Import> IMPORT_SUPPLIER = s -> new ExistingImport(s);
 	public static final Function<String, String> STRING_SUPPLIER = s -> String.valueOf(s);
 	
-	public ClassFile getClassFile() {
-		return classBuilder.build();
+	public Optional<ClassFile> getClassFile() {
+		return (classBuilder != null) ? 
+				Optional.ofNullable(classBuilder.build()) : Optional.empty();
 	}
-		//C:/Users/SteveBrown/eclipse-workspace/2021/SiteMapper/mapped/classes/payroll/Left/employees/EmployeeDetails.java
+	
 	public boolean setScanner(String filePath) {
 		if(filePath != null) {
 			try {

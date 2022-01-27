@@ -20,6 +20,7 @@ import java.util.Queue;
 public class PackageHierarchy {
 	private String root;
 	private String current;
+	private String packageName;	
 	private Queue<String> packageNames = new LinkedList<String>();
 	private String ret;
 	
@@ -54,6 +55,10 @@ public class PackageHierarchy {
 		return root;
 	}
 	
+	public String getPackageName() {
+		return packageName;
+	}
+	
 	public Queue<String> getPackageNames() {
 		return packageNames;
 	}
@@ -70,6 +75,16 @@ public class PackageHierarchy {
 				ret += pn + separator;				
 		});
 		return (ret.length()>0) ? ret.substring(0, ret.length()-1) : "";
+	}
+
+	@Override
+	public String toString() {
+		return "PackageHierarchy [root=" + root + ", current=" + current + ", packageNames=" + packageNames + ", ret=" + ret
+				+ "]";
+	}
+
+	public void setMenuPackageName(String packageName) {
+		this.packageName = packageName;
 	}
 	
 }

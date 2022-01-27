@@ -80,7 +80,7 @@ class ScannerTests {
 		ExistingFileScanner scanner = new ExistingFileScanner();
 		scanner.setScanner(TEST_CLASS_PATH);
 		scanner.mapFile();
-		ClassFile clazz = scanner.getClassFile();
+		ClassFile clazz = scanner.getClassFile().get();
 		
 		assertEquals("package employees;", clazz.getPackageStr());
 	}
@@ -90,7 +90,7 @@ class ScannerTests {
 		ExistingFileScanner scanner = new ExistingFileScanner();
 		scanner.setScanner(TEST_CLASS_PATH);
 		scanner.mapFile();
-		ClassFile clazz = scanner.getClassFile();
+		ClassFile clazz = scanner.getClassFile().get();
 		
 		assertEquals(6, clazz.getImport().getImports().size());
 	}
@@ -100,7 +100,7 @@ class ScannerTests {
 		ExistingFileScanner scanner = new ExistingFileScanner();
 		scanner.setScanner(TEST_CLASS_PATH);
 		scanner.mapFile();
-		ClassFile clazz = scanner.getClassFile();
+		ClassFile clazz = scanner.getClassFile().get();
 
 		assertEquals(8, clazz.getComment().getLines().size());
 	}
@@ -110,7 +110,7 @@ class ScannerTests {
 		ExistingFileScanner scanner = new ExistingFileScanner();
 		scanner.setScanner(TEST_CLASS_PATH);
 		scanner.mapFile();
-		ClassFile clazz = scanner.getClassFile();
+		ClassFile clazz = scanner.getClassFile().get();
 		
 		assertEquals("public class EmployeeDetails extends JsPanelWithIFrame {", clazz.getDeclarationStr());
 	}
@@ -120,7 +120,7 @@ class ScannerTests {
 		ExistingFileScanner scanner = new ExistingFileScanner();
 		scanner.setScanner(TEST_CLASS_PATH);
 		scanner.mapFile();
-		ClassBody body = scanner.getClassFile().getClassBody();
+		ClassBody body = scanner.getClassFile().get().getClassBody();
 		
 		assertEquals(3, body.getVars().getLines().size());
 	}
@@ -130,7 +130,7 @@ class ScannerTests {
 		ExistingFileScanner scanner = new ExistingFileScanner();
 		scanner.setScanner(TEST_CLASS_PATH);
 		scanner.mapFile();
-		ClassBody body = scanner.getClassFile().getClassBody();
+		ClassBody body = scanner.getClassFile().get().getClassBody();
 		ClassConstructor cnstr = body.getCnstr();
 
 		assertEquals(
@@ -147,7 +147,7 @@ class ScannerTests {
 		ExistingFileScanner scanner = new ExistingFileScanner();
 		scanner.setScanner(TEST_CLASS_PATH);
 		scanner.mapFile();
-		ClassBody body = scanner.getClassFile().getClassBody();
+		ClassBody body = scanner.getClassFile().get().getClassBody();
 		MethodList methods = body.getMethods();
 
 		assertEquals(
@@ -176,7 +176,7 @@ class ScannerTests {
 		ExistingFileScanner scanner = new ExistingFileScanner();
 		scanner.setScanner(TEST_CLASS_PATH);
 		scanner.mapFile();
-		ClassBody body = scanner.getClassFile().getClassBody();
+		ClassBody body = scanner.getClassFile().get().getClassBody();
 		
 		final ExistingTestClassBodyBuilder builder = new ExistingTestClassBodyBuilder(FILE_BUILDER);
 		assertEquals(builder.BODY_RESULT_WITH_EXTRA_METHOD(), body.toString());
@@ -187,7 +187,7 @@ class ScannerTests {
 		ExistingFileScanner scanner = new ExistingFileScanner();
 		scanner.setScanner(TEST_CLASS_PATH);
 		scanner.mapFile();
-		ClassFile classFile = scanner.getClassFile();
+		ClassFile classFile = scanner.getClassFile().get();
 						
 		assertEquals(FILE_BUILDER.CLASS_RESULT_FULL(), classFile.toString());
 	}

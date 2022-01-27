@@ -5,7 +5,7 @@ package site_mapper.creators;
 
 import org.apache.logging.log4j.LogManager;
 
-import file.FileFinder;
+import file.helpers.FileFinder;
 import site_mapper.jaxb.pom.SiteMapInfo;
 
 /**

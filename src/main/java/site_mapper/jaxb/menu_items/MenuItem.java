@@ -10,7 +10,7 @@ import jakarta.xml.bind.annotation.XmlAttribute;
 import jakarta.xml.bind.annotation.XmlElement;
 import jakarta.xml.bind.annotation.XmlElementWrapper;
 import jakarta.xml.bind.annotation.XmlRootElement;
-import site_mapper.creators.ClassMaker;
+import site_mapper.creators.ClassMakerDirector;
 import site_mapper.creators.ComponentWriter;
 import site_mapper.creators.PackageMaker;
 import site_mapper.elements.Element;
@@ -54,13 +54,13 @@ public class MenuItem implements ElementClass, TestElement {
 		this.siteMapInfo = siteMap;
 		this.moduleName = moduleName;
 		this.menuPackageName = ph.getCurrent();
-		
+				
 		boolean createPackage = createPackageForClassIfNecessary(siteMap, ph);
 		createClass(ph);
 		removeThisClassPackageFromHierarchy(createPackage, ph);		
 	}
 	private void createClass(PackageHierarchy ph) throws NotImplemented {
-		ClassMaker cm = new ClassMaker(this, ph);
+		ClassMakerDirector cm = new ClassMakerDirector(this, ph);
 		cm.makeClass();
 	}
 	private boolean createPackageForClassIfNecessary(SiteMapInfo siteMap, PackageHierarchy ph) {

@@ -37,7 +37,8 @@ public class Menu {
   private Logger logger = LogManager.getLogger(Menu.class);
   
   public Menu getMenuContainers(SiteMapInfo siteMap, PackageHierarchy ph, String moduleName) {
-		PackageMaker.makeWithPackageInfo(siteMap, ph.addCurrent(name));		
+  	ph.setMenuPackageName(packageName);
+		PackageMaker.makeWithPackageInfo(siteMap, ph.addCurrent(packageName));		
 		logger.info("Found menu [" + name + "]. Attempting to map menu items");
 		if(menuItems != null) {
 			menuItems.forEach(item -> {
