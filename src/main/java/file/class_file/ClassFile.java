@@ -176,7 +176,15 @@ public class ClassFile {
 		
 		@Override
 		protected void setInPackage() {
-			super.inPackage = new NewClassPackage(clazz.getPackage());
+			String s = clazz.getParentPackage();
+			System.out.println("->" +s ); // TODO - remove or log 	
+			//a.payroll.left_menu.employees
+			
+			s = info.getParentPackage() + "." + clazz.getModuleName() + "." + clazz.getParentPackage() + "." + clazz.getPackage();
+			System.out.println("->" +s ); // TODO - remove or log 
+			
+//			super.inPackage = new NewClassPackage(clazz.getPackage());
+			super.inPackage = new NewClassPackage(s);
 		}
 		@Override
 		protected void setImports() {

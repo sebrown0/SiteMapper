@@ -31,7 +31,12 @@ public class PomMapperApp {
   private List<Module> modules;
 	
 	public void createProdPoms(final String XML_SOURCE) {
-		//TODO
+		if(siteMapInfo != null) {
+			siteMapInfo.setXmlSource(XML_SOURCE);			
+			createPoms(XML_SOURCE);	
+		}else {
+			//TODO LOG ERROR
+		}
 	}
 			
 	public void createTestPoms(final String XML_SOURCE, PomMapperVisitor visitor) {

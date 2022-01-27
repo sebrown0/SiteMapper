@@ -35,9 +35,16 @@ public class PomMapper {
 	}
 		
 	public void  createProdPoms() {
-		//TODO...
-		
+		writeLogHeader();
+		try {
+			setJaxContext();
+			unmarshallSource();
+			mapProdPoms();
+		} catch (JAXBException e) {
+			logger.error("Could not create JAXB context. Quitting");
+		}
 	}
+	
 	public void  createTestPoms(PomMapperVisitor visitor) {
 		writeLogHeader();
 		try {
@@ -61,6 +68,19 @@ public class PomMapper {
     unmarshaller.setProperty("eclipselink.media-type", "application/xml");      
     unmarshaller.setProperty(UnmarshallerProperties.DISABLE_SECURE_PROCESSING, Boolean.TRUE);  
 	}
+	private void mapProdPoms() throws JAXBException {    
+		getSource().ifPresentOrElse(
+				src -> {
+					getMapper(src).ifPresent(
+							m -> m.createProdPoms(XML_SOURCE));								
+				}, 
+				new Runnable() {					
+					@Override
+					public void run() {
+						logger.error("Error getting the source [" + XML_SOURCE + "] for unmarshling");
+					}
+				});
+	}
 	private void mapTestPoms(PomMapperVisitor visitor) throws JAXBException {    
 		getSource().ifPresentOrElse(
 				src -> {
@@ -74,6 +94,7 @@ public class PomMapper {
 					}
 				});
 	}
+	
 	private Optional<StreamSource> getSource() {
 		//TODO - Check source file.
 		return Optional.ofNullable(new StreamSource(XML_SOURCE));
