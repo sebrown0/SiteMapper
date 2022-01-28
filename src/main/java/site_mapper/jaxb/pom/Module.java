@@ -29,7 +29,7 @@ public class Module {
   private List<Menu> menus;
     
   private Logger logger = LogManager.getLogger(Module.class);
-  
+      
   public Module getModuleContainers(PackageSetter packageSetter, PackageHierarchy ph, final SiteMapInfo siteMap) {  	
   	PackageMaker.makeWithPackageInfo(siteMap, ph.reset().addCurrent(name));
   	logger.info("Found module [" + name + "]. Attempting to map menus");
