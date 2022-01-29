@@ -20,7 +20,6 @@
       =======
       Top level package/directory. This has the ParentPackage under it.
      -->
-    <!--  <RootDir>C:/Users/SteveBrown/eclipse-workspace/2021/SiteMapper</RootDir>  -->
     <RootDir>.</RootDir>
     
     <!-- 

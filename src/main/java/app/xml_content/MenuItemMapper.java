@@ -17,23 +17,17 @@ import site_mapper.jaxb.pom.SiteMapInfo;
  * @since 1.0
  */
 public class MenuItemMapper {
-//	private String menuPackageName;
-	private String packageName;
-//	private String moduleName;	
+	private String packageName;	
 	private SiteMapInfo siteMapInfo;
 	private PackageSetter packageSetter;
 	private MenuItem menuItem;
 	private PackageHierarchy ph;
 	
-//	public MenuItemMapper(String moduleName, SiteMapInfo siteMapInfo, PackageSetter packageSetter, MenuItem menuItem, PackageHierarchy ph) {
-	public MenuItemMapper(PackageSetter packageSetter, MenuItem menuItem, PackageHierarchy ph) {
-		super();
-//		this.moduleName = moduleName;
+	public MenuItemMapper(PackageSetter packageSetter, MenuItem menuItem, PackageHierarchy ph) {		
 		this.siteMapInfo = menuItem.getSiteMapInfo();
 		this.ph = ph;
 		this.packageSetter = packageSetter;
 		this.menuItem = menuItem;
-//		this.menuPackageName = ph.getCurrent();
 		this.packageName = menuItem.getPackage();
 	}
 
@@ -56,9 +50,11 @@ public class MenuItemMapper {
 		}
 		return false;
 	}
+	
 	private void removeThisClassPackageFromHierarchy(boolean packageWasAddedToHierarchy) {
 		if(packageWasAddedToHierarchy) {
 			ph.removeCurrent();
 		}		
 	}
+	
 }

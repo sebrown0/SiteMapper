@@ -24,7 +24,9 @@ import site_mapper.jaxb.pom.SiteMapInfo;
 public class MenuMapper {
 	private static final Logger logger = LogManager.getLogger(MenuMapper.class);
   
-  public static void mapMenus(Menu menu, PackageSetter packageSetter, SiteMapInfo siteMapInfo, PackageHierarchy ph, String moduleName) {
+  public static void mapMenus(
+  		Menu menu, PackageSetter packageSetter, SiteMapInfo siteMapInfo, PackageHierarchy ph, String moduleName) {
+  	
   	String name = menu.getName();
   	String packageName = menu.getPackageName();
   	List<MenuItem> menuItems = menu.getMenuItems();
@@ -38,7 +40,6 @@ public class MenuMapper {
 			menuItems.forEach(item -> {
 				item.setSiteMapInfo(siteMapInfo);
 				new MenuItemMapper(packageSetter, item, ph).createPoms();
-//				item.createPoms(packageSetter, siteMap, ph, moduleName);
 			});	
 		}		
 	}

@@ -12,7 +12,7 @@ import site_mapper.jaxb.pom.PackageHierarchy;
 import site_mapper.jaxb.pom.SiteMapInfo;
 
 /**
- * @author Brown
+ * @author SteveBrown
  * @version 1.0
  * 	Initial
  * @since 1.0
@@ -21,6 +21,7 @@ public class TestMapper {
 	private PomMapperVisitor visitor;
 	private XmlContent content;
 	private PackageSetter packageSetter = new TestPackageSetter();
+	private PackageHierarchy packageHierarchy;
 	private SiteMapInfo info;
 	
 	public TestMapper(PomMapperVisitor visitor, XmlContent content) {	
@@ -28,28 +29,28 @@ public class TestMapper {
 		this.content = content;
 		this.info = content.getSiteMapInfo();
 	}
-
 		
 	public void createTestPoms(final String XML_SOURCE) {
 		if(info != null) {
 			info.setXmlSource(XML_SOURCE);
 			visitor.setSiteMapInfo(info);
+			setPackageHierarchy();
+			makePackage();
 			createPoms(XML_SOURCE);	
 		}else {
 			//TODO LOG ERROR
 		}
 	}
-	
-	private void createPoms(final String XML_SOURCE) {		
-		PackageHierarchy packageHierarchy = 
+	private void setPackageHierarchy() {
+		packageHierarchy = 
 				new PackageHierarchy(info.getRootDir(), info.getParentPackage());
-		
-		PackageMaker.makeParentWithPackageInfo(info, packageHierarchy);
-
+	}
+	private void makePackage() {
+		PackageMaker.makeParentWithPackageInfo(info, packageHierarchy);		
+	}
+	private void createPoms(final String XML_SOURCE) {		
 		for (Module m : content.getModules()) {
-			System.out.println(m.getName());
 			ModuleMapper.mapModules(m, packageSetter, packageHierarchy, info);
-//			module.getModuleContainers(packageSetter, packageHierarchy, info);
 		}					
 	}
 }

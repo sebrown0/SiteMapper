@@ -45,8 +45,6 @@ public class ClassWriter {
 	
 	private void setFileOutWriter() {
 		String filePath = getFilePath();
-		// C:\Users\Brown\eclipse-workspace\2021\SiteMapper\mapped
-		// C:/Users/SteveBrown/eclipse-workspace/2021/SiteMapper/mapped/classes/payroll/left_menu/employees/EmployeeDetails.java
 		try {
 			fileOut = 				
 					Optional.ofNullable(new BufferedWriter(

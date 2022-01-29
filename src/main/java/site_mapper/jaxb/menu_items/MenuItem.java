@@ -5,17 +5,13 @@ package site_mapper.jaxb.menu_items;
 
 import java.util.List;
 
-import file.class_package.PackageSetter;
 import jakarta.xml.bind.annotation.XmlAttribute;
 import jakarta.xml.bind.annotation.XmlElement;
 import jakarta.xml.bind.annotation.XmlElementWrapper;
 import jakarta.xml.bind.annotation.XmlRootElement;
-import site_mapper.creators.ClassMakerDirector;
 import site_mapper.creators.ComponentWriter;
-import site_mapper.creators.PackageMaker;
 import site_mapper.elements.Element;
 import site_mapper.elements.ElementClass;
-import site_mapper.jaxb.pom.PackageHierarchy;
 import site_mapper.jaxb.pom.SiteMapInfo;
 
 /**
@@ -49,52 +45,7 @@ public class MenuItem implements ElementClass, TestElement {
 	private String menuPackageName;
 	private String moduleName;	
 	private SiteMapInfo siteMapInfo;
-	private PackageSetter packageSetter;
 	
-	/**
-	 * 
-	 * @param packageSetter
-	 *  Set the class's package for test or production.
-	 * @param siteMap
-	 *  All the info from site_map.xml.
-	 * @param ph
-	 * 	The classes package hierarchy; create, get etc.
-	 * @param moduleName
-	 *  The module the class is in.
-	 * 
-	 */
-	public void createPoms(
-			PackageSetter packageSetter, 
-			SiteMapInfo siteMap, 
-			PackageHierarchy ph, 
-			String moduleName) { 
-					
-		
-		this.packageSetter = packageSetter;
-		this.siteMapInfo = siteMap;
-		this.moduleName = moduleName;
-		this.menuPackageName = ph.getCurrent();
-				
-		boolean createPackage = createPackageForClassIfNecessary(siteMap, ph);
-		createClass(ph);
-		removeThisClassPackageFromHierarchy(createPackage, ph);		
-	}
-	private void createClass(PackageHierarchy ph) {
-		ClassMakerDirector cm = new ClassMakerDirector(this, ph, packageSetter);
-		cm.makeClass();
-	}
-	private boolean createPackageForClassIfNecessary(SiteMapInfo siteMap, PackageHierarchy ph) {
-		if(packageName != null && packageName.length() > 0) {
-			PackageMaker.makeWithPackageInfo(siteMap, ph.addCurrent(packageName));
-			return true;			
-		}
-		return false;
-	}
-	private void removeThisClassPackageFromHierarchy(boolean packageWasAddedToHierarchy, PackageHierarchy ph) {
-		if(packageWasAddedToHierarchy) {
-			ph.removeCurrent();
-		}		
-	}
 	
 	@Override //ElementClass
 	public String getClassName() {

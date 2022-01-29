@@ -37,9 +37,7 @@ public class PomMapper {
 		this.XML_SOURCE = XML_SOURCE;	
 	}
 	
-
 	public Optional<PomMapperApp> getContent() {
-
 		try {
 			setJaxContext();
 			unmarshallSource();
@@ -57,8 +55,6 @@ public class PomMapper {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
-		
 		return content;
 	}
 	
@@ -78,40 +74,6 @@ public class PomMapper {
 		return app;
 	}
 
-	
-	//*****************************************************************
-
-	private Optional<PomMapperApp> getMapper(StreamSource s){
-		Optional<PomMapperApp> app = Optional.ofNullable(null);
-		try {
-			app = Optional.ofNullable(unmarshaller.unmarshal(s, PomMapperApp.class).getValue());			
-		} catch (JAXBException e) {
-			logger.error("Error unmarshalling source");
-		}	 
-		return app;
-	}
-	public void  createProdPoms() {
-		writeLogHeader();
-		try {
-			setJaxContext();
-			unmarshallSource();
-			mapProdPoms();
-		} catch (JAXBException e) {
-			logger.error("Could not create JAXB context. Quitting");
-		}
-	}
-	
-	public void  createTestPoms(PomMapperVisitor visitor) {
-		writeLogHeader();
-		try {
-			setJaxContext();
-			unmarshallSource();
-			mapTestPoms(visitor);
-		} catch (JAXBException e) {
-			logger.error("Could not create JAXB context. Quitting");
-		}
-	}
-	//*****************************************************************
 	private void writeLogHeader() {
 		logger.info("Creating POMs");
 	}
@@ -123,6 +85,19 @@ public class PomMapper {
 		unmarshaller = jc.createUnmarshaller();
     unmarshaller.setProperty("eclipselink.media-type", "application/xml");      
     unmarshaller.setProperty(UnmarshallerProperties.DISABLE_SECURE_PROCESSING, Boolean.TRUE);  
+	}
+	
+	//*****************************************************************
+
+	public void  createProdPoms() {
+		writeLogHeader();
+		try {
+			setJaxContext();
+			unmarshallSource();
+			mapProdPoms();
+		} catch (JAXBException e) {
+			logger.error("Could not create JAXB context. Quitting");
+		}
 	}
 	private void mapProdPoms() throws JAXBException {    
 		getSource().ifPresentOrElse(
@@ -137,19 +112,6 @@ public class PomMapper {
 					}
 				});
 	}
-	private void mapTestPoms(PomMapperVisitor visitor) throws JAXBException {    
-		getSource().ifPresentOrElse(
-				src -> {
-//					getMapper(src).ifPresent(
-//							m -> m.createTestPoms(XML_SOURCE, visitor));								
-				}, 
-				new Runnable() {					
-					@Override
-					public void run() {
-						logger.error("Error getting the source [" + XML_SOURCE + "] for unmarshling");
-					}
-				});
-	}
-
+	//*****************************************************************
 
 }

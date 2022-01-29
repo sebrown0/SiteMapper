@@ -21,24 +21,25 @@ import org.junit.jupiter.api.TestMethodOrder;
 
 import app.PomMapper;
 import app.PomMapperVisitor;
+import app.xml_content.TestMapper;
+import app.xml_content.XmlContent;
 import file.existing.ExistingFileScanner;
 import helpers.ExistingTestClassFileBuilder;
 import site_mapper.jaxb.pom.SiteMapInfo;
 
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
-class PomMapperTests {		
-	private static final String ROOT = 			
-			"C:/Users/SteveBrown/eclipse-workspace/2021/SiteMapper";
+class PomMapperTests {
+	private static final String ROOT = ".";			
 	
 	private static final String XML_SOURCE = 
-			ROOT + "/src/test/resources/site_map/site_map.xml";
+	ROOT + "/src/test/resources/site_map/site_map.xml";
 
 	// This should be the same as ParentPackage in the XML file above.
 	private static final String PARENT_PACKAGE = 
-			ROOT + "/mapped/classes"; 
+	ROOT + "/mapped/classes"; 
 
 	private static final String TEST_CLASS_PATH = 
-			PARENT_PACKAGE + "/payroll/left_menu/employees/EmployeeDetails.java";
+	PARENT_PACKAGE + "/payroll/left_menu/employees/EmployeeDetails.java";
 	
 	private static final ExistingTestClassFileBuilder FILE_BUILDER = 
 			new ExistingTestClassFileBuilder(
@@ -74,9 +75,15 @@ class PomMapperTests {
 	
 	@Test @Order(2)
 	void createPomsFromXML() {		
+		
+		PomMapper pomMapper = new PomMapper(XML_SOURCE);
+		XmlContent content = pomMapper.getContent().get();
+		TestMapper mapper = new TestMapper((new PomMapperTests()).new PomTestData(), content);
+		mapper.createTestPoms(XML_SOURCE);
+		
 		//Existing classes deleted above. Create new.
-		PomMapper mapper = new PomMapper(XML_SOURCE);		
-		mapper.createTestPoms(new PomTestData());
+//		PomMapper mapper = new PomMapper(XML_SOURCE);		
+//		mapper.createTestPoms(new PomTestData());
 		
 		//Check the result.
 		ExistingFileScanner scanner = new ExistingFileScanner();
