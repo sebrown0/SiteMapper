@@ -33,24 +33,24 @@ public class PomMapperApp {
   @XmlElement(name="Module")
   private List<Module> modules;
 		
-	public void createProdPoms(final String XML_SOURCE) {
-		if(siteMapInfo != null) {
-			siteMapInfo.setXmlSource(XML_SOURCE);			
-			createPoms(new ProdPackageSetter(siteMapInfo), XML_SOURCE);	
-		}else {
-			//TODO LOG ERROR
-		}
-	}
-			
-	public void createTestPoms(final String XML_SOURCE, PomMapperVisitor visitor) {
-		if(siteMapInfo != null) {
-			siteMapInfo.setXmlSource(XML_SOURCE);
-			visitor.setSiteMapInfo(siteMapInfo);
-			createPoms(new TestPackageSetter(), XML_SOURCE);	
-		}else {
-			//TODO LOG ERROR
-		}
-	}
+//	public void createProdPoms(final String XML_SOURCE) {
+//		if(siteMapInfo != null) {
+//			siteMapInfo.setXmlSource(XML_SOURCE);			
+//			createPoms(new ProdPackageSetter(siteMapInfo), XML_SOURCE);	
+//		}else {
+//			//TODO LOG ERROR
+//		}
+//	}
+//			
+//	public void createTestPoms(final String XML_SOURCE, PomMapperVisitor visitor) {
+//		if(siteMapInfo != null) {
+//			siteMapInfo.setXmlSource(XML_SOURCE);
+//			visitor.setSiteMapInfo(siteMapInfo);
+//			createPoms(new TestPackageSetter(), XML_SOURCE);	
+//		}else {
+//			//TODO LOG ERROR
+//		}
+//	}
 	
 	private void createPoms(PackageSetter packageSetter, final String XML_SOURCE) {		
 		PackageHierarchy packageHierarchy = 
