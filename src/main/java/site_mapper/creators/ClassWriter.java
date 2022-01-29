@@ -45,12 +45,15 @@ public class ClassWriter {
 	
 	private void setFileOutWriter() {
 		String filePath = getFilePath();
+		// C:\Users\Brown\eclipse-workspace\2021\SiteMapper\mapped
+		// C:/Users/SteveBrown/eclipse-workspace/2021/SiteMapper/mapped/classes/payroll/left_menu/employees/EmployeeDetails.java
 		try {
 			fileOut = 				
 					Optional.ofNullable(new BufferedWriter(
 						new OutputStreamWriter(
 								new FileOutputStream(filePath),	StandardCharsets.UTF_8)));
 		} catch (FileNotFoundException e) {
+			System.out.println(e);
 			logger.error("Error file output stream [" + filePath + "]");
 		}
 	}
@@ -66,7 +69,7 @@ public class ClassWriter {
 		fileOut.ifPresent(fileWriter -> {
 			try {
 				fileWriter.write(clazz.toString());
-			} catch (IOException e) {
+			} catch (IOException e) {				
 				logger.error("Error writing to file");
 			}
 		});

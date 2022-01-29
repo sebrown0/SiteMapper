@@ -3,6 +3,7 @@ package site_mapper.jaxb.pom;
 import java.util.List;
 
 import app.PomMapperVisitor;
+import app.xml_content.XmlContent;
 import file.class_package.PackageSetter;
 import file.class_package.ProdPackageSetter;
 import file.class_package.TestPackageSetter;
@@ -25,7 +26,7 @@ import site_mapper.creators.PackageMaker;
  * TODO: Logging for POM creation, i.e. use different log to App/Tests.
  */
 @XmlRootElement(name = "SiteMap")
-public class PomMapperApp {	
+public class PomMapperApp implements XmlContent {	
 	@XmlElement(name="Info")
 	private SiteMapInfo siteMapInfo;
 	
@@ -52,17 +53,29 @@ public class PomMapperApp {
 //		}
 //	}
 	
-	private void createPoms(PackageSetter packageSetter, final String XML_SOURCE) {		
-		PackageHierarchy packageHierarchy = 
-				new PackageHierarchy(siteMapInfo.getRootDir(), siteMapInfo.getParentPackage());
-		
-		PackageMaker.makeParentWithPackageInfo(siteMapInfo, packageHierarchy);
-		for (Module module : modules) {
-			module.getModuleContainers(packageSetter, packageHierarchy, siteMapInfo);
-		}					
-	}
+//	private void createPoms(PackageSetter packageSetter, final String XML_SOURCE) {		
+//		PackageHierarchy packageHierarchy = 
+//				new PackageHierarchy(siteMapInfo.getRootDir(), siteMapInfo.getParentPackage());
+//		
+//		PackageMaker.makeParentWithPackageInfo(siteMapInfo, packageHierarchy);
+//		for (Module module : modules) {
+//			module.getModuleContainers(packageSetter, packageHierarchy, siteMapInfo);
+//		}					
+//	}
 
 	
+	@Override //XmlContent
+	public List<Module> getModules() {
+		return modules;
+	}
+
+	@Override
+	public List<Menu> getMenus() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
 	public SiteMapInfo getSiteMapInfo() {
 		return siteMapInfo;
 	}

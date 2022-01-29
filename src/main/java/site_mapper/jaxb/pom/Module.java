@@ -30,6 +30,10 @@ public class Module {
     
   private Logger logger = LogManager.getLogger(Module.class);
       
+  /*
+   * HAVE TO HAVE OBJECT FOR getModuleContainers
+   * GIVE IT THIS OBJECT
+   */
   public Module getModuleContainers(PackageSetter packageSetter, PackageHierarchy ph, final SiteMapInfo siteMap) {  	
   	PackageMaker.makeWithPackageInfo(siteMap, ph.reset().addCurrent(name));
   	logger.info("Found module [" + name + "]. Attempting to map menus");
