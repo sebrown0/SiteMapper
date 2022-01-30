@@ -24,26 +24,26 @@ import site_mapper.jaxb.pom.PomMapperApp;
  * 	Initial
  * @since 1.0
  */
-public class PomMapper {
+public class SiteMapContentGetter <T extends XmlContent> {
 	private Logger logger = LogManager.getLogger(this.getClass());
 	private JAXBContext jc;
 	private Unmarshaller unmarshaller;
 	
-	private Optional<PomMapperApp> content = Optional.empty();
+	private Optional<T> content = Optional.empty();
 	
 	private final String XML_SOURCE;
 	
-	public PomMapper(final String XML_SOURCE) {
+	public SiteMapContentGetter(final String XML_SOURCE) {
 		this.XML_SOURCE = XML_SOURCE;	
 	}
 	
-	public Optional<PomMapperApp> getContent() {
+	public Optional<T> getContent(Class<T> clazz) {
 		try {
-			setJaxContext();
+			setJaxContext(clazz);
 			unmarshallSource();
 			getSource().ifPresentOrElse(
 					src -> {
-						content = getMapperNew(src);								
+						content = getMapperNew(src, clazz);								
 					}, 
 					new Runnable() {					
 						@Override
@@ -63,10 +63,10 @@ public class PomMapper {
 		return Optional.ofNullable(new StreamSource(XML_SOURCE));
 	}
 
-	private Optional<PomMapperApp> getMapperNew(StreamSource s){
-		Optional<PomMapperApp> app = Optional.ofNullable(null);
+	private Optional<T> getMapperNew(StreamSource s, Class<T> clazz){
+		Optional<T> app = Optional.ofNullable(null);
 		try {
-			app = Optional.ofNullable(unmarshaller.unmarshal(s, PomMapperApp.class).getValue());			
+			app = Optional.ofNullable(unmarshaller.unmarshal(s, clazz).getValue());			
 		} catch (JAXBException e) {
 			System.out.println(e);
 			logger.error("Error unmarshalling source");
@@ -78,8 +78,8 @@ public class PomMapper {
 		logger.info("Creating POMs");
 	}
 	
-	private void setJaxContext() throws JAXBException {
-		jc = JAXBContext.newInstance(PomMapperApp.class);
+	private void setJaxContext(Class<T> clazz) throws JAXBException {
+		jc = JAXBContext.newInstance(clazz);
 	}
 	private void unmarshallSource() throws JAXBException {
 		unmarshaller = jc.createUnmarshaller();
@@ -87,31 +87,5 @@ public class PomMapper {
     unmarshaller.setProperty(UnmarshallerProperties.DISABLE_SECURE_PROCESSING, Boolean.TRUE);  
 	}
 	
-	//*****************************************************************
-
-	public void  createProdPoms() {
-		writeLogHeader();
-		try {
-			setJaxContext();
-			unmarshallSource();
-			mapProdPoms();
-		} catch (JAXBException e) {
-			logger.error("Could not create JAXB context. Quitting");
-		}
-	}
-	private void mapProdPoms() throws JAXBException {    
-		getSource().ifPresentOrElse(
-				src -> {
-//					getMapper(src).ifPresent(
-//							m -> m.createProdPoms(XML_SOURCE));								
-				}, 
-				new Runnable() {					
-					@Override
-					public void run() {
-						logger.error("Error getting the source [" + XML_SOURCE + "] for unmarshling");
-					}
-				});
-	}
-	//*****************************************************************
 
 }

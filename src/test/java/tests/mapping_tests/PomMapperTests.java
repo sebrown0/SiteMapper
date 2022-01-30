@@ -19,12 +19,13 @@ import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestMethodOrder;
 
-import app.PomMapper;
+import app.SiteMapContentGetter;
 import app.PomMapperVisitor;
-import app.xml_content.TestMapper;
+import app.xml_content.PomMapperTest;
 import app.xml_content.XmlContent;
 import file.existing.ExistingFileScanner;
 import helpers.ExistingTestClassFileBuilder;
+import site_mapper.jaxb.pom.PomMapperApp;
 import site_mapper.jaxb.pom.SiteMapInfo;
 
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
@@ -75,15 +76,10 @@ class PomMapperTests {
 	
 	@Test @Order(2)
 	void createPomsFromXML() {		
-		
-		PomMapper pomMapper = new PomMapper(XML_SOURCE);
-		XmlContent content = pomMapper.getContent().get();
-		TestMapper mapper = new TestMapper((new PomMapperTests()).new PomTestData(), content);
-		mapper.createTestPoms(XML_SOURCE);
-		
-		//Existing classes deleted above. Create new.
-//		PomMapper mapper = new PomMapper(XML_SOURCE);		
-//		mapper.createTestPoms(new PomTestData());
+		SiteMapContentGetter<PomMapperApp> contentGetter = new SiteMapContentGetter<>(XML_SOURCE);
+		XmlContent content = contentGetter.getContent(PomMapperApp.class).get();
+		PomMapperTest mapper = new PomMapperTest((new PomMapperTests()).new PomTestData(), content);
+		mapper.createPomsFromSource(XML_SOURCE);
 		
 		//Check the result.
 		ExistingFileScanner scanner = new ExistingFileScanner();

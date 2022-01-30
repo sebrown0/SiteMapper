@@ -14,7 +14,7 @@ import jakarta.xml.bind.annotation.XmlRootElement;
  * @since 1.0
  * 
  * JAXB class representing the top level of the site_map.xml.
- * 
+ * Used to create the site mapped classes.
  */
 @XmlRootElement(name = "SiteMap")
 public class PomMapperApp implements XmlContent {	
