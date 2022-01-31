@@ -19,8 +19,8 @@ import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestMethodOrder;
 
-import app.SiteMapContentGetter;
 import app.PomMapperVisitor;
+import app.SiteMapContentGetter;
 import app.xml_content.PomMapperTest;
 import app.xml_content.XmlContent;
 import file.existing.ExistingFileScanner;
@@ -87,15 +87,17 @@ class PomMapperTests {
 		scanner.mapFile();
 		
 		scanner.getClassFile().ifPresentOrElse(
-				cf -> {
-					assertEquals(FILE_BUILDER.CLASS_RESULT_WITHOUT_EXTRA_METHOD(), cf.toString());
-				},
-				new Runnable() {					
-					@Override
-					public void run() {
-						fail("Class file is null.");						
-					}
-				});		
+			cf -> {
+				assertEquals(
+					FILE_BUILDER.CLASS_RESULT_WITHOUT_EXTRA_METHOD_AND_PACKAGE_RESULT_FOR_MAPPED_CLASSES(), 
+					cf.toString());
+			},
+			new Runnable() {					
+				@Override
+				public void run() {
+					fail("Class file is null.");						
+				}
+			});		
 	}
 		
 	@Test @Order(4)

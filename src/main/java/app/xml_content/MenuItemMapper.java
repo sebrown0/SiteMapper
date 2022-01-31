@@ -38,7 +38,6 @@ public class MenuItemMapper {
 	}
 	
 	private void createClass() {
-		System.out.println(menuItem.getName());
 		ClassMakerDirector cm = new ClassMakerDirector(menuItem, ph, packageSetter);
 		cm.makeClass();
 	}

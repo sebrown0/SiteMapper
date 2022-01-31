@@ -1,13 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Configuration status="warn">
-  <Properties>
+  <!-- 
+  <Properties>  
     <Property name="basePath">logs</Property>
   </Properties>
-
+ -->
+   
   <Appenders>
     <RollingFile name="fileLogger"      
-      fileName="${basePath}/site_map.log"
-      filePattern="${basePath}/site_map-%d{yyyy-MM-dd}.log">
+      fileName="logs/site_map.log"
+      filePattern="logs/site_map-%d{yyyy-MM-dd}.log">
       <PatternLayout>
         <pattern>[%-5level] %d{yyyy-MM-dd HH:mm:ss.SSS} [%t] %c{1} - %msg%n
         </pattern>
@@ -20,7 +22,7 @@
     </RollingFile>
   </Appenders>
   <Loggers>
-    <Root level="debug" additivity="false">
+    <Root level="INFO" additivity="false">
       <appender-ref ref="fileLogger" />
     </Root>
   </Loggers>

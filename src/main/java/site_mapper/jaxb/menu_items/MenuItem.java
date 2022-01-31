@@ -116,5 +116,15 @@ public class MenuItem implements ElementClass, TestElement {
 		this.elements = elements;
 		return this;
 	}
+	@Override //TestElement
+	public TestElement setTestModuleName(String str) {
+		this.moduleName = str;
+		return this;
+	}
+	@Override
+	public TestElement setTestMenuName(String str) {
+		this.menuPackageName = str;
+		return this;
+	}
 	
 }

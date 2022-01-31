@@ -15,7 +15,7 @@ import site_mapper.jaxb.pom.PomMapperApp;
  */
 public final class Application {
 	private static final String ROOT = 			
-			"C:/Users/Brown/eclipse-workspace/2021/DTest";
+			"C:/Users/SteveBrown/eclipse-workspace/2021/DTest";
 	
 	private static final String XML_SOURCE = 
 			ROOT + "/src/main/resources/site_map/site_map.xml";

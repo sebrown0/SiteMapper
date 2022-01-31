@@ -15,7 +15,6 @@ import app.xml_content.XmlContent;
 import jakarta.xml.bind.JAXBContext;
 import jakarta.xml.bind.JAXBException;
 import jakarta.xml.bind.Unmarshaller;
-import site_mapper.jaxb.pom.PomMapperApp;
 
 
 /**
@@ -25,7 +24,9 @@ import site_mapper.jaxb.pom.PomMapperApp;
  * @since 1.0
  */
 public class SiteMapContentGetter <T extends XmlContent> {
-	private Logger logger = LogManager.getLogger(this.getClass());
+	
+	private Logger logger = LogManager.getLogger("site_mapper.app.log");
+//	private Logger logger = LogManager.getLogger(this.getClass());
 	private JAXBContext jc;
 	private Unmarshaller unmarshaller;
 	
@@ -68,15 +69,14 @@ public class SiteMapContentGetter <T extends XmlContent> {
 		try {
 			app = Optional.ofNullable(unmarshaller.unmarshal(s, clazz).getValue());			
 		} catch (JAXBException e) {
-			System.out.println(e);
 			logger.error("Error unmarshalling source");
 		}	 
 		return app;
 	}
 
-	private void writeLogHeader() {
-		logger.info("Creating POMs");
-	}
+//	private void writeLogHeader() {
+//		logger.info("Creating POMs");
+//	}
 	
 	private void setJaxContext(Class<T> clazz) throws JAXBException {
 		jc = JAXBContext.newInstance(clazz);

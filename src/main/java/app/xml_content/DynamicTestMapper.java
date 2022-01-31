@@ -3,6 +3,10 @@
  */
 package app.xml_content;
 
+import java.util.Optional;
+
+import app.SiteMapContentGetter;
+
 /**
  * @author Brown
  * @version 1.0
@@ -10,6 +14,12 @@ package app.xml_content;
  * @since 1.0
  */
 public class DynamicTestMapper {
+	
+	public static Optional<DynamicTestApp> getDynamicTestContent(String XML_SOURCE){
+		SiteMapContentGetter<DynamicTestApp> contentGetter = new SiteMapContentGetter<>(XML_SOURCE);		
+		Optional<DynamicTestApp> content = contentGetter.getContent(DynamicTestApp.class);
+		return content;
+	}
 	/*
 	 * *************************
 	 * THIS SHOULD BE IN DTest *
@@ -20,17 +30,17 @@ public class DynamicTestMapper {
 	 * 
 	 */
 	
-	public DynamicContainer getTests() {
-//includeElementsForTest.forEach(c -> System.out.println("->" + c));		
-	List<DynamicContainer> appModules = new ArrayList<>();		
-	if(homepageOk() && modules != null) {			
-		for (Module module : modules) {
-			appModules.add(module.getModuleContainers(new IncludedTests(includeElementsForTest), homePage));
-		}			
-	}else {
-		LogManager.getLogger().error("Homepage or modules is null. Cannot run tests");			
-	}
-	return DynamicContainer.dynamicContainer("App", appModules);		
-	}
+//	public DynamicContainer getTests() {
+////includeElementsForTest.forEach(c -> System.out.println("->" + c));		
+//	List<DynamicContainer> appModules = new ArrayList<>();		
+//	if(homepageOk() && modules != null) {			
+//		for (Module module : modules) {
+//			appModules.add(module.getModuleContainers(new IncludedTests(includeElementsForTest), homePage));
+//		}			
+//	}else {
+//		LogManager.getLogger().error("Homepage or modules is null. Cannot run tests");			
+//	}
+//	return DynamicContainer.dynamicContainer("App", appModules);		
+//	}
 
 }

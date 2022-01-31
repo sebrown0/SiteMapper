@@ -34,7 +34,6 @@ public class ModuleMapper {
   	List<Menu> menus = module.getMenus(); 
 		if(menus != null) {			
 			menus.forEach(m -> {								 					
-				System.out.println(m.getName());
 				MenuMapper.mapMenus(m, packageSetter, siteMap, ph, name);
 	  	});	
 		}  	

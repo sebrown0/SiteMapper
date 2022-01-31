@@ -23,11 +23,18 @@ public class ProdPackageSetter implements PackageSetter{
 
 	@Override
 	public String getPackage(ElementClass clazz) {
+		// /SiteMapper/mapped/classes/payroll/left_menu/employees/EmployeeDetails.java
 		String s = 
-				info.getParentPackage() + "." + 
-				clazz.getModuleName() + "." + 
-				clazz.getParentPackage() + "." + 
-				clazz.getPackage();
+				"mapped.classes." +
+						clazz.getModuleName() + "." +
+						clazz.getParentPackage() + "." +
+						clazz.getPackage();
+		
+//		String s = 
+//				info.getParentPackage() + "." + 
+//				clazz.getModuleName() + "." + 
+//				clazz.getParentPackage() + "." + 
+//				clazz.getPackage();
 		
 		return s;
 	}

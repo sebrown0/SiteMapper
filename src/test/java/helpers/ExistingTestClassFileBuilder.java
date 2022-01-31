@@ -61,7 +61,9 @@ public class ExistingTestClassFileBuilder extends ClassBuilder {
 	public static final String NEW_PACKAGE = 
 				"employees";
 	public static final String PACKAGE_RESULT = 
-				"package employees;";
+			"package employees;";
+	public static final String PACKAGE_RESULT_FOR_MAPPED_CLASSES = 
+				"package mapped.classes.payroll.left_menu.employees;";
 	
 	public String ANNO_STR() { 
 		return 
@@ -121,9 +123,24 @@ public class ExistingTestClassFileBuilder extends ClassBuilder {
 			"\n\n" +			
 			"}";
 	}
+	
 	public String CLASS_RESULT_WITHOUT_EXTRA_METHOD() {
 		return
 			PACKAGE_RESULT +
+			"\n\n" +
+			IMPORT_RESULT +
+			"\n" +				
+			COMMENT_RESULT() +
+			DECLARATION +
+			"\n" +
+			bodyBuilder.BODY_RESULT() +
+			"\n" +			
+			"}";
+	}
+	
+	public String CLASS_RESULT_WITHOUT_EXTRA_METHOD_AND_PACKAGE_RESULT_FOR_MAPPED_CLASSES() {
+		return
+			PACKAGE_RESULT_FOR_MAPPED_CLASSES +
 			"\n\n" +
 			IMPORT_RESULT +
 			"\n" +				

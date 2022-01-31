@@ -18,6 +18,8 @@ import site_mapper.jaxb.pom.SiteMapInfo;
  */
 public interface TestElement {
 	TestElement setTestPackage(String str);
+	TestElement setTestModuleName(String str);
+	TestElement setTestMenuName(String str);
 	TestElement setTestClassName(String str);
 	TestElement setTestItemType(MenuItemType menuItemType);
 	TestElement setElements(List<Element> elements);
