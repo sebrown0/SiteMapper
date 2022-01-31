@@ -4,7 +4,6 @@
 package file.class_package;
 
 import site_mapper.elements.ElementClass;
-import site_mapper.jaxb.pom.SiteMapInfo;
 
 /**
  * @author SteveBrown
@@ -15,28 +14,13 @@ import site_mapper.jaxb.pom.SiteMapInfo;
  * Set the class file's package for a production class.
  */
 public class ProdPackageSetter implements PackageSetter{
-	private SiteMapInfo info;
-	
-	public ProdPackageSetter(SiteMapInfo info) {
-		this.info = info;
-	}
-
 	@Override
-	public String getPackage(ElementClass clazz) {
-		// /SiteMapper/mapped/classes/payroll/left_menu/employees/EmployeeDetails.java
+	public String getPackage(ElementClass clazz) {		
 		String s = 
 				"mapped.classes." +
 						clazz.getModuleName() + "." +
 						clazz.getParentPackage() + "." +
 						clazz.getPackage();
-		
-//		String s = 
-//				info.getParentPackage() + "." + 
-//				clazz.getModuleName() + "." + 
-//				clazz.getParentPackage() + "." + 
-//				clazz.getPackage();
-		
 		return s;
 	}
-	
 }

@@ -25,7 +25,7 @@ public abstract class PomMapper {
 	public PomMapper(XmlContent content) {
 		this.content = content;
 		this.info = content.getSiteMapInfo();
-		this.packageSetter = new ProdPackageSetter(this.info);
+		this.packageSetter = new ProdPackageSetter();
 	}
 		
 	public abstract void createPomsFromSource(final String XML_SOURCE);
