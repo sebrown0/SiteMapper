@@ -5,6 +5,7 @@ package site_mapper.jaxb.menu_items;
 
 import java.util.List;
 
+import file.helpers.Formatter;
 import jakarta.xml.bind.annotation.XmlAttribute;
 import jakarta.xml.bind.annotation.XmlElement;
 import jakarta.xml.bind.annotation.XmlElementWrapper;
@@ -125,6 +126,12 @@ public class MenuItem implements ElementClass, TestElement {
 	public TestElement setTestMenuName(String str) {
 		this.menuPackageName = str;
 		return this;
+	}
+	@Override
+	public String toString() {
+		return String.format(
+				"MenuItem [name=%s, packageName=%s, className=%s, menuItemType=%s, elements=[%s], menuPackageName=%s, moduleName=%s, siteMapInfo=%s]",
+				name, packageName, className, menuItemType, Formatter.getAsCommaSeparatedList(elements), menuPackageName, moduleName, siteMapInfo);
 	}
 	
 }

@@ -2,6 +2,7 @@ package site_mapper.jaxb.pom;
 
 import java.util.List;
 
+import file.helpers.Formatter;
 import jakarta.xml.bind.annotation.XmlAttribute;
 import jakarta.xml.bind.annotation.XmlElement;
 import jakarta.xml.bind.annotation.XmlRootElement;
@@ -36,4 +37,11 @@ public class Menu {
 	public String getPackageName() {
 		return packageName;
 	}
+	
+	@Override
+	public String toString() {
+		return String.format("Menu [name=%s, packageName=%s, menuItems=[%s]]", name, packageName, Formatter.getAsCommaSeparatedList(menuItems));
+	}
+
+
 }

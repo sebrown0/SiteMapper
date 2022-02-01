@@ -22,7 +22,7 @@ import site_mapper.jaxb.pom.SiteMapInfo;
  */
 @XmlRootElement(name = "SiteMap")
 @XmlAccessorType(XmlAccessType.FIELD)
-public class DynamicTestApp implements XmlContent {	
+public class DynamicTestApp implements XmlContent, XmlTestContent {	
 	@XmlElement(name="Info")
 	private SiteMapInfo siteMapInfo;
 	
@@ -43,7 +43,8 @@ public class DynamicTestApp implements XmlContent {
 	public SiteMapInfo getSiteMapInfo() {
 		return siteMapInfo;
 	}
-
+	
+	@Override //XmlTestContent
 	public List<String> getIncludeElementsForTest() {
 		return includeElementsForTest;
 	}
