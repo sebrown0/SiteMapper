@@ -59,51 +59,18 @@
           </Type>
           
           <Elements>            
-            <Element type="button" name="save" text="Save" fafa="fa fa-save" response="" by="css" locator="button[name='SAVE']" />
-            <Element type="button" name="search" text="Search" fafa="fa fa-search" response="" by="css" locator="button[name='QBF1']" />   
+            <Element type="button" name="save" text="Save" fafa="fa fa-save" by="css" locator="button[name='SAVE']">
+              <Function isDefaultPass="true" />
+            </Element>
+            <Element type="button" name="search" text="Search" fafa="fa fa-search" by="css" locator="button[name='QBF1']">
+              <Function isDefaultPass="false" />
+            </Element>   
             <Element type="text_out" name="code" text="EMP_CODE" by="css" locator="input[id='FORM_ID']" />   
           </Elements>          
         </MenuItem>
-        <!-- 
-        <MenuItem name="Employee List" package="" class="EmployeeList">        
-          <Type name="JsPanelWithIFrame">
-            <Attributes>
-              <PanelTitle>Employee List</PanelTitle>
-              <MenuTitle>Employee List</MenuTitle>
-            </Attributes>                        
-          </Type>
-          
-          <Elements>            
-            <Element type="button" name="save" text="Save" fafa="fa fa-save" response="" by="css" locator="button[name='SAVE']" />   
-          </Elements>          
-        </MenuItem>        
-              -->   
+        
       </Menu>
     </Menus>
    </Module>
-   
-   <Module name="personnel">   
-    <Menus>
-      <Menu name="Left" package="left_menu">      
-        <MenuItem name="Employee Details" package="employees" class="EmployeeDetails">          
-          <Type name="JsPanelWithIFrame">
-            <JsPanelWithIFrame>
-              <PanelTitle>Employee Details</PanelTitle>
-              <MenuTitle>Employee Details</MenuTitle>
-              <MenuParent>Employees</MenuParent>
-            </JsPanelWithIFrame>
-          </Type>
-          
-          <Elements>            
-            <Element type="button" name="save" text="Save" fafa="fa fa-save" response="" by="css" locator="button[name='SAVE']" />
-            <Element type="button" name="search" text="Search" fafa="fa fa-search" response="" by="css" locator="button[name='QBF1']" />   
-            <Element type="text_out" name="code" text="EMP_CODE" by="css" locator="input[id='FORM_ID']" />   
-          </Elements>          
-        </MenuItem>
-           
-      </Menu>
-    </Menus>
-   </Module>
-   
   </Modules>
 </SiteMap>

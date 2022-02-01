@@ -152,7 +152,7 @@ class ScannerTests {
 
 		assertEquals(
 				"\t@SiteMap(author=\"SteveBrown\", version=\"1.0.0\", date=\"07/01/2022\")\n"
-				+ "\tprivate void buildMyControls(){\n"
+				+ "\tprivate void buildMyControls() {\n"
 				+ "\t\tvar myControls =\n"
 				+ "\t\t\tList.of(\n"
 				+ "\t\t\t\tnew ControlData(\"save\", new ControlGetterButton(coreData, By.cssSelector(\"button[name='SAVE']\"))),\n"
@@ -161,11 +161,21 @@ class ScannerTests {
 				+ "\t\t\t);\n"
 				+ "\t\tsuper.buildPanelControls(myControls);\n"
 				+ "\t}\n"
-				+ "\tprivate String aMethodNotFromSiteMapper(int idx){\n"
+				+ "\tprivate String aMethodNotFromSiteMapper(int idx) {\n"
 				+ "\t\tString aStr = \"\";\n"
 				+ "\t\t//do some stuff...\n"
 				+ "\t\t\n"
 				+ "\t\treturn aStr;\n"
+				+ "\t}\n"
+				+ "\t@SiteMap(author=\"SteveBrown\", version=\"1.0.0\", date=\"07/01/2022\")\n"
+				+ "\t@TestControl(type=\"button\")\n"
+				+ "\tpublic DynamicTest buttonSave () {\n"
+				+ "\t\treturn DynamicTest.dynamicTest(\"[buttonSave] *NOT IMPLEMENTED*\", () -> assertTrue(true));\n"
+				+ "\t}\n"
+				+ "\t@SiteMap(author=\"SteveBrown\", version=\"1.0.0\", date=\"07/01/2022\")\n"
+				+ "\t@TestControl(type=\"button\")\n"
+				+ "\tpublic DynamicTest buttonSearch () {\n"
+				+ "\t\treturn DynamicTest.dynamicTest(\"[buttonSearch]\", () -> fail(\"*NOT IMPLEMENTED*\"));\n"
 				+ "\t}", 
 				methods.toString()
 		);
@@ -179,7 +189,7 @@ class ScannerTests {
 		ClassBody body = scanner.getClassFile().get().getClassBody();
 		
 		final ExistingTestClassBodyBuilder builder = new ExistingTestClassBodyBuilder(FILE_BUILDER);
-		assertEquals(builder.BODY_RESULT_WITH_EXTRA_METHOD(), body.toString());
+		assertEquals(builder.BODY_RESULT_WITH_TEST_METHODS_AND_EXTRA_METHOD(), body.toString());
 	}
 	
 	@Test

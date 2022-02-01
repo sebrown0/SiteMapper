@@ -55,7 +55,7 @@ public class ClassFile {
 	@Override 
 	public String toString() {
 		return String.format(
-				"%s\n\n%s\n%s%s\n%s\n\n}", 
+				"%s\n\n%s\n%s%s\n%s\n}", 
 				getPackageStr(), 
 				getImportStr(), 
 				getCommentStr(), 

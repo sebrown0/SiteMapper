@@ -5,6 +5,7 @@ package file.method;
 
 import file.annotation.ExistingAnnotation;
 import file.annotation.SiteMapAnnotation;
+import file.annotation.TestMethodAnnotation;
 import file.helpers.Formatter;
 import file.helpers.LineTabs;
 import file.variable.ArgumentList;
@@ -18,15 +19,18 @@ import file.variable.ArgumentList;
  * POJO for a method.
  */
 public class Method {
-	private SiteMapAnnotation annotation;
+	private final SiteMapAnnotation annotation;
+	private final TestMethodAnnotation testMethodAnnotation;
+	private final String name;
+	private final ExistingMethodBody body;
+	
 	private String modifier = "public";
-	private String returnType = "void";
-	private String name;
-	private ArgumentList arguments = new ArgumentList();
-	private ExistingMethodBody body;
+	private String returnType = "void";	
+	private ArgumentList arguments = new ArgumentList();	
 	
 	private Method(MethodBuilder b) {
 		this.annotation = b.annotation;
+		this.testMethodAnnotation = b.testMethodAnnotation;
 		this.modifier = b.modifier;
 		this.returnType = b.returnType;
 		this.name = b.name;
@@ -41,8 +45,9 @@ public class Method {
 	@Override
 	public String toString() {
 		return String.format(
-				"%s%s %s %s(%s){\n%s\t}", 
+				"%s%s%s %s %s(%s) {\n%s\t}", 
 				Formatter.getAnnotation(annotation),
+				Formatter.getValueOf(testMethodAnnotation),
 				Formatter.getValueOf(modifier), 
 				Formatter.getValueOf(returnType), 
 				Formatter.getValueOf(name),
@@ -59,6 +64,7 @@ public class Method {
 	 */
 	public abstract static class MethodBuilder {
 		protected SiteMapAnnotation annotation;
+		protected TestMethodAnnotation testMethodAnnotation;
 		protected ExistingMethodBody body  = new ExistingMethodBody();
 		protected int indent;
 		
@@ -70,8 +76,7 @@ public class Method {
 		protected String name;
 		protected ArgumentList arguments = new ArgumentList();
 		//----------------------------------------------------
-		
-		
+				
 		public MethodBuilder(int indent) {
 			this.indent = indent;
 		}
@@ -101,10 +106,18 @@ public class Method {
 			super(indent);
 		}
 		
-		public ExistingMethodBuilder withAnnotation(String annoStr) {
+		public ExistingMethodBuilder withSiteMapAnnotation(String annoStr) {
 			if(annoStr != null) {
 				super.annotation = new ExistingAnnotation(annoStrWithoutTabs(annoStr), super.indent);//.setIndent(indent); 
 			}
+			return this;
+		}
+
+		public ExistingMethodBuilder withTestMethodAnnotation(String annoStr) {
+			super.testMethodAnnotation = 
+					new TestMethodAnnotation(annoStr)
+							.setIndent(indent);
+//							.setType("button");
 			return this;
 		}
 		

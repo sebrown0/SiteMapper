@@ -14,7 +14,7 @@ import exceptions.InvalidArgumentException;
 import file.annotation.ExistingAnnotation;
 import site_mapper.creators.ControlDataFunctionFactory;
 import site_mapper.creators.ControlDataValues;
-import site_mapper.elements.Element;
+import site_mapper.jaxb.pom.Element;
 
 /**
  * @author SteveBrown

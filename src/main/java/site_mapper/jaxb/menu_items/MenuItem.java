@@ -4,6 +4,7 @@
 package site_mapper.jaxb.menu_items;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 import file.helpers.Formatter;
 import jakarta.xml.bind.annotation.XmlAttribute;
@@ -11,8 +12,9 @@ import jakarta.xml.bind.annotation.XmlElement;
 import jakarta.xml.bind.annotation.XmlElementWrapper;
 import jakarta.xml.bind.annotation.XmlRootElement;
 import site_mapper.creators.ComponentWriter;
-import site_mapper.elements.Element;
 import site_mapper.elements.ElementClass;
+import site_mapper.jaxb.pom.Element;
+import site_mapper.jaxb.pom.ElementFunction;
 import site_mapper.jaxb.pom.SiteMapInfo;
 
 /**
@@ -88,6 +90,15 @@ public class MenuItem implements ElementClass, TestElement {
 	public boolean hasControlList() {
 		return (elements != null && elements.size() > 0) ? true : false;
 	}
+	@Override //ElementClass
+	public List<ElementFunction> getElementFunctions() {
+		List<ElementFunction> funcs = 
+			elements.stream()
+				.filter(f -> f.getElementFunction() != null)
+				.map(e -> e.getElementFunction())
+				.collect(Collectors.toList()); 
+		return funcs;			
+	}
 	public String getName() {
 		return name;
 	}
@@ -133,5 +144,5 @@ public class MenuItem implements ElementClass, TestElement {
 				"MenuItem [name=%s, packageName=%s, className=%s, menuItemType=%s, elements=[%s], menuPackageName=%s, moduleName=%s, siteMapInfo=%s]",
 				name, packageName, className, menuItemType, Formatter.getAsCommaSeparatedList(elements), menuPackageName, moduleName, siteMapInfo);
 	}
-	
+		
 }

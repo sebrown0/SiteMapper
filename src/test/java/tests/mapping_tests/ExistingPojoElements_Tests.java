@@ -237,7 +237,7 @@ class ExistingPojoElements_Tests {
 	@Test
 	void testMethod() {
 		Method m = new Method.ExistingMethodBuilder(1)
-				.withAnnotation(ANNOTATION_STR)
+				.withSiteMapAnnotation(ANNOTATION_STR)
 				.withDeclarationStr("private String aMethod(String str, Integer idx)")
 				.addLine("\tLine1")
 				.addLine("\tLine2")
@@ -245,7 +245,7 @@ class ExistingPojoElements_Tests {
 		
 		assertEquals(
 				ANNO_RESULT + "\n" +
-				"\tprivate String aMethod(String str, Integer idx){\n" +
+				"\tprivate String aMethod(String str, Integer idx) {\n" +
 				"\t\tLine1\n\t\tLine2" +
 				"\n\t}", 
 				m.toString());				 	
@@ -253,13 +253,13 @@ class ExistingPojoElements_Tests {
 	@Test
 	void testMethodList() {
 		Method m1 = new Method.ExistingMethodBuilder(1)
-				.withAnnotation(ANNOTATION_STR)
+				.withSiteMapAnnotation(ANNOTATION_STR)
 				.withDeclarationStr("private String aMethodOne(String str, Integer idx)")
 				.addLine("\tLine1")
 				.addLine("\tLine2")
 				.build();
 		Method m2 = new Method.ExistingMethodBuilder(1)
-				.withAnnotation(ANNOTATION_STR)
+				.withSiteMapAnnotation(ANNOTATION_STR)
 				.withDeclarationStr("private String aMethodTwo(boolean b, Integer idx)")
 				.addLine("\tLine1")
 				.addLine("\tLine2")
@@ -270,12 +270,12 @@ class ExistingPojoElements_Tests {
 		
 		assertEquals(
 				ANNO_RESULT + "\n" +
-				"\tprivate String aMethodOne(String str, Integer idx){\n" +
+				"\tprivate String aMethodOne(String str, Integer idx) {\n" +
 				"\t\tLine1\n" +
 				"\t\tLine2\n" +
 				"\t}\n" +
 				ANNO_RESULT + "\n" +
-				"\tprivate String aMethodTwo(boolean b, Integer idx){\n" +
+				"\tprivate String aMethodTwo(boolean b, Integer idx) {\n" +
 				"\t\tLine1\n" +
 				"\t\tLine2\n" +
 				"\t}", 
@@ -286,7 +286,7 @@ class ExistingPojoElements_Tests {
 	void classBody_fromTestBodyBuilder() {
 		ExistingTestClassBodyBuilder builder = new ExistingTestClassBodyBuilder(FILE_BUILDER);
 		ClassBody body = builder.build();
-		assertEquals(builder.BODY_RESULT_WITH_EXTRA_METHOD(), body.toString());		
+		assertEquals(builder.BODY_RESULT_WITH_TEST_METHODS_AND_EXTRA_METHOD(), body.toString());		
 	}
 	
 	@Test

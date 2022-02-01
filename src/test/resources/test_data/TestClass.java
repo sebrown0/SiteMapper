@@ -48,4 +48,16 @@ public class EmployeeDetails extends JsPanelWithIFrame {
 		return aStr;
 	}
 	
+	@SiteMap(author="SteveBrown", version="1.0.0", date="07/01/2022")
+	@TestControl(type="button")
+	public DynamicTest buttonSave () {
+		return DynamicTest.dynamicTest("[buttonSave] *NOT IMPLEMENTED*", () -> assertTrue(true));
+	}
+	@SiteMap(author="SteveBrown", version="1.0.0", date="07/01/2022")
+	@TestControl(type="button")
+	public DynamicTest buttonSearch () {
+		return DynamicTest.dynamicTest("[buttonSearch]", () -> fail("*NOT IMPLEMENTED*"));
+	}
+	
+	
 }

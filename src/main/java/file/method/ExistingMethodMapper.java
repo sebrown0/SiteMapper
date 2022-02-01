@@ -7,6 +7,7 @@ import static file.annotation.SiteMapAnnotation.annotationTest;
 
 import java.util.Scanner;
 
+import file.annotation.TestMethodAnnotation;
 import file.method.Method.ExistingMethodBuilder;
 import file.modifier.Modifier;
 
@@ -44,8 +45,10 @@ public class ExistingMethodMapper {
 			if(line.length() > 0) {					
 				line = removeUnwantedChars(line);				
 				setBraces(line);				
-				if(isAnnotation(line)) {
-					builder.withAnnotation(line);			
+				if(isSiteMapAnnotation(line)) {
+					builder.withSiteMapAnnotation(line);
+				}else if (isTestMethodAnnotation(line)) {
+					builder.withTestMethodAnnotation(line);
 				}else if (isDeclaration(line)) {
 					validMethod = true;
 					builder.withDeclarationStr(line);	
@@ -93,8 +96,11 @@ public class ExistingMethodMapper {
 			openBraces--;
 		}		
 	}
-	private boolean isAnnotation(String line) {
+	private boolean isSiteMapAnnotation(String line) {
 		return (annotationTest.test(line)) ? true : false;
+	}
+	private boolean isTestMethodAnnotation(String line) {
+		return (TestMethodAnnotation.annotationTest.test(line)) ? true : false;
 	}
 	private boolean isDeclaration(String line) {
 		return (line != null && Modifier.startsWithValidModifier(line)) ? true : false;

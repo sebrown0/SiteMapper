@@ -38,7 +38,7 @@ public class ControlDataFunctionFactory {
 		if(values != null && values.size() > 0) {
 			numControls = values.size();		
 			func = 
-				"\tprivate void buildMyControls(){\n" +
+				"\tprivate void buildMyControls() {\n" +
 				"\t\tvar myControls =\n" +
 				"\t\t\tList.of(";
 		

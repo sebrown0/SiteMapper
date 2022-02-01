@@ -57,6 +57,12 @@ public class Formatter {
 		return (value != null) ? " = " + value : "";
 	}
 	
+	public static <T> String getNewLineIfValueExists(T value) {
+		return (value != null) ? "\n" : "";
+	}
+	public static <T> String getValueOfStripTrailing(T value) {
+		return (value != null) ? value.toString().stripTrailing() : "";
+	}
 	public static <T> String getValueOf(T value) {
 		return (value != null) ? value.toString() : "";
 	}
@@ -87,5 +93,14 @@ public class Formatter {
 	
 	public static String getEndOfLine(String line) {		
 		return (line != null && line.endsWith(";")) ? line : line + ";";
+	}
+	public static String capitaliseFirstChar(String word) {
+		if(word != null) {
+			String s = word.substring(0, 1);
+			return s.toUpperCase() + word.substring(1, word.length());	
+		}else {
+			return "";
+		}
+		
 	}
 }

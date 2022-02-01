@@ -7,13 +7,14 @@ import java.util.Arrays;
 import file.class_file.ClassFile;
 import file.class_file.ClassFile.NewClassFileBuilder;
 import file.class_package.TestPackageSetter;
-import site_mapper.elements.Element;
 import site_mapper.elements.ElementClass;
 import site_mapper.elements.ElementCreation;
 import site_mapper.jaxb.menu_items.JsPanelWithIFrame;
 import site_mapper.jaxb.menu_items.MenuItem;
 import site_mapper.jaxb.menu_items.MenuItemType;
 import site_mapper.jaxb.menu_items.TestElement;
+import site_mapper.jaxb.pom.Element;
+import site_mapper.jaxb.pom.ElementFunction;
 import site_mapper.jaxb.pom.SiteMapInfo;
 
 /**
@@ -82,8 +83,20 @@ public class NewTestClassFileBuilder {
 		menuItemType.setAttributes(attributes);
 	}
 	private void setElements() {
-		SAVE_BUTTON = new Element().setType("button").setName("save").setBy("css").setLocator("button[name='SAVE']");
-		SEARCH_BUTTON = new Element().setType("button").setName("search").setBy("css").setLocator("button[name='QBF1']");
+		SAVE_BUTTON = new Element()
+				.setType("button").setName("save").setBy("css")
+				.setLocator("button[name='SAVE']")
+				.setelementFunction(
+						new ElementFunction()
+							.setName("save").setType("button").isDefaultPass(true));
+		
+		SEARCH_BUTTON = new Element()
+				.setType("button").setName("search").setBy("css")
+				.setLocator("button[name='QBF1']")
+				.setelementFunction(
+						new ElementFunction()
+							.setName("save").setType("button").isDefaultPass(false));
+		
 		EMP_CODE_TEXT_OUT = new Element().setType("text_out").setName("code").setBy("css").setLocator("input[id='FORM_ID']");
 	}
 	private void setMenuItem() {
@@ -93,7 +106,11 @@ public class NewTestClassFileBuilder {
 			.setTestClassName("EmployeeDetails")
 			.setTestItemType(menuItemType)
 			.setSiteMapInfo(this.SITE_MAP_INFO())
-			.setElements(Arrays.asList((Element)SAVE_BUTTON, (Element)SEARCH_BUTTON, (Element)EMP_CODE_TEXT_OUT));
+			.setElements(
+				Arrays.asList(
+					(Element)SAVE_BUTTON, 
+					(Element)SEARCH_BUTTON, 
+					(Element)EMP_CODE_TEXT_OUT));
 	}
 	private void setClassFile() {
 		classFile = new NewClassFileBuilder((ElementClass) MENU_ITEM, new TestPackageSetter()).build();

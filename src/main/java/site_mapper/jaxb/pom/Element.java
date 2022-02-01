@@ -1,10 +1,12 @@
 /**
  * 
  */
-package site_mapper.elements;
+package site_mapper.jaxb.pom;
 
 import jakarta.xml.bind.annotation.XmlAttribute;
+import jakarta.xml.bind.annotation.XmlElement;
 import jakarta.xml.bind.annotation.XmlRootElement;
+import site_mapper.elements.ElementCreation;
 
 /**
  * @author SteveBrown
@@ -13,7 +15,7 @@ import jakarta.xml.bind.annotation.XmlRootElement;
  * @since 1.0
  */
 @XmlRootElement(name="Element")
-public class Element implements ElementCreation, ElementFunction {
+public class Element implements ElementCreation {
 	@XmlAttribute(name="type")
 	private String type;
 	@XmlAttribute(name="name")
@@ -26,8 +28,8 @@ public class Element implements ElementCreation, ElementFunction {
 	private String locator;	
 	@XmlAttribute(name="fafa")
 	private String fafa;
-	@XmlAttribute(name="hasFunction")
-	private String hasFunction;
+	@XmlElement(name="Function")
+	private ElementFunction elementFunction;
 	
 	public Element setType(String type) {
 		this.type = type;
@@ -53,10 +55,11 @@ public class Element implements ElementCreation, ElementFunction {
 		this.fafa = fafa;
 		return this;
 	}
-	public Element setHasFunction(String hasFunction) {
-		this.hasFunction = hasFunction;
+	public Element setelementFunction(ElementFunction elementFunction) {
+		this.elementFunction = elementFunction;
 		return this;
 	}
+	
 	@Override //ElementDetails
 	public String getElementName() {
 		return name;
@@ -82,16 +85,18 @@ public class Element implements ElementCreation, ElementFunction {
 	public String getByLocatorType() {
 		return by;
 	}
-	
-	@Override //ElementFunction
-	public boolean hasFunction() {
-		return (hasFunction.equalsIgnoreCase("true")) ? true : false;
+	public ElementFunction getElementFunction() {
+		if(elementFunction != null) {
+			return elementFunction.setName(name).setType(type);	
+		}else {
+			return null;
+		}		
 	}
-	
+		
 	@Override
 	public String toString() {
 		return "Element [type=" + type + ", name=" + name + ", by=" + by + ", locator=" + locator + ", text=" + text
-				+ ", fafa=" + fafa + ", response=" + hasFunction + "]";
+				+ ", fafa=" + fafa + "]";
 	}
-		
+			
 }

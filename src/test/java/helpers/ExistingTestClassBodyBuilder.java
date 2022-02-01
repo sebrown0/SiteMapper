@@ -22,7 +22,7 @@ import file.variable.Variables;
  * 	Initial
  * @since 1.0
  */
-public class ExistingTestClassBodyBuilder extends BodyBuilder{
+public class ExistingTestClassBodyBuilder extends BodyBuilder {
 	private final ExistingTestClassFileBuilder classFileBuilder;
 		
 	public ExistingTestClassBodyBuilder(ExistingTestClassFileBuilder classFileBuilder) {
@@ -66,7 +66,7 @@ public class ExistingTestClassBodyBuilder extends BodyBuilder{
 				.addLine("buildMyControls();");
 	
 	public static final String BUILD_MY_CONTROLS_DEC = 
-			"private void buildMyControls(){";
+			"private void buildMyControls() {";
 	public static final Lines<Object> CONTROLS_LINES = 
 			new Lines<>()
 				.addLine("\tvar myControls =")
@@ -78,13 +78,31 @@ public class ExistingTestClassBodyBuilder extends BodyBuilder{
 				.addLine("\tsuper.buildPanelControls(myControls);");
 	
 	public static final String NOT_FROM_SITEMAPPER_DEC = 
-			"private String aMethodNotFromSiteMapper(int idx){";
+			"private String aMethodNotFromSiteMapper(int idx) {";
 	public static final Lines<Object> NOT_FROM_SITEMAPPER_LINES = 
 			new Lines<>()
 				.addLine("\tString aStr = \"\";")
 				.addLine("\t//do some stuff...")
 				.addLine("\t")
 				.addLine("\treturn aStr;");
+
+	public String TEST_METHOD_1() {
+		return 
+				classFileBuilder.ANNO_RESULT() + "\n" +
+				"\t@TestControl(type=\"button\")\n" +
+				"\tpublic DynamicTest buttonSave () {\n" +
+				"\t\treturn DynamicTest.dynamicTest(\"[buttonSave] *NOT IMPLEMENTED*\", () -> assertTrue(true));\n" +
+				"\t}"; 
+	}
+	
+	public String TEST_METHOD_2() {
+		return 
+				classFileBuilder.ANNO_RESULT() + "\n" +
+				"\t@TestControl(type=\"button\")\n" +
+				"\tpublic DynamicTest buttonSearch () {\n" +
+				"\t\treturn DynamicTest.dynamicTest(\"[buttonSearch]\", () -> fail(\"*NOT IMPLEMENTED*\"));\n" +
+				"\t}\n";
+	}
 	
 	public String BODY_RESULT() {
 		return 
@@ -105,13 +123,33 @@ public class ExistingTestClassBodyBuilder extends BodyBuilder{
 			classFileBuilder.ANNO_RESULT() + "\n" +
 			"\t" + BUILD_MY_CONTROLS_DEC +
 			"\n" + CONTROLS_LINES.withIndent("\t").toString() +
-			"\t}\n";  
+			"\t}";
+			
 	}
+
+	public String BODY_RESULT_WITH_TEST_METHODS() {		
+		return
+			BODY_RESULT() +	"\n" +		
+			TEST_METHOD_1() + "\n" +
+			TEST_METHOD_2();// + "\n" ; 
+	}		
+	
+	public String BODY_RESULT_WITH_TEST_METHODS_AND_EXTRA_METHOD() {		
+		return
+			BODY_RESULT() +		
+			
+			"\n\t" + NOT_FROM_SITEMAPPER_DEC +
+			"\n" + NOT_FROM_SITEMAPPER_LINES.withIndent("\t").toString() +				
+			"\t}\n" +
+			
+			TEST_METHOD_1() + "\n" +
+			TEST_METHOD_2();// + "\n" ; 
+	}		
 	
 	public String BODY_RESULT_WITH_EXTRA_METHOD() {		
 		return
 			BODY_RESULT() +		
-			"\t" + NOT_FROM_SITEMAPPER_DEC +
+			"\n\t" + NOT_FROM_SITEMAPPER_DEC +
 			"\n" + NOT_FROM_SITEMAPPER_LINES.withIndent("\t").toString() +				
 			"\t}"; 
 	}		
@@ -144,12 +182,20 @@ public class ExistingTestClassBodyBuilder extends BodyBuilder{
 		
 		return this;
 	}
-
+	
 	public BodyBuilder setMethods() {		
 		super.methods = 
 			new MethodList()
 				.addMethod(buildMethod(BUILD_MY_CONTROLS_DEC, CONTROLS_LINES, classFileBuilder.ANNO_STR()))
 				.addMethod(buildMethod(NOT_FROM_SITEMAPPER_DEC, NOT_FROM_SITEMAPPER_LINES));
+		return this;
+	}
+	
+	public BodyBuilder setDynamicTestMethods() {
+		Lines<String> testMethods = new Lines<>();
+		testMethods.addLine(TEST_METHOD_1());
+		testMethods.addLine(TEST_METHOD_2());
+		super.dynamicTestMethods = testMethods; 	
 		return this;
 	}
 	
@@ -162,7 +208,7 @@ public class ExistingTestClassBodyBuilder extends BodyBuilder{
 		
 		return
 			builder
-				.withAnnotation(anno)
+				.withSiteMapAnnotation(anno)
 				.withDeclarationStr(decStr)
 				.build();		
 	}
@@ -181,7 +227,8 @@ public class ExistingTestClassBodyBuilder extends BodyBuilder{
 
 	@Override
 	public ClassBody build() {
-		((ExistingTestClassBodyBuilder) this.setVars().setConstructor()).setMethods();
+		((ExistingTestClassBodyBuilder) ((ExistingTestClassBodyBuilder) this.setVars().setConstructor()).setMethods()).setDynamicTestMethods();
 		return new ClassBody(this);
 	}
+
 }

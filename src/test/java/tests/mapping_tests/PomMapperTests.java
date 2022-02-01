@@ -73,7 +73,7 @@ class PomMapperTests {
 	void existingDeleted() throws NoSuchFileException{
 		assertFalse(Files.exists(Paths.get(PARENT_PACKAGE)));
 	}
-	
+		
 	@Test @Order(2)
 	void createPomsFromXML() {		
 		SiteMapContentGetter<PomMapperApp> contentGetter = new SiteMapContentGetter<>(XML_SOURCE);
@@ -89,7 +89,8 @@ class PomMapperTests {
 		scanner.getClassFile().ifPresentOrElse(
 			cf -> {
 				assertEquals(
-					FILE_BUILDER.CLASS_RESULT_WITHOUT_EXTRA_METHOD_AND_PACKAGE_RESULT_FOR_MAPPED_CLASSES(), 
+					FILE_BUILDER.CLASS_RESULT_WITH_TEST_METHODS_AND_PACKAGE_RESULT_FOR_MAPPED_CLASSES(),
+
 					cf.toString());
 			},
 			new Runnable() {					

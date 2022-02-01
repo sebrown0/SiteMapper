@@ -119,8 +119,8 @@ public class ExistingTestClassFileBuilder extends ClassBuilder {
 			COMMENT_RESULT() +
 			DECLARATION +
 			"\n" +
-			bodyBuilder.BODY_RESULT_WITH_EXTRA_METHOD() +
-			"\n\n" +			
+			bodyBuilder.BODY_RESULT_WITH_TEST_METHODS_AND_EXTRA_METHOD() +
+			"\n" +			
 			"}";
 	}
 	
@@ -133,7 +133,7 @@ public class ExistingTestClassFileBuilder extends ClassBuilder {
 			COMMENT_RESULT() +
 			DECLARATION +
 			"\n" +
-			bodyBuilder.BODY_RESULT() +
+			bodyBuilder.BODY_RESULT_WITH_TEST_METHODS() +
 			"\n" +			
 			"}";
 	}
@@ -152,6 +152,20 @@ public class ExistingTestClassFileBuilder extends ClassBuilder {
 			"}";
 	}
 	
+	public String CLASS_RESULT_WITH_TEST_METHODS_AND_PACKAGE_RESULT_FOR_MAPPED_CLASSES() {
+		return
+			PACKAGE_RESULT_FOR_MAPPED_CLASSES +
+			"\n\n" +
+			IMPORT_RESULT +
+			"\n" +				
+			COMMENT_RESULT() +
+			DECLARATION +
+			"\n" +
+			bodyBuilder.BODY_RESULT_WITH_TEST_METHODS() +
+			"\n" +			
+			"}";
+	}
+	
 	private void setExistingComment() {
 		EXISTING_COMMENT
 		.addLine("/**")
@@ -162,7 +176,6 @@ public class ExistingTestClassFileBuilder extends ClassBuilder {
 		.addLine("* Version: " + VERSION)
 		.addLine("* Created: " + DATE + " " + TIME)
 		.addLine("*/");
-//		.addLine("*\n");
 	}
 	
 	@Override
@@ -178,7 +191,6 @@ public class ExistingTestClassFileBuilder extends ClassBuilder {
 	@Override
 	public void setComment() {
 		super.comment = EXISTING_COMMENT;
-		System.out.println(EXISTING_COMMENT); // TODO - remove or log 	
 	}
 	@Override
 	public void setDeclaration() {

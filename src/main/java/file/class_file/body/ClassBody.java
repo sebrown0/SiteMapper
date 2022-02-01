@@ -3,11 +3,13 @@
  */
 package file.class_file.body;
 
+import java.util.List;
 import java.util.Scanner;
 
 import file.class_file.constructor.ClassConstructor;
 import file.class_file.constructor.ExistingConstructorMapper;
 import file.helpers.Formatter;
+import file.helpers.Lines;
 import file.method.ExistingMethodMapper;
 import file.method.MethodList;
 import file.variable.ExistingClassVariableMapper;
@@ -16,6 +18,7 @@ import site_mapper.creators.ComponentWriter;
 import site_mapper.creators.ControlDataFunction;
 import site_mapper.elements.ElementClass;
 import site_mapper.elements.ElementConstructor;
+import site_mapper.jaxb.pom.ElementFunction;
 import site_mapper.jaxb.pom.SiteMapInfo;
 
 /**
@@ -33,12 +36,14 @@ public class ClassBody {
 	private final ClassConstructor cnstr;
 	private final MethodList methods;
 	private final ControlDataFunction dataFunc;
+	private final Lines<String> dynamicTestMethods;
 	
 	public ClassBody(BodyBuilder b) {
 		this.vars = b.vars;
 		this.cnstr = b.cnstr;
 		this.methods = b.methods;
 		this.dataFunc= b.dataFunc;
+		this.dynamicTestMethods = b.dynamicTestMethods;
 	}
 	
 	public Variables getVars() {
@@ -53,18 +58,23 @@ public class ClassBody {
 	
 	@Override
 	public String toString() {		
-		return String.format(
-				"%s\n%s\n\n%s%s", 
+		String res =
+				String.format(
+				"%s\n%s\n\n%s%s%s%s\n", 
 				Formatter.getValueOf(vars),
 				Formatter.getValueOf(cnstr),
 				Formatter.getValueOf(dataFunc),
-				Formatter.getValueOf(methods));
+				Formatter.getValueOf(methods),
+				Formatter.getNewLineIfValueExists(dynamicTestMethods),
+				Formatter.getValueOfStripTrailing(dynamicTestMethods));
+		return res;
 	}
 	
 	public abstract static class BodyBuilder {
 		protected Variables vars;
 		protected ClassConstructor cnstr;		
-		protected MethodList methods;//TODO PUT IN EXISTING
+		protected MethodList methods;
+		protected Lines<String> dynamicTestMethods;
 		
 		private ControlDataFunction dataFunc;
 		
@@ -116,14 +126,26 @@ public class ClassBody {
 			super.dataFunc = new ControlBuilder((ElementClass) clazz).buildControlFunction();
 			return this;
 		}
-
+		
+		public BodyBuilder setDynamicTestMethods() {
+			dynamicTestMethods = new Lines<>();
+			List<ElementFunction> funcs = clazz.getElementFunctions();			
+			funcs.forEach(f -> 
+				dynamicTestMethods.addLine(
+						new DynamicTestMethodBuilder(f, info).build()
+				)
+			);
+			return this;
+		}	
+		
 		@Override
 		public ClassBody build() {
 			setVars();
 			setConstructor();
 			setElements();
+			setDynamicTestMethods();
 			return new ClassBody(this);
-		}	
+		}
 	}
 	
 	/** 
@@ -164,10 +186,17 @@ public class ClassBody {
 			return this;
 		}
 		
+
+		public BodyBuilder setDynamicTestMethods() {
+			// TODO Auto-generated method stub
+			return null;
+		}		
+		
 		@Override
 		public ClassBody build() {
 			return new ClassBody(this);
-		}		
+		}
+		
 	}
 
 }
