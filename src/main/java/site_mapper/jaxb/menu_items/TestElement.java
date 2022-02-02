@@ -24,4 +24,6 @@ public interface TestElement {
 	TestElement setTestItemType(MenuItemType menuItemType);
 	TestElement setElements(List<Element> elements);
 	TestElement setSiteMapInfo(SiteMapInfo info);
+	TestElement setTypeAttributes (TypeAttributes getTypeAttributes);
+	TestElement setName(String str); 
 }

@@ -25,4 +25,5 @@ import site_mapper.creators.ComponentWriter;
 public abstract class TypeAttributes {
 	public abstract String getExtends();
 	public abstract ComponentWriter getComponentWriter();
+	public abstract String getPanelTitle();
 }

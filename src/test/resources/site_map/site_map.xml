@@ -51,11 +51,8 @@
       <Menu name="Left" package="left_menu">      
         <MenuItem name="Employee Details" package="employees" class="EmployeeDetails">          
           <Type name="JsPanelWithIFrame"> <!-- TypeAttributes - can get the ComponentWriter from this -->
-            <JsPanelWithIFrame>
-              <PanelTitle>Employee Details</PanelTitle>
-              <MenuTitle>Employee Details</MenuTitle>
-              <MenuParent>Employees</MenuParent>
-            </JsPanelWithIFrame>
+            <JsPanelWithIFrame panelTitle = "Employee Details" />
+              
           </Type>
           
           <Elements>            

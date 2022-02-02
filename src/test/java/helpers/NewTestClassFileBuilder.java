@@ -73,8 +73,6 @@ public class NewTestClassFileBuilder {
 	
 	private void setAttributes() {
 		attributes = new JsPanelWithIFrame();		
-		attributes.setMenuParentName("Employees");
-		attributes.setMenuTitle("Employee Details");
 		attributes.setPanelTitle("Employee Details");
 	}
 	private void setMenuItemType() {
@@ -102,10 +100,12 @@ public class NewTestClassFileBuilder {
 	private void setMenuItem() {
 		MENU_ITEM = new MenuItem();
 		MENU_ITEM
+			.setName("Employee Details")
 			.setTestPackage("employees")
 			.setTestClassName("EmployeeDetails")
 			.setTestItemType(menuItemType)
 			.setSiteMapInfo(this.SITE_MAP_INFO())
+			
 			.setElements(
 				Arrays.asList(
 					(Element)SAVE_BUTTON, 

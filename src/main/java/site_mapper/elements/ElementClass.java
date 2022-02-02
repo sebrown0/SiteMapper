@@ -7,6 +7,7 @@ import java.util.List;
 
 import site_mapper.creators.ComponentWriter;
 import site_mapper.jaxb.menu_items.MenuItemType;
+import site_mapper.jaxb.menu_items.TypeAttributes;
 import site_mapper.jaxb.pom.Element;
 import site_mapper.jaxb.pom.ElementFunction;
 import site_mapper.jaxb.pom.SiteMapInfo;
@@ -26,8 +27,10 @@ import site_mapper.jaxb.pom.SiteMapInfo;
  * @since 1.0
  */
 public interface ElementClass {
+	TypeAttributes getTypeAttributes();
 	String getParentPackage();
 	String getPackage();
+	String getName();
 	String getClassName();	
 	String getModuleName();
 	String getTypeName();

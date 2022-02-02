@@ -49,7 +49,10 @@ public class MenuItem implements ElementClass, TestElement {
 	private String moduleName;	
 	private SiteMapInfo siteMapInfo;
 	
-	
+	@Override //ElementClass
+	public String getName() {
+		return name;
+	}
 	@Override //ElementClass
 	public String getClassName() {
 		return className;
@@ -99,10 +102,16 @@ public class MenuItem implements ElementClass, TestElement {
 				.collect(Collectors.toList()); 
 		return funcs;			
 	}
-	public String getName() {
-		return name;
+	@Override //ElementClass
+	public TypeAttributes getTypeAttributes() {
+		return menuItemType.getAttributes();
 	}
 	
+	@Override //TestElement
+	public TestElement setName(String str) {
+		this.name = str;
+		return this;
+	}
 	@Override //TestElement
 	public TestElement setTestPackage(String str) {
 		this.packageName = str;
@@ -133,16 +142,22 @@ public class MenuItem implements ElementClass, TestElement {
 		this.moduleName = str;
 		return this;
 	}
-	@Override
+	@Override //TestElement
 	public TestElement setTestMenuName(String str) {
 		this.menuPackageName = str;
 		return this;
 	}
+	@Override //TestElement
+	public TestElement setTypeAttributes(TypeAttributes att) {
+		this.menuItemType.setAttributes(att);
+		return this;
+	}
+	
 	@Override
 	public String toString() {
 		return String.format(
 				"MenuItem [name=%s, packageName=%s, className=%s, menuItemType=%s, elements=[%s], menuPackageName=%s, moduleName=%s, siteMapInfo=%s]",
 				name, packageName, className, menuItemType, Formatter.getAsCommaSeparatedList(elements), menuPackageName, moduleName, siteMapInfo);
 	}
-		
+			
 }

@@ -19,7 +19,7 @@ public class OverwriteClass implements ClassMaker {
 	protected ElementClass elementClass;
 	protected PackageHierarchy packageHierarchy;
 	protected PackageSetter packageSetter;
-	
+
 	public OverwriteClass(ElementClass elementClass, PackageHierarchy packageHierarchy, PackageSetter packageSetter) {
 		this.elementClass = elementClass;
 		this.packageHierarchy = packageHierarchy;

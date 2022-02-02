@@ -89,43 +89,46 @@ public abstract class Variable implements IndentedElement<Variable> {
 		
 		@Override
 		public Variable build() {			
-			if(varStr.contains("=")) {
-				String[] rightAndLeft = varStr.split("=");
-				leftSide = rightAndLeft[0].split(" ");
-				rightSide =  rightAndLeft[1];
+			if(varStr.startsWith("/*")) {
+				name = varStr;
 			}else {
-				leftSide = varStr.split(" ");
-			}
-			
-			if(leftSide != null) {
-				if(mapModifier(leftSide[0])) {
-					if(mapIsStatic(leftSide[1])) {
-						mapIsFinal(leftSide[2]);
-						mapType(leftSide[3]);
-						mapName(leftSide[4]);
-						if(hasValue()) {
-							mapValue();
-						}
-					}else {
-						if(mapIsFinal(leftSide[1])) {
-							//move to type
-							mapType(leftSide[2]);
-							mapName(leftSide[3]);
+				if(varStr.contains("=")) {
+					String[] rightAndLeft = varStr.split("=");
+					leftSide = rightAndLeft[0].split(" ");
+					rightSide =  rightAndLeft[1];
+				}else {
+					leftSide = varStr.split(" ");
+				}
+				if(leftSide != null) {
+					if(mapModifier(leftSide[0])) {
+						if(mapIsStatic(leftSide[1])) {
+							mapIsFinal(leftSide[2]);
+							mapType(leftSide[3]);
+							mapName(leftSide[4]);
 							if(hasValue()) {
 								mapValue();
 							}
 						}else {
-							//move to type
-							mapType(leftSide[1]);
-							mapName(leftSide[2]);
-							if(hasValue()) {
-								mapValue();
-							}						
+							if(mapIsFinal(leftSide[1])) {
+								//move to type
+								mapType(leftSide[2]);
+								mapName(leftSide[3]);
+								if(hasValue()) {
+									mapValue();
+								}
+							}else {
+								//move to type
+								mapType(leftSide[1]);
+								mapName(leftSide[2]);
+								if(hasValue()) {
+									mapValue();
+								}						
+							}
 						}
+					}else {
+						//TODO error
 					}
-				}else {
-					//TODO error
-				}
+				}				
 			}
 			return new ClassVariable(this);		
 		}		
