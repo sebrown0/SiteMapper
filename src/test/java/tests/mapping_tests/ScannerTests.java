@@ -92,7 +92,7 @@ class ScannerTests {
 		scanner.mapFile();
 		ClassFile clazz = scanner.getClassFile().get();
 		
-		assertEquals(6, clazz.getImport().getImports().size());
+		assertEquals(10, clazz.getImport().getImports().size());
 	}
 	
 	@Test

@@ -44,8 +44,7 @@ public class ArgumentList {
 		return this;
 	}
 	
-	private void logBadArg(String msg, String ofArgs) {
-		System.out.println(msg + " [" + ofArgs +"]"); // TODO - remove or log 	
+	private void logBadArg(String msg, String ofArgs) {		
 		LogManager.getLogger().error(msg + " [" + ofArgs +"]");
 	}
 	

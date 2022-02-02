@@ -32,7 +32,7 @@ public class ComponentWriterJsPanelWithIFrame
 	public List<Import> getImportNames() {
 		return Arrays.asList(
 				new NewImport(new UseImport("static org.junit.jupiter.api.Assertions.assertTrue")),
-				new NewImport(new UseImport("import static org.junit.jupiter.api.Assertions.fail;")),
+				new NewImport(new UseImport("static org.junit.jupiter.api.Assertions.fail")),
 				
 				new NewImport(new UseImport("java.util.List")),
 				new NewImport(new UseImport("org.openqa.selenium.By")),

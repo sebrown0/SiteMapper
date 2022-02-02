@@ -79,18 +79,26 @@ public class ExistingTestClassFileBuilder extends ClassBuilder {
 	}
 	public static final List<Import> IMPORT_LIST = 
 			new ArrayList<>(Arrays.asList(
+					new ExistingImport("import static org.junit.jupiter.api.Assertions.assertTrue;"),
+					new ExistingImport("import static org.junit.jupiter.api.Assertions.fail;"),			
 					new ExistingImport("import java.util.List;"),
 					new ExistingImport("import org.openqa.selenium.By;"),
 					new ExistingImport("import control_builder.*;"),
 					new ExistingImport("import site_mapper.annotations.SiteMap;"),
+					new ExistingImport("import org.junit.jupiter.api.DynamicTest;"),
+					new ExistingImport("import dynamic_tests.annotations.TestControl;"),
 					new ExistingImport("import object_models.panels.JsPanelWithIFrame;"),
 					new ExistingImport("import object_models.pages.homepage.CoreData;")));
 	
 	public static final String IMPORT_RESULT =
+			"import static org.junit.jupiter.api.Assertions.assertTrue;\n" +
+			"import static org.junit.jupiter.api.Assertions.fail;\n" +
 			"import java.util.List;\n" +
 			"import org.openqa.selenium.By;\n" +
 			"import control_builder.*;\n" +
 			"import site_mapper.annotations.SiteMap;\n" +
+			"import org.junit.jupiter.api.DynamicTest;\n" +
+			"import dynamic_tests.annotations.TestControl;\n" +
 			"import object_models.panels.JsPanelWithIFrame;\n" +
 			"import object_models.pages.homepage.CoreData;\n";
 	

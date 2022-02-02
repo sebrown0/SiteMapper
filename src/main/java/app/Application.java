@@ -20,24 +20,11 @@ public final class Application {
 	private static final String XML_SOURCE = 
 			ROOT + "/src/main/resources/site_map/site_map.xml";
 	
-	/*
-	 * Mapping POMs
-	 * ------------
-	 * NEED ProdMapper[XmlContent] OR TestMapper[XmlContent] FOR MAPPING POMs WITH PomMapperApp.
-	 * 
-	 * Dynamic Tests
-	 * -------------
-	 * NEED DynamicTestApp
-	 * 
-	 * Both use SiteMapContentGetter <T extends XmlContent> to get the unmarshalled objects.
-	 * 
-	 * SHOULD SITE MAPPER RETURN DynamicContainer TO DTest? PROBABLY.
-	 * 
-	 */
-	
-	
+		
 	/**
 	 * @param args
+	 * 	None
+	 * TODO - XML_SOURCE as argument.
 	 */
 	public static void main(String[] args) {
 		SiteMapContentGetter<PomMapperApp> contentGetter = new SiteMapContentGetter<>(XML_SOURCE);

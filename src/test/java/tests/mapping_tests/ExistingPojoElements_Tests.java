@@ -78,13 +78,8 @@ class ExistingPojoElements_Tests {
 		ImportList imports = new ImportList(ExistingTestClassFileBuilder.IMPORT_LIST);		
 		
 		assertEquals(
-				"import java.util.List;\n" + 
-				"import org.openqa.selenium.By;\n" + 
-				"import control_builder.*;\n" +
-				"import site_mapper.annotations.SiteMap;\n" +
-				"import object_models.panels.JsPanelWithIFrame;\n" +
-				"import object_models.pages.homepage.CoreData;\n",
-				imports.toString());
+				ExistingTestClassFileBuilder.IMPORT_RESULT,
+				imports.toString());		
 	}
 
 //	NOT WORKING SPACING IS WRONG.

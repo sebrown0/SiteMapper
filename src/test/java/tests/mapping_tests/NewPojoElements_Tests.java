@@ -72,10 +72,14 @@ class NewPojoElements_Tests {
 		
 		//DEPENDS ON THE IMPORTS IN ComponentWriterJsPanelWithIFrame
 		assertEquals(
+				"import static org.junit.jupiter.api.Assertions.assertTrue;\n" +
+				"import static org.junit.jupiter.api.Assertions.fail;\n" +
 				"import java.util.List;\n" +
 				"import org.openqa.selenium.By;\n" +
 				"import control_builder.*;\n" +
 				"import site_mapper.annotations.SiteMap;\n" +
+				"import org.junit.jupiter.api.DynamicTest;\n" +
+				"/* Placeholder for missing import [TestControl] */\n" +
 				"/* Placeholder for missing import [JsPanelWithIFrame] */\n" +
 				"/* Placeholder for missing import [CoreData] */\n" , 
 				imports.toString());

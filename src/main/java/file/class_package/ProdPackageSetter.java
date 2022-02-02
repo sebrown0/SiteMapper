@@ -15,12 +15,18 @@ import site_mapper.elements.ElementClass;
  */
 public class ProdPackageSetter implements PackageSetter{
 	@Override
-	public String getPackage(ElementClass clazz) {		
+	public String getPackage(ElementClass clazz) {
 		String s = 
-				"mapped.classes." +
-						clazz.getModuleName() + "." +
-						clazz.getParentPackage() + "." +
-						clazz.getPackage();
+				getParentPackage(clazz) + "." +
+				clazz.getModuleName() + "." +
+				clazz.getParentPackage() + "." +
+				clazz.getPackage();
+		
+		return s;
+	}
+	
+	private String getParentPackage(ElementClass clazz) {
+		String s = clazz.getSiteMapInfo().getParentPackage().replace("/", "."); 
 		return s;
 	}
 }
