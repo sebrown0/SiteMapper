@@ -55,7 +55,7 @@ public class MenuItem implements ElementClass, TestElement {
 	}
 	@Override //ElementClass
 	public String getClassName() {
-		return className;
+		return Formatter.capitaliseFirstChar(className);
 	}
 	@Override //ElementClass
 	public String getPackage() {
