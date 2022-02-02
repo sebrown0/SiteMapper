@@ -95,12 +95,16 @@ public class MenuItem implements ElementClass, TestElement {
 	}
 	@Override //ElementClass
 	public List<ElementFunction> getElementFunctions() {
-		List<ElementFunction> funcs = 
-			elements.stream()
-				.filter(f -> f.getElementFunction() != null)
-				.map(e -> e.getElementFunction())
-				.collect(Collectors.toList()); 
-		return funcs;			
+		if(elements != null) {
+			List<ElementFunction> funcs = 
+					elements.stream()
+						.filter(f -> f.getElementFunction() != null)
+						.map(e -> e.getElementFunction())
+						.collect(Collectors.toList()); 
+				return funcs;				
+		}else {
+			return null;
+		}		
 	}
 	@Override //ElementClass
 	public TypeAttributes getTypeAttributes() {

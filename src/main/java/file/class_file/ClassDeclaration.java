@@ -26,7 +26,7 @@ public class ClassDeclaration {
 	
 	public ClassDeclaration(Builder b) {
 		this.modifier = b.getModifier();
-		this.name = b.getName();
+		this.name = Formatter.capitaliseFirstChar(b.getName());
 		this.extend = b.getExtended();
 		this.implemented = b.getImplemented();
 	}

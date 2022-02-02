@@ -129,12 +129,13 @@ public class ClassBody {
 		
 		public BodyBuilder setDynamicTestMethods() {
 			dynamicTestMethods = new Lines<>();
-			List<ElementFunction> funcs = clazz.getElementFunctions();			
-			funcs.forEach(f -> 
-				dynamicTestMethods.addLine(
+			List<ElementFunction> funcs = clazz.getElementFunctions();
+			if(funcs != null) {
+				funcs.forEach(f -> 
+					dynamicTestMethods.addLine(
 						new DynamicTestMethodBuilder(f, info).build()
-				)
-			);
+				));	
+			}			
 			return this;
 		}	
 		

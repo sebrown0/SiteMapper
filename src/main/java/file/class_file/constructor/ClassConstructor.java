@@ -30,7 +30,7 @@ public class ClassConstructor {
 	private ClassConstructor(ConstructorBuilder b) {
 		this.cnstrAnnotation = b.cnstrAnnotation;
 		this.modifier = b.modifier;
-		this.className = b.className;
+		this.className = Formatter.capitaliseFirstChar(b.className);
 		this.argList = b.argList;
 		this.superArgs = b.superArgs;
 		this.lines = b.lines;

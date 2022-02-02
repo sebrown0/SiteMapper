@@ -15,6 +15,7 @@ import site_mapper.creators.ControlDataFunctionFactory;
 import site_mapper.creators.ControlDataValues;
 import site_mapper.elements.ElementClass;
 import site_mapper.elements.ElementCreation;
+import site_mapper.jaxb.pom.Element;
 
 /**
  * @author SteveBrown
@@ -39,20 +40,24 @@ public class ControlBuilder {
 	public ControlDataFunction buildControlFunction() {
 		ControlDataFunction func = null;		
 		
-		List<ControlDataValues> vals = 
-				clazz.getElements().stream()
-					.map(e -> (ElementCreation)e)
-						.map(e -> new ControlDataValues(e))
-						.collect(Collectors.toList());
-						
-		fact = new ControlDataFunctionFactory(vals, annotation);
-		try {
-			func = fact.getFunctionBuildMyControls();
-		} catch (InvalidArgumentException e1) {
-			LogManager
-				.getLogger(this.getClass())
-					.error("Error creating control data function [" + e1 + "]");
-		} 	
+		List<Element> elements = clazz.getElements();
+		if(elements != null) {
+			List<ControlDataValues> vals = 
+					elements.stream()
+						.map(e -> (ElementCreation)e)
+							.map(e -> new ControlDataValues(e))
+							.collect(Collectors.toList());
+							
+			fact = new ControlDataFunctionFactory(vals, annotation);
+			try {
+				func = fact.getFunctionBuildMyControls();
+			} catch (InvalidArgumentException e1) {
+				LogManager
+					.getLogger(this.getClass())
+						.error("Error creating control data function [" + e1 + "]");
+			} 
+		}
+			
 		return func;
 	}
 

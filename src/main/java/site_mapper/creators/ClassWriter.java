@@ -15,6 +15,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import file.class_file.ClassFile;
+import file.helpers.Formatter;
 import site_mapper.jaxb.pom.PackageHierarchy;
 
 /**
@@ -60,7 +61,7 @@ public class ClassWriter {
 		return 
 				packageHierarchy.getRoot() + "/" + 
 				packageHierarchy.getHierarchyFwdSlashNotation() + "/" + 
-				clazz.getClassName() + ".java";
+				Formatter.capitaliseFirstChar(clazz.getClassName()) + ".java";
 	}
 	
 	private void writeFile() {
