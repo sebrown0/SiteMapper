@@ -20,30 +20,14 @@ import site_mapper.creators.ComponentWriterJsPanelWithIFrame;
 @XmlAccessorType(XmlAccessType.PROPERTY)
 public class JsPanelWithIFrame extends TypeAttributes {	
 	private String panelTitle;	
-	private String menuTitle;	
-	private String menuParentName;
-	
+
 	@XmlElement(name="PanelTitle")
 	public void setPanelTitle(String panelTitle) {
 		this.panelTitle = panelTitle; 	
 	}
-	@XmlElement(name="MenuTitle")
-	public void setMenuTitle(String menuTitle) {
-		this.menuTitle = menuTitle;
-	}
-	@XmlElement(name="MenuParent")
-	public void setMenuParentName(String menuParentName) {
-		this.menuParentName = menuParentName;
-	}
 	
 	public String getPanelTitle() {
 		return panelTitle;
-	}
-	public String getMenuTitle() {
-		return menuTitle;
-	}
-	public String getMenuParentName() {
-		return menuParentName;
 	}
 	
 	@Override //TypeAttributes
