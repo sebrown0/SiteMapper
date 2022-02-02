@@ -20,10 +20,15 @@ public class ProdPackageSetter implements PackageSetter{
 		String s = 
 				StringUtils.replaceFwdSlashes(clazz.getSiteMapInfo().getParentPackage(), ".") + "." +
 				clazz.getModuleName() + "." +
-				clazz.getParentPackage() + "." +
-				clazz.getPackage();
+				clazz.getParentPackage() +
+				getPackageIfExists(clazz);
 		
 		return s;
+	}
+	
+	private String getPackageIfExists(ElementClass clazz) {
+		String pck = clazz.getPackage();
+		return (pck != null && !pck.equals("")) ? "."+pck: "";
 	}
 	
 }
