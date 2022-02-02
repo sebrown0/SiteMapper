@@ -72,7 +72,9 @@ public class NewTestClassFileBuilder {
 	}
 	
 	private void setAttributes() {
-		attributes = new JsPanelWithIFrame();
+		attributes = new JsPanelWithIFrame();		
+		attributes.setMenuParentName("Employees");
+		attributes.setMenuTitle("Employee Details");
 		attributes.setPanelTitle("Employee Details");
 	}
 	private void setMenuItemType() {
