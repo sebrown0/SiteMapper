@@ -31,10 +31,15 @@ public class ComponentWriterJsPanelWithIFrame
 	@Override //ComponentInfo
 	public List<Import> getImportNames() {
 		return Arrays.asList(
+				new NewImport(new UseImport("static org.junit.jupiter.api.Assertions.assertTrue")),
+				new NewImport(new UseImport("import static org.junit.jupiter.api.Assertions.fail;")),
+				
 				new NewImport(new UseImport("java.util.List")),
 				new NewImport(new UseImport("org.openqa.selenium.By")),
 				new NewImport(new UseImport("control_builder.*")),
-				new NewImport(new UseImport("site_mapper.annotations.SiteMap")),
+				new NewImport(new UseImport("site_mapper.annotations.SiteMap")),				
+				new NewImport(new UseImport("org.junit.jupiter.api.DynamicTest")),				
+				new NewImport(new FindImport("TestControl", siteMapInfo)),				
 				new NewImport(new FindImport("JsPanelWithIFrame", siteMapInfo)),
 				new NewImport(new FindImport("CoreData", siteMapInfo)));
 	}
@@ -90,44 +95,5 @@ public class ComponentWriterJsPanelWithIFrame
 		this.elementClass = elementClass;
 		return this;
 	}
-	
-//	@Override //ComponentWriterVisitor
-//	public void writeComponents() throws IOException {
-//		 	
-//	}
-	
-//	private void writePanelVars() throws IOException {
-////		new VariableWriter(fileOut, jsPanel).writePanelVars();;
-//	}
-//	
-//	private void writeConstructor() throws IOException {
-//		fileOut.writeNewLine();
-//		fileOut.writeAnnotation();
-//		new ConstructorWriter(fileOut, this).writeConstuctor();
-//	}
-//			
-//	private void writeBuildControlsFunction() throws IOException {		
-//		String func;
-//		if(elements != null) {
-//			List<ControlDataValues> values = new ArrayList<>();					
-//			elements.forEach(e -> {
-//				values.add(new ControlDataValues(e));
-//			});	
-//			
-//			ControlDataStringFactory fact = new ControlDataStringFactory(values);
-//			try {
-//				func = fact.getFunctionBuildMyControls();
-//				fileOut.writeNewLines(2);
-//				fileOut.writeAnnotation();
-//				fileOut.writeValue(func); 	
-//			} catch (InvalidArgumentException e1) {
-//				// TODO Auto-generated catch block
-//				// ** TODO - Add to sitemapper log **
-//				System.out.println("ComponentWriterJsPanelWithIFrame.writeBuildControlsFunction -> ** TODO - Add to sitemapper log **"); // TODO - remove or log 	
-//				e1.printStackTrace();
-//			}
-//			
-//		}		
-//	}
 		
 }
