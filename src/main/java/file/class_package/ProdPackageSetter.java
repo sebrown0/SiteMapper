@@ -4,6 +4,7 @@
 package file.class_package;
 
 import site_mapper.elements.ElementClass;
+import utils.StringUtils;
 
 /**
  * @author SteveBrown
@@ -17,7 +18,7 @@ public class ProdPackageSetter implements PackageSetter{
 	@Override
 	public String getPackage(ElementClass clazz) {
 		String s = 
-				getParentPackage(clazz) + "." +
+				StringUtils.replaceFwdSlashes(clazz.getSiteMapInfo().getParentPackage(), ".") + "." +
 				clazz.getModuleName() + "." +
 				clazz.getParentPackage() + "." +
 				clazz.getPackage();
@@ -25,8 +26,4 @@ public class ProdPackageSetter implements PackageSetter{
 		return s;
 	}
 	
-	private String getParentPackage(ElementClass clazz) {
-		String s = clazz.getSiteMapInfo().getParentPackage().replace("/", "."); 
-		return s;
-	}
 }

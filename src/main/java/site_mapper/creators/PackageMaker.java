@@ -15,6 +15,7 @@ import org.apache.logging.log4j.LogManager;
 
 import site_mapper.jaxb.pom.PackageHierarchy;
 import site_mapper.jaxb.pom.SiteMapInfo;
+import utils.StringUtils;
 
 /**
  * @author SteveBrown
@@ -74,7 +75,7 @@ public class PackageMaker {
 						new OutputStreamWriter(
 								new FileOutputStream(filePath + "/package-info.java"), StandardCharsets.UTF_8))) {
 			writer.write(comments);
-	    writer.write("package " + packagePath + ";");
+	    writer.write("package " + StringUtils.replaceFwdSlashes(packagePath, ".") + ";");
 		} 
 		catch (IOException ex) {
 		    // TODO - Handle me
