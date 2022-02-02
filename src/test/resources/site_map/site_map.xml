@@ -44,15 +44,13 @@
     <!-- <Include>text_out</Include> -->
   </IncludeElementsForTest>
   
-  <Modules>
-  
+  <Modules>  
    <Module name="payroll">   
     <Menus>
       <Menu name="Left" package="left_menu">      
         <MenuItem name="Employee Details" package="employees" class="EmployeeDetails">          
-          <Type name="JsPanelWithIFrame"> <!-- TypeAttributes - can get the ComponentWriter from this -->
-            <JsPanelWithIFrame panelTitle = "Employee Details" />
-              
+          <Type name="JsPanelWithIFrame"> 
+            <JsPanelWithIFrame panelTitle = "Employee Details" /> 
           </Type>
           
           <Elements>            
@@ -64,8 +62,7 @@
             </Element>   
             <Element type="text_out" name="code" text="EMP_CODE" by="css" locator="input[id='FORM_ID']" />   
           </Elements>          
-        </MenuItem>
-        
+        </MenuItem>        
       </Menu>
     </Menus>
    </Module>
