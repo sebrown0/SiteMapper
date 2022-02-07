@@ -53,6 +53,11 @@
             <JsPanelWithIFrame panelTitle = "Employee Details" /> 
           </Type>
           
+          <Tabs>
+            <Tab name="Basic Details" fafa="fa fa-user" by="css" locator="a[id='tab-tab1']">
+            </Tab>
+          </Tabs>
+                    
           <Elements>            
             <Element type="button" name="save" text="Save" fafa="fa fa-save" by="css" locator="button[name='SAVE']">
               <Function isDefaultPass="true" />

@@ -16,6 +16,7 @@ import site_mapper.elements.ElementClass;
 import site_mapper.jaxb.pom.Element;
 import site_mapper.jaxb.pom.ElementFunction;
 import site_mapper.jaxb.pom.SiteMapInfo;
+import site_mapper.jaxb.pom.Tab;
 
 /**
  * @author SteveBrown
@@ -40,6 +41,10 @@ public class MenuItem implements ElementClass, TestElement {
 	
 	@XmlElement(name="Type")
 	private MenuItemType menuItemType;
+	
+	@XmlElementWrapper(name="Tabs")
+	@XmlElement(name="Tab")
+	private List<Tab> tabs;	
 	
 	@XmlElementWrapper(name="Elements")
 	@XmlElement(name="Element")
@@ -157,11 +162,23 @@ public class MenuItem implements ElementClass, TestElement {
 		return this;
 	}
 	
+	public Tab getTab(String tabName) {
+		Tab res = null;
+		for (Tab t : tabs) {
+			if(t.getName().equalsIgnoreCase(tabName)) {
+				res = t;
+				break;
+			}
+		}
+		return res;
+	}
+	
 	@Override
 	public String toString() {
 		return String.format(
 				"MenuItem [name=%s, packageName=%s, className=%s, menuItemType=%s, elements=[%s], menuPackageName=%s, moduleName=%s, siteMapInfo=%s]",
 				name, packageName, className, menuItemType, Formatter.getAsCommaSeparatedList(elements), menuPackageName, moduleName, siteMapInfo);
 	}
+	
 			
 }
