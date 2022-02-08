@@ -59,13 +59,13 @@
           </Tabs>
                     
           <Elements>            
-            <Element type="button" name="save" text="Save" fafa="fa fa-save" by="css" locator="button[name='SAVE']">
+            <Element type="button" name="save" text="Save" fafa="fa fa-save" by="css" locator="button[name='SAVE']" toolTipText="Save Record">
               <Function isDefaultPass="true" />
             </Element>
             <Element type="button" name="search" text="Search" fafa="fa fa-search" by="css" locator="button[name='QBF1']">
               <Function isDefaultPass="false" />
             </Element>   
-            <Element type="text_out" name="code" text="EMP_CODE" by="css" locator="input[id='FORM_ID']" />   
+            <Element type="text_out" name="code" text="EMP_CODE" by="css" locator="input[id='FORM_ID']"/>   
           </Elements>          
         </MenuItem>        
       </Menu>

@@ -14,6 +14,7 @@ import org.junit.jupiter.api.Test;
 import app.SiteMapContentGetter;
 import app.xml_content.PomMapperTest;
 import app.xml_content.XmlContent;
+import site_mapper.jaxb.menu_items.MenuItem;
 import site_mapper.jaxb.pom.Element;
 import site_mapper.jaxb.pom.ElementFunction;
 import site_mapper.jaxb.pom.Module;
@@ -42,7 +43,7 @@ class XmlContentTests {
 		
 		assertFalse(content.isEmpty());
 	}
-	
+
 	@Test
 	void getContentModulePomMapper() {
 		SiteMapContentGetter<PomMapperApp> contentGetter = new SiteMapContentGetter<>(XML_SOURCE);
@@ -50,6 +51,16 @@ class XmlContentTests {
 		Module mod = content.getModules().get(0);
 		
 		assertEquals("payroll", mod.getName());
+	}
+	
+	@Test
+	void get_toolTip() {
+		SiteMapContentGetter<PomMapperApp> contentGetter = new SiteMapContentGetter<>(XML_SOURCE);
+		XmlContent content = contentGetter.getContent(PomMapperApp.class).get();
+		Module mod = content.getModules().get(0);
+		MenuItem empDetails = mod.getMenus().get(0).getMenuItems().get(0);
+		
+		assertEquals("Save Record", empDetails.getElements().get(0).getToolTipText());
 	}
 	
 	@Test

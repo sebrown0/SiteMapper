@@ -11,6 +11,7 @@ package site_mapper.elements;
  */
 public interface ElementDetails {
 	public String getElementName();
-	public String getText(); 
+	public String getText();
+	public String getToolTipText(); 
 	public String getFafa();
 }

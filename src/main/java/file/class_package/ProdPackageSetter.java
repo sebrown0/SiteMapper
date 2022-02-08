@@ -28,7 +28,12 @@ public class ProdPackageSetter implements PackageSetter{
 	
 	private String getPackageIfExists(ElementClass clazz) {
 		String pck = clazz.getPackage();
-		return (pck != null && !pck.equals("")) ? "."+pck: "";
+		if(pck != null && !pck.equals("")) {
+			pck = pck.toLowerCase();
+			return "." + pck;	
+		}else {
+			return "";
+		}		
 	}
 	
 }

@@ -28,9 +28,11 @@ public class Element implements ElementCreation {
 	private String locator;	
 	@XmlAttribute(name="fafa")
 	private String fafa;
+	@XmlAttribute(name="toolTipText")
+	private String toolTipText;
 	@XmlElement(name="Function")
 	private ElementFunction elementFunction;
-	
+		
 	public Element setType(String type) {
 		this.type = type;
 		return this;
@@ -72,6 +74,10 @@ public class Element implements ElementCreation {
 	public String getFafa() {
 		return fafa;
 	}
+	@Override //ElementDetails
+	public String getToolTipText() {
+		return toolTipText;
+	}
 	
 	@Override //ElementCreation
 	public String getElementType() {
@@ -92,11 +98,12 @@ public class Element implements ElementCreation {
 			return null;
 		}		
 	}
-		
+	
 	@Override
 	public String toString() {
-		return "Element [type=" + type + ", name=" + name + ", by=" + by + ", locator=" + locator + ", text=" + text
-				+ ", fafa=" + fafa + "]";
+		return String.format(
+				"Element [type=%s, name=%s, text=%s, by=%s, locator=%s, fafa=%s, toolTipText=%s, elementFunction=%s]", type,
+				name, text, by, locator, fafa, toolTipText, elementFunction);
 	}
 			
 }
