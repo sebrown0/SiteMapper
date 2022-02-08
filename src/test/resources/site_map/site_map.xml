@@ -59,13 +59,27 @@
           </Tabs>
                     
           <Elements>            
-            <Element type="button" name="save" text="Save" fafa="fa fa-save" by="css" locator="button[name='SAVE']" toolTipText="Save Record">
+            <!-- Has tool tip & function -->
+            <Element>
+              <Details type="button" name="save" text="Save" fafa="fa fa-save"/>
+              <Locator by="css" text="button[name='SAVE']"/>
+              <ToolTip text="Save Record"/>
               <Function isDefaultPass="true" />
             </Element>
-            <Element type="button" name="search" text="Search" fafa="fa fa-search" by="css" locator="button[name='QBF1']">
+            
+            <!-- Has no tool tip -->
+            <Element>
+              <Details type="button" name="search" text="Search" fafa="fa fa-search"/>
+              <Locator by="css" text="button[name='QBF1']"/>
               <Function isDefaultPass="false" />
-            </Element>   
-            <Element type="text_out" name="code" text="EMP_CODE" by="css" locator="input[id='FORM_ID']"/>   
+            </Element>
+            
+            <!-- Has no tool tip or function -->
+            <Element>
+              <Details type="text_out" name="code" text="EMP_CODE" fafa="fa fa-search"/>
+              <Locator by="css" text="input[id='FORM_ID']"/>              
+            </Element>
+               
           </Elements>          
         </MenuItem>        
       </Menu>

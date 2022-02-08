@@ -3,7 +3,6 @@
  */
 package site_mapper.jaxb.pom;
 
-import jakarta.xml.bind.annotation.XmlAttribute;
 import jakarta.xml.bind.annotation.XmlElement;
 import jakarta.xml.bind.annotation.XmlRootElement;
 import site_mapper.elements.ElementCreation;
@@ -15,85 +14,88 @@ import site_mapper.elements.ElementCreation;
  * @since 1.0
  */
 @XmlRootElement(name="Element")
-public class Element implements ElementCreation {
-	@XmlAttribute(name="type")
-	private String type;
-	@XmlAttribute(name="name")
-	private String name;
-	@XmlAttribute(name="text")
-	private String text;
-	@XmlAttribute(name="by")
-	private String by;
-	@XmlAttribute(name="locator")
-	private String locator;	
-	@XmlAttribute(name="fafa")
-	private String fafa;
-	@XmlAttribute(name="toolTipText")
-	private String toolTipText;
+public class Element implements ElementCreation {		
+	@XmlElement(name="Details")
+	private ElementDetails details;
+	@XmlElement(name="Locator")
+	private ElementLocator locator;
+	@XmlElement(name="ToolTip")
+	private ElementToolTip toolTip;
 	@XmlElement(name="Function")
 	private ElementFunction elementFunction;
 		
 	public Element setType(String type) {
-		this.type = type;
+		if(details == null) details = new ElementDetails();
+		details.setType(type);
 		return this;
 	}
 	public Element setName(String name) {
-		this.name = name;
+		if(details == null) details = new ElementDetails();
+		details.setName(name);
 		return this;
 	}
 	public Element setText(String text) {
-		this.text = text;
-		return this;
-	}
-	public Element setBy(String by) {
-		this.by = by;
-		return this;
-	}
-	public Element setLocator(String locator) {
-		this.locator = locator;
+		if(details == null) details = new ElementDetails();
+		details.setText(text);
 		return this;
 	}
 	public Element setFafa(String fafa) {
-		this.fafa = fafa;
+		if(details == null) details = new ElementDetails();
+		details.setFafa(fafa);
 		return this;
 	}
+
+	public Element setBy(String by) {
+		if(locator == null) locator = new ElementLocator();
+		this.locator.setBy(by);
+		return this;
+	}
+	public Element setLocator(String locator) {
+		if(locator == null) this.locator = new ElementLocator();
+		this.locator.setLocator(locator);
+		return this;
+	}
+	
 	public Element setelementFunction(ElementFunction elementFunction) {
 		this.elementFunction = elementFunction;
 		return this;
 	}
+		
+	@Override //ElementDetails
+	public String getToolTipText() {
+		return (toolTip != null) ? toolTip.getText() : "";
+	}
 	
 	@Override //ElementDetails
 	public String getElementName() {
-		return name;
+		return (details != null) ? details.getElementName() : "";
 	}
 	@Override //ElementDetails
 	public String getText() {
-		return text;
+		return (details != null) ? details.getText() : "";
 	}
 	@Override //ElementDetails
 	public String getFafa() {
-		return fafa;
+		return (details != null) ? details.getFafa() : "";
 	}
-	@Override //ElementDetails
-	public String getToolTipText() {
-		return toolTipText;
-	}
-	
 	@Override //ElementCreation
 	public String getElementType() {
-		return type;
+		return (details != null) ? details.getElementType() : "";
 	}
 	@Override //ElementCreation
 	public String getByLocatorValue() {
-		return locator;
+		return (locator != null) ? locator.getLocator() : "";		
 	}
 	@Override //ElementCreation
 	public String getByLocatorType() {
-		return by;
+		return (locator != null) ? locator.getBy() : "";		
 	}
 	public ElementFunction getElementFunction() {
 		if(elementFunction != null) {
-			return elementFunction.setName(name).setType(type);	
+			return 
+				elementFunction
+					.setName(getElementName())
+					.setType(getElementType());	
 		}else {
 			return null;
 		}		
@@ -102,8 +104,8 @@ public class Element implements ElementCreation {
 	@Override
 	public String toString() {
 		return String.format(
-				"Element [type=%s, name=%s, text=%s, by=%s, locator=%s, fafa=%s, toolTipText=%s, elementFunction=%s]", type,
-				name, text, by, locator, fafa, toolTipText, elementFunction);
+				"Element [type=%s, name=%s, text=%s, by=%s, locator=%s, fafa=%s, toolTipText=%s, elementFunction=%s]", getElementType(),
+				getElementName(), getText(), getByLocatorType(), locator.getLocator(), getFafa(), getToolTipText(), elementFunction);
 	}
 			
 }
