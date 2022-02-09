@@ -54,7 +54,9 @@ public class MenuItem implements ElementClass, TestElement {
 	@XmlElementWrapper(name="HeaderElements")
 	@XmlElement(name="Element")
 	private List<Element> headerElements;
-	
+	@XmlElementWrapper(name="BodyElements")
+	@XmlElement(name="Element")
+	private List<Element> bodyElements;	
 	@XmlElementWrapper(name="FooterElements")
 	@XmlElement(name="Element")
 	private List<Element> footerElements;	
@@ -97,7 +99,7 @@ public class MenuItem implements ElementClass, TestElement {
 		if(allElements == null) {
 			allElements = new ArrayList<>();
 			Stream
-				.of(footerElements, headerElements)
+				.of(footerElements, bodyElements, headerElements)
 				.filter(s -> s != null)
 				.forEach(allElements::addAll);
 		}
@@ -106,6 +108,10 @@ public class MenuItem implements ElementClass, TestElement {
 	@Override //ElementClass
 	public List<Element> getHeaderElements() {
 		return headerElements;
+	}
+	@Override //ElementClass
+	public List<Element> getBodyElements() {
+		return bodyElements;
 	}
 	@Override //ElementClass
 	public List<Element> getFooterElements() {
@@ -199,12 +205,13 @@ public class MenuItem implements ElementClass, TestElement {
 		}
 		return res;
 	}
-	
 	@Override
 	public String toString() {
 		return String.format(
-				"MenuItem [name=%s, packageName=%s, className=%s, menuItemType=%s, elements=[%s], menuPackageName=%s, moduleName=%s, siteMapInfo=%s]",
-				name, packageName, className, menuItemType, Formatter.getAsCommaSeparatedList(headerElements), menuPackageName, moduleName, siteMapInfo);
+				"MenuItem [name=%s, packageName=%s, className=%s, menuItemType=%s, tabs=%s, headerElements=%s, bodyElements=%s, footerElements=%s, menuPackageName=%s, moduleName=%s, siteMapInfo=%s, allElements=%s]",
+				name, packageName, className, menuItemType, tabs, headerElements, bodyElements, footerElements, menuPackageName,
+				moduleName, siteMapInfo, allElements);
 	}
+	
 				
 }

@@ -65,7 +65,10 @@
               <Locator by="css" text="input[id='FORM_ID']"/>              
             </Element>
           </HeaderElements>
-                              
+          
+          <BodyElements>
+          </BodyElements>                    
+          
           <FooterElements>
             <!-- Has tool tip & function -->
             <Element>

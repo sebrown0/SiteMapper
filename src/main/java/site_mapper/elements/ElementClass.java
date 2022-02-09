@@ -37,9 +37,11 @@ public interface ElementClass {
 	MenuItemType getMenuItemType();
 	List<Element> getAllElements();
 	List<Element> getHeaderElements();
+	List<Element> getBodyElements();
 	List<Element> getFooterElements();
 	List<ElementFunction> getElementFunctions();
 	SiteMapInfo getSiteMapInfo();
 	ComponentWriter getComponentWriter();
 	boolean hasControlList();
+	
 }
