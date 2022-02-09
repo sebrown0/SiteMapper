@@ -40,7 +40,7 @@ public class ControlBuilder {
 	public ControlDataFunction buildControlFunction() {
 		ControlDataFunction func = null;		
 		
-		List<Element> elements = clazz.getElements();
+		List<Element> elements = clazz.getAllElements();
 		if(elements != null) {
 			List<ControlDataValues> vals = 
 					elements.stream()

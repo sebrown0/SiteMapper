@@ -3,10 +3,14 @@
  */
 package site_mapper.jaxb.menu_items;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 import file.helpers.Formatter;
+import jakarta.xml.bind.annotation.XmlAccessType;
+import jakarta.xml.bind.annotation.XmlAccessorType;
 import jakarta.xml.bind.annotation.XmlAttribute;
 import jakarta.xml.bind.annotation.XmlElement;
 import jakarta.xml.bind.annotation.XmlElementWrapper;
@@ -31,6 +35,7 @@ import site_mapper.jaxb.pom.Tab;
  * Is the ClassFile.
  */
 @XmlRootElement(name="MenuItem")
+@XmlAccessorType(XmlAccessType.FIELD)
 public class MenuItem implements ElementClass, TestElement {
 	@XmlAttribute(name="name")
 	private String name;
@@ -46,13 +51,18 @@ public class MenuItem implements ElementClass, TestElement {
 	@XmlElement(name="Tab")
 	private List<Tab> tabs;	
 	
-	@XmlElementWrapper(name="Elements")
+	@XmlElementWrapper(name="HeaderElements")
 	@XmlElement(name="Element")
-	private List<Element> elements;	
+	private List<Element> headerElements;
+	
+	@XmlElementWrapper(name="FooterElements")
+	@XmlElement(name="Element")
+	private List<Element> footerElements;	
 	
 	private String menuPackageName;
 	private String moduleName;	
 	private SiteMapInfo siteMapInfo;
+	private List<Element> allElements;	
 	
 	@Override //ElementClass
 	public String getName() {
@@ -83,8 +93,23 @@ public class MenuItem implements ElementClass, TestElement {
 		return menuItemType;
 	}
 	@Override //ElementClass
-	public List<Element> getElements() {
-		return elements;
+	public List<Element> getAllElements() {
+		if(allElements == null) {
+			allElements = new ArrayList<>();
+			Stream
+				.of(footerElements, headerElements)
+				.filter(s -> s != null)
+				.forEach(allElements::addAll);
+		}
+		return allElements;				
+	}
+	@Override //ElementClass
+	public List<Element> getHeaderElements() {
+		return headerElements;
+	}
+	@Override //ElementClass
+	public List<Element> getFooterElements() {
+		return footerElements;
 	}
 	@Override //ElementClass
 	public SiteMapInfo getSiteMapInfo() {
@@ -96,10 +121,12 @@ public class MenuItem implements ElementClass, TestElement {
 	}
 	@Override //ElementClass
 	public boolean hasControlList() {
+		List<Element> elements = getAllElements();
 		return (elements != null && elements.size() > 0) ? true : false;
 	}
 	@Override //ElementClass
 	public List<ElementFunction> getElementFunctions() {
+		List<Element> elements = getAllElements();
 		if(elements != null) {
 			List<ElementFunction> funcs = 
 					elements.stream()
@@ -143,7 +170,7 @@ public class MenuItem implements ElementClass, TestElement {
 	}
 	@Override //TestElement
 	public TestElement setElements(List<Element> elements) {
-		this.elements = elements;
+		this.headerElements = elements;
 		return this;
 	}
 	@Override //TestElement
@@ -177,8 +204,7 @@ public class MenuItem implements ElementClass, TestElement {
 	public String toString() {
 		return String.format(
 				"MenuItem [name=%s, packageName=%s, className=%s, menuItemType=%s, elements=[%s], menuPackageName=%s, moduleName=%s, siteMapInfo=%s]",
-				name, packageName, className, menuItemType, Formatter.getAsCommaSeparatedList(elements), menuPackageName, moduleName, siteMapInfo);
+				name, packageName, className, menuItemType, Formatter.getAsCommaSeparatedList(headerElements), menuPackageName, moduleName, siteMapInfo);
 	}
-	
-			
+				
 }

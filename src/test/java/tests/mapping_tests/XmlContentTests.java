@@ -60,7 +60,7 @@ class XmlContentTests {
 		Module mod = content.getModules().get(0);
 		MenuItem empDetails = mod.getMenus().get(0).getMenuItems().get(0);
 		
-		assertEquals("Save Record", empDetails.getElements().get(0).getToolTipText());
+		assertEquals("Save Record", empDetails.getFooterElements().get(0).getToolTipText());
 	}
 	
 	@Test
@@ -80,7 +80,7 @@ class XmlContentTests {
 	void elementFunction_withDefaultPass() {
 		SiteMapContentGetter<PomMapperApp> contentGetter = new SiteMapContentGetter<>(XML_SOURCE);
 		XmlContent content = contentGetter.getContent(PomMapperApp.class).get();
-		Element e = content.getModules().get(0).getMenus().get(0).getMenuItems().get(0).getElements().get(0);
+		Element e = content.getModules().get(0).getMenus().get(0).getMenuItems().get(0).getFooterElements().get(0);
 		ElementFunction func = e.getElementFunction().setType("button").setName("save");
 		
 		assertEquals(
@@ -95,7 +95,7 @@ class XmlContentTests {
 	void elementFunction_withoutDefaultPass() {
 		SiteMapContentGetter<PomMapperApp> contentGetter = new SiteMapContentGetter<>(XML_SOURCE);
 		XmlContent content = contentGetter.getContent(PomMapperApp.class).get();
-		Element e = content.getModules().get(0).getMenus().get(0).getMenuItems().get(0).getElements().get(0);
+		Element e = content.getModules().get(0).getMenus().get(0).getMenuItems().get(0).getFooterElements().get(0);
 		ElementFunction 
 			func = 
 				e.getElementFunction()

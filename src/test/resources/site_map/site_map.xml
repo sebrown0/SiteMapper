@@ -57,8 +57,16 @@
             <Tab name="Basic Details" fafa="fa fa-user" by="css" locator="a[id='tab-tab1']">
             </Tab>
           </Tabs>
-                    
-          <Elements>            
+          
+          <HeaderElements>
+            <!-- Has no tool tip or function -->
+            <Element>
+              <Details type="text_out" name="code" text="EMP_CODE" fafa="fa fa-search"/>
+              <Locator by="css" text="input[id='FORM_ID']"/>              
+            </Element>
+          </HeaderElements>
+                              
+          <FooterElements>
             <!-- Has tool tip & function -->
             <Element>
               <Details type="button" name="save" text="Save" fafa="fa fa-save"/>
@@ -73,14 +81,8 @@
               <Locator by="css" text="button[name='QBF1']"/>
               <Function isDefaultPass="false" />
             </Element>
-            
-            <!-- Has no tool tip or function -->
-            <Element>
-              <Details type="text_out" name="code" text="EMP_CODE" fafa="fa fa-search"/>
-              <Locator by="css" text="input[id='FORM_ID']"/>              
-            </Element>
-               
-          </Elements>          
+          </FooterElements>                 
+          
         </MenuItem>        
       </Menu>
     </Menus>

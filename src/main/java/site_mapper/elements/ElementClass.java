@@ -35,7 +35,9 @@ public interface ElementClass {
 	String getModuleName();
 	String getTypeName();
 	MenuItemType getMenuItemType();
-	List<Element> getElements();
+	List<Element> getAllElements();
+	List<Element> getHeaderElements();
+	List<Element> getFooterElements();
 	List<ElementFunction> getElementFunctions();
 	SiteMapInfo getSiteMapInfo();
 	ComponentWriter getComponentWriter();
