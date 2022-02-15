@@ -15,6 +15,7 @@ import site_mapper.creators.ControlDataFunctionFactory;
 import site_mapper.creators.ControlDataValues;
 import site_mapper.elements.ElementClass;
 import site_mapper.elements.ElementCreation;
+import site_mapper.jaxb.containers.Container;
 import site_mapper.jaxb.pom.Element;
 
 /**
@@ -40,7 +41,7 @@ public class ControlBuilder {
 	public ControlDataFunction buildControlFunction() {
 		ControlDataFunction func = null;		
 		
-		List<Element> elements = clazz.getAllElements();
+		List<Container> elements = clazz.getAllContainers();
 		/*
 		 * here we have to get the containers
 		 */

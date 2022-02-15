@@ -18,6 +18,7 @@ import site_mapper.creators.ComponentWriter;
 import site_mapper.creators.ControlDataFunction;
 import site_mapper.elements.ElementClass;
 import site_mapper.elements.ElementConstructor;
+import site_mapper.jaxb.containers.Container;
 import site_mapper.jaxb.pom.ElementFunction;
 import site_mapper.jaxb.pom.SiteMapInfo;
 
@@ -129,15 +130,35 @@ public class ClassBody {
 		
 		public BodyBuilder setDynamicTestMethods() {
 			dynamicTestMethods = new Lines<>();
-			List<ElementFunction> funcs = clazz.getElementFunctions();
-			if(funcs != null) {
-				funcs.forEach(f -> 
-					dynamicTestMethods.addLine(
-						new DynamicTestMethodBuilder(f, info).build()
-				));	
-			}			
+			List<Container> containers = clazz.getAllContainers();
+//			List<ElementFunction> funcs = clazz.getElementFunctions();
+			
+			clazz
+				.getAllContainers()
+					.forEach(c -> {
+						
+					});
+			
+//			if(containers != null) {
+//				containers.forEach(f -> 
+//					dynamicTestMethods.addLine(
+//						new DynamicTestMethodBuilder(f, info).build()
+//				));	
+//			}			
 			return this;
-		}	
+		}
+//		public BodyBuilder setDynamicTestMethods() {
+//			dynamicTestMethods = new Lines<>();
+//			List<Container> containers = clazz.getAllContainers();
+////			List<ElementFunction> funcs = clazz.getElementFunctions();
+//			if(funcs != null) {
+//				funcs.forEach(f -> 
+//					dynamicTestMethods.addLine(
+//						new DynamicTestMethodBuilder(f, info).build()
+//				));	
+//			}			
+//			return this;
+//		}	
 		
 		@Override
 		public ClassBody build() {

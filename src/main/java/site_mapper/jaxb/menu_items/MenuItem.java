@@ -51,28 +51,17 @@ public class MenuItem implements ElementClass, TestElement {
 	@XmlElementWrapper(name="Tabs")
 	@XmlElement(name="Tab")
 	private List<Tab> tabs;	
-	
-//	@XmlElementWrapper(name="HeaderElements")
-//	@XmlElement(name="Element")
 	@XmlElement(name="HeaderElements")
-	private Container headerElements;
-	
-//	@XmlElementWrapper(name="BodyElements")
-//	@XmlElement(name="Element")
-//	private List<Element> bodyElements;
+	private Container headerContainer;	
 	@XmlElement(name="BodyElements")
-	private Container bodyElements;
-	
-//	@XmlElementWrapper(name="FooterElements")
-//	@XmlElement(name="Element")
-//	private List<Element> footerElements;	
+	private Container bodyContainer;	
 	@XmlElement(name="FooterElements")
-	private Container footerElements;
+	private Container footerContainer;
 	
 	private String menuPackageName;
 	private String moduleName;	
 	private SiteMapInfo siteMapInfo;
-	private List<Element> allElements;	
+	private List<Container> allContainers;	
 	
 	@Override //ElementClass
 	public String getName() {
@@ -103,28 +92,27 @@ public class MenuItem implements ElementClass, TestElement {
 		return menuItemType;
 	}
 	@Override //ElementClass
-	public List<Element> getAllElements() {
-//		if(allElements == null) {
-//			allElements = new ArrayList<>();
-//			Stream
-////				.of(footerElements, bodyElements, headerElements)
-//				.of(footerElements, bodyElements)
-//				.filter(s -> s != null)
-//				.forEach(allElements::addAll);
-//		}
-		return allElements;				
+	public List<Container> getAllContainers() {
+		if(allContainers == null) {
+			allContainers = new ArrayList<>();
+			Stream
+				.of(headerContainer, bodyContainer, footerContainer)
+				.filter(s -> s != null)
+				.forEach(allContainers::add);
+		} 	
+		return allContainers;				
 	}
 	@Override //ElementClass
-	public Container getHeaderElements() {
-		return headerElements;
+	public Container getHeader() {
+		return headerContainer;
 	}
 	@Override //ElementClass
-	public Container getBodyElements() {
-		return bodyElements;
+	public Container getBody() {
+		return bodyContainer;
 	}
 	@Override //ElementClass
-	public Container getFooterElements() {
-		return footerElements;
+	public Container getFooter() {
+		return footerContainer;
 	}
 	@Override //ElementClass
 	public SiteMapInfo getSiteMapInfo() {
@@ -136,23 +124,28 @@ public class MenuItem implements ElementClass, TestElement {
 	}
 	@Override //ElementClass
 	public boolean hasControlList() {
-		List<Element> elements = getAllElements();
-		return (elements != null && elements.size() > 0) ? true : false;
+		/*
+		 * TODO - Not a definite way to see if there are controls.
+		 * Would have to iterate through each container to see if
+		 * there are any elements.
+		 */
+		List<Container> containers = getAllContainers();
+		return (containers != null && containers.size() > 0) ? true : false;
 	}
-	@Override //ElementClass
-	public List<ElementFunction> getElementFunctions() {
-		List<Element> elements = getAllElements();
-		if(elements != null) {
-			List<ElementFunction> funcs = 
-					elements.stream()
-						.filter(f -> f.getElementFunction() != null)
-						.map(e -> e.getElementFunction())
-						.collect(Collectors.toList()); 
-				return funcs;				
-		}else {
-			return null;
-		}		
-	}
+//	@Override //ElementClass
+//	public List<ElementFunction> getElementFunctions() {
+//		List<Container> elements = getAllContainers();
+//		if(elements != null) {
+//			List<ElementFunction> funcs = 
+//					elements.stream()
+//						.filter(f -> f.getElementFunction() != null)
+//						.map(e -> e.getElementFunction())
+//						.collect(Collectors.toList()); 
+//				return funcs;				
+//		}else {
+//			return null;
+//		}		
+//	}
 	@Override //ElementClass
 	public TypeAttributes getTypeAttributes() {
 		return menuItemType.getAttributes();
@@ -185,7 +178,7 @@ public class MenuItem implements ElementClass, TestElement {
 	}
 	@Override //TestElement
 	public TestElement setElements(Container elements) {
-		this.headerElements = elements;
+		this.headerContainer = elements;
 		return this;
 	}
 	@Override //TestElement
@@ -217,9 +210,9 @@ public class MenuItem implements ElementClass, TestElement {
 	@Override
 	public String toString() {
 		return String.format(
-				"MenuItem [name=%s, packageName=%s, className=%s, menuItemType=%s, tabs=%s, headerElements=%s, bodyElements=%s, footerElements=%s, menuPackageName=%s, moduleName=%s, siteMapInfo=%s, allElements=%s]",
-				name, packageName, className, menuItemType, tabs, headerElements, bodyElements, footerElements, menuPackageName,
-				moduleName, siteMapInfo, allElements);
+				"MenuItem [name=%s, packageName=%s, className=%s, menuItemType=%s, tabs=%s, headerElements=%s, bodyElements=%s, footerElements=%s, menuPackageName=%s, moduleName=%s, siteMapInfo=%s]",
+				name, packageName, className, menuItemType, tabs, headerContainer, bodyContainer, footerContainer, menuPackageName,
+				moduleName, siteMapInfo);
 	}
 	
 				
