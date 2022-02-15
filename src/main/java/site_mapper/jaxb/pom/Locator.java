@@ -16,7 +16,7 @@ import jakarta.xml.bind.annotation.XmlRootElement;
  */
 @XmlRootElement(name="Locator")
 @XmlAccessorType(XmlAccessType.FIELD)
-public class ElementLocator {
+public class Locator {
 	@XmlAttribute(name="by")
 	private String by;
 	@XmlAttribute(name="text")

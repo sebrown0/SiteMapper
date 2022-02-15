@@ -47,13 +47,11 @@ class NewPojoElements_Tests {
 	private static final ExistingTestClassFileBuilder FILE_BUILDER =
 			new ExistingTestClassFileBuilder();
 	
-//	private static String ANNO_RESULT;
 	private static String COMMENT_RESULT;
 	
 	@BeforeAll
 	static void setup() {
 		COMMENT_RESULT = FILE_BUILDER.COMMENT_RESULT();
-//		ANNO_RESULT = FILE_BUILDER.ANNO_RESULT();
 	}
 	
 	/*

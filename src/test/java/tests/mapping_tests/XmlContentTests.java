@@ -14,6 +14,7 @@ import org.junit.jupiter.api.Test;
 import app.SiteMapContentGetter;
 import app.xml_content.PomMapperTest;
 import app.xml_content.XmlContent;
+import site_mapper.jaxb.containers.XmlContainer;
 import site_mapper.jaxb.menu_items.MenuItem;
 import site_mapper.jaxb.pom.Element;
 import site_mapper.jaxb.pom.ElementFunction;
@@ -60,7 +61,7 @@ class XmlContentTests {
 		Module mod = content.getModules().get(0);
 		MenuItem empDetails = mod.getMenus().get(0).getMenuItems().get(0);
 		
-		assertEquals("Save Record", empDetails.getFooterElements().get(0).getToolTipText());
+		assertEquals("Save Record", empDetails.getFooterElements().getContainers().get(0).getElements().get(0).getToolTipText());
 	}
 	
 	@Test
@@ -80,7 +81,7 @@ class XmlContentTests {
 	void elementFunction_withDefaultPass() {
 		SiteMapContentGetter<PomMapperApp> contentGetter = new SiteMapContentGetter<>(XML_SOURCE);
 		XmlContent content = contentGetter.getContent(PomMapperApp.class).get();
-		Element e = content.getModules().get(0).getMenus().get(0).getMenuItems().get(0).getFooterElements().get(0);
+		Element e = content.getModules().get(0).getMenus().get(0).getMenuItems().get(0).getFooterElements().getContainers().get(0).getElements().get(0);
 		ElementFunction func = e.getElementFunction().setType("button").setName("save");
 		
 		assertEquals(
@@ -95,7 +96,7 @@ class XmlContentTests {
 	void elementFunction_withoutDefaultPass() {
 		SiteMapContentGetter<PomMapperApp> contentGetter = new SiteMapContentGetter<>(XML_SOURCE);
 		XmlContent content = contentGetter.getContent(PomMapperApp.class).get();
-		Element e = content.getModules().get(0).getMenus().get(0).getMenuItems().get(0).getFooterElements().get(0);
+		Element e = content.getModules().get(0).getMenus().get(0).getMenuItems().get(0).getFooterElements().getContainers().get(0).getElements().get(0);
 		ElementFunction 
 			func = 
 				e.getElementFunction()
@@ -111,6 +112,14 @@ class XmlContentTests {
 				func.toString()); 	
 	}
 
+	@Test
+	void get_empLookup_from_headerContainer() {
+		SiteMapContentGetter<PomMapperApp> contentGetter = new SiteMapContentGetter<>(XML_SOURCE);
+		XmlContent content = contentGetter.getContent(PomMapperApp.class).get();
+		XmlContainer header = content.getModules().get(0).getMenus().get(0).getMenuItems().get(0).getHeaderElements();
+		XmlContainer empLookup = header.getContainers().get(0);
+		assertEquals("EmpLookup", empLookup.getName());		
+	}
 //	@Test
 //	void XXXXXXXXXXXXXXX() {
 //		SiteMapContentGetter<PomMapperApp> contentGetter = new SiteMapContentGetter<>(XML_SOURCE);

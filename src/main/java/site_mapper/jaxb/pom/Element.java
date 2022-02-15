@@ -18,7 +18,7 @@ public class Element implements ElementCreation {
 	@XmlElement(name="Details")
 	private ElementDetails details;
 	@XmlElement(name="Locator")
-	private ElementLocator locator;
+	private Locator locator;
 	@XmlElement(name="ToolTip")
 	private ElementToolTip toolTip;
 	@XmlElement(name="Function")
@@ -46,12 +46,12 @@ public class Element implements ElementCreation {
 	}
 
 	public Element setBy(String by) {
-		if(locator == null) locator = new ElementLocator();
+		if(locator == null) locator = new Locator();
 		this.locator.setBy(by);
 		return this;
 	}
 	public Element setLocator(String locator) {
-		if(locator == null) this.locator = new ElementLocator();
+		if(locator == null) this.locator = new Locator();
 		this.locator.setLocator(locator);
 		return this;
 	}

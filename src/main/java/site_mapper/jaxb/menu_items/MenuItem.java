@@ -17,6 +17,7 @@ import jakarta.xml.bind.annotation.XmlElementWrapper;
 import jakarta.xml.bind.annotation.XmlRootElement;
 import site_mapper.creators.ComponentWriter;
 import site_mapper.elements.ElementClass;
+import site_mapper.jaxb.containers.Container;
 import site_mapper.jaxb.pom.Element;
 import site_mapper.jaxb.pom.ElementFunction;
 import site_mapper.jaxb.pom.SiteMapInfo;
@@ -51,15 +52,22 @@ public class MenuItem implements ElementClass, TestElement {
 	@XmlElement(name="Tab")
 	private List<Tab> tabs;	
 	
-	@XmlElementWrapper(name="HeaderElements")
-	@XmlElement(name="Element")
-	private List<Element> headerElements;
-	@XmlElementWrapper(name="BodyElements")
-	@XmlElement(name="Element")
-	private List<Element> bodyElements;	
-	@XmlElementWrapper(name="FooterElements")
-	@XmlElement(name="Element")
-	private List<Element> footerElements;	
+//	@XmlElementWrapper(name="HeaderElements")
+//	@XmlElement(name="Element")
+	@XmlElement(name="HeaderElements")
+	private Container headerElements;
+	
+//	@XmlElementWrapper(name="BodyElements")
+//	@XmlElement(name="Element")
+//	private List<Element> bodyElements;
+	@XmlElement(name="BodyElements")
+	private Container bodyElements;
+	
+//	@XmlElementWrapper(name="FooterElements")
+//	@XmlElement(name="Element")
+//	private List<Element> footerElements;	
+	@XmlElement(name="FooterElements")
+	private Container footerElements;
 	
 	private String menuPackageName;
 	private String moduleName;	
@@ -96,25 +104,26 @@ public class MenuItem implements ElementClass, TestElement {
 	}
 	@Override //ElementClass
 	public List<Element> getAllElements() {
-		if(allElements == null) {
-			allElements = new ArrayList<>();
-			Stream
-				.of(footerElements, bodyElements, headerElements)
-				.filter(s -> s != null)
-				.forEach(allElements::addAll);
-		}
+//		if(allElements == null) {
+//			allElements = new ArrayList<>();
+//			Stream
+////				.of(footerElements, bodyElements, headerElements)
+//				.of(footerElements, bodyElements)
+//				.filter(s -> s != null)
+//				.forEach(allElements::addAll);
+//		}
 		return allElements;				
 	}
 	@Override //ElementClass
-	public List<Element> getHeaderElements() {
+	public Container getHeaderElements() {
 		return headerElements;
 	}
 	@Override //ElementClass
-	public List<Element> getBodyElements() {
+	public Container getBodyElements() {
 		return bodyElements;
 	}
 	@Override //ElementClass
-	public List<Element> getFooterElements() {
+	public Container getFooterElements() {
 		return footerElements;
 	}
 	@Override //ElementClass
@@ -175,7 +184,7 @@ public class MenuItem implements ElementClass, TestElement {
 		return this;
 	}
 	@Override //TestElement
-	public TestElement setElements(List<Element> elements) {
+	public TestElement setElements(Container elements) {
 		this.headerElements = elements;
 		return this;
 	}

@@ -52,38 +52,61 @@
           <Type name="JsPanelWithIFrame"> 
             <JsPanelWithIFrame panelTitle = "Employee Details" /> 
           </Type>
-          
-          <Tabs>
-            <Tab name="Basic Details" fafa="fa fa-user" by="css" locator="a[id='tab-tab1']">
-            </Tab>
-          </Tabs>
-          
+                    
           <HeaderElements>
-            <!-- Has no tool tip or function -->
-            <Element>
-              <Details type="text_out" name="code" text="EMP_CODE" fafa="fa fa-search"/>
-              <Locator by="css" text="input[id='FORM_ID']"/>              
-            </Element>
+            <Container type="InputGroup" name="EmpLookup">
+              <Locator by="css" text="div[class='input-group']"/>     
+              <Element>
+                <Details type="text_out" name="code" text="EMP_CODE" fafa="fa fa-search"/>
+                <Locator by="css" text="input[id='FORM_ID']"/>              
+              </Element>
+              <Element>
+                <Details type="button" name="EmpList" text="" fafa="fa fa-list"/>
+                <Locator by="css" text="div[title='Select from a list of employees within the chosen company']"/>
+                <ToolTip text="Select from a list of employees within the chosen company"/>
+                <Function isDefaultPass="true" />
+              </Element>
+              <Element>
+                <Details type="button" name="Combos" text="" fafa="fa fa-window-maximize"/>
+                <Locator by="css" text="div[title='Combos']"/>
+                <ToolTip text="Combos"/>
+                <Function isDefaultPass="true" />
+              </Element>
+              <Element>
+                <Details type="button" name="GridView" text="" fafa="fa fw fa-table"/>
+                <Locator by="css" text="div[title='Grid View for existing records']"/>
+                <ToolTip text="Grid View for existing records"/>
+                <Function isDefaultPass="true" />
+              </Element>
+              <Element>
+                <Details type="button" name="Documents" text="" fafa="fa fa-file-o"/>
+                <Locator by="css" text="div[title='No Documents Attached']"/>
+                <ToolTip text="No Documents Attached"/>
+                <Function isDefaultPass="true" />
+              </Element>
+            </Container>
+            
           </HeaderElements>
           
-          <BodyElements>
-          </BodyElements>                    
+          <BodyElements></BodyElements>                    
           
           <FooterElements>
-            <!-- Has tool tip & function -->
-            <Element>
-              <Details type="button" name="save" text="Save" fafa="fa fa-save"/>
-              <Locator by="css" text="button[name='SAVE']"/>
-              <ToolTip text="Save Record"/>
-              <Function isDefaultPass="true" />
-            </Element>
+            <Container type="row" name="FooterButtons">
+              <!-- rows have no locator -->
+              <Element>
+                <Details type="button" name="save" text="Save" fafa="fa fa-save"/>
+                <Locator by="css" text="button[name='SAVE']"/>
+                <ToolTip text="Save Record"/>
+                <Function isDefaultPass="true" />
+              </Element>
             
-            <!-- Has no tool tip -->
-            <Element>
-              <Details type="button" name="search" text="Search" fafa="fa fa-search"/>
-              <Locator by="css" text="button[name='QBF1']"/>
-              <Function isDefaultPass="false" />
-            </Element>
+              <Element>
+                <Details type="button" name="search" text="Search" fafa="fa fa-search"/>
+                <Locator by="css" text="button[name='QBF1']"/>
+                <Function isDefaultPass="false" />
+              </Element>
+            </Container>    
+            
           </FooterElements>                 
           
         </MenuItem>        

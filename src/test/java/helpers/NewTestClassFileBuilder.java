@@ -104,13 +104,13 @@ public class NewTestClassFileBuilder {
 			.setTestPackage("employees")
 			.setTestClassName("EmployeeDetails")
 			.setTestItemType(menuItemType)
-			.setSiteMapInfo(this.SITE_MAP_INFO())
-			
-			.setElements(
-				Arrays.asList(
-					(Element)SAVE_BUTTON, 
-					(Element)SEARCH_BUTTON, 
-					(Element)EMP_CODE_TEXT_OUT));
+			.setSiteMapInfo(this.SITE_MAP_INFO());
+//			TODO
+//			.setElements(
+//				Arrays.asList(
+//					(Element)SAVE_BUTTON, 
+//					(Element)SEARCH_BUTTON, 
+//					(Element)EMP_CODE_TEXT_OUT));
 	}
 	private void setClassFile() {
 		classFile = new NewClassFileBuilder((ElementClass) MENU_ITEM, new TestPackageSetter()).build();
