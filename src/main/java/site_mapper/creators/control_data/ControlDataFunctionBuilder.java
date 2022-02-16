@@ -23,14 +23,14 @@ import file.annotation.SiteMapAnnotation;
  * 		new ControlGetterTextOut(coreData, By.id("FORM_ID")))"
  * 
  */
-public class ControlDataFunctionFactory {
+public class ControlDataFunctionBuilder {
 	private List<ControlData> groups;
 	private List<ControlData> values;
 	private String func = "";
 	private int numControls;
 	private SiteMapAnnotation anno;
 	
-	public ControlDataFunctionFactory(SiteMapAnnotation anno) {		
+	public ControlDataFunctionBuilder(SiteMapAnnotation anno) {		
 		this.anno = anno;
 		
 		groups = new ArrayList<>();
