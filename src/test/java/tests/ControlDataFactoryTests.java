@@ -12,8 +12,8 @@ import org.junit.jupiter.api.Test;
 
 import exceptions.InvalidArgumentException;
 import file.annotation.ExistingAnnotation;
-import site_mapper.creators.ControlDataFunctionFactory;
-import site_mapper.creators.ControlDataValues;
+import site_mapper.creators.control_data.ControlDataFunctionFactory;
+import site_mapper.creators.control_data.ControlDataValues;
 import site_mapper.jaxb.pom.Element;
 
 /**

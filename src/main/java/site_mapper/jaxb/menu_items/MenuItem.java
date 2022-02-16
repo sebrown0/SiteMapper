@@ -5,7 +5,6 @@ package site_mapper.jaxb.menu_items;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 import file.helpers.Formatter;
@@ -18,8 +17,6 @@ import jakarta.xml.bind.annotation.XmlRootElement;
 import site_mapper.creators.ComponentWriter;
 import site_mapper.elements.ElementClass;
 import site_mapper.jaxb.containers.Container;
-import site_mapper.jaxb.pom.Element;
-import site_mapper.jaxb.pom.ElementFunction;
 import site_mapper.jaxb.pom.SiteMapInfo;
 import site_mapper.jaxb.pom.Tab;
 

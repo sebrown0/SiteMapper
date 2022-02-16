@@ -1,7 +1,7 @@
 /**
  * 
  */
-package site_mapper.creators;
+package site_mapper.creators.control_data;
 
 import file.annotation.SiteMapAnnotation;
 import file.helpers.Formatter;

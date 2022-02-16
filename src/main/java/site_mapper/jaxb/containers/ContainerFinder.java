@@ -43,8 +43,7 @@ public class ContainerFinder {
 	public Container findContainer(String containerName) {
 		Container ret = setCurrentContainer();
 		boolean found = false;
-//		Container c = currentNode.getCurrentContainer();
-		
+
 		while(found == false && ret != null) {			
 			var name = ret.getName();
 			if(name.equals(containerName)) {				

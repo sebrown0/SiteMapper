@@ -37,6 +37,7 @@ public class Node {
 	public boolean hasAnotherContainer() {
 		return (current < numContainers) ? true : false;
 	}
+	
 	public Container getNextContainer() {
 		Container ret = null;
 		if(hasAnotherContainer()) {			
@@ -45,7 +46,9 @@ public class Node {
 		}
 		return ret;
 	}
+	
 	public Container getCurrentContainer() {
 		return containers.get(current);
 	}
+	
 }

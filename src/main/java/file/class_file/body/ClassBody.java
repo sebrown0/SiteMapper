@@ -15,7 +15,7 @@ import file.method.MethodList;
 import file.variable.ExistingClassVariableMapper;
 import file.variable.Variables;
 import site_mapper.creators.ComponentWriter;
-import site_mapper.creators.ControlDataFunction;
+import site_mapper.creators.control_data.ControlDataFunction;
 import site_mapper.elements.ElementClass;
 import site_mapper.elements.ElementConstructor;
 import site_mapper.jaxb.containers.Container;

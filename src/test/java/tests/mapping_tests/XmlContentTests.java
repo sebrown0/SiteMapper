@@ -6,7 +6,9 @@ package tests.mapping_tests;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.fail;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.junit.jupiter.api.Test;
@@ -14,6 +16,9 @@ import org.junit.jupiter.api.Test;
 import app.SiteMapContentGetter;
 import app.xml_content.PomMapperTest;
 import app.xml_content.XmlContent;
+import site_mapper.jaxb.containers.Container;
+import site_mapper.jaxb.containers.ContainerFinder;
+import site_mapper.jaxb.containers.Node;
 import site_mapper.jaxb.containers.XmlContainer;
 import site_mapper.jaxb.menu_items.MenuItem;
 import site_mapper.jaxb.pom.Element;
@@ -120,6 +125,27 @@ class XmlContentTests {
 		XmlContainer empLookup = header.getContainers().get(0);
 		assertEquals("EmpLookup", empLookup.getName());		
 	}
+	
+	@Test
+	void get_elements_fromEmpLookup() {
+		SiteMapContentGetter<PomMapperApp> contentGetter = new SiteMapContentGetter<>(XML_SOURCE);
+		XmlContent content = contentGetter.getContent(PomMapperApp.class).get();
+		Container header = content.getModules().get(0).getMenus().get(0).getMenuItems().get(0).getHeader();
+		Node rootNode = new Node(null, header);
+		ContainerFinder finder = new ContainerFinder(rootNode);
+		Container current = finder.getNextContainer();
+		final List<String> elementNames = List.of("code","EmpList", "Combos", "GridView", "Documents");
+		if(current != null) {
+			List<Element> elements = current.getElements();
+			elements.forEach(e -> {				
+				assertTrue(elementNames.contains(e.getElementName()));
+			});			
+		}else {
+			fail("Not current container");
+		}
+	}
+	
+	
 //	@Test
 //	void XXXXXXXXXXXXXXX() {
 //		SiteMapContentGetter<PomMapperApp> contentGetter = new SiteMapContentGetter<>(XML_SOURCE);

@@ -9,7 +9,6 @@ import site_mapper.creators.ComponentWriter;
 import site_mapper.jaxb.containers.Container;
 import site_mapper.jaxb.menu_items.MenuItemType;
 import site_mapper.jaxb.menu_items.TypeAttributes;
-import site_mapper.jaxb.pom.ElementFunction;
 import site_mapper.jaxb.pom.SiteMapInfo;
 
 /**
@@ -31,7 +30,6 @@ public interface ElementClass {
 	Container getHeader();
 	Container getBody();
 	Container getFooter();
-//	List<ElementFunction> getElementFunctions();
 	SiteMapInfo getSiteMapInfo();
 	ComponentWriter getComponentWriter();
 	boolean hasControlList();

@@ -7,7 +7,6 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.List;
-import java.util.Optional;
 
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
@@ -104,4 +103,11 @@ class ContainerTests {
 		assertEquals("level_2_B", lvl_2_b.getName());
 	}
 
+	@Test
+	void getNonExistantContainer() {
+		Node rootNode = new Node(null, root);
+		ContainerFinder finder = new ContainerFinder(rootNode);
+		Container none = finder.findContainer("XXXX");
+		assertTrue(none == null);
+	}
 }
