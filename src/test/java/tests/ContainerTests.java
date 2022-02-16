@@ -4,6 +4,7 @@
 package tests;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.List;
 import java.util.Optional;
@@ -66,6 +67,36 @@ class ContainerTests {
 	}
 	
 	@Test
+	void getNextContainer() {
+		Node rootNode = new Node(null, root);
+		Container one = rootNode.getNextContainer();
+		assertEquals(one.getName(), "level_1_A");
+		Container two = rootNode.getNextContainer();
+		assertEquals(two.getName(), "level_1_B");
+		Container none = rootNode.getNextContainer();
+		assertTrue(none == null);
+	}
+	
+	@Test
+	void getNextContainer_from_containerFinder() {
+		Node rootNode = new Node(null, root);
+		ContainerFinder finder = new ContainerFinder(rootNode);
+		
+		Container one = finder.getNextContainer();
+		assertEquals("level_1_A", one.getName());
+		Container two = finder.getNextContainer();
+		assertEquals("level_2_A", two.getName());
+		Container three = finder.getNextContainer();
+		assertEquals("level_1_B", three.getName());
+		Container four = finder.getNextContainer();
+		assertEquals("level_2_B", four.getName());
+		Container five = finder.getNextContainer();
+		assertEquals("level_2_C", five.getName());
+		Container none = finder.getNextContainer();
+		assertTrue(none == null);
+	}
+	
+	@Test
 	void get_empLookupName_from_header() {
 //		Optional<Container> emp = root.getContainer("EmpLookup");
 //		assertEquals("EmpLookup", emp.get().getName());
@@ -73,9 +104,9 @@ class ContainerTests {
 
 	@Test
 	void get_inEmpLookup_from_header() {
-		Node node = new Node(root);
-		ContainerFinder finder = new ContainerFinder(node);
-		finder.getContainer("level_2_C");
+//		Node node = new Node(root);
+//		ContainerFinder finder = new ContainerFinder(node);
+//		finder.getContainer("level_2_C");
 //		Optional<Container> inEmpLookup = root.getContainer("level_2_C");
 //		assertEquals("level_2_C", inEmpLookup.get().getName());
 	}

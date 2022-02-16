@@ -13,13 +13,55 @@ import java.util.Optional;
  */
 public class ContainerFinder {
 	private Node root;
-
+	private Node current;
+	
 	public ContainerFinder(Node root) {
 		this.root = root;
+		this.current = root;
 	}
 	
-	public Optional<Container> getContainer(String contName) {
-		System.out.println("->" + root.getCurrentContainer().getName()); // TODO - remove or log 	
-		return null;
+	public Container getNextContainer() {
+		Container ret = null;
+		
+		if(current.hasAnotherContainer()) {
+			ret = current.getNextContainer();
+			current = new Node(current, ret);
+		}
+		
+		Node prev = current.getPrev();
+		while(ret == null && prev != null) {			
+			if(prev.hasAnotherContainer()) {
+				ret = prev.getNextContainer();
+				current = new Node(current, ret);
+			}else {
+				prev = prev.getPrev();
+			}			
+		}
+		return ret;
 	}
+//	public Container getNextContainer() {
+//		Container ret = null;
+//		
+//		if(current.hasAnotherContainer()) {
+//			ret = current.getNextContainer();
+//			current = new Node(current, ret);
+//		}
+//		
+//		Node prev = current.getPrev();
+//		while(ret == null && prev != null) {			
+//			if(prev == null) {
+//				System.out.println("AT ROOT"); // TODO - remove or log 	
+//				break;
+//			}else {
+//				if(prev.hasAnotherContainer()) {
+//					ret = prev.getNextContainer();
+//					current = new Node(current, ret);
+//				}else {
+//					prev = prev.getPrev();
+//				}
+//			}
+//		}
+//		return ret;
+//	}
+	
 }

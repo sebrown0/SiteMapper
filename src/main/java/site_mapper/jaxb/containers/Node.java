@@ -12,55 +12,38 @@ import java.util.List;
  * @since 1.0
  */
 public class Node {
-	private int currentLevel = 0;
-	private List<Container> containers;
-	private Container currentContainer;
-	private boolean isTheNode = false;
+	private Node prev;
+	private int current = 0;
+	private int numContainers;
+	private List<Container> containers;	
 	
-	public Node(Container root) {
-		this.currentContainer = root;
-		this.containers = root.getContainers();
-//		this.currentContainer = getCurrent();
+	public Node(Node prev, Container container) {
+		this.prev = prev;
+		this.containers = container.getContainers();
+		
+		setNumContainers();
 	}
 
-//	private Container getCurrent() {
-//		if(currentLevel < containers.size()) {
-//			return containers.get(currentLevel);
-//		}
-//		return null;
-//	}
-	
-	public int getCurrentLevel() {
-		return currentLevel;
-	}
-
-	public List<Container> getContainers() {
-		return containers;
-	}
-
-	public Container getCurrentContainer() {
-		return currentContainer;
-	}
-
-	public void setCurrentLevel(int currentLevel) {
-		this.currentLevel = currentLevel;
-	}
-
-	public void setContainers(List<Container> containers) {
-		this.containers = containers;
-	}
-
-	public void setCurrentContainer(Container currentContainer) {
-		this.currentContainer = currentContainer;
-	}
-
-	public boolean isTheNode() {
-		return isTheNode;
-	}
-
-	public void setTheNode(boolean isTheNode) {
-		this.isTheNode = isTheNode;
+	private void setNumContainers() {
+		if(containers != null) {
+			numContainers = containers.size();
+		}
 	}
 	
+	public Node getPrev() {
+		return prev;
+	}
+	
+	public boolean hasAnotherContainer() {
+		return (current < numContainers) ? true : false;
+	}
+	public Container getNextContainer() {
+		Container ret = null;
+		if(hasAnotherContainer()) {			
+			ret = containers.get(current);
+			current++;
+		}
+		return ret;
+	}
 	
 }
