@@ -10,9 +10,11 @@ import org.apache.logging.log4j.LogManager;
 
 import exceptions.InvalidArgumentException;
 import file.annotation.NewAnnotation;
+import site_mapper.creators.control_data.ControlData;
 import site_mapper.creators.control_data.ControlDataFunction;
 import site_mapper.creators.control_data.ControlDataFunctionFactory;
 import site_mapper.creators.control_data.ControlDataValues;
+import site_mapper.creators.control_data.InputGroupData;
 import site_mapper.elements.ElementClass;
 import site_mapper.jaxb.containers.Container;
 import site_mapper.jaxb.containers.ContainerFinder;
@@ -56,6 +58,8 @@ public class ControlBuilder {
 					String type = current.getType();
 					if(type.equalsIgnoreCase("InputGroup")) {
 						System.out.println("Create input group"); // TODO - remove or log 	
+						ControlData grp = new InputGroupData(current);
+						System.out.println("\n" + grp.getValue()); // TODO - remove or log 	
 					}else if(type.equalsIgnoreCase("Row")){
 						System.out.println("Create row"); // TODO - remove or log
 					}

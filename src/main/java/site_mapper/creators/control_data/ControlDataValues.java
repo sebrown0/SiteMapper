@@ -13,7 +13,7 @@ import site_mapper.elements.ElementCreation;
  * 
  * POJO for the values required by ControlDataStringFactory.
  */
-public class ControlDataValues {
+public class ControlDataValues  {
 	private String controlName;
 	private String controlTypeName;
 	private String byValue;
@@ -26,15 +26,19 @@ public class ControlDataValues {
 		this.byType = e.getByLocatorType();
 	}
 	
+	
 	public String getControlName() {
 		return controlName;
 	}
+	
 	public String getControlTypeName() {
 		return controlTypeName;
 	}
+	
 	public String getByValue() {
 		return byValue;
 	}
+	
 	public String getByType() {
 		return byType;
 	}
