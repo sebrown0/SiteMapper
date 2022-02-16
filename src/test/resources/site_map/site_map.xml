@@ -87,9 +87,20 @@
             </Container>
             
           </HeaderElements>
-          
-          <BodyElements></BodyElements>                    
-          
+      <!--     
+          <BodyElements>
+            <Container type="Tabs" name="Tabs">
+              <Locator by="css" text="ul[class='nav nav-tabs']"/>
+              <Container type="Tab" name="BasicDetails">
+                <Locator by="css" text="a[id='tab-tab1']"/>
+                <Element>
+                  <Details type="input" name="IdCardNo"/>
+                  <Locator by="css" text="input[id='FORM_ID']"/>              
+                </Element>
+              </Container>  
+            </Container>     
+          </BodyElements>                    
+           -->
           <FooterElements>
             <Container type="row" name="FooterButtons">
               <!-- rows have no locator -->

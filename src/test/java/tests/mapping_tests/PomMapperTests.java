@@ -90,7 +90,6 @@ class PomMapperTests {
 			cf -> {
 				assertEquals(
 					FILE_BUILDER.CLASS_RESULT_WITH_TEST_METHODS_AND_PACKAGE_RESULT_FOR_MAPPED_CLASSES(),
-
 					cf.toString());
 			},
 			new Runnable() {					

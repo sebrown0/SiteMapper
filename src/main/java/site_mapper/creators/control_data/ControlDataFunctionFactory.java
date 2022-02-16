@@ -5,7 +5,6 @@ package site_mapper.creators.control_data;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 import exceptions.InvalidArgumentException;
 import file.annotation.SiteMapAnnotation;
@@ -85,51 +84,5 @@ public class ControlDataFunctionFactory {
 			func += "\n\t\t\t\t" + cntrlString;
 		}		
 	}
-
-	/**
-	 * @param controlTypeName
-	 * 	button, text box etc
-	 * @param byValue
-	 * 	the value to be used to find the element in the DOM, 'By'.
-	 * @param byType
-	 * 	the type of 'By', i.e. CSS, XPATH or ID.
-	 * @return: 
-	 * 	a string to create a ControlData object
-	 * @throws InvalidArgumentException 
-	 * 
-	 * This is a public method only because we want to test it in isolation.
-	 */
-//	public static Optional<String> getControlData(ControlDataValues values)	throws InvalidArgumentException {		
-//		String cd = null;
-//		Optional<String> actualType = Optional.ofNullable(ByLocatorTypeFactory.getByType(values.getByType()));
-//		Optional<String> controlTypeName = Optional.ofNullable(values.getControlTypeName());
-//		if(actualType.isPresent()) {
-//			if(controlTypeName.isPresent()) {
-//				cd = switch (controlTypeName.get()) {
-//					case "button" -> getControlDataStr(values.getControlName(), "ControlGetterButton", values.getByValue(), actualType.get());
-//					case "text_out" -> getControlDataStr(values.getControlName(), "ControlGetterTextOut", values.getByValue(), actualType.get());
-//					default -> throw new InvalidArgumentException("[" + values.getControlTypeName() + "] is not a valid control type name.");
-//				};	
-//			}else {
-//				throw new InvalidArgumentException("[" + values.getControlTypeName() + "] is not a valid control type name.");
-//			}
-//		}else {
-//			throw new InvalidArgumentException("[" + values.getByType() + "] is not a valid By type name.");
-//		}					
-//		return Optional.ofNullable(cd);
-//	}
-
-//	private static String getControlDataStr(
-//			String controlName, String controlGetter, String byValue, String byActualType) {
-//		//new ControlData("group_1", new ControlGetterInputGroup(coreData, grp)),
-//		String str = 
-//				"new ControlData(" + 
-//				"\"" + controlName + "\", new " +
-//				controlGetter + "(coreData, " +
-//				byActualType +"(\"" +
-//				byValue;
-//
-//		return str += "\")))";
-//	}
 
 }
