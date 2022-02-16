@@ -20,7 +20,9 @@ public interface TestElement {
 	TestElement setTestMenuName(String str);
 	TestElement setTestClassName(String str);
 	TestElement setTestItemType(MenuItemType menuItemType);
-	TestElement setElements(Container elements);
+	TestElement setHeaderContainer(Container cont);
+	TestElement setBodyContainer(Container cont);
+	TestElement setFooterContainer(Container cont);
 	TestElement setSiteMapInfo(SiteMapInfo info);
 	TestElement setTypeAttributes (TypeAttributes getTypeAttributes);
 	TestElement setName(String str); 

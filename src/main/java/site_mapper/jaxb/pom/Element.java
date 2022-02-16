@@ -51,7 +51,7 @@ public class Element implements ElementCreation {
 		return this;
 	}
 	public Element setLocator(String locator) {
-		if(locator == null) this.locator = new Locator();
+		if(this.locator == null) this.locator = new Locator();
 		this.locator.setLocator(locator);
 		return this;
 	}

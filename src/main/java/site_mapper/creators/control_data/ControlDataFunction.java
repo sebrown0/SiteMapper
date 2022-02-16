@@ -24,9 +24,9 @@ public class ControlDataFunction {
 	public SiteMapAnnotation getAnnotation() {
 		return annotation;
 	}
-	public String getFuncStr() {
-		return funcStr;
-	}
+//	public String getFuncStr() {
+//		return funcStr;
+//	}
 	
 	@Override
 	public String toString() {		

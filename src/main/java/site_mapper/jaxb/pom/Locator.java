@@ -22,11 +22,13 @@ public class Locator {
 	@XmlAttribute(name="text")
 	private String locator;	
 	
-	public void setBy(String by) {
+	public Locator setBy(String by) {
 		this.by = by;
+		return this;
 	}
-	public void setLocator(String locator) {
+	public Locator setLocator(String locator) {
 		this.locator = locator;
+		return this;
 	}
 	public String getBy() {
 		return by;

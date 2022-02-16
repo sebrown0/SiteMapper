@@ -40,14 +40,17 @@ public abstract class GroupData implements ControlData {
 	
 	private void setElements() {
 		List<Element> elements = cont.getElements();
-		elements.forEach(e -> {
-			addElement(e);
-		});
+		if(elements != null) {
+			elements.forEach(e -> {
+				addElement(e);
+			});	
+		}
+		
 	}
 	
 	private void addElement(Element e) {
 		String s = 
-				String.format("\n\t\t\t.addElement(\"%s\", %s(%s)\"))", 
+				String.format("\n\t\t\t.addElement(\"%s\", %s(%s))", 
 				e.getElementName(), 
 				ByLocatorTypeFactory.getByType(e.getByLocatorType()),
 				e.getByLocatorValue());
@@ -56,7 +59,7 @@ public abstract class GroupData implements ControlData {
 	
 	@Override
 	public String getValue() {		
-		return grp + ";\n\n\n";
+		return grp + ";";
 	}	
 
 }

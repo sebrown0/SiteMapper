@@ -58,9 +58,6 @@ public class ControlDataFunctionFactory {
 			for (ControlData v : values) {
 				numControls--;
 				addControlToFunction(v.getControlDataValue());
-//				getControlData(v).ifPresent(s -> {
-//					addControlToFunction(s);
-//				});
 			}			
 			func += "\n\t\t\t);\n\t\tsuper.buildPanelControls(myControls);\n\t}";		
 		}else {
@@ -72,28 +69,6 @@ public class ControlDataFunctionFactory {
 	private boolean thereAreControls() {
 		return true;
 	}
-//	public ControlDataFunction getFunctionBuildMyControls() throws InvalidArgumentException {
-//		if(values != null && values.size() > 0) {
-//			numControls = values.size();		
-//			func = 
-//				"\tprivate void buildMyControls() {\n" +
-//				getGroups() +
-//				"\t\tvar myControls =\n" +
-//				"\t\t\tList.of(";
-//		
-//			for (ControlData v : values) {
-//				numControls--;
-//				addControlToFunction(v.getValue());
-////				getControlData(v).ifPresent(s -> {
-////					addControlToFunction(s);
-////				});
-//			}			
-//			func += "\n\t\t\t);\n\t\tsuper.buildPanelControls(myControls);\n\t}";		
-//		}else {
-//			func = "\t\tprivate void buildMyControls() {}";
-//		}	
-//		return new ControlDataFunction(anno, func);
-//	}
 	
 	private String getGroups() {
 		String ret = "";
@@ -124,52 +99,37 @@ public class ControlDataFunctionFactory {
 	 * 
 	 * This is a public method only because we want to test it in isolation.
 	 */
-	public static Optional<String> getControlData(ControlDataValues values)	throws InvalidArgumentException {		
-		String cd = null;
-		Optional<String> actualType = checkByType(values.getByType());
-		Optional<String> controlTypeName = Optional.ofNullable(values.getControlTypeName());
-		if(actualType.isPresent()) {
-			if(controlTypeName.isPresent()) {
-				cd = switch (controlTypeName.get()) {
-				//new ControlData("group_1", new ControlGetterInputGroup(coreData, grp)),
-					case "button" -> getControlDataStr(values.getControlName(), "ControlGetterButton", values.getByValue(), actualType.get());
-					case "text_out" -> getControlDataStr(values.getControlName(), "ControlGetterTextOut", values.getByValue(), actualType.get());
-					default -> throw new InvalidArgumentException("[" + values.getControlTypeName() + "] is not a valid control type name.");
-				};	
-			}else {
-				throw new InvalidArgumentException("[" + values.getControlTypeName() + "] is not a valid control type name.");
-			}
-		}else {
-			throw new InvalidArgumentException("[" + values.getByType() + "] is not a valid By type name.");
-		}					
-		return Optional.ofNullable(cd);
-	}
+//	public static Optional<String> getControlData(ControlDataValues values)	throws InvalidArgumentException {		
+//		String cd = null;
+//		Optional<String> actualType = Optional.ofNullable(ByLocatorTypeFactory.getByType(values.getByType()));
+//		Optional<String> controlTypeName = Optional.ofNullable(values.getControlTypeName());
+//		if(actualType.isPresent()) {
+//			if(controlTypeName.isPresent()) {
+//				cd = switch (controlTypeName.get()) {
+//					case "button" -> getControlDataStr(values.getControlName(), "ControlGetterButton", values.getByValue(), actualType.get());
+//					case "text_out" -> getControlDataStr(values.getControlName(), "ControlGetterTextOut", values.getByValue(), actualType.get());
+//					default -> throw new InvalidArgumentException("[" + values.getControlTypeName() + "] is not a valid control type name.");
+//				};	
+//			}else {
+//				throw new InvalidArgumentException("[" + values.getControlTypeName() + "] is not a valid control type name.");
+//			}
+//		}else {
+//			throw new InvalidArgumentException("[" + values.getByType() + "] is not a valid By type name.");
+//		}					
+//		return Optional.ofNullable(cd);
+//	}
 
-	private static Optional<String> checkByType(String byType) {
-		String ret = null;
-		if(byType != null) {
-			if(byType.equalsIgnoreCase("CSS")) {
-				ret = "By.cssSelector";
-			}else if(byType.equalsIgnoreCase("XPATH")){
-				ret = "By.xpath";
-			}else if(byType.equalsIgnoreCase("ID") ) {
-				ret = "By.id";
-			}	
-		}		
-		return Optional.ofNullable(ret);
-	}
-
-	private static String getControlDataStr(
-			String controlName, String controlGetter, String byValue, String byActualType) {
-		//new ControlData("group_1", new ControlGetterInputGroup(coreData, grp)),
-		String str = 
-				"new ControlData(" + 
-				"\"" + controlName + "\", new " +
-				controlGetter + "(coreData, " +
-				byActualType +"(\"" +
-				byValue;
-
-		return str += "\")))";
-	}
+//	private static String getControlDataStr(
+//			String controlName, String controlGetter, String byValue, String byActualType) {
+//		//new ControlData("group_1", new ControlGetterInputGroup(coreData, grp)),
+//		String str = 
+//				"new ControlData(" + 
+//				"\"" + controlName + "\", new " +
+//				controlGetter + "(coreData, " +
+//				byActualType +"(\"" +
+//				byValue;
+//
+//		return str += "\")))";
+//	}
 
 }

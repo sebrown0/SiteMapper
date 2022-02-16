@@ -174,8 +174,18 @@ public class MenuItem implements ElementClass, TestElement {
 		return this;
 	}
 	@Override //TestElement
-	public TestElement setElements(Container elements) {
-		this.headerContainer = elements;
+	public TestElement setHeaderContainer(Container cont) {
+		this.headerContainer = cont;
+		return this;
+	}
+	@Override //TestElement
+	public TestElement setBodyContainer(Container cont) {
+		this.bodyContainer = cont;
+		return this;
+	}
+	@Override //TestElement
+	public TestElement setFooterContainer(Container cont) {
+		this.bodyContainer = cont;
 		return this;
 	}
 	@Override //TestElement
