@@ -45,5 +45,7 @@ public class Node {
 		}
 		return ret;
 	}
-	
+	public Container getCurrentContainer() {
+		return containers.get(current);
+	}
 }

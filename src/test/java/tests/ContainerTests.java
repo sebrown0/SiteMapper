@@ -97,17 +97,11 @@ class ContainerTests {
 	}
 	
 	@Test
-	void get_empLookupName_from_header() {
-//		Optional<Container> emp = root.getContainer("EmpLookup");
-//		assertEquals("EmpLookup", emp.get().getName());
+	void getContainerLevel_2_B() {
+		Node rootNode = new Node(null, root);
+		ContainerFinder finder = new ContainerFinder(rootNode);
+		Container lvl_2_b = finder.findContainer("level_2_B");
+		assertEquals("level_2_B", lvl_2_b.getName());
 	}
 
-	@Test
-	void get_inEmpLookup_from_header() {
-//		Node node = new Node(root);
-//		ContainerFinder finder = new ContainerFinder(node);
-//		finder.getContainer("level_2_C");
-//		Optional<Container> inEmpLookup = root.getContainer("level_2_C");
-//		assertEquals("level_2_C", inEmpLookup.get().getName());
-	}
 }

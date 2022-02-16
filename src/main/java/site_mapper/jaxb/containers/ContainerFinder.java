@@ -3,65 +3,58 @@
  */
 package site_mapper.jaxb.containers;
 
-import java.util.Optional;
-
 /**
  * @author SteveBrown
  * @version 1.0
  * 	Initial
  * @since 1.0
  */
-public class ContainerFinder {
-	private Node root;
-	private Node current;
+public class ContainerFinder {	
+	private Node currentNode;
 	
-	public ContainerFinder(Node root) {
-		this.root = root;
-		this.current = root;
+	public ContainerFinder(Node root) {		
+		this.currentNode = root;
 	}
 	
 	public Container getNextContainer() {
-		Container ret = null;
-		
-		if(current.hasAnotherContainer()) {
-			ret = current.getNextContainer();
-			current = new Node(current, ret);
-		}
-		
-		Node prev = current.getPrev();
+		Node prev = currentNode.getPrev();
+		Container ret = setCurrentContainer();
+				
 		while(ret == null && prev != null) {			
 			if(prev.hasAnotherContainer()) {
 				ret = prev.getNextContainer();
-				current = new Node(current, ret);
+				currentNode = new Node(currentNode, ret);
 			}else {
 				prev = prev.getPrev();
 			}			
 		}
 		return ret;
 	}
-//	public Container getNextContainer() {
-//		Container ret = null;
-//		
-//		if(current.hasAnotherContainer()) {
-//			ret = current.getNextContainer();
-//			current = new Node(current, ret);
-//		}
-//		
-//		Node prev = current.getPrev();
-//		while(ret == null && prev != null) {			
-//			if(prev == null) {
-//				System.out.println("AT ROOT"); // TODO - remove or log 	
-//				break;
-//			}else {
-//				if(prev.hasAnotherContainer()) {
-//					ret = prev.getNextContainer();
-//					current = new Node(current, ret);
-//				}else {
-//					prev = prev.getPrev();
-//				}
-//			}
-//		}
-//		return ret;
-//	}
+
+	private Container setCurrentContainer() {
+		Container ret = null;
+		if(currentNode.hasAnotherContainer()) {
+			ret = currentNode.getNextContainer();
+			currentNode = new Node(currentNode, ret);
+		}
+		return ret;
+	}
+	
+	public Container findContainer(String containerName) {
+		Container ret = setCurrentContainer();
+		boolean found = false;
+//		Container c = currentNode.getCurrentContainer();
+		
+		while(found == false && ret != null) {			
+			var name = ret.getName();
+			if(name.equals(containerName)) {				
+				found = true;
+			}else {
+				ret = getNextContainer();
+			}
+			
+		}
+		return ret;
+	}
 	
 }
