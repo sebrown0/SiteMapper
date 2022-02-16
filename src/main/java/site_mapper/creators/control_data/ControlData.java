@@ -11,4 +11,5 @@ package site_mapper.creators.control_data;
  */
 public interface ControlData {
 	String getValue();
+	String getControlDataValue();
 }

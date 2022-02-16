@@ -14,7 +14,8 @@ import site_mapper.creators.control_data.ControlData;
 import site_mapper.creators.control_data.ControlDataFunction;
 import site_mapper.creators.control_data.ControlDataFunctionFactory;
 import site_mapper.creators.control_data.ControlDataValues;
-import site_mapper.creators.control_data.InputGroupData;
+import site_mapper.creators.control_data.GroupDataInput;
+import site_mapper.creators.control_data.GroupDataRow;
 import site_mapper.elements.ElementClass;
 import site_mapper.jaxb.containers.Container;
 import site_mapper.jaxb.containers.ContainerFinder;
@@ -36,7 +37,8 @@ public class ControlBuilder {
 	private ControlDataFunctionFactory fact;
 	private ElementClass clazz;
 	
-	List<ControlDataValues> vals = new ArrayList<>();
+//	List<ControlDataValues> vals = new ArrayList<>();
+	List<ControlData> allControlData;
 	
 	public ControlBuilder(ElementClass clazz) {
 		this.clazz = clazz;		
@@ -48,42 +50,46 @@ public class ControlBuilder {
 		List<Container> containers = clazz.getAllContainers();
 		
 		if(containers != null) {
+			allControlData = new ArrayList<>();
+			fact = new ControlDataFunctionFactory(annotation);
+			
 			containers.forEach(cont -> {
 				final Node PREV = null;
 				Node rootNode = new Node(PREV, cont);
 				ContainerFinder finder = new ContainerFinder(rootNode);
 				Container current = finder.getNextContainer();
 				while(current != null) {
-					System.out.println(current.getName() + " - " + current.getType()); // TODO - remove or log
 					String type = current.getType();
-					if(type.equalsIgnoreCase("InputGroup")) {
-						System.out.println("Create input group"); // TODO - remove or log 	
-						ControlData grp = new InputGroupData(current);
-						System.out.println("\n" + grp.getValue()); // TODO - remove or log 	
+					if(type.equalsIgnoreCase("InputGroup")) { 	
+						ControlData grp = new GroupDataInput(current);
+						fact.addGroup(grp); 	
 					}else if(type.equalsIgnoreCase("Row")){
-						System.out.println("Create row"); // TODO - remove or log
+						ControlData row = new GroupDataRow(current);
+						fact.addGroup(row);
 					}
 					
-					List<Element> elements = current.getElements();
-					elements.forEach(e -> { 
-						System.out.println("  " + e.getElementName());
-						vals.add(new ControlDataValues(e));
-					});
 					current = finder.getNextContainer();
 				}
 			});	
 		}
 		
-		if(vals != null) {							
-			fact = new ControlDataFunctionFactory(vals, annotation);
-			try {
-				func = fact.getFunctionBuildMyControls();
-			} catch (InvalidArgumentException e1) {
-				LogManager
-					.getLogger(this.getClass())
-						.error("Error creating control data function [" + e1 + "]");
-			} 
+		try {
+			func = fact.getFunctionBuildMyControls();
+		} catch (InvalidArgumentException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
+		
+		
+//		if(allControlData.size() > 0) {
+//			try {
+//				func = fact.getFunctionBuildMyControls();
+//			} catch (InvalidArgumentException e1) {
+//				LogManager
+//					.getLogger(this.getClass())
+//						.error("Error creating control data function [" + e1 + "]");
+//			} 
+//		}
 		/*
 		 * here we have to get the containers
 		 */

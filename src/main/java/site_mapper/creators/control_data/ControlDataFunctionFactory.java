@@ -3,6 +3,7 @@
  */
 package site_mapper.creators.control_data;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -24,29 +25,42 @@ import file.annotation.SiteMapAnnotation;
  * 
  */
 public class ControlDataFunctionFactory {
-	private List<ControlDataValues> values;
+	private List<ControlData> groups;
+	private List<ControlData> values;
 	private String func = "";
 	private int numControls;
 	private SiteMapAnnotation anno;
 	
-	public ControlDataFunctionFactory(List<ControlDataValues> values, SiteMapAnnotation anno) {
-		this.values = values;
+	public ControlDataFunctionFactory(SiteMapAnnotation anno) {		
 		this.anno = anno;
+		
+		groups = new ArrayList<>();
+		values = new ArrayList<>();
 	}
 	
+	public void addGroup(ControlData grp) {
+		groups.add(grp);
+		values.add(grp);
+	}
+	public void addVal(ControlData val) {
+		groups.add(val);
+	}
+
 	public ControlDataFunction getFunctionBuildMyControls() throws InvalidArgumentException {
-		if(values != null && values.size() > 0) {
+		if(thereAreControls()) {
 			numControls = values.size();		
 			func = 
 				"\tprivate void buildMyControls() {\n" +
+				getGroups() +
 				"\t\tvar myControls =\n" +
 				"\t\t\tList.of(";
 		
-			for (ControlDataValues v : values) {
+			for (ControlData v : values) {
 				numControls--;
-				getControlData(v).ifPresent(s -> {
-					addControlToFunction(s);
-				});
+				addControlToFunction(v.getControlDataValue());
+//				getControlData(v).ifPresent(s -> {
+//					addControlToFunction(s);
+//				});
 			}			
 			func += "\n\t\t\t);\n\t\tsuper.buildPanelControls(myControls);\n\t}";		
 		}else {
@@ -54,6 +68,41 @@ public class ControlDataFunctionFactory {
 		}	
 		return new ControlDataFunction(anno, func);
 	}
+	
+	private boolean thereAreControls() {
+		return true;
+	}
+//	public ControlDataFunction getFunctionBuildMyControls() throws InvalidArgumentException {
+//		if(values != null && values.size() > 0) {
+//			numControls = values.size();		
+//			func = 
+//				"\tprivate void buildMyControls() {\n" +
+//				getGroups() +
+//				"\t\tvar myControls =\n" +
+//				"\t\t\tList.of(";
+//		
+//			for (ControlData v : values) {
+//				numControls--;
+//				addControlToFunction(v.getValue());
+////				getControlData(v).ifPresent(s -> {
+////					addControlToFunction(s);
+////				});
+//			}			
+//			func += "\n\t\t\t);\n\t\tsuper.buildPanelControls(myControls);\n\t}";		
+//		}else {
+//			func = "\t\tprivate void buildMyControls() {}";
+//		}	
+//		return new ControlDataFunction(anno, func);
+//	}
+	
+	private String getGroups() {
+		String ret = "";
+		for (ControlData d : groups) {
+			ret += d.getValue();
+		}		
+		return (ret.length() > 0) ? ret += "\n" : ret;
+	}
+	
 	private void addControlToFunction(String cntrlString) {
 		if(numControls > 0) {
 			func += "\n\t\t\t\t" + cntrlString + ",";	
@@ -82,6 +131,7 @@ public class ControlDataFunctionFactory {
 		if(actualType.isPresent()) {
 			if(controlTypeName.isPresent()) {
 				cd = switch (controlTypeName.get()) {
+				//new ControlData("group_1", new ControlGetterInputGroup(coreData, grp)),
 					case "button" -> getControlDataStr(values.getControlName(), "ControlGetterButton", values.getByValue(), actualType.get());
 					case "text_out" -> getControlDataStr(values.getControlName(), "ControlGetterTextOut", values.getByValue(), actualType.get());
 					default -> throw new InvalidArgumentException("[" + values.getControlTypeName() + "] is not a valid control type name.");
@@ -111,7 +161,7 @@ public class ControlDataFunctionFactory {
 
 	private static String getControlDataStr(
 			String controlName, String controlGetter, String byValue, String byActualType) {
-		
+		//new ControlData("group_1", new ControlGetterInputGroup(coreData, grp)),
 		String str = 
 				"new ControlData(" + 
 				"\"" + controlName + "\", new " +

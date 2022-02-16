@@ -14,29 +14,29 @@ import site_mapper.jaxb.pom.Element;
  * 	Initial
  * @since 1.0
  */
-public class InputGroupData implements ControlData {
-	private Container cont;
-	private String name;
-	private String grp;
+public abstract class GroupData implements ControlData {
+	protected String name;
+	protected String varName;
+	protected String grp;
 	
-	public InputGroupData(Container cont) {
+	private Container cont;	
+	
+	public GroupData(Container cont) {
 		if(cont != null) {
 			this.cont = cont;
 			setName(cont.getName());
+			setVarName();
 			setInitialData();
 			setElements();
 		}		
 	}
 
 	private void setName(String grpName) {
-		name = grpName;
+		name = grpName;		
 	}
-	private void setInitialData() {
-		grp = String.format(
-				"InputGroup grp%s = " +
-				"new InputGroup(coreData, By.cssSelector(\"div[class='input-group']\"));\n\tgrp%s", 
-				name, name);				
-	}
+	
+	protected abstract void setInitialData();
+	protected abstract void setVarName();
 	
 	private void setElements() {
 		List<Element> elements = cont.getElements();
@@ -47,7 +47,7 @@ public class InputGroupData implements ControlData {
 	
 	private void addElement(Element e) {
 		String s = 
-				String.format("\n\t\t.addElement(\"%s\", By.cssSelector(\"%s(%s)\"))", 
+				String.format("\n\t\t\t.addElement(\"%s\", %s(%s)\"))", 
 				e.getElementName(), 
 				ByLocatorTypeFactory.getByType(e.getByLocatorType()),
 				e.getByLocatorValue());
@@ -56,7 +56,7 @@ public class InputGroupData implements ControlData {
 	
 	@Override
 	public String getValue() {		
-		return grp + ";";
+		return grp + ";\n\n\n";
 	}	
 
 }
