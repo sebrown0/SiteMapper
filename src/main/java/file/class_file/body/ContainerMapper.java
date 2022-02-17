@@ -9,6 +9,7 @@ import site_mapper.creators.control_data.ControlData;
 import site_mapper.creators.control_data.ControlDataFunctionBuilder;
 import site_mapper.creators.control_data.GroupDataInput;
 import site_mapper.creators.control_data.GroupDataRow;
+import site_mapper.creators.control_data.GroupDataTab;
 import site_mapper.creators.control_data.GroupDataTabs;
 import site_mapper.jaxb.containers.Container;
 import site_mapper.jaxb.containers.ContainerFinder;
@@ -34,6 +35,7 @@ public class ContainerMapper {
 			});	
 		}
 	}	
+	
 	private void getAllForCurrentContainer(Container cont) {
 		ContainerFinder finder = new ContainerFinder(new Node(null, cont));
 		Container current = finder.getNextContainer();
@@ -42,13 +44,17 @@ public class ContainerMapper {
 			current = finder.getNextContainer();
 		}
 	}
+	
 	private void getControlDataForType(String type, Container current) {
 		if(type.equalsIgnoreCase("InputGroup")) { 	
 			ControlData grp = new GroupDataInput(current);
 			funcBuilder.addGroup(grp); 	
 		}else if(type.equalsIgnoreCase("Tabs")){
-			ControlData tabs = new GroupDataTabs(current);
+			ControlData tabs = new GroupDataTabs(current, funcBuilder).getTabs();
 			funcBuilder.addGroup(tabs); 	
+		}else if(type.equalsIgnoreCase("Tab")){
+			ControlData tab = new GroupDataTab(current);
+			funcBuilder.addGroup(tab);
 		}else if(type.equalsIgnoreCase("Row")){
 			ControlData row = new GroupDataRow(current);
 			funcBuilder.addGroup(row);

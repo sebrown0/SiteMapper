@@ -87,7 +87,7 @@
             </Container>
             
           </HeaderElements>
-      <!--     
+       
           <BodyElements>
             <Container type="Tabs" name="Tabs">
               <Locator by="css" text="ul[class='nav nav-tabs']"/>
@@ -100,7 +100,7 @@
               </Container>  
             </Container>     
           </BodyElements>                    
-           -->
+      <!--         -->
           <FooterElements>
             <Container type="row" name="FooterButtons">
               <!-- rows have no locator -->
