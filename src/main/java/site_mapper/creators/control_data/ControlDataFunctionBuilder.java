@@ -38,8 +38,10 @@ public class ControlDataFunctionBuilder {
 	}
 	
 	public void addGroup(ControlData grp) {
-		groups.add(grp);
-		values.add(grp);
+		if(grp != null) {
+			groups.add(grp);
+			values.add(grp);	
+		}		
 	}
 	public void addVal(ControlData val) {
 		groups.add(val);
@@ -72,7 +74,7 @@ public class ControlDataFunctionBuilder {
 	private String getGroups() {
 		String ret = "";
 		for (ControlData d : groups) {
-			ret += d.getValue();
+			ret += d.getValue() + "\n";
 		}		
 		return (ret.length() > 0) ? ret += "\n" : ret;
 	}

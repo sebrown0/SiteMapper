@@ -17,6 +17,12 @@ public class Node {
 	private int numContainers;
 	private List<Container> containers;	
 	
+	public Node(Container container) {
+		this.prev = null;
+		this.containers = container.getContainers();
+		
+		setNumContainers();
+	}
 	public Node(Node prev, Container container) {
 		this.prev = prev;
 		this.containers = container.getContainers();

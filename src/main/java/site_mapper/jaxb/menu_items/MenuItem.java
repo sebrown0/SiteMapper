@@ -12,13 +12,11 @@ import jakarta.xml.bind.annotation.XmlAccessType;
 import jakarta.xml.bind.annotation.XmlAccessorType;
 import jakarta.xml.bind.annotation.XmlAttribute;
 import jakarta.xml.bind.annotation.XmlElement;
-import jakarta.xml.bind.annotation.XmlElementWrapper;
 import jakarta.xml.bind.annotation.XmlRootElement;
 import site_mapper.creators.ComponentWriter;
 import site_mapper.elements.ElementClass;
 import site_mapper.jaxb.containers.Container;
 import site_mapper.jaxb.pom.SiteMapInfo;
-import site_mapper.jaxb.pom.Tab;
 
 /**
  * @author SteveBrown
@@ -45,9 +43,9 @@ public class MenuItem implements ElementClass, TestElement {
 	@XmlElement(name="Type")
 	private MenuItemType menuItemType;
 	
-	@XmlElementWrapper(name="Tabs")
-	@XmlElement(name="Tab")
-	private List<Tab> tabs;	
+//	@XmlElementWrapper(name="Tabs")
+//	@XmlElement(name="Tab")
+//	private List<Tab> tabs;	
 	@XmlElement(name="HeaderElements")
 	private Container headerContainer;	
 	@XmlElement(name="BodyElements")
@@ -204,21 +202,21 @@ public class MenuItem implements ElementClass, TestElement {
 		return this;
 	}
 	
-	public Tab getTab(String tabName) {
-		Tab res = null;
-		for (Tab t : tabs) {
-			if(t.getName().equalsIgnoreCase(tabName)) {
-				res = t;
-				break;
-			}
-		}
-		return res;
-	}
+//	public Tab getTab(String tabName) {
+//		Tab res = null;
+//		for (Tab t : tabs) {
+//			if(t.getName().equalsIgnoreCase(tabName)) {
+//				res = t;
+//				break;
+//			}
+//		}
+//		return res;
+//	}
 	@Override
 	public String toString() {
 		return String.format(
-				"MenuItem [name=%s, packageName=%s, className=%s, menuItemType=%s, tabs=%s, headerElements=%s, bodyElements=%s, footerElements=%s, menuPackageName=%s, moduleName=%s, siteMapInfo=%s]",
-				name, packageName, className, menuItemType, tabs, headerContainer, bodyContainer, footerContainer, menuPackageName,
+				"MenuItem [name=%s, packageName=%s, className=%s, menuItemType=%s, headerElements=%s, bodyElements=%s, footerElements=%s, menuPackageName=%s, moduleName=%s, siteMapInfo=%s]",
+				name, packageName, className, menuItemType, headerContainer, bodyContainer, footerContainer, menuPackageName,
 				moduleName, siteMapInfo);
 	}
 	

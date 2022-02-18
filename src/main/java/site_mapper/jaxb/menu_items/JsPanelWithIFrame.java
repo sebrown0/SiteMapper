@@ -35,6 +35,7 @@ public class JsPanelWithIFrame extends TypeAttributes {
 	public String getExtends() {
 		return "JsPanelWithIFrame";
 	}
+	
 	@Override //TypeAttributes
 	public ComponentWriter getComponentWriter() {
 		return new ComponentWriterJsPanelWithIFrame();

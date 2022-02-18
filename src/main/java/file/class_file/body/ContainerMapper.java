@@ -5,12 +5,8 @@ package file.class_file.body;
 
 import java.util.List;
 
-import site_mapper.creators.control_data.ControlData;
 import site_mapper.creators.control_data.ControlDataFunctionBuilder;
-import site_mapper.creators.control_data.GroupDataInput;
-import site_mapper.creators.control_data.GroupDataRow;
-import site_mapper.creators.control_data.GroupDataTab;
-import site_mapper.creators.control_data.GroupDataTabs;
+import site_mapper.creators.control_data.GroupData;
 import site_mapper.jaxb.containers.Container;
 import site_mapper.jaxb.containers.ContainerFinder;
 import site_mapper.jaxb.containers.Node;
@@ -37,27 +33,63 @@ public class ContainerMapper {
 	}	
 	
 	private void getAllForCurrentContainer(Container cont) {
-		ContainerFinder finder = new ContainerFinder(new Node(null, cont));
+		ContainerFinder finder = new ContainerFinder(new Node(cont));
 		Container current = finder.getNextContainer();
-		while(current != null) {
-			getControlDataForType(current.getType(), current);			
+		GroupData grpCurrent = null;
+		GroupData grpParent = null;
+		int numChild = 0;
+		
+		while(isValidContainer(current)) {
+						
+			if(current.getContainers() != null) {				
+				grpParent = new GroupData(current);				
+				funcBuilder.addGroup(grpParent);
+				numChild = current.getContainers().size();
+			}else {				
+				grpCurrent = new GroupData(current);
+				grpCurrent.setElements();
+				funcBuilder.addGroup(grpCurrent);			
+			}
+			
+			if(grpParent != null && grpCurrent != null) {
+				System.out.println(grpParent.getName() + " is parent"); // TODO - remove or log
+				System.out.println("  "  + grpCurrent.getName()); // TODO - remove or log
+				grpParent.addElement(grpCurrent.getName());
+				numChild--;
+				if(numChild <= 0) {
+					grpParent = null;
+					numChild = 0;
+				}				
+			}
+			
+			
+//			funcBuilder.addGroup(grpCurrent);				
 			current = finder.getNextContainer();
 		}
 	}
 	
-	private void getControlDataForType(String type, Container current) {
-		if(type.equalsIgnoreCase("InputGroup")) { 	
-			ControlData grp = new GroupDataInput(current);
-			funcBuilder.addGroup(grp); 	
-		}else if(type.equalsIgnoreCase("Tabs")){
-			ControlData tabs = new GroupDataTabs(current, funcBuilder).getTabs();
-			funcBuilder.addGroup(tabs); 	
-		}else if(type.equalsIgnoreCase("Tab")){
-			ControlData tab = new GroupDataTab(current);
-			funcBuilder.addGroup(tab);
-		}else if(type.equalsIgnoreCase("Row")){
-			ControlData row = new GroupDataRow(current);
-			funcBuilder.addGroup(row);
-		}
-	}	
+//	private void getAllForCurrentContainer(Container cont) {
+//		ContainerFinder finder = new ContainerFinder(new Node(cont));
+//		Container current = finder.getNextContainer();
+//		GroupData grpCurrent, grpLast = null;
+//		
+//		while(isValidContainer(current)) {
+//			
+//			grpCurrent = new GroupData(current);
+//			funcBuilder.addGroup(grpCurrent);				
+//			current = finder.getNextContainer();
+//			
+//			if(grpLast != null) {
+//				grpLast.addElements(grpCurrent.getAddToArrays());
+//			}
+//			
+//			
+//			grpLast = grpCurrent;
+//		}
+//	}
+	
+	private boolean isValidContainer(Container cont) {
+		return (cont != null && cont.getName() != null) ? true : false;
+	}
+
 }

@@ -74,8 +74,7 @@ public class Formatter {
 	}
 	public static String trimValueOf(String value) {
 		return (value != null) ? value.trim() : null;
-	}
-	
+	}	
 	public static String getValuePair(String value, String valueTag) {
 		return (value != null) ? valueTag + "=\"" + value + "\"" : "";
 	}

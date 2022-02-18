@@ -98,6 +98,13 @@
                   <Locator by="css" text="input[id='FORM_ID']"/>              
                 </Element>
               </Container>  
+              <Container type="Tab" name="XXXX_A_TAB_XXXX">
+                <Locator by="css" text="a[id='tab-tab1']"/>
+                <Element>
+                  <Details type="input" name="XXXX_AN_EL_XXXX"/>
+                  <Locator by="css" text="input[id='FORM_ID']"/>              
+                </Element>
+              </Container>  
             </Container>     
           </BodyElements>                    
       <!--         -->

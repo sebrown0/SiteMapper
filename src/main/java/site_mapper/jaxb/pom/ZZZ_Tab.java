@@ -20,7 +20,7 @@ import jakarta.xml.bind.annotation.XmlRootElement;
  */
 @XmlRootElement(name="Tab")
 @XmlAccessorType(XmlAccessType.FIELD)
-public class Tab {
+public class ZZZ_Tab {
 	@XmlAttribute(name="name")
 	private String name;
 	@XmlAttribute(name="locator")
