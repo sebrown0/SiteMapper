@@ -77,17 +77,7 @@ public class GroupData implements ControlData {
 	private String getLocator() {
 		return (locator != null) ? ", " + locator : "";
 	}
-	
-//	private void setElements() {
-//		List<Element> elements = cont.getElements();
-//		if(elements != null) {
-//			elements.forEach(e -> {
-//				addToArrays.add(e.getElementName());
-////				addElement(e);
-//			});	
-//		}		
-//	}
-	
+		
 	public void setElements() {
 		List<Element> elements = cont.getElements();
 		if(elements != null) {
@@ -147,18 +137,15 @@ public class GroupData implements ControlData {
 		}		
 	}
 	
-	@Override
-	public String getValue() {		
-		return grp + "));";
-	}
-	@Override
-	public String getControlDataValue() {
-		// TODO Auto-generated method stub
-		return null;
-	}
 	public List<String> getAddToArrays() {
 		return addToArrays;
 	}
+
+	@Override //ControlData
+	public String getValue() {		
+		return grp + "));";
+	}
+	@Override //ControlData
 	public String getName() {
 		return name;
 	}	

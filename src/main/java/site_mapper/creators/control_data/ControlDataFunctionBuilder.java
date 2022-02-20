@@ -58,7 +58,8 @@ public class ControlDataFunctionBuilder {
 		
 			for (ControlData v : values) {
 				numControls--;
-				addControlToFunction(v.getControlDataValue());
+//				addControlToFunction(v.getControlDataValue());
+				addControlToFunction(v.getName());
 			}			
 			func += "\n\t\t\t);\n\t\tsuper.buildPanelControls(myControls);\n\t}";		
 		}else {

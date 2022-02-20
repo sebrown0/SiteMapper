@@ -10,6 +10,6 @@ package site_mapper.creators.control_data;
  * @since 1.0
  */
 public interface ControlData {
+	String getName();
 	String getValue();
-	String getControlDataValue();
 }
