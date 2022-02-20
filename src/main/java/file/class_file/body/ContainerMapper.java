@@ -18,7 +18,12 @@ import site_mapper.jaxb.containers.Node;
  * @since 1.0
  */
 public class ContainerMapper {
+	private ContainerFinder finder;
 	private ControlDataFunctionBuilder funcBuilder;
+	private Container current;
+	private GroupData grpCurrent;
+	private GroupData grpParent;
+	private int numChild;
 	
 	public ContainerMapper(ControlDataFunctionBuilder funcBuilder) {
 		this.funcBuilder = funcBuilder;	
@@ -33,63 +38,61 @@ public class ContainerMapper {
 	}	
 	
 	private void getAllForCurrentContainer(Container cont) {
-		ContainerFinder finder = new ContainerFinder(new Node(cont));
-		Container current = finder.getNextContainer();
-		GroupData grpCurrent = null;
-		GroupData grpParent = null;
-		int numChild = 0;
-		
-		while(isValidContainer(current)) {
-						
-			if(current.getContainers() != null) {				
-				grpParent = new GroupData(current);				
-				funcBuilder.addGroup(grpParent);
-				numChild = current.getContainers().size();
-			}else {				
-				grpCurrent = new GroupData(current);
-				grpCurrent.setElements();
-				funcBuilder.addGroup(grpCurrent);			
-			}
-			
-			if(grpParent != null && grpCurrent != null) {
-				System.out.println(grpParent.getName() + " is parent"); // TODO - remove or log
-				System.out.println("  "  + grpCurrent.getName()); // TODO - remove or log
-				grpParent.addElement(grpCurrent.getName());
-				numChild--;
-				if(numChild <= 0) {
-					grpParent = null;
-					numChild = 0;
-				}				
-			}
-			
-			
-//			funcBuilder.addGroup(grpCurrent);				
-			current = finder.getNextContainer();
+		finder = new ContainerFinder(new Node(cont));				
+		setCurrentContainerToNext();
+		while(isValidContainer(current)) {						
+			checkTypeOfContainer();			
+			addChildToParentIfNecessary();
+			setCurrentContainerToNext();
 		}
 	}
-	
-//	private void getAllForCurrentContainer(Container cont) {
-//		ContainerFinder finder = new ContainerFinder(new Node(cont));
-//		Container current = finder.getNextContainer();
-//		GroupData grpCurrent, grpLast = null;
-//		
-//		while(isValidContainer(current)) {
-//			
-//			grpCurrent = new GroupData(current);
-//			funcBuilder.addGroup(grpCurrent);				
-//			current = finder.getNextContainer();
-//			
-//			if(grpLast != null) {
-//				grpLast.addElements(grpCurrent.getAddToArrays());
-//			}
-//			
-//			
-//			grpLast = grpCurrent;
-//		}
-//	}
+
+	private void setCurrentContainerToNext() {
+		current = finder.getNextContainer();
+	}
 	
 	private boolean isValidContainer(Container cont) {
 		return (cont != null && cont.getName() != null) ? true : false;
 	}
-
+	
+	private void checkTypeOfContainer() {
+		if(current.isParentContiner()) {				
+			setAtParentGroup();
+		}else {				
+			setAsGroup();
+		}
+	}	
+	private void setAtParentGroup() {
+		grpParent = new GroupData(current);				
+		funcBuilder.addGroup(grpParent);
+		numChild = current.getContainers().size();
+	}
+	private void setAsGroup() {
+		grpCurrent = new GroupData(current);
+		grpCurrent.setElements();
+		funcBuilder.addGroup(grpCurrent);			
+	}
+		
+	private void addChildToParentIfNecessary() {
+		if(parentGroupHasChildGroup()) {
+			addChildToParent();
+			if(isLastChild()) {
+				resetParent();
+			}				
+		}			
+	}
+	private boolean parentGroupHasChildGroup() {
+		return (grpParent != null && grpCurrent != null) ? true : false;
+	}
+	private void addChildToParent() {
+		grpParent.addElement(grpCurrent.getName());
+		numChild--;
+	}
+	private boolean isLastChild() {
+		return (numChild <= 0) ? true : false;
+	}
+	private void resetParent() {
+		grpParent = null;
+		numChild = 0;
+	}
 }

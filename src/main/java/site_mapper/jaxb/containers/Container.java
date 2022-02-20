@@ -33,6 +33,10 @@ public class Container implements XmlContainer {
 	@XmlElement(name="Element")
 	private List<Element> elements;
 	
+	public boolean isParentContiner() {
+		return (containers != null && containers.size() > 0) ? true : false;
+	}
+	
 	@Override
 	public String getType() {
 		return type;
