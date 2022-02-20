@@ -7,6 +7,8 @@ import java.util.List;
 
 import site_mapper.creators.control_data.ControlDataFunctionBuilder;
 import site_mapper.creators.control_data.GroupData;
+import site_mapper.creators.control_data.GroupDataChild;
+import site_mapper.creators.control_data.GroupDataParent;
 import site_mapper.jaxb.containers.Container;
 import site_mapper.jaxb.containers.ContainerFinder;
 import site_mapper.jaxb.containers.Node;
@@ -42,13 +44,12 @@ public class ContainerMapper {
 		setCurrentContainerToNext();
 		while(isValidContainer(current)) {						
 			checkTypeOfContainer();			
-			addChildToParentIfNecessary();
 			setCurrentContainerToNext();
 		}
 	}
 
 	private void setCurrentContainerToNext() {
-		current = finder.getNextContainer();
+		current = finder.getNextContainer();		
 	}
 	
 	private boolean isValidContainer(Container cont) {
@@ -57,20 +58,33 @@ public class ContainerMapper {
 	
 	private void checkTypeOfContainer() {
 		if(current.isParentContiner()) {				
-			setAtParentGroup();
+			setAsParentGroup();
+		}else if(isStandAloneGroup()) {
+			setAsStandaloneGroup();
 		}else {				
 			setAsGroup();
 		}
-	}	
-	private void setAtParentGroup() {
-		grpParent = new GroupData(current);				
+	}
+
+	private boolean isStandAloneGroup() {
+		return (current.isParentContiner() || grpParent != null) ? false : true;		
+	}
+	
+	private void setAsParentGroup() {
+		grpParent = new GroupDataParent(current);				
 		funcBuilder.addGroup(grpParent);
 		numChild = current.getContainers().size();
 	}
 	private void setAsGroup() {
+		grpCurrent = new GroupDataChild(current);
+		grpCurrent.setElements();
+		funcBuilder.addGroup(grpCurrent);
+		addChildToParentIfNecessary();
+	}
+	private void setAsStandaloneGroup() {		
 		grpCurrent = new GroupData(current);
 		grpCurrent.setElements();
-		funcBuilder.addGroup(grpCurrent);			
+		funcBuilder.addGroup(grpCurrent);
 	}
 		
 	private void addChildToParentIfNecessary() {
@@ -84,7 +98,7 @@ public class ContainerMapper {
 	private boolean parentGroupHasChildGroup() {
 		return (grpParent != null && grpCurrent != null) ? true : false;
 	}
-	private void addChildToParent() {
+	private void addChildToParent() {		
 		grpParent.addElement(grpCurrent.getName());
 		numChild--;
 	}

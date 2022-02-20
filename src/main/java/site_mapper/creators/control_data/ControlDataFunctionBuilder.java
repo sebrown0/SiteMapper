@@ -40,7 +40,9 @@ public class ControlDataFunctionBuilder {
 	public void addGroup(ControlData grp) {
 		if(grp != null) {
 			groups.add(grp);
-			values.add(grp);	
+			if(grp instanceof GroupDataChild == false) {
+				values.add(grp);	
+			}
 		}		
 	}
 	public void addVal(ControlData val) {
@@ -58,7 +60,6 @@ public class ControlDataFunctionBuilder {
 		
 			for (ControlData v : values) {
 				numControls--;
-//				addControlToFunction(v.getControlDataValue());
 				addControlToFunction(v.getName());
 			}			
 			func += "\n\t\t\t);\n\t\tsuper.buildPanelControls(myControls);\n\t}";		

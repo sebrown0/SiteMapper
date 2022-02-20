@@ -38,10 +38,6 @@ public class GroupData implements ControlData {
 		this.cont = cont;
 		setup();
 	}
-	public GroupData(Container cont, GroupData grp) {
-		this.cont = cont;
-		setup();
-	}
 	
 	private void setup() {
 		if(cont != null) {			
@@ -49,7 +45,6 @@ public class GroupData implements ControlData {
 			setVarName();
 			setLocator();
 			setInitialData();
-//			setElements();
 		}		
 	}
 	private void setName() {
