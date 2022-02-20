@@ -22,6 +22,9 @@ public class Locator {
 	@XmlAttribute(name="text")
 	private String locator;	
 	
+	public String getLocatorStr() {
+		return null;
+	}
 	public Locator setBy(String by) {
 		this.by = by;
 		return this;

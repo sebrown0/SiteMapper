@@ -101,6 +101,13 @@ public class Element implements ElementCreation {
 		}		
 	}
 	
+	/*
+	 * 
+	 * SHOULF GET THE ELEMENT STRING FROM HERE!!!!!!!!!!!!!!!!!!
+	 * 
+	 * 
+	 */
+	
 	@Override
 	public String toString() {
 		return String.format(

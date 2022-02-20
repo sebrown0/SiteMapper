@@ -82,18 +82,18 @@ public class GroupData implements ControlData {
 		}		
 	}
 	
-	public void addElements(List<String> elements) {
-		if(elements != null) {
-			elements.forEach(e -> {
-				addElement(e);
-			});	
-		}
-	}
 	public void addElement(String elName) {
 		String s;
 		
-		addToArrays.add(elName);
-		
+		/*
+		 * 
+		 * 
+		 * HAVE TO ADD 
+		 * 
+		 * 
+		 */
+//		addToArrays.add(elName);
+		System.out.println(elName);
 		if(elementInLineCount > 2) {
 			s = String.format("\n\t\t\t\t\t%s",	elName);	
 			elementInLineCount = 0;
@@ -112,30 +112,9 @@ public class GroupData implements ControlData {
 
 	
 	private void addElement(Element e) {
-		String s, elName = e.getElementName();
-		
-		addToArrays.add(elName);
-		
-		if(elementInLineCount > 2) {
-			s = String.format("\n\t\t\t\t\t%s",	elName);	
-			elementInLineCount = 0;
-		}else {
-			s = String.format("%s", elName);
-			elementInLineCount++;
-		}		
-		
-		if(notFirstElement) {
-			grp += ", " + s;	
-		}else {
-			grp += "\n\t\t\t\t\t" + s;
-			notFirstElement = true;
-		}		
+		if(e != null)	{ addElement(e.getElementName()); }
 	}
 	
-	public List<String> getAddToArrays() {
-		return addToArrays;
-	}
-
 	@Override //ControlData
 	public String getValue() {		
 		return grp + "));";
