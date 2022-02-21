@@ -5,6 +5,8 @@ package site_mapper.jaxb.pom;
 
 import jakarta.xml.bind.annotation.XmlElement;
 import jakarta.xml.bind.annotation.XmlRootElement;
+import site_mapper.creators.control_data.ControlStringCreator;
+import site_mapper.creators.control_data.ElementData;
 import site_mapper.elements.ElementCreation;
 
 /**
@@ -14,7 +16,7 @@ import site_mapper.elements.ElementCreation;
  * @since 1.0
  */
 @XmlRootElement(name="Element")
-public class Element implements ElementCreation {		
+public class Element implements ElementCreation, ElementData {		
 	@XmlElement(name="Details")
 	private ElementDetails details;
 	@XmlElement(name="Locator")
@@ -61,6 +63,10 @@ public class Element implements ElementCreation {
 		return this;
 	}
 		
+	public Locator getLocator() {		
+		return locator;
+	}
+	
 	@Override //ElementDetails
 	public String getToolTipText() {
 		return (toolTip != null) ? toolTip.getText() : "";
@@ -101,12 +107,10 @@ public class Element implements ElementCreation {
 		}		
 	}
 	
-	/*
-	 * 
-	 * SHOULF GET THE ELEMENT STRING FROM HERE!!!!!!!!!!!!!!!!!!
-	 * 
-	 * 
-	 */
+	@Override
+	public String getElementString() {
+		return new ControlStringCreator(this).getDeclaration();
+	}
 	
 	@Override
 	public String toString() {
@@ -114,5 +118,6 @@ public class Element implements ElementCreation {
 				"Element [type=%s, name=%s, text=%s, by=%s, locator=%s, fafa=%s, toolTipText=%s, elementFunction=%s]", getElementType(),
 				getElementName(), getText(), getByLocatorType(), locator.getLocator(), getFafa(), getToolTipText(), elementFunction);
 	}
+	
 			
 }

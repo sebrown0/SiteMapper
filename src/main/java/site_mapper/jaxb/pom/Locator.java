@@ -7,6 +7,7 @@ import jakarta.xml.bind.annotation.XmlAccessType;
 import jakarta.xml.bind.annotation.XmlAccessorType;
 import jakarta.xml.bind.annotation.XmlAttribute;
 import jakarta.xml.bind.annotation.XmlRootElement;
+import site_mapper.creators.control_data.ByLocatorTypeFactory;
 
 /**
  * @author SteveBrown
@@ -21,10 +22,13 @@ public class Locator {
 	private String by;
 	@XmlAttribute(name="text")
 	private String locator;	
-	
+		
 	public String getLocatorStr() {
-		return null;
+		return  
+			ByLocatorTypeFactory.getByType(by) + "(\"" +
+			locator + "\")";
 	}
+	
 	public Locator setBy(String by) {
 		this.by = by;
 		return this;
