@@ -114,10 +114,9 @@ public class Element implements ElementCreation, ElementData {
 	
 	@Override
 	public String toString() {
-		return String.format(
-				"Element [type=%s, name=%s, text=%s, by=%s, locator=%s, fafa=%s, toolTipText=%s, elementFunction=%s]", getElementType(),
-				getElementName(), getText(), getByLocatorType(), locator.getLocator(), getFafa(), getToolTipText(), elementFunction);
-	}
+		return String.format("Element [details=%s, locator=%s, toolTip=%s, elementFunction=%s]", details, locator, toolTip,
+				elementFunction);
+	}	
 	
 			
 }

@@ -18,32 +18,17 @@ class ElementData_Tests {
 	
 	@Test
 	void locator() {
-		Locator loc = e.getLocator();
-		String locStr = loc.getLocatorStr();
-		
-		assertEquals("By.cssSelector(\"button[name='SAVE']\")", locStr);
+		Locator loc = e.getLocator();		
+		assertEquals("By.cssSelector(\"button[name='SAVE']\")", loc.toString());
 	}
-//	ControlGetter save = 
-//			new ControlGetterButton("Save", coreData, By.cssSelector("button[name='SAVE']"));
 	
-
-	 /* 
-	 * SHOULF GET THE ELEMENT STRING FROM ELEMENT!!!!!!!!!!!!!!!!!!
-	 * LOCATOR SHOULD RETURN LOCATOR STRING
-	 * 
-	 */
-	 
 	@Test
 	void test() {
 		final String res = 
-				"\t\tControlGetter save = \n" +
+				"\t\tControlGetter save =\n" +
 				"\t\t\tnew ControlGetterButton(\"Save\", coreData, By.cssSelector(\"button[name='SAVE']\"));";
 		
-		
-		
-		
-		ElementData elData = e;
-		
+		ElementData elData = e;		
 		assertEquals(res, elData.getElementString());
 	}
 

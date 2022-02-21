@@ -22,13 +22,7 @@ public class Locator {
 	private String by;
 	@XmlAttribute(name="text")
 	private String locator;	
-		
-	public String getLocatorStr() {
-		return  
-			ByLocatorTypeFactory.getByType(by) + "(\"" +
-			locator + "\")";
-	}
-	
+			
 	public Locator setBy(String by) {
 		this.by = by;
 		return this;
@@ -44,4 +38,10 @@ public class Locator {
 		return locator;
 	}
 
+	@Override
+	public String toString() {
+		return  
+				ByLocatorTypeFactory.getByType(by) + "(\"" +
+				locator + "\")";
+	}
 }
