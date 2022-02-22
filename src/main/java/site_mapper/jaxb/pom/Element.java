@@ -5,7 +5,7 @@ package site_mapper.jaxb.pom;
 
 import jakarta.xml.bind.annotation.XmlElement;
 import jakarta.xml.bind.annotation.XmlRootElement;
-import site_mapper.creators.control_data.ControlStringCreator;
+import site_mapper.creators.control_data.ControlStringGetter;
 import site_mapper.creators.control_data.ElementData;
 import site_mapper.elements.ElementCreation;
 
@@ -113,7 +113,7 @@ public class Element implements ElementCreation, ElementData {
 	
 	@Override
 	public String getElementString() {
-		return new ControlStringCreator(this).getDeclaration();
+		return new ControlStringGetter(this).getString();
 	}
 	
 	@Override

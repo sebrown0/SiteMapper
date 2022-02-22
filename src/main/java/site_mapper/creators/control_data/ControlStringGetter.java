@@ -4,6 +4,7 @@
 package site_mapper.creators.control_data;
 
 import site_mapper.jaxb.pom.Element;
+import site_mapper.jaxb.pom.Locator;
 import utils.StringUtils;
 
 /**
@@ -16,10 +17,10 @@ import utils.StringUtils;
  * in the class file where the element is declared, 
  * i.e. the buildMyControls() function.
  */
-public class ControlStringCreator {
+public class ControlStringGetter {
 	private Element element;
 	
-	public ControlStringCreator(Element element) {	
+	public ControlStringGetter(Element element) {	
 		this.element = element;
 	}
 	
@@ -36,12 +37,13 @@ public class ControlStringCreator {
 		return StringUtils.pascalCase(element.getElementName());
 	}
 	private String getLocator() {
-		return element.getLocator().toString();
+		Locator loc = element.getLocator(); 
+		return (loc != null) ? ", " + loc.toString() : "";
 	}
-	public String getDeclaration() {		
+	public String getString() {		
 		return 
 			String.format(
-					"%s%s =\n\t\t\tnew ControlGetter%s(\"%s\", coreData, %s);",
+					"%s%s =\n\t\t\tnew ControlGetter%s(\"%s\", coreData%s);",
 					getInitial(), getName(), getType(),
 					getElementName(), getLocator());
 	}

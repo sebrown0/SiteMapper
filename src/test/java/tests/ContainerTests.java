@@ -25,6 +25,8 @@ import site_mapper.jaxb.pom.Locator;
  */
 class ContainerTests {
 	private static Container root;
+	private static Container level_1_A;
+	private static Locator level_1_ALoc = new Locator().setBy("css").setLocator("a[id='LEVEL_1_A']");
 	
 	@Test
 	void jjjjjjjjjj() {
@@ -92,6 +94,11 @@ class ContainerTests {
 	@BeforeAll
 	static void setup() {
 		Element empCode = new Element().setName("code");
+		Element save = 
+			new Element()
+				.setName("save")
+				.setType("button")
+				.setLocator(new Locator().setBy("css").setLocator("div[class='SAVE']"));
 		
 		Container level_2_A= 
 			new Container()
@@ -99,12 +106,13 @@ class ContainerTests {
 						.setType("InputGroup")
 						.setElements(List.of(empCode));
 		
-		Container level_1_A = 
+		level_1_A = 
 			new Container()
 						.setName("level_1_A")
 						.setType("InputGroup")
+						.setLocator(level_1_ALoc)
 						.setContainers(List.of(level_2_A))
-						.setElements(List.of(empCode));
+						.setElements(List.of(empCode, save));
 		
 		Container level_2_B= 
 				new Container()
@@ -127,6 +135,21 @@ class ContainerTests {
 						.setName("root")
 						.setType("container")
 						.setContainers(List.of(level_1_A, level_1_B));		
+	}
+	
+	@Test
+	void groupString_fromContainer() {
+		assertEquals(
+				"\t\t/* Controls in group[level_1_A] */" +
+				"\n\t\tControlGetter code =" +
+				"\n\t\t\tnew ControlGetter(\"Code\", coreData);" +
+				"\n\t\tControlGetter save =" +
+				"\n\t\t\tnew ControlGetterButton(\"Save\", coreData, By.cssSelector(\"div[class='SAVE']\"));" +
+				"\n\t\t/* Control group [level_1_A] */" +
+				"\n\t\tControlGetterGroup level_1_A =" +
+				"\n\t\t\tnew ControlGetterInputGroup(\"Level_1_A\", coreData, By.cssSelector(\"a[id='LEVEL_1_A']\")" +
+				"\n\t\t\t\t.addControls(Arrays.asList(code, save));", 
+				level_1_A.getContainerString());
 	}
 	
 	@Test

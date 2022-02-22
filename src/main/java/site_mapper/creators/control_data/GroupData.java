@@ -55,7 +55,7 @@ public class GroupData implements ControlData {
 		varName = StringUtils.camelCase(cont.getName());
 	}
 	private void setLocator() {
-		Locator loc = cont.getloLocator();
+		Locator loc = cont.getLocator();
 		if(loc != null) {
 			locator = LocatorFactory.getByString(loc);
 		}else {

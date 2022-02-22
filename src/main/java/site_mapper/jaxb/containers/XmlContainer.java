@@ -17,7 +17,7 @@ import site_mapper.jaxb.pom.Locator;
 public interface XmlContainer {
 	String getType();
 	String getName();
-	Locator getloLocator();
+	Locator getLocator();
 	List<Container> getContainers();
 	List<Element> getElements();
 }

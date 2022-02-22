@@ -54,10 +54,7 @@ public class ContainerFinder {
 		nodes.add(root);
 		Container ret = setCurrentContainer();
 		
-		while(ret != null) {			
-//			var name = ret.getName();			
-//			System.out.println(currentNode.getNodeLevel() +  " - " + name); // TODO - remove or log
-//			nodes.add(currentNode.setName(name));
+		while(ret != null) {
 			nodes.add(currentNode);
 			ret = getNextContainer();			
 		}		
@@ -69,7 +66,6 @@ public class ContainerFinder {
 			ret = currentNode.getNextContainer();
 			//going down a level
 			currLevel++;
-//			currentNode = new Node(currentNode, ret, currLevel, true);
 			currentNode = new Node(currentNode, ret, currLevel, includeXXX());
 		}
 		return ret;
@@ -87,7 +83,6 @@ public class ContainerFinder {
 				ret = prev.getNextContainer();
 				if(ret != null) {
 					currentNode = new Node(currentNode, ret, currLevel, includeYYY(prev));
-//					currentNode = new Node(currentNode, ret, currLevel, false);
 				}				
 			}else {
 				currLevel--;

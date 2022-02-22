@@ -23,6 +23,9 @@ public class Node {
 	private List<Container> containers;	
 	private List<Element> elements;
 	
+	private String elementStr = "";
+	private String containerStr = "";
+	
 	public Node(Container container) {
 		if(container != null) {
 			this.name = container.getName();
@@ -88,6 +91,7 @@ public class Node {
 		if(elements != null) {
 			for (Element e : elements) {
 				ret += e.getElementString() + "\n";
+				containerStr += e.getElementString() + "\n";
 			}
 		}
 		
