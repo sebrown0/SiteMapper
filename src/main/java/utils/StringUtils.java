@@ -10,6 +10,24 @@ package utils;
  * @since 1.0
  */
 public class StringUtils {
+	public static String removeTrailingComma(String str) {
+		String res = "";
+		int toPos = -1;
+		if(str != null && str.length() > 0) {
+			int strLen = str.length()-1;
+			int idx = strLen;
+			while(idx >= 0) {
+				toPos = idx;
+				if(str.charAt(idx) == ',') {
+					res = str.substring(0, toPos);
+					break;
+				}
+				idx--;
+			}
+		}
+		return (toPos > 0) ? res : str;
+	}
+	
 	public static String replaceFwdSlashes(String str, String with) {
 		String s = str.replace("/", with); 
 		return s;

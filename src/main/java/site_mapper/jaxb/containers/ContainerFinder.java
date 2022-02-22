@@ -30,8 +30,8 @@ public class ContainerFinder {
 				"\t\t\tList.of(\n";
 		
 		for (Node node : nodes) {
-			System.out.println(getIndent(node) + "Node:"+node.getName()); // TODO - remove or log 	
-			System.out.println(getIndent(node) + node.toString()); // TODO - remove or log 	
+			System.out.println("Node:"+node.getName()); // TODO - remove or log 	
+			System.out.println(node.toString()); // TODO - remove or log 	
 			if(node.isIncludedInControlList()) {
 				myControls += String.format("\t\t\t\tnew ControlData(%s),\n", node.getName());	
 			}

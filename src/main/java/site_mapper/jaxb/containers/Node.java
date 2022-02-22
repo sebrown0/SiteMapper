@@ -5,7 +5,9 @@ package site_mapper.jaxb.containers;
 
 import java.util.List;
 
+import file.helpers.Formatter;
 import site_mapper.jaxb.pom.Element;
+import utils.StringUtils;
 
 /**
  * @author SteveBrown
@@ -16,38 +18,36 @@ import site_mapper.jaxb.pom.Element;
 public class Node {
 	private Node prev;
 	private String name;
+	private String type;
+	private String locStr;
 	private int nodeLevel = 0;	//Root
 	private int current = 0;
 	private int numContainers;
 	private boolean isIncludedInControlList;
 	private List<Container> containers;	
 	private List<Element> elements;
-	
-	private String elementStr = "";
-	private String containerStr = "";
-	
-	public Node(Container container) {
-		if(container != null) {
-			this.name = container.getName();
-			this.prev = null;		
-			this.containers = container.getContainers();
-			this.elements =  container.getElements();
-			this.isIncludedInControlList = false;
-			setNumContainers();
-		}
+			
+	public Node(Container container) {	
+		initialise(container);				
 	}
-	public Node(Node prev, Container container, int nodeLevel, boolean isIncludedInControlList) {		
+	public Node(Node prev, Container container, int nodeLevel, boolean isIncludedInControlList) {	
+		this.prev = prev;
+		this.nodeLevel = nodeLevel;
+		this.isIncludedInControlList = isIncludedInControlList;
+		initialise(container);
+	}
+
+	private void initialise(Container container) {
 		if(container != null) {
-			this.name = container.getName();
-			this.prev = prev;
-			this.nodeLevel = nodeLevel;
-			this.containers = container.getContainers();
-			this.elements =  container.getElements();
-			this.isIncludedInControlList = isIncludedInControlList;
+			name = container.getName();
+			type = container.getType();
+			locStr = container.getLocatorStr();
+			containers = container.getContainers();
+			elements =  container.getElements();
 			setNumContainers();			
 		}
 	}
-
+	
 	private void setNumContainers() {
 		if(containers != null) {
 			numContainers = containers.size();
@@ -80,36 +80,39 @@ public class Node {
 	public String getName() {
 		return name;
 	}
-//	public Node setName(String name) {
-//		this.name = name;
-//		return this;
-//	}
-	
+
 	@Override
 	public String toString() {
-		String ret = "";
-		if(elements != null) {
-			for (Element e : elements) {
-				ret += e.getElementString() + "\n";
-				containerStr += e.getElementString() + "\n";
-			}
-		}
+		String elementStr = "";
+		String incElements = "";
+		String incContainers = "";
+
+		String grpStr = String.format(
+				"\t\tControlGetterGroup %s =\n\t\t\tnew ControlGetter%s" +
+				"(\"%s\", coreData, %s\n\t\t\t\t.addControls(Arrays.asList(", 
+				StringUtils.camelCase(name), 
+				StringUtils.pascalCase(type), 
+				StringUtils.pascalCase(name), 
+				locStr);
 		
-		if(containers != null) {			
-			for (Container cnt : containers) {								
-				ret += getIndent() + cnt.getName() + "\n";
+		if(containers != null) {
+			for (Container cnt : containers) {
+				incContainers += cnt.getName() + ", ";						
 			}	
 		}
 		
-		return ret;
+		if(elements != null) {
+			for (Element e : elements) {
+				elementStr += e.getElementString() + "\n";
+				incElements += e.getElementName() + ", ";
+			}	
+//			StringUtils.removeTrailingComma(incElements);
+		}
+
+		grpStr += StringUtils.removeTrailingComma(incContainers) + StringUtils.removeTrailingComma(incElements) + "));";
+		return elementStr + grpStr;
 	}
-	private String getIndent() {
-		String res = "";
-			for(int i=1; i <= nodeLevel; i++) {
-				res += "  ";
-			}
-		return res;
-	}
+	
 	public boolean isIncludedInControlList() {
 		return isIncludedInControlList;
 	}

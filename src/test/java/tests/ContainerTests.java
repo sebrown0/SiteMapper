@@ -78,8 +78,8 @@ class ContainerTests {
 		
 		Container footer = 
 				new Container()
-					.setName("Footer");
-					
+					.setName("Footer")
+					.setElements(List.of(elB));
 		
 		Container root = 
 				new Container()

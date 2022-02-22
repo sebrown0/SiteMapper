@@ -62,6 +62,9 @@ public class Container implements XmlContainer {
 	public Locator getLocator() {
 		return locator;
 	}
+	public String getLocatorStr() {
+		return (locator != null) ? locator.toString() : "";
+	}
 	public Container setType(String type) {
 		this.type = type;
 		return this;

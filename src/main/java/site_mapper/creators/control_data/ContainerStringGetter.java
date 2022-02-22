@@ -19,18 +19,23 @@ import utils.StringUtils;
  */
 public class ContainerStringGetter {
 	private static String name = "";
-	private static String grpStr = "";
-	private static String elementsStr = "";
+	private static String grpStr = "\t\t//NONE";
+	private static String elementsStr = "\t\t//NONE";
 	
 	public static String getStringFrom(Container c) {
 		setGroupString(c);
 		setElements(c);
-		return String.format("\t\t/* Controls in group[%s] */\n%s\t\t/* Control group [%s] */\n%s", name, elementsStr, name, grpStr);
+		return 
+			String.format(
+					"\n\t\t/* Controls in group[%s] */" +
+					"\n%s\n\t\t/* Control group [%s] */\n%s", 
+					name, elementsStr, name, grpStr);
 	}
 	
 	private static void setElements(Container c) {
 		List<Element> elements = c.getElements();
 		if(elements != null) {
+			elementsStr = "";
 			elements.forEach(e -> {
 				elementsStr += e.getElementString() + "\n";
 			});
@@ -40,11 +45,12 @@ public class ContainerStringGetter {
 	private static void setGroupString(Container c) {
 		name = c.getName();
 		final String type = c.getType();
-		final String loc = c.getLocator().toString();
+		final String loc = c.getLocatorStr();
 		
 		grpStr = 
 			String.format(
-					"\t\tControlGetterGroup %s =\n\t\t\tnew ControlGetter%s(\"%s\", coreData, %s\n\t\t\t\t.addControls(Arrays.asList(%s));", 
+					"\t\tControlGetterGroup %s =\n\t\t\tnew ControlGetter%s" +
+					"(\"%s\", coreData, %s\n\t\t\t\t.addControls(Arrays.asList(%s));", 
 					StringUtils.camelCase(name), 
 					StringUtils.pascalCase(type), 
 					StringUtils.pascalCase(name), 
@@ -53,11 +59,16 @@ public class ContainerStringGetter {
 	}
 	
 	private static String elementsAsCommaSepList(List<Element> els) {
-		List<String> 
+		if(els != null) {
+			List<String> 
 			elNames = els.stream()
 				.map(e -> e.getElementName())
 				.collect(Collectors.toList()); 
 		
-		return Formatter.getAsCommaSeparatedList(elNames); 			
+			return Formatter.getAsCommaSeparatedList(elNames);	
+		}else {
+			return "";
+		}			
 	}
+	
 }
