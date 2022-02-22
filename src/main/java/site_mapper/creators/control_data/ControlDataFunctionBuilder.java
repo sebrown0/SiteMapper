@@ -3,9 +3,8 @@
  */
 package site_mapper.creators.control_data;
 
-import java.util.HashMap;
+import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
 import file.annotation.SiteMapAnnotation;
 import site_mapper.jaxb.containers.Container;
@@ -19,6 +18,7 @@ import utils.StringUtils;
  * 	Initial
  * @since 1.0
  * 
+ * TODO TODO TODO TODO
  * Get a string that can be added to a 
  * class file as the java code for creating
  * a new ControlData object, i.e.
@@ -28,8 +28,13 @@ import utils.StringUtils;
  * 
  */
 public class ControlDataFunctionBuilder {
-	private Map<String, String> groups = new HashMap<>();
-	private Map<String, String> elements = new HashMap<>();	
+	private List<String> groupNames = new ArrayList<>();
+	private List<String> elementNames = new ArrayList<>();
+	private List<String> groups = new ArrayList<>();
+	private List<String> elements = new ArrayList<>();
+	
+//	private Map<String, String> groups = new HashMap<>();
+//	private Map<String, String> elements = new HashMap<>();	
 	private SiteMapAnnotation anno;
 	private String inMyControls = "";
 	
@@ -67,23 +72,37 @@ public class ControlDataFunctionBuilder {
 				incContainers += c.getName() + ", ";						
 			}	
 		}
-		
 		if(nodeElements != null) {
-			for (Element e : nodeElements) {				
-				if(elements.containsKey(e.getElementName())==false) {
-					elements.put(e.getElementName(), e.getElementString() + "\n");
+			String elName;
+			for (Element e : nodeElements) {	
+				elName = e.getElementName();
+				if(elementNames.contains(elName) == false) {
+					elementNames.add(elName);
+					elements.add(e.getElementString() + "\n");
 				}
 				incElements += e.getElementName() + ", ";
 			}	
 		}
+//		if(nodeElements != null) {
+//			for (Element e : nodeElements) {				
+//				if(elements.containsKey(e.getElementName())==false) {
+//					elements.put(e.getElementName(), e.getElementString() + "\n");
+//				}
+//				incElements += e.getElementName() + ", ";
+//			}	
+//		}
 		
 		grpStr += 
 			getIncContainers(incContainers, incElements) + 
 			StringUtils.removeTrailingComma(incElements) + "));\n";
 		
-		if(groups.containsKey(name)==false) {
-			groups.put(name, grpStr);
+		if(groupNames.contains(name) == false) {
+			groupNames.add(name);
+			groups.add(grpStr);
 		}
+//		if(groups.containsKey(name)==false) {
+//			groups.put(name, grpStr);
+//		}
 		
 	}
 	
@@ -95,12 +114,18 @@ public class ControlDataFunctionBuilder {
 	public String getInMyControls() {
 		return StringUtils.removeTrailingComma(inMyControls);
 	}
-	public Map<String, String> getGroups(){
+	public List<String> getGroups(){
 		return groups;
 	}
-	public Map<String, String> getElements(){
+	public List<String> getElements(){
 		return elements;
 	}
+//	public Map<String, String> getGroups(){
+//		return groups;
+//	}
+//	public Map<String, String> getElements(){
+//		return elements;
+//	}
 	public SiteMapAnnotation getAnnotation() {
 		return anno;
 	}

@@ -3,7 +3,7 @@
  */
 package site_mapper.creators.control_data;
 
-import java.util.Map;
+import java.util.List;
 
 import file.annotation.SiteMapAnnotation;
 import file.helpers.Formatter;
@@ -26,12 +26,13 @@ public class ControlDataFunction {
 	
 	public String getFunctionBuildMyControls() {
 		String func = "";
-		Map<String, String> elements = builder.getElements();
-		Map<String, String> groups = builder.getGroups();
+		List<String> elements = builder.getElements();
+		List<String> groups = builder.getGroups();
 		
 		if(elements.size()>0 || groups.size()>0) {
 			func = 
-				"\tprivate void buildMyControls() {\n" +
+				"\t" + annotation.toString() +	
+				"\n\tprivate void buildMyControls() {\n" +
 				getElements(elements) +
 				getGroups(groups) +
 				"\t\tvar myControls =\n" +
@@ -45,16 +46,20 @@ public class ControlDataFunction {
 		
 		return func;
 	}
-	private String getElements(Map<String, String> elements) {		
-		return getMapValues(elements);
-	}
-	private String getGroups(Map<String, String> groups) {
-		return getMapValues(groups);
-	}
-	private String getMapValues(Map<String, String> map) {
+	
+	private String getElements(List<String> elements) {		
 		String res = "";
-		for (Map.Entry<String, String> entry : map.entrySet()) {
-			res += entry.getValue();
+		for (String s : elements) {
+			res += s;
+		}
+		return res;
+	}
+	
+	private String getGroups(List<String> groups) {
+		String res = "";
+		var numEntries = groups.size() - 1;
+		for (var idx = numEntries; idx >= 0;  idx--) {
+			res += groups.get(idx);
 		}
 		return res;
 	}

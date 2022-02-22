@@ -35,11 +35,19 @@ public class ContainerFinder {
 		if(nodes != null) {
 			Node n;
 			int numNodes = nodes.size()-1;
-			for(int idx = numNodes; idx >=0 ;idx--) {
+			for(int idx = 0; idx <= numNodes; idx++) {
 				n = nodes.get(idx);
 				builder.addNode(n);					
 			}			
 		}
+//		if(nodes != null) {
+//			Node n;
+//			int numNodes = nodes.size()-1;
+//			for(int idx = numNodes; idx >=0 ;idx--) {
+//				n = nodes.get(idx);
+//				builder.addNode(n);					
+//			}			
+//		}
 		
 		ControlDataFunction func = new ControlDataFunction(builder);
 		return func.getFunctionBuildMyControls();		
