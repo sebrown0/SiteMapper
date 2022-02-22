@@ -10,7 +10,6 @@ import jakarta.xml.bind.annotation.XmlAccessorType;
 import jakarta.xml.bind.annotation.XmlAttribute;
 import jakarta.xml.bind.annotation.XmlElement;
 import jakarta.xml.bind.annotation.XmlRootElement;
-import site_mapper.creators.control_data.ContainerStringGetter;
 import site_mapper.jaxb.pom.Element;
 import site_mapper.jaxb.pom.Locator;
 
@@ -38,9 +37,9 @@ public class Container implements XmlContainer {
 		return (containers != null && containers.size() > 0) ? true : false;
 	}
 	
-	public String getContainerString() {
-		return ContainerStringGetter.getStringFrom(this);
-	}
+//	public String getContainerString() {
+//		return ContainerStringGetter.getStringFrom(this);
+//	}
 	
 	@Override
 	public String getType() {

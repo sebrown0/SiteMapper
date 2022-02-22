@@ -6,6 +6,7 @@ package file.class_file.body;
 import java.util.List;
 import java.util.Scanner;
 
+import file.annotation.NewAnnotation;
 import file.class_file.constructor.ClassConstructor;
 import file.class_file.constructor.ExistingConstructorMapper;
 import file.helpers.Formatter;
@@ -16,6 +17,7 @@ import file.variable.ExistingClassVariableMapper;
 import file.variable.Variables;
 import site_mapper.creators.ComponentWriter;
 import site_mapper.creators.control_data.ControlDataFunction;
+import site_mapper.creators.control_data.ControlDataFunctionBuilder;
 import site_mapper.elements.ElementClass;
 import site_mapper.elements.ElementConstructor;
 import site_mapper.jaxb.containers.Container;
@@ -36,7 +38,7 @@ public class ClassBody {
 	private final Variables vars;
 	private final ClassConstructor cnstr;
 	private final MethodList methods;
-	private final ControlDataFunction dataFunc;
+	private final String dataFunc;
 	private final Lines<String> dynamicTestMethods;
 	
 	public ClassBody(BodyBuilder b) {
@@ -77,7 +79,7 @@ public class ClassBody {
 		protected MethodList methods;
 		protected Lines<String> dynamicTestMethods;
 		
-		private ControlDataFunction dataFunc;
+		private String dataFunc;
 		
 		protected abstract ClassBody build();
 		public abstract BodyBuilder setVars();
@@ -124,7 +126,10 @@ public class ClassBody {
 		}
 
 		public BodyBuilder setElements() {	
-			super.dataFunc = new ControlBuilder((ElementClass) clazz).buildControlFunction();
+			ControlDataFunctionBuilder builder = 
+					new ControlDataFunctionBuilder(new NewAnnotation(info, 1));
+			super.dataFunc = new ControlDataFunction(builder).getFunctionBuildMyControls();
+//			super.dataFunc = new ControlBuilder((ElementClass) clazz).buildControlFunction();
 			return this;
 		}
 		

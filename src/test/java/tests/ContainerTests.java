@@ -138,20 +138,20 @@ class ContainerTests {
 						.setContainers(List.of(level_1_A, level_1_B));		
 	}
 	
-	@Test
-	void groupString_fromContainer() {
-		assertEquals(
-				"\t\t/* Controls in group[level_1_A] */" +
-				"\n\t\tControlGetter code =" +
-				"\n\t\t\tnew ControlGetter(\"Code\", coreData);" +
-				"\n\t\tControlGetter save =" +
-				"\n\t\t\tnew ControlGetterButton(\"Save\", coreData, By.cssSelector(\"div[class='SAVE']\"));" +
-				"\n\t\t/* Control group [level_1_A] */" +
-				"\n\t\tControlGetterGroup level_1_A =" +
-				"\n\t\t\tnew ControlGetterInputGroup(\"Level_1_A\", coreData, By.cssSelector(\"a[id='LEVEL_1_A']\")" +
-				"\n\t\t\t\t.addControls(Arrays.asList(code, save));", 
-				level_1_A.getContainerString());
-	}
+//	@Test
+//	void groupString_fromContainer() {
+//		assertEquals(
+//				"\t\t/* Controls in group[level_1_A] */" +
+//				"\n\t\tControlGetter code =" +
+//				"\n\t\t\tnew ControlGetter(\"Code\", coreData);" +
+//				"\n\t\tControlGetter save =" +
+//				"\n\t\t\tnew ControlGetterButton(\"Save\", coreData, By.cssSelector(\"div[class='SAVE']\"));" +
+//				"\n\t\t/* Control group [level_1_A] */" +
+//				"\n\t\tControlGetterGroup level_1_A =" +
+//				"\n\t\t\tnew ControlGetterInputGroup(\"Level_1_A\", coreData, By.cssSelector(\"a[id='LEVEL_1_A']\")" +
+//				"\n\t\t\t\t.addControls(Arrays.asList(code, save));", 
+//				level_1_A.getContainerString());
+//	}
 	
 	@Test
 	void getNextContainer() {
@@ -199,11 +199,4 @@ class ContainerTests {
 		assertTrue(none == null);
 	}
 	
-	@Test
-	void zzzzzzzzzzzzzzzzzzzzzzzzzzzzz() {
-		Node rootNode = new Node(root);
-		ContainerFinder finder = new ContainerFinder(rootNode);
-		finder.traverseTree().printNodes();
-		
-	}
 }

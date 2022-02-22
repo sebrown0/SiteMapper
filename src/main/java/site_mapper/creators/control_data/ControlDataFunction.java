@@ -5,7 +5,6 @@ package site_mapper.creators.control_data;
 
 import java.util.Map;
 
-import exceptions.InvalidArgumentException;
 import file.annotation.SiteMapAnnotation;
 import file.helpers.Formatter;
 
@@ -23,7 +22,6 @@ public class ControlDataFunction {
 	public ControlDataFunction(ControlDataFunctionBuilder builder) {
 		this.annotation = builder.getAnnotation();
 		this.builder = builder;
-//		this.funcStr = funcStr;
 	}
 	
 	public String getFunctionBuildMyControls() {
@@ -37,9 +35,10 @@ public class ControlDataFunction {
 				getElements(elements) +
 				getGroups(groups) +
 				"\t\tvar myControls =\n" +
-				"\t\t\tList.of(";
+				"\t\t\tList.of(" +
+				builder.getInMyControls();
 					
-			func += "\n\t\t\t);\n\t\tsuper.buildPanelControls(myControls);\n\t}";		
+			func += ");\n\t\tsuper.buildPanelControls(myControls);\n\t}";		
 		}else {
 			func = "\t\tprivate void buildMyControls() {}";
 		}	

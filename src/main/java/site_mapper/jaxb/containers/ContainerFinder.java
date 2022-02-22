@@ -20,7 +20,6 @@ import site_mapper.jaxb.pom.SiteMapInfo;
 public class ContainerFinder {
 	private Node root;
 	private Node currentNode;
-	private int currLevel = 0; //Root
 	private List<Node> nodes;
 	
 	public ContainerFinder(Node root) {
@@ -43,44 +42,9 @@ public class ContainerFinder {
 		}
 		
 		ControlDataFunction func = new ControlDataFunction(builder);
-		return func.getFunctionBuildMyControls();
-		
-		
-//		try {
-//			return builder.getFunctionBuildMyControls().getFunctionBuildMyControls();
-//		} catch (InvalidArgumentException e) {
-//			// TODO Auto-generated catch block
-//			e.printStackTrace();
-//		}
-//		return "";
+		return func.getFunctionBuildMyControls();		
 	}
-	public void printNodes() {
-		String 
-			myControls = 
-				"\t\tvar myControls =\n" +
-				"\t\t\tList.of(\n";
 		
-		if(nodes != null) {
-			Node n;
-			int numNodes = nodes.size()-1;
-			for(int idx = numNodes; idx >=0 ;idx--) {
-				n = nodes.get(idx);
-				System.out.println("Node:"+n.getName()); // TODO - remove or log 	
-				
-				System.out.println(n.toString()); // TODO - remove or log 	
-				
-				
-				if(n.isIncludedInControlList()) {
-					myControls += String.format("\t\t\t\tnew ControlData(%s),\n", n.getName());	
-				}	
-			}
-			myControls += "\t\t\t);";
-			
-			System.out.println("-------------------------"); // TODO - remove or log
-			System.out.println(myControls); // TODO - remove or log
-		}
-	}
-	
 	public ContainerFinder traverseTree() {
 		nodes = new ArrayList<>();
 		nodes.add(root);
@@ -96,9 +60,7 @@ public class ContainerFinder {
 		Container ret = null;
 		if(currentNode.hasAnotherContainer()) {
 			ret = currentNode.getNextContainer();
-			//going down a level
-			currLevel++;
-			currentNode = new Node(currentNode, ret, currLevel, includeXXX());
+			currentNode = new Node(currentNode, ret, includeXXX());
 		}
 		return ret;
 	}
@@ -114,10 +76,9 @@ public class ContainerFinder {
 			if(prev.hasAnotherContainer()) {
 				ret = prev.getNextContainer();
 				if(ret != null) {
-					currentNode = new Node(currentNode, ret, currLevel, includeYYY(prev));
+					currentNode = new Node(currentNode, ret, includeYYY(prev));
 				}				
 			}else {
-				currLevel--;
 				prev = prev.getPrev();
 			}			
 		}
@@ -134,25 +95,6 @@ public class ContainerFinder {
 		
 		return ret;
 	}
-//	public Container getNextContainer() {
-//		Node prev = currentNode.getPrev();
-//		Container ret = setCurrentContainer();
-//				
-//		while(ret == null && prev != null) {			
-//			if(prev.hasAnotherContainer()) {
-//				System.out.println("DOWN"); // TODO - remove or log
-//				NextContainer next = prev.getNextContainer();
-//				ret = prev.getNextContainer();
-//				currentNode = new Node(currentNode, ret);
-//			}else {
-//				System.out.println("UP"); // TODO - remove or log
-//				prev = prev.getPrev();
-//			}			
-//		}
-//		return ret;
-//	}
-
-
 	
 	public Container findContainer(String containerName) {
 		Container ret = setCurrentContainer();
@@ -170,8 +112,4 @@ public class ContainerFinder {
 		return ret;
 	}
 
-	public int getCurrLevel() {
-		return currLevel;
-	}
-	
 }
