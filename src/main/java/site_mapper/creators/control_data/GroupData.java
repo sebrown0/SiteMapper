@@ -29,7 +29,8 @@ public class GroupData implements ControlData {
 	private Container cont;	
 	private Logger logger = LogManager.getLogger(GroupData.class);
 	
-	private List<String> addToArrays = new ArrayList<>();
+	private List<String> elements = new ArrayList<>();
+	private List<String> children = new ArrayList<>();
 	
 	private boolean notFirstElement = false;
 	private int elementInLineCount = 0;
@@ -82,18 +83,19 @@ public class GroupData implements ControlData {
 		}		
 	}
 	
-	public void addElement(String elName) {
+	private void addElement(Element e) {
+//		System.out.println(e.getElementString());
+		if(e != null)	{
+//			grp += e.getElementString() + "\n";
+			elements.add(e.getElementString() + "\n");
+		}
+	}
+	
+	public void addChild(String elName) {
 		String s;
 		
-		/*
-		 * 
-		 * 
-		 * HAVE TO ADD 
-		 * 
-		 * 
-		 */
 //		addToArrays.add(elName);
-		System.out.println(elName);
+		
 		if(elementInLineCount > 2) {
 			s = String.format("\n\t\t\t\t\t%s",	elName);	
 			elementInLineCount = 0;
@@ -103,21 +105,39 @@ public class GroupData implements ControlData {
 		}		
 		
 		if(notFirstElement) {
-			grp += ", " + s;	
+//			grp += ", " + s;
+			children.add(grp += ", " + s);
 		}else {
-			grp += "\n\t\t\t\t\t" + s;
+//			grp += "\n\t\t\t\t\t" + s;
+			children.add(grp += "\n\t\t\t\t\t" + s);
 			notFirstElement = true;
 		}		
 	}
-
 	
-	private void addElement(Element e) {
-		if(e != null)	{ addElement(e.getElementName()); }
-	}
+
 	
 	@Override //ControlData
 	public String getValue() {		
-		return grp + "));";
+//		return grp + "));";
+//		System.out.println("->getValue"); // TODO - remove or log 	
+		return getChildren();
+		
+	}
+	
+	public String getElements() {
+		String ret = "";
+		for (String s : elements) {
+			ret += s;
+		}
+		return ret;
+	}
+	
+	public String getChildren() {
+		String ret = "";
+		for (String s : children) {
+			ret += s;
+		}
+		return ret;				
 	}
 	@Override //ControlData
 	public String getName() {

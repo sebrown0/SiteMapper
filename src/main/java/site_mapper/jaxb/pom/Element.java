@@ -57,6 +57,10 @@ public class Element implements ElementCreation, ElementData {
 		this.locator.setLocator(locator);
 		return this;
 	}
+	public Element setLocator(Locator locator) {
+		this.locator = locator;
+		return this;
+	}
 	
 	public Element setelementFunction(ElementFunction elementFunction) {
 		this.elementFunction = elementFunction;
@@ -117,6 +121,5 @@ public class Element implements ElementCreation, ElementData {
 		return String.format("Element [details=%s, locator=%s, toolTip=%s, elementFunction=%s]", details, locator, toolTip,
 				elementFunction);
 	}	
-	
-			
+				
 }

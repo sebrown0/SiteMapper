@@ -27,6 +27,9 @@ public class ControlDataFunctionBuilder {
 	private List<ControlData> groups;
 	private List<ControlData> values;
 	private String func = "";
+//	private String elements = "";
+//	private String groups = "";
+	
 	private int numControls;
 	private SiteMapAnnotation anno;
 	
@@ -45,15 +48,16 @@ public class ControlDataFunctionBuilder {
 			}
 		}		
 	}
-	public void addVal(ControlData val) {
-		groups.add(val);
-	}
+//	public void addVal(ControlData val) {
+//		groups.add(val);
+//	}
 
 	public ControlDataFunction getFunctionBuildMyControls() throws InvalidArgumentException {
 		if(thereAreControls()) {
 			numControls = values.size();		
 			func = 
 				"\tprivate void buildMyControls() {\n" +
+				getElements() +
 				getGroups() +
 				"\t\tvar myControls =\n" +
 				"\t\t\tList.of(";
@@ -70,9 +74,21 @@ public class ControlDataFunctionBuilder {
 	}
 	
 	private boolean thereAreControls() {
-		return true;
+		return true;//TODO****************
 	}
-	
+	/*
+	 * this is getting the groups
+	 * we have to add the elements for all groups first/
+	 */
+	private String getElements() {
+		String ret = "";
+		
+		for (ControlData v : values) {
+			func += ((GroupData)v).getElements();
+		}			
+		
+		return (ret.length() > 0) ? ret += "\n" : ret;
+	}
 	private String getGroups() {
 		String ret = "";
 		for (ControlData d : groups) {
@@ -80,7 +96,6 @@ public class ControlDataFunctionBuilder {
 		}		
 		return (ret.length() > 0) ? ret += "\n" : ret;
 	}
-	
 	private void addControlToFunction(String cntrlString) {
 		if(numControls > 0) {
 			func += "\n\t\t\t\t" + cntrlString + ",";	

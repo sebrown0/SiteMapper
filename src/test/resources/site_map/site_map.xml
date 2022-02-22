@@ -52,22 +52,23 @@
           <Type name="JsPanelWithIFrame"> 
             <JsPanelWithIFrame panelTitle = "Employee Details" /> 
           </Type>
-                    
+               
           <HeaderElements>
+          <!-- 
             <Container type="InputGroup" name="EmpLookup">
               <Locator by="css" text="div[class='input-group']"/>     
               <Element>
-                <Details type="text_out" name="code" text="EMP_CODE" fafa="fa fa-search"/>
+                <Details type="TextOut" name="code" text="EMP_CODE" fafa="fa fa-search"/>
                 <Locator by="css" text="input[id='FORM_ID']"/>              
               </Element>
               <Element>
-                <Details type="button" name="EmpList" text="" fafa="fa fa-list"/>
+                <Details type="Button" name="EmpList" text="" fafa="fa fa-list"/>
                 <Locator by="css" text="div[title='Select from a list of employees within the chosen company']"/>
                 <ToolTip text="Select from a list of employees within the chosen company"/>
                 <Function isDefaultPass="true" />
               </Element>
               <Element>
-                <Details type="button" name="Combos" text="" fafa="fa fa-window-maximize"/>
+                <Details type="Button" name="Combos" text="" fafa="fa fa-window-maximize"/>
                 <Locator by="css" text="div[title='Combos']"/>
                 <ToolTip text="Combos"/>
                 <Function isDefaultPass="true" />
@@ -84,13 +85,14 @@
                 <ToolTip text="No Documents Attached"/>
                 <Function isDefaultPass="true" />
               </Element>
-            </Container>
-            
+            </Container>    
+             -->        
           </HeaderElements>
        
           <BodyElements>
             <Container type="Tabs" name="Tabs">
               <Locator by="css" text="ul[class='nav nav-tabs']"/>
+              
               <Container type="Tab" name="BasicDetails">
                 <Locator by="css" text="a[id='tab-tab1']"/>
                 <Element>
@@ -98,19 +100,28 @@
                   <Locator by="css" text="input[id='FORM_ID']"/>              
                 </Element>
               </Container>  
+              
               <Container type="Tab" name="XXXX_A_TAB_XXXX">
                 <Locator by="css" text="a[id='tab-tab1']"/>
                 <Element>
-                  <Details type="input" name="XXXX_AN_EL_XXXX"/>
+                  <Details type="input" name="XXXX_AN_EL_IN_A_XXXX"/>
                   <Locator by="css" text="input[id='FORM_ID']"/>              
                 </Element>
+                <Container type="InputGroup" name="XXXX_B_TAB_IN_A_XXXX">
+                  <Element>
+                    <Details type="button" name="XXXX_AN_EL_IN_B_XXXX"/>
+                    <Locator by="css" text="input[id='SAVE']"/>              
+                  </Element>
+                </Container>  
               </Container>  
             </Container>     
           </BodyElements>                    
-      <!--         -->
+      
           <FooterElements>
+          <!-- rows have no locator -->
+          <!-- 
             <Container type="row" name="FooterButtons">
-              <!-- rows have no locator -->
+              
               <Element>
                 <Details type="button" name="save" text="Save" fafa="fa fa-save"/>
                 <Locator by="css" text="button[name='SAVE']"/>
@@ -124,7 +135,7 @@
                 <Function isDefaultPass="false" />
               </Element>
             </Container>    
-            
+             -->
           </FooterElements>                 
           
         </MenuItem>        

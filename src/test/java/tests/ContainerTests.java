@@ -15,6 +15,7 @@ import site_mapper.jaxb.containers.Container;
 import site_mapper.jaxb.containers.ContainerFinder;
 import site_mapper.jaxb.containers.Node;
 import site_mapper.jaxb.pom.Element;
+import site_mapper.jaxb.pom.Locator;
 
 /**
  * @author SteveBrown
@@ -25,6 +26,69 @@ import site_mapper.jaxb.pom.Element;
 class ContainerTests {
 	private static Container root;
 	
+	@Test
+	void jjjjjjjjjj() {
+		final String RESULT = "";
+		
+		Locator empLoc = new Locator().setBy("css").setLocator("input[id='FORM_ID']");
+		Element empCode = new Element().setName("IdCardNo").setType("input").setLocator(empLoc);
+		Container basicDetails = 
+			new Container()
+				.setName("BasicDetails")
+				.setType("Tab")
+				.setElements(List.of(empCode));
+	
+		
+		Locator dateTextLoc = new Locator().setBy("css").setLocator("a[id='elA']");		
+		Element dateText = new Element().setName("DateText").setType("Input").setLocator(dateTextLoc);
+		Locator calLoc = new Locator().setBy("css").setLocator("a[id='CAL']");		
+		Element cal = new Element().setName("Date").setType("Date").setLocator(calLoc);
+		
+		Locator datePickerLoc = new Locator().setBy("css").setLocator("a[id='DATE_PICK']");		
+		Container datePicker = 
+				new Container()
+					.setName("DatePicker")
+					.setType("InputGroup")
+					.setLocator(datePickerLoc)
+					.setElements(List.of(dateText, cal));
+		
+		Locator elALoc = new Locator().setBy("css").setLocator("a[id='elA']");		
+		Element elA = new Element().setName("EL_A_IN_A").setType("Input").setLocator(elALoc);
+		Locator elBLoc = new Locator().setBy("css").setLocator("a[id='elB']");		
+		Element elB = new Element().setName("EL_B_IN_A").setType("Input").setLocator(elBLoc);
+		Locator contALoc = new Locator().setBy("css").setLocator("a[id='tab-tab1']");
+				
+		Container elACont = 
+				new Container()
+					.setName("TAB_A")
+					.setType("Tab")
+					.setLocator(contALoc)
+					.setContainers(List.of(datePicker))
+					.setElements(List.of(elA, elB));
+		
+		Locator tabsLoc = new Locator().setBy("css").setLocator("ul[class='nav nav-tabs']");
+		Container tabs = 
+				new Container()
+					.setName("Tabs")
+					.setType("Tabs")
+					.setLocator(tabsLoc)
+					.setContainers(List.of(basicDetails, elACont));
+		
+		Container footer = 
+				new Container()
+					.setName("Footer");
+					
+		
+		Container root = 
+				new Container()
+					.setName("ROOT")
+					.setContainers(List.of(tabs, footer));
+		
+		Node rootNode = new Node(root);
+		ContainerFinder finder = new ContainerFinder(rootNode);
+		finder.traverseTree().printNodes();
+	}
+
 	@BeforeAll
 	static void setup() {
 		Element empCode = new Element().setName("code");
@@ -67,7 +131,7 @@ class ContainerTests {
 	
 	@Test
 	void getNextContainer() {
-		Node rootNode = new Node(null, root);
+		Node rootNode = new Node(root);
 		Container one = rootNode.getNextContainer();
 		assertEquals(one.getName(), "level_1_A");
 		Container two = rootNode.getNextContainer();
@@ -78,7 +142,7 @@ class ContainerTests {
 	
 	@Test
 	void getNextContainer_from_containerFinder() {
-		Node rootNode = new Node(null, root);
+		Node rootNode = new Node(root);
 		ContainerFinder finder = new ContainerFinder(rootNode);
 		
 		Container one = finder.getNextContainer();
@@ -97,7 +161,7 @@ class ContainerTests {
 	
 	@Test
 	void getContainerLevel_2_B() {
-		Node rootNode = new Node(null, root);
+		Node rootNode = new Node(root);
 		ContainerFinder finder = new ContainerFinder(rootNode);
 		Container lvl_2_b = finder.findContainer("level_2_B");
 		assertEquals("level_2_B", lvl_2_b.getName());
@@ -105,9 +169,17 @@ class ContainerTests {
 
 	@Test
 	void getNonExistantContainer() {
-		Node rootNode = new Node(null, root);
+		Node rootNode = new Node(root);
 		ContainerFinder finder = new ContainerFinder(rootNode);
 		Container none = finder.findContainer("XXXX");
 		assertTrue(none == null);
+	}
+	
+	@Test
+	void zzzzzzzzzzzzzzzzzzzzzzzzzzzzz() {
+		Node rootNode = new Node(root);
+		ContainerFinder finder = new ContainerFinder(rootNode);
+		finder.traverseTree().printNodes();
+		
 	}
 }

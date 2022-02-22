@@ -29,6 +29,9 @@ public class ControlStringCreator {
 	private String getName() {
 		return StringUtils.camelCase(element.getElementName());
 	}
+	private String getType() {
+		return StringUtils.pascalCase(element.getElementType());
+	}
 	private String getElementName() {
 		return StringUtils.pascalCase(element.getElementName());
 	}
@@ -38,8 +41,8 @@ public class ControlStringCreator {
 	public String getDeclaration() {		
 		return 
 			String.format(
-					"%s%s =\n\t\t\tnew ControlGetterButton(\"%s\", coreData, %s);",
-					getInitial(), getName(), 
+					"%s%s =\n\t\t\tnew ControlGetter%s(\"%s\", coreData, %s);",
+					getInitial(), getName(), getType(),
 					getElementName(), getLocator());
 	}
 

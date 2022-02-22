@@ -131,7 +131,7 @@ class XmlContentTests {
 		SiteMapContentGetter<PomMapperApp> contentGetter = new SiteMapContentGetter<>(XML_SOURCE);
 		XmlContent content = contentGetter.getContent(PomMapperApp.class).get();
 		Container header = content.getModules().get(0).getMenus().get(0).getMenuItems().get(0).getHeader();
-		Node rootNode = new Node(null, header);
+		Node rootNode = new Node(header);
 		ContainerFinder finder = new ContainerFinder(rootNode);
 		Container current = finder.getNextContainer();
 		final List<String> elementNames = List.of("code","EmpList", "Combos", "GridView", "Documents");
