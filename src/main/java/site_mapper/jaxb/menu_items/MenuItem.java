@@ -41,11 +41,7 @@ public class MenuItem implements ElementClass, TestElement {
 	private String className;	
 	
 	@XmlElement(name="Type")
-	private MenuItemType menuItemType;
-	
-//	@XmlElementWrapper(name="Tabs")
-//	@XmlElement(name="Tab")
-//	private List<Tab> tabs;	
+	private MenuItemType menuItemType;	
 	@XmlElement(name="HeaderElements")
 	private Container headerContainer;	
 	@XmlElement(name="BodyElements")
@@ -183,7 +179,7 @@ public class MenuItem implements ElementClass, TestElement {
 	}
 	@Override //TestElement
 	public TestElement setFooterContainer(Container cont) {
-		this.bodyContainer = cont;
+		this.footerContainer = cont;
 		return this;
 	}
 	@Override //TestElement

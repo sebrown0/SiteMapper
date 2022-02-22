@@ -31,10 +31,7 @@ public class ControlDataFunctionBuilder {
 	private List<String> groupNames = new ArrayList<>();
 	private List<String> elementNames = new ArrayList<>();
 	private List<String> groups = new ArrayList<>();
-	private List<String> elements = new ArrayList<>();
-	
-//	private Map<String, String> groups = new HashMap<>();
-//	private Map<String, String> elements = new HashMap<>();	
+	private List<String> elements = new ArrayList<>();	
 	private SiteMapAnnotation anno;
 	private String inMyControls = "";
 	
@@ -43,9 +40,17 @@ public class ControlDataFunctionBuilder {
 	}	
 
 	public void addNode(Node n) {
-		addNodeControls(n);
+		if(isValidNode(n))
+			addNodeControls(n);
 	}
 	
+	private boolean isValidNode(Node n) {
+		return (
+				n != null && 
+				n.getName() != null && n.getName().length() > 0 && 
+				n.getType() != null && n.getType().length() > 0 ) ? true : false;
+	}
+	//TODO - refactor
 	private void addNodeControls(Node n) {
 		String name = n.getName();
 		String type = n.getType();
@@ -83,14 +88,6 @@ public class ControlDataFunctionBuilder {
 				incElements += e.getElementName() + ", ";
 			}	
 		}
-//		if(nodeElements != null) {
-//			for (Element e : nodeElements) {				
-//				if(elements.containsKey(e.getElementName())==false) {
-//					elements.put(e.getElementName(), e.getElementString() + "\n");
-//				}
-//				incElements += e.getElementName() + ", ";
-//			}	
-//		}
 		
 		grpStr += 
 			getIncContainers(incContainers, incElements) + 
@@ -99,11 +96,7 @@ public class ControlDataFunctionBuilder {
 		if(groupNames.contains(name) == false) {
 			groupNames.add(name);
 			groups.add(grpStr);
-		}
-//		if(groups.containsKey(name)==false) {
-//			groups.put(name, grpStr);
-//		}
-		
+		}		
 	}
 	
 	private String getIncContainers(String incContainers, String incElements) {
@@ -120,12 +113,6 @@ public class ControlDataFunctionBuilder {
 	public List<String> getElements(){
 		return elements;
 	}
-//	public Map<String, String> getGroups(){
-//		return groups;
-//	}
-//	public Map<String, String> getElements(){
-//		return elements;
-//	}
 	public SiteMapAnnotation getAnnotation() {
 		return anno;
 	}

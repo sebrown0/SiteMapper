@@ -88,7 +88,7 @@ class ContainerTests {
 		
 		Node rootNode = new Node(root);
 		ContainerFinder finder = new ContainerFinder(rootNode);
-//		finder.traverseTree().printNodes();
+
 		System.out.println(finder.traverseTree().getControlDataFunction()); // TODO - remove or log 	
 	}
 

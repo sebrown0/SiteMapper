@@ -38,11 +38,9 @@ public class MenuMapper {
 		
 		if(menuItems != null) {
 			menuItems.forEach(item -> {
-				item.setSiteMapInfo(siteMapInfo);
-				
+				item.setSiteMapInfo(siteMapInfo);				
 				item.setTestModuleName(moduleName);
-				item.setTestMenuName(menu.getPackageName());
-				
+				item.setTestMenuName(menu.getPackageName());				
 				new MenuItemMapper(packageSetter, item, ph).createPoms();
 			});	
 		}		

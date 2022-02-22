@@ -3,6 +3,7 @@
  */
 package site_mapper.creators;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -31,25 +32,32 @@ public class ComponentWriterJsPanelWithIFrame
 	
 	private ElementClass elementClass;
 	private SiteMapInfo siteMapInfo;
-
 	private ClassVariable panelTitle;
 	private ClassVariable menuTitle;
-	private ClassVariable menuParentName;
+	private ClassVariable menuParentName;	
+	private List<Import> imports;
 	
+	@Override //ComponentWriter
+	public void addImport(Import imp) {
+		getImportNames().add(imp);
+	}
 	@Override //ComponentInfo
 	public List<Import> getImportNames() {
-		return Arrays.asList(
-				new NewImport(new UseImport("static org.junit.jupiter.api.Assertions.assertTrue")),
-				new NewImport(new UseImport("static org.junit.jupiter.api.Assertions.fail")),
-				
-				new NewImport(new UseImport("java.util.List")),
-				new NewImport(new UseImport("org.openqa.selenium.By")),
-				new NewImport(new UseImport("control_builder.*")),
-				new NewImport(new UseImport("site_mapper.annotations.SiteMap")),				
-				new NewImport(new UseImport("org.junit.jupiter.api.DynamicTest")),				
-				new NewImport(new FindImport("TestControl", siteMapInfo)),				
-				new NewImport(new FindImport("JsPanelWithIFrame", siteMapInfo)),
-				new NewImport(new FindImport("CoreData", siteMapInfo)));
+		if(imports==null) {
+			imports = new ArrayList<>();
+			imports.add(new NewImport(new UseImport("static org.junit.jupiter.api.Assertions.assertTrue")));
+			imports.add(new NewImport(new UseImport("static org.junit.jupiter.api.Assertions.fail")));
+			imports.add(new NewImport(new UseImport("java.util.List")));
+			imports.add(new NewImport(new UseImport("org.openqa.selenium.By")));
+			imports.add(new NewImport(new UseImport("control_builder.*")));
+			imports.add(new NewImport(new UseImport("site_mapper.annotations.SiteMap")));
+			imports.add(new NewImport(new UseImport("site_mapper.annotations.SiteMap")));
+			imports.add(new NewImport(new UseImport("org.junit.jupiter.api.DynamicTest")));
+			imports.add(new NewImport(new FindImport("TestControl", siteMapInfo)));
+			imports.add(new NewImport(new FindImport("JsPanelWithIFrame", siteMapInfo)));
+			imports.add(new NewImport(new FindImport("CoreData", siteMapInfo))); 
+		}
+		return imports;
 	}
 	@Override //ComponentInfo
 	public List<Variable> getClassVariables() {

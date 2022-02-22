@@ -54,7 +54,7 @@
           </Type>
                
           <HeaderElements>
-          <!-- 
+          
             <Container type="InputGroup" name="EmpLookup">
               <Locator by="css" text="div[class='input-group']"/>     
               <Element>
@@ -86,7 +86,7 @@
                 <Function isDefaultPass="true" />
               </Element>
             </Container>    
-             -->        
+             <!-- -->        
           </HeaderElements>
        
           <BodyElements>
@@ -101,25 +101,20 @@
                 </Element>
               </Container>  
               
-              <Container type="Tab" name="XXXX_A_TAB_XXXX">
-                <Locator by="css" text="a[id='tab-tab1']"/>
+              <Container type="Tab" name="Settings">
+                <Locator by="css" text="a[id='tab-tab2']"/>
                 <Element>
-                  <Details type="input" name="XXXX_AN_EL_IN_A_XXXX"/>
-                  <Locator by="css" text="input[id='FORM_ID']"/>              
+                  <Details type="input" name="SpouseIDCard"/>
+                  <Locator by="css" text="input[id='HUSBAND_I_D_CARD']"/>              
                 </Element>
-                <Container type="InputGroup" name="XXXX_B_TAB_IN_A_XXXX">
-                  <Element>
-                    <Details type="button" name="XXXX_AN_EL_IN_B_XXXX"/>
-                    <Locator by="css" text="input[id='SAVE']"/>              
-                  </Element>
-                </Container>  
+                
               </Container>  
             </Container>     
           </BodyElements>                    
       
           <FooterElements>
           <!-- rows have no locator -->
-          <!-- 
+          
             <Container type="row" name="FooterButtons">
               
               <Element>
@@ -135,7 +130,7 @@
                 <Function isDefaultPass="false" />
               </Element>
             </Container>    
-             -->
+          
           </FooterElements>                 
           
         </MenuItem>        

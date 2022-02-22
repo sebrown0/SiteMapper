@@ -3,6 +3,7 @@
  */
 package site_mapper.creators;
 
+import file.imports.Import;
 import site_mapper.elements.ElementClass;
 import site_mapper.jaxb.pom.SiteMapInfo;
 

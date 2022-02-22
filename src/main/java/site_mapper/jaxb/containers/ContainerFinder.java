@@ -18,13 +18,13 @@ import site_mapper.jaxb.pom.SiteMapInfo;
  * @since 1.0
  */
 public class ContainerFinder {
-	private Node root;
+	private Node[] roots;
 	private Node currentNode;
 	private List<Node> nodes;
 	
-	public ContainerFinder(Node root) {
-		this.root = root;
-		this.currentNode = root;
+	public ContainerFinder(Node... roots) {
+		this.roots = roots;
+//		this.currentNode = roots[0];
 	}	
 
 	public String getControlDataFunction() {
@@ -40,30 +40,48 @@ public class ContainerFinder {
 				builder.addNode(n);					
 			}			
 		}
-//		if(nodes != null) {
-//			Node n;
-//			int numNodes = nodes.size()-1;
-//			for(int idx = numNodes; idx >=0 ;idx--) {
-//				n = nodes.get(idx);
-//				builder.addNode(n);					
-//			}			
-//		}
 		
 		ControlDataFunction func = new ControlDataFunction(builder);
 		return func.getFunctionBuildMyControls();		
 	}
-		
 	public ContainerFinder traverseTree() {
 		nodes = new ArrayList<>();
-		nodes.add(root);
-		Container ret = setCurrentContainer();
 		
-		while(ret != null) {
-			nodes.add(currentNode);
-			ret = getNextContainer();			
-		}		
+		for(int idx = 0; idx <= roots.length-1; idx++) {
+			Node root = roots[idx];
+			currentNode = root;
+			if(isValidRoot(root)) {
+				nodes.add(root);
+				Container ret = setCurrentContainer();
+				
+				while(ret != null) {
+					nodes.add(currentNode);
+					ret = getNextContainer();			
+				}	
+			}
+			
+		}
+				
 		return this;
 	}
+	private boolean isValidRoot(Node root) {
+		return (root.getContainers() != null || root.getElements() != null) ? true : false;
+	}
+//	public ContainerFinder traverseTree() {
+//		nodes = new ArrayList<>();
+//		
+//		for(int idx = 0; idx <= roots.length; idx++) {
+//			Node root = roots[idx];
+//		}
+//		nodes.add(roots);
+//		Container ret = setCurrentContainer();
+//		
+//		while(ret != null) {
+//			nodes.add(currentNode);
+//			ret = getNextContainer();			
+//		}		
+//		return this;
+//	}
 	private Container setCurrentContainer() {
 		Container ret = null;
 		if(currentNode.hasAnotherContainer()) {

@@ -17,7 +17,7 @@ import file.variable.Variable;
 public interface ComponentWriter {
 	String getClassName();
 	String getModifier();
-
+	void addImport(Import imp);
 	List<Variable> getClassVariables();
 	List<Import> getImportNames();	
 }
