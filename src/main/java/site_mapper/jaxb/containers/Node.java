@@ -5,7 +5,6 @@ package site_mapper.jaxb.containers;
 
 import java.util.List;
 
-import file.helpers.Formatter;
 import site_mapper.jaxb.pom.Element;
 import utils.StringUtils;
 
@@ -83,6 +82,9 @@ public class Node {
 
 	@Override
 	public String toString() {
+		return null;
+	}
+	public String addToControlList() {
 		String elementStr = "";
 		String incElements = "";
 		String incContainers = "";
@@ -115,5 +117,17 @@ public class Node {
 	
 	public boolean isIncludedInControlList() {
 		return isIncludedInControlList;
+	}
+	public String getType() {
+		return type;
+	}
+	public String getLocStr() {
+		return locStr;
+	}
+	public List<Container> getContainers() {
+		return containers;
+	}
+	public List<Element> getElements() {
+		return elements;
 	}
 }

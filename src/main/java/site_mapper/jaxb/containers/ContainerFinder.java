@@ -6,6 +6,11 @@ package site_mapper.jaxb.containers;
 import java.util.ArrayList;
 import java.util.List;
 
+import file.annotation.NewAnnotation;
+import site_mapper.creators.control_data.ControlDataFunction;
+import site_mapper.creators.control_data.ControlDataFunctionBuilder;
+import site_mapper.jaxb.pom.SiteMapInfo;
+
 /**
  * @author SteveBrown
  * @version 1.0
@@ -23,32 +28,59 @@ public class ContainerFinder {
 		this.currentNode = root;
 	}	
 
+	public String getControlDataFunction() {
+		ControlDataFunctionBuilder 
+			builder = 
+				new ControlDataFunctionBuilder(new NewAnnotation(new SiteMapInfo(), 1));
+		
+		if(nodes != null) {
+			Node n;
+			int numNodes = nodes.size()-1;
+			for(int idx = numNodes; idx >=0 ;idx--) {
+				n = nodes.get(idx);
+				builder.addNode(n);					
+			}			
+		}
+		
+		ControlDataFunction func = new ControlDataFunction(builder);
+		return func.getFunctionBuildMyControls();
+		
+		
+//		try {
+//			return builder.getFunctionBuildMyControls().getFunctionBuildMyControls();
+//		} catch (InvalidArgumentException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		}
+//		return "";
+	}
 	public void printNodes() {
 		String 
 			myControls = 
 				"\t\tvar myControls =\n" +
 				"\t\t\tList.of(\n";
 		
-		for (Node node : nodes) {
-			System.out.println("Node:"+node.getName()); // TODO - remove or log 	
-			System.out.println(node.toString()); // TODO - remove or log 	
-			if(node.isIncludedInControlList()) {
-				myControls += String.format("\t\t\t\tnew ControlData(%s),\n", node.getName());	
+		if(nodes != null) {
+			Node n;
+			int numNodes = nodes.size()-1;
+			for(int idx = numNodes; idx >=0 ;idx--) {
+				n = nodes.get(idx);
+				System.out.println("Node:"+n.getName()); // TODO - remove or log 	
+				
+				System.out.println(n.toString()); // TODO - remove or log 	
+				
+				
+				if(n.isIncludedInControlList()) {
+					myControls += String.format("\t\t\t\tnew ControlData(%s),\n", n.getName());	
+				}	
 			}
+			myControls += "\t\t\t);";
 			
+			System.out.println("-------------------------"); // TODO - remove or log
+			System.out.println(myControls); // TODO - remove or log
 		}
-		myControls += "\t\t\t);";
-		
-		System.out.println("-------------------------"); // TODO - remove or log
-		System.out.println(myControls); // TODO - remove or log 	
 	}
-	private String getIndent(Node node) {
-		String res = "";
-			for(int i=1; i <= node.getNodeLevel(); i++) {
-				res += " ";
-			}
-		return res;
-	}
+	
 	public ContainerFinder traverseTree() {
 		nodes = new ArrayList<>();
 		nodes.add(root);
