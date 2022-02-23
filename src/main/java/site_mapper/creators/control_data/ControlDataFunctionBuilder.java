@@ -11,6 +11,7 @@ import file.imports.ControlImportGetter;
 import site_mapper.creators.ComponentWriter;
 import site_mapper.jaxb.containers.Container;
 import site_mapper.jaxb.containers.Node;
+import site_mapper.jaxb.containers.TreeVisitor;
 import site_mapper.jaxb.pom.Element;
 import site_mapper.jaxb.pom.SiteMapInfo;
 import utils.StringUtils;
@@ -30,7 +31,7 @@ import utils.StringUtils;
  * 		new ControlGetterTextOut(coreData, By.id("FORM_ID")))"
  * 
  */
-public class ControlDataFunctionBuilder {
+public class ControlDataFunctionBuilder implements TreeVisitor {
 	private List<String> groupNames = new ArrayList<>();
 	private List<String> elementNames = new ArrayList<>();
 	private List<String> groups = new ArrayList<>();
@@ -46,6 +47,7 @@ public class ControlDataFunctionBuilder {
 		this.info = info;
 	}	
 
+	@Override //TreeVisitor
 	public void addNode(Node n) {
 		if(isValidNode(n))
 			addNodeControls(n);

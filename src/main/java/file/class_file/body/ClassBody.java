@@ -18,7 +18,7 @@ import site_mapper.creators.ComponentWriter;
 import site_mapper.elements.ElementClass;
 import site_mapper.elements.ElementConstructor;
 import site_mapper.jaxb.containers.Container;
-import site_mapper.jaxb.containers.ContainerTree;
+import site_mapper.jaxb.containers.ControlStringFromContainers;
 import site_mapper.jaxb.containers.Node;
 import site_mapper.jaxb.pom.SiteMapInfo;
 
@@ -124,15 +124,16 @@ public class ClassBody {
 		}
 
 		public BodyBuilder setElements() {
-			ContainerTree tree = 
-					new ContainerTree(
+			ControlStringFromContainers tree = 
+					new ControlStringFromContainers(
 							info,
 							componentWriter,
 							new Node(clazz.getHeader()),
 							new Node(clazz.getBody()),
 							new Node(clazz.getFooter()));
 						
-			super.dataFunc = tree.traverseTree().getBuildMyControlsString();			
+//			super.dataFunc = tree.traverseTree().getBuildMyControlsString();			
+			super.dataFunc = tree.getBuildMyControlsString();
 			return this;
 		}
 		

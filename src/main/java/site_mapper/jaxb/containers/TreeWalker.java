@@ -6,39 +6,25 @@ package site_mapper.jaxb.containers;
 import java.util.ArrayList;
 import java.util.List;
 
-import file.annotation.NewAnnotation;
-import site_mapper.creators.ComponentWriter;
-import site_mapper.creators.control_data.ControlDataFunction;
-import site_mapper.creators.control_data.ControlDataFunctionBuilder;
-import site_mapper.jaxb.pom.SiteMapInfo;
-
 /**
  * @author SteveBrown
  * @version 1.0
  * 	Initial
  * @since 1.0
  */
-public class ContainerTree {
-	private Node[] roots;
-	private Node currentNode;
+public class TreeWalker implements TreeNodes {
 	private List<Node> nodes;
-	private SiteMapInfo info;
-	private ComponentWriter componentWriter;
-	private ControlDataFunctionBuilder builder;
+	private Node currentNode;
+	private TreeVisitor treeVisitor;
+	private Node[] roots;
 	
-	public ContainerTree(SiteMapInfo info, ComponentWriter componentWriter, Node... roots) {
+	public TreeWalker(TreeVisitor treeVisitor, Node... roots) {
+		this.treeVisitor = treeVisitor;
 		this.roots = roots;
-		this.info = info;
-		this.componentWriter = componentWriter;
-	}	
-	
-	public ContainerTree traverseTree() {		
-		builder = 
-			new ControlDataFunctionBuilder(
-					new NewAnnotation(info), componentWriter, info);
-		
-		nodes = new ArrayList<>();
-		
+		this.nodes = new ArrayList<>();
+	}
+
+	public TreeWalker traverseTree() {			
 		for(int idx = 0; idx <= roots.length-1; idx++) {
 			Node root = roots[idx];
 			currentNode = root;
@@ -48,22 +34,17 @@ public class ContainerTree {
 				while(ret != null) {
 					nodes.add(currentNode);
 					ret = getNextContainer();			
-					builder.addNode(currentNode);					
+					treeVisitor.addNode(currentNode);					
 				}	
 			}			
 		}				
 		return this;
 	}
-
+	
 	private boolean isValidRoot(Node root) {
 		return (root.getContainers() != null || root.getElements() != null) ? true : false;
 	}
 	
-	public String getBuildMyControlsString() {		
-		ControlDataFunction func = new ControlDataFunction(builder);		
-		return func.getFunctionBuildMyControls();		
-	}
-		
 	private Container setCurrentContainer() {
 		Container ret = null;
 		if(currentNode != null && currentNode.hasAnotherContainer()) {
@@ -107,21 +88,9 @@ public class ContainerTree {
 		}		
 		return ret;
 	}
-	
-	public Container findContainer(String containerName) {
-		Container ret = setCurrentContainer();
-		boolean found = false;
 
-		while(found == false && ret != null) {			
-			var name = ret.getName();
-			if(name.equals(containerName)) {				
-				found = true;
-			}else {
-				ret = getNextContainer();
-			}
-			
-		}
-		return ret;
+	@Override //TreeNodes
+	public List<Node> getNodes() {
+		return nodes;
 	}
-
 }
