@@ -12,7 +12,7 @@ import java.util.List;
  * 	Initial
  * @since 1.0
  */
-public class TreeWalker implements TreeNodes {
+public class TreeWalker {
 	private List<Node> nodes;
 	private Node currentNode;
 	private TreeVisitor treeVisitor;
@@ -24,7 +24,7 @@ public class TreeWalker implements TreeNodes {
 		this.nodes = new ArrayList<>();
 	}
 
-	public TreeWalker traverseTree() {			
+	public void traverseTree() {			
 		for(int idx = 0; idx <= roots.length-1; idx++) {
 			Node root = roots[idx];
 			currentNode = root;
@@ -38,7 +38,6 @@ public class TreeWalker implements TreeNodes {
 				}	
 			}			
 		}				
-		return this;
 	}
 	
 	private boolean isValidRoot(Node root) {
@@ -89,8 +88,8 @@ public class TreeWalker implements TreeNodes {
 		return ret;
 	}
 
-	@Override //TreeNodes
-	public List<Node> getNodes() {
-		return nodes;
-	}
+//	@Override //TreeNodes
+//	public List<Node> getNodes() {
+//		return nodes;
+//	}
 }
