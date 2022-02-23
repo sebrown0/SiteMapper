@@ -18,7 +18,7 @@ import site_mapper.creators.ComponentWriter;
 import site_mapper.elements.ElementClass;
 import site_mapper.elements.ElementConstructor;
 import site_mapper.jaxb.containers.Container;
-import site_mapper.jaxb.containers.ContainerFinder;
+import site_mapper.jaxb.containers.ContainerTree;
 import site_mapper.jaxb.containers.Node;
 import site_mapper.jaxb.pom.SiteMapInfo;
 
@@ -124,14 +124,15 @@ public class ClassBody {
 		}
 
 		public BodyBuilder setElements() {
-			ContainerFinder finder = 
-					new ContainerFinder(
+			ContainerTree tree = 
+					new ContainerTree(
 							info,
+							componentWriter,
 							new Node(clazz.getHeader()),
 							new Node(clazz.getBody()),
 							new Node(clazz.getFooter()));
 						
-			super.dataFunc = finder.traverseTree().getControlDataFunction(componentWriter);			
+			super.dataFunc = tree.traverseTree().getBuildMyControlsString();			
 			return this;
 		}
 		

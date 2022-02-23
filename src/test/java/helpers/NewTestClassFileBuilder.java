@@ -2,8 +2,6 @@
  * 
  */
 package helpers;
-import java.util.Arrays;
-
 import file.class_file.ClassFile;
 import file.class_file.ClassFile.NewClassFileBuilder;
 import file.class_package.TestPackageSetter;
@@ -29,8 +27,11 @@ public class NewTestClassFileBuilder {
 	private MenuItemType menuItemType;	
 	private ClassFile classFile;
 	
+	@SuppressWarnings("unused")
 	private static ElementCreation SAVE_BUTTON;
+	@SuppressWarnings("unused")
 	private static ElementCreation SEARCH_BUTTON;
+	@SuppressWarnings("unused")
 	private static ElementCreation EMP_CODE_TEXT_OUT;
 	
 	public static SiteMapInfo SITE_MAP_INFO;

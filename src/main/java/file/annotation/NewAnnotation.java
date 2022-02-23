@@ -15,6 +15,15 @@ import site_mapper.jaxb.pom.SiteMapInfo;
  */
 public class NewAnnotation extends SiteMapAnnotation {
 
+	public NewAnnotation(SiteMapInfo info) {
+		super.setIndent(0);
+
+		super
+			.setAuthor(info.getAuthor())
+			.setVersion(info.getVersion())
+			.setDate(info.getDate());
+	}
+	
 	public NewAnnotation(SiteMapInfo info, int numTabs) {
 		super.setIndent(numTabs);
 

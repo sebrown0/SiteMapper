@@ -18,37 +18,25 @@ import site_mapper.jaxb.pom.SiteMapInfo;
  * 	Initial
  * @since 1.0
  */
-public class ContainerFinder {
+public class ContainerTree {
 	private Node[] roots;
 	private Node currentNode;
 	private List<Node> nodes;
 	private SiteMapInfo info;
+	private ComponentWriter componentWriter;
+	private ControlDataFunctionBuilder builder;
 	
-	public ContainerFinder(SiteMapInfo info, Node... roots) {
+	public ContainerTree(SiteMapInfo info, ComponentWriter componentWriter, Node... roots) {
 		this.roots = roots;
 		this.info = info;
+		this.componentWriter = componentWriter;
 	}	
-
-	public String getControlDataFunction(ComponentWriter componentWriter) {
-		ControlDataFunctionBuilder 
-			builder = 
-				new ControlDataFunctionBuilder(
-						new NewAnnotation(info, 0), componentWriter, info);
+	
+	public ContainerTree traverseTree() {		
+		builder = 
+			new ControlDataFunctionBuilder(
+					new NewAnnotation(info), componentWriter, info);
 		
-		if(nodes != null) {
-			Node n;
-			int numNodes = nodes.size()-1;
-			for(int idx = 0; idx <= numNodes; idx++) {
-				n = nodes.get(idx);
-				
-				builder.addNode(n);					
-			}			
-		}
-		
-		ControlDataFunction func = new ControlDataFunction(builder);
-		return func.getFunctionBuildMyControls();		
-	}
-	public ContainerFinder traverseTree() {
 		nodes = new ArrayList<>();
 		
 		for(int idx = 0; idx <= roots.length-1; idx++) {
@@ -56,33 +44,36 @@ public class ContainerFinder {
 			currentNode = root;
 			if(isValidRoot(root)) {
 				nodes.add(root);
-				Container ret = setCurrentContainer();
-				
+				Container ret = setCurrentContainer();				
 				while(ret != null) {
 					nodes.add(currentNode);
 					ret = getNextContainer();			
+					builder.addNode(currentNode);					
 				}	
-			}
-			
-		}
-				
+			}			
+		}				
 		return this;
 	}
-	
+
 	private boolean isValidRoot(Node root) {
 		return (root.getContainers() != null || root.getElements() != null) ? true : false;
 	}
 	
+	public String getBuildMyControlsString() {		
+		ControlDataFunction func = new ControlDataFunction(builder);		
+		return func.getFunctionBuildMyControls();		
+	}
+		
 	private Container setCurrentContainer() {
 		Container ret = null;
 		if(currentNode != null && currentNode.hasAnotherContainer()) {
 			ret = currentNode.getNextContainer();
-			currentNode = new Node(currentNode, ret, includeXXX());
+			currentNode = new Node(currentNode, ret, isContainerIncludedInControlList());
 		}
 		return ret;
 	}
 	
-	private boolean includeXXX() {
+	private boolean isContainerIncludedInControlList() {
 		return (currentNode.getPrev() == null) ? true : false;
 	}
 	
@@ -97,7 +88,7 @@ public class ContainerFinder {
 				if(prev.hasAnotherContainer()) {
 					ret = prev.getNextContainer();
 					if(ret != null) {
-						currentNode = new Node(currentNode, ret, includeYYY(prev));
+						currentNode = new Node(currentNode, ret, isNodeIncludedInControlList(prev));
 					}				
 				}else {
 					prev = prev.getPrev();
@@ -107,14 +98,13 @@ public class ContainerFinder {
 		return ret;
 	}
 	
-	private boolean includeYYY(Node prev) {
+	private boolean isNodeIncludedInControlList(Node prev) {
 		boolean ret = false;
 		if(prev == null) {
 			ret = true;
 		}else if(prev.getPrev() == null) {//root
 			ret = true;
-		}
-		
+		}		
 		return ret;
 	}
 	

@@ -20,7 +20,7 @@ import app.SiteMapContentGetter;
 import app.xml_content.PomMapperTest;
 import app.xml_content.XmlContent;
 import site_mapper.jaxb.containers.Container;
-import site_mapper.jaxb.containers.ContainerFinder;
+import site_mapper.jaxb.containers.ContainerTree;
 import site_mapper.jaxb.containers.Node;
 import site_mapper.jaxb.containers.XmlContainer;
 import site_mapper.jaxb.menu_items.MenuItem;
@@ -144,8 +144,8 @@ class XmlContentTests {
 				.setElementLibrary("C:/Users/SteveBrown/eclipse-workspace/2021/DTest")
 				.setDate(LocalDate.now().format(DateTimeFormatter.ofPattern("dd/MM/yyyy")))
 				.setTime(LocalTime.now().format(DateTimeFormatter.ofPattern("hh:mm:ss")));
-		ContainerFinder finder = new ContainerFinder(info, rootNode);
-		Container current = finder.getNextContainer();
+		ContainerTree tree = new ContainerTree(info, null, rootNode);
+		Container current = tree.getNextContainer();
 		final List<String> elementNames = List.of("code","EmpList", "Combos", "GridView", "Documents");
 		if(current != null) {
 			List<Element> elements = current.getElements();

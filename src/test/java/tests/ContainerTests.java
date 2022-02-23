@@ -14,8 +14,9 @@ import java.util.List;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
+import site_mapper.creators.ComponentWriter;
 import site_mapper.jaxb.containers.Container;
-import site_mapper.jaxb.containers.ContainerFinder;
+import site_mapper.jaxb.containers.ContainerTree;
 import site_mapper.jaxb.containers.Node;
 import site_mapper.jaxb.pom.Element;
 import site_mapper.jaxb.pom.Locator;
@@ -28,6 +29,7 @@ import site_mapper.jaxb.pom.SiteMapInfo;
  * @since 1.0
  */
 class ContainerTests {
+	private static ComponentWriter componentWriter_isNULL = null;
 	private static Container root;
 	private static Container level_1_A;
 	private static Locator level_1_ALoc = 
@@ -43,7 +45,7 @@ class ContainerTests {
 	
 	@Test
 	void jjjjjjjjjj() {
-		final String RESULT = "";
+//		final String RESULT = "";
 		
 		Locator empLoc = new Locator().setBy("css").setLocator("input[id='FORM_ID']");
 		Element empCode = new Element().setName("IdCardNo").setType("input").setLocator(empLoc);
@@ -100,9 +102,9 @@ class ContainerTests {
 					.setContainers(List.of(tabs, footer));
 		
 		Node rootNode = new Node(root);
-		ContainerFinder finder = new ContainerFinder(info, rootNode);
+		ContainerTree tree = new ContainerTree(info, componentWriter_isNULL, rootNode);
 
-		System.out.println(finder.traverseTree().getControlDataFunction(null)); // TODO - remove or log 	
+		System.out.println(tree.traverseTree().getBuildMyControlsString()); // TODO - remove or log 	
 	}
 
 	@BeforeAll
@@ -180,35 +182,35 @@ class ContainerTests {
 	@Test
 	void getNextContainer_from_containerFinder() {
 		Node rootNode = new Node(root);
-		ContainerFinder finder = new ContainerFinder(info, rootNode);
+		ContainerTree tree = new ContainerTree(info, componentWriter_isNULL, rootNode);
 		
-		Container one = finder.getNextContainer();
+		Container one = tree.getNextContainer();
 		assertEquals("level_1_A", one.getName());
-		Container two = finder.getNextContainer();
+		Container two = tree.getNextContainer();
 		assertEquals("level_2_A", two.getName());
-		Container three = finder.getNextContainer();
+		Container three = tree.getNextContainer();
 		assertEquals("level_1_B", three.getName());
-		Container four = finder.getNextContainer();
+		Container four = tree.getNextContainer();
 		assertEquals("level_2_B", four.getName());
-		Container five = finder.getNextContainer();
+		Container five = tree.getNextContainer();
 		assertEquals("level_2_C", five.getName());
-		Container none = finder.getNextContainer();
+		Container none = tree.getNextContainer();
 		assertTrue(none == null);
 	}
 	
 	@Test
 	void getContainerLevel_2_B() {
 		Node rootNode = new Node(root);
-		ContainerFinder finder = new ContainerFinder(info, rootNode);
-		Container lvl_2_b = finder.findContainer("level_2_B");
+		ContainerTree tree = new ContainerTree(info, componentWriter_isNULL, rootNode);
+		Container lvl_2_b = tree.findContainer("level_2_B");
 		assertEquals("level_2_B", lvl_2_b.getName());
 	}
 
 	@Test
 	void getNonExistantContainer() {
 		Node rootNode = new Node(root);
-		ContainerFinder finder = new ContainerFinder(info, rootNode);
-		Container none = finder.findContainer("XXXX");
+		ContainerTree tree = new ContainerTree(info, componentWriter_isNULL, rootNode);
+		Container none = tree.findContainer("XXXX");
 		assertTrue(none == null);
 	}
 	

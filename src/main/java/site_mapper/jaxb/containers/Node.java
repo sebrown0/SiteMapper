@@ -12,6 +12,8 @@ import site_mapper.jaxb.pom.Element;
  * @version 1.0
  * 	Initial
  * @since 1.0
+ * 
+ * Node in the tree of containers from the XML file.
  */
 public class Node {
 	private Node prev;
@@ -69,12 +71,12 @@ public class Node {
 	public Container getCurrentContainer() {
 		return containers.get(current);
 	}	
-	public String getName() {
-		return name;
-	}	
 	public boolean isIncludedInControlList() {
 		return isIncludedInControlList;
 	}
+	public String getName() {
+		return name;
+	}	
 	public String getType() {
 		return type;
 	}
