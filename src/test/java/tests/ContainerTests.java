@@ -6,6 +6,9 @@ package tests;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
+import java.time.LocalDate;
+import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 import org.junit.jupiter.api.BeforeAll;
@@ -16,6 +19,7 @@ import site_mapper.jaxb.containers.ContainerFinder;
 import site_mapper.jaxb.containers.Node;
 import site_mapper.jaxb.pom.Element;
 import site_mapper.jaxb.pom.Locator;
+import site_mapper.jaxb.pom.SiteMapInfo;
 
 /**
  * @author SteveBrown
@@ -26,7 +30,16 @@ import site_mapper.jaxb.pom.Locator;
 class ContainerTests {
 	private static Container root;
 	private static Container level_1_A;
-	private static Locator level_1_ALoc = new Locator().setBy("css").setLocator("a[id='LEVEL_1_A']");
+	private static Locator level_1_ALoc = 
+			new Locator().setBy("css").setLocator("a[id='LEVEL_1_A']");
+	private static SiteMapInfo info = new SiteMapInfo()
+			.setAuthor("SteveBrown")
+			.setVersion("1.0.0")
+			.setXmlSource("")
+			.setRootDir("C:/Users/SteveBrown/eclipse-workspace/2021/SiteMapper")
+			.setElementLibrary("C:/Users/SteveBrown/eclipse-workspace/2021/DTest")
+			.setDate(LocalDate.now().format(DateTimeFormatter.ofPattern("dd/MM/yyyy")))
+			.setTime(LocalTime.now().format(DateTimeFormatter.ofPattern("hh:mm:ss")));
 	
 	@Test
 	void jjjjjjjjjj() {
@@ -87,9 +100,9 @@ class ContainerTests {
 					.setContainers(List.of(tabs, footer));
 		
 		Node rootNode = new Node(root);
-		ContainerFinder finder = new ContainerFinder(rootNode);
+		ContainerFinder finder = new ContainerFinder(info, rootNode);
 
-		System.out.println(finder.traverseTree().getControlDataFunction()); // TODO - remove or log 	
+		System.out.println(finder.traverseTree().getControlDataFunction(null)); // TODO - remove or log 	
 	}
 
 	@BeforeAll
@@ -167,7 +180,7 @@ class ContainerTests {
 	@Test
 	void getNextContainer_from_containerFinder() {
 		Node rootNode = new Node(root);
-		ContainerFinder finder = new ContainerFinder(rootNode);
+		ContainerFinder finder = new ContainerFinder(info, rootNode);
 		
 		Container one = finder.getNextContainer();
 		assertEquals("level_1_A", one.getName());
@@ -186,7 +199,7 @@ class ContainerTests {
 	@Test
 	void getContainerLevel_2_B() {
 		Node rootNode = new Node(root);
-		ContainerFinder finder = new ContainerFinder(rootNode);
+		ContainerFinder finder = new ContainerFinder(info, rootNode);
 		Container lvl_2_b = finder.findContainer("level_2_B");
 		assertEquals("level_2_B", lvl_2_b.getName());
 	}
@@ -194,7 +207,7 @@ class ContainerTests {
 	@Test
 	void getNonExistantContainer() {
 		Node rootNode = new Node(root);
-		ContainerFinder finder = new ContainerFinder(rootNode);
+		ContainerFinder finder = new ContainerFinder(info, rootNode);
 		Container none = finder.findContainer("XXXX");
 		assertTrue(none == null);
 	}

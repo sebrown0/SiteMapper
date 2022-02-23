@@ -13,7 +13,7 @@ package file.imports;
  * the import as it's existing and should 
  * already have one.
  */
-public class ExistingImport extends Import{
+public class ExistingImport extends Import {
 	private String line;
 	
 	public ExistingImport(String line) {
@@ -23,6 +23,10 @@ public class ExistingImport extends Import{
 	@Override
 	public String toString() {		
 		return line + "\n";
-//		return line;
+	}
+
+	@Override
+	public String getImportString() {
+		return line;
 	}	
 }

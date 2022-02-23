@@ -7,9 +7,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 import file.annotation.SiteMapAnnotation;
+import file.imports.ControlImportGetter;
+import site_mapper.creators.ComponentWriter;
 import site_mapper.jaxb.containers.Container;
 import site_mapper.jaxb.containers.Node;
 import site_mapper.jaxb.pom.Element;
+import site_mapper.jaxb.pom.SiteMapInfo;
 import utils.StringUtils;
 
 /**
@@ -34,9 +37,13 @@ public class ControlDataFunctionBuilder {
 	private List<String> elements = new ArrayList<>();	
 	private SiteMapAnnotation anno;
 	private String inMyControls = "";
+	private ComponentWriter compWriter;
+	private SiteMapInfo info;
 	
-	public ControlDataFunctionBuilder(SiteMapAnnotation anno) {		
+	public ControlDataFunctionBuilder(SiteMapAnnotation anno, ComponentWriter cw, SiteMapInfo info) {		
 		this.anno = anno;		
+		this.compWriter = cw;
+		this.info = info;
 	}	
 
 	public void addNode(Node n) {
@@ -50,6 +57,11 @@ public class ControlDataFunctionBuilder {
 				n.getName() != null && n.getName().length() > 0 && 
 				n.getType() != null && n.getType().length() > 0 ) ? true : false;
 	}
+		
+	private String getLocator(String loc) {
+		return (loc != null && loc.length() > 0) ? ", " + loc : "";
+	}
+	
 	//TODO - refactor
 	private void addNodeControls(Node n) {
 		String name = n.getName();
@@ -62,14 +74,20 @@ public class ControlDataFunctionBuilder {
 				
 		String grpStr = String.format(
 				"\t\tControlGetterGroup %s =\n\t\t\tnew ControlGetter%s" +
-				"(\"%s\", coreData, %s\n\t\t\t\t.addControls(Arrays.asList(", 
+				"(\"%s\", coreData%s)\n\t\t\t\t.addControls(Arrays.asList(", 
 				StringUtils.camelCase(name), 
 				StringUtils.pascalCase(type), 
 				StringUtils.pascalCase(name), 
-				locStr);
+				getLocator(locStr));
 		
 		if(n.isIncludedInControlList()) {
-			inMyControls += n.getName() + ", ";
+			var cntrlName = StringUtils.camelCase(name);
+			if(inMyControls.contains(cntrlName) == false) {
+				inMyControls += 
+						String.format(
+								"\n\t\t\t\tnew ControlData(%s),", 
+								cntrlName);	
+			}			
 		}
 		
 		if(nodeContainers != null) {
@@ -82,6 +100,7 @@ public class ControlDataFunctionBuilder {
 			for (Element e : nodeElements) {	
 				elName = e.getElementName();
 				if(elementNames.contains(elName) == false) {
+					addToImports(e.getElementType());
 					elementNames.add(elName);
 					elements.add(e.getElementString() + "\n");
 				}
@@ -94,11 +113,19 @@ public class ControlDataFunctionBuilder {
 			StringUtils.removeTrailingComma(incElements) + "));\n";
 		
 		if(groupNames.contains(name) == false) {
+			addToImports(type);
 			groupNames.add(name);
 			groups.add(grpStr);
 		}		
 	}
 	
+	private void addToImports(String type) {
+		compWriter
+			.addImport(
+				ControlImportGetter
+				.getImportForContolGetter(type, info));
+	}
+		
 	private String getIncContainers(String incContainers, String incElements) {
 		return 
 			(incElements.length()>0) ? 

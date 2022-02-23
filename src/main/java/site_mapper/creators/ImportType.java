@@ -10,5 +10,6 @@ package site_mapper.creators;
  * @since 1.0
  */
 public interface ImportType {
+	String getImportString();
 	String getPath();
 }

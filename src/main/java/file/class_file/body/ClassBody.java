@@ -10,13 +10,11 @@ import file.class_file.constructor.ClassConstructor;
 import file.class_file.constructor.ExistingConstructorMapper;
 import file.helpers.Formatter;
 import file.helpers.Lines;
-import file.imports.NewImport;
 import file.method.ExistingMethodMapper;
 import file.method.MethodList;
 import file.variable.ExistingClassVariableMapper;
 import file.variable.Variables;
 import site_mapper.creators.ComponentWriter;
-import site_mapper.creators.UseImport;
 import site_mapper.elements.ElementClass;
 import site_mapper.elements.ElementConstructor;
 import site_mapper.jaxb.containers.Container;
@@ -128,18 +126,12 @@ public class ClassBody {
 		public BodyBuilder setElements() {
 			ContainerFinder finder = 
 					new ContainerFinder(
+							info,
 							new Node(clazz.getHeader()),
 							new Node(clazz.getBody()),
 							new Node(clazz.getFooter()));
-			
-			
-			/*
-			 * how do we get the import from the container?????
-			 */
-			componentWriter.addImport(new NewImport(new UseImport("XXXXXXX")));
-			
-			
-			super.dataFunc = finder.traverseTree().getControlDataFunction();			
+						
+			super.dataFunc = finder.traverseTree().getControlDataFunction(componentWriter);			
 			return this;
 		}
 		

@@ -8,6 +8,9 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.junit.jupiter.api.Assertions.fail;
 
+import java.time.LocalDate;
+import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.Optional;
 
@@ -25,6 +28,7 @@ import site_mapper.jaxb.pom.Element;
 import site_mapper.jaxb.pom.ElementFunction;
 import site_mapper.jaxb.pom.Module;
 import site_mapper.jaxb.pom.PomMapperApp;
+import site_mapper.jaxb.pom.SiteMapInfo;
 
 /**
  * @author SteveBrown
@@ -132,7 +136,15 @@ class XmlContentTests {
 		XmlContent content = contentGetter.getContent(PomMapperApp.class).get();
 		Container header = content.getModules().get(0).getMenus().get(0).getMenuItems().get(0).getHeader();
 		Node rootNode = new Node(header);
-		ContainerFinder finder = new ContainerFinder(rootNode);
+		SiteMapInfo info = new SiteMapInfo()
+				.setAuthor("SteveBrown")
+				.setVersion("1.0.0")
+				.setXmlSource("")
+				.setRootDir("C:/Users/SteveBrown/eclipse-workspace/2021/SiteMapper")
+				.setElementLibrary("C:/Users/SteveBrown/eclipse-workspace/2021/DTest")
+				.setDate(LocalDate.now().format(DateTimeFormatter.ofPattern("dd/MM/yyyy")))
+				.setTime(LocalTime.now().format(DateTimeFormatter.ofPattern("hh:mm:ss")));
+		ContainerFinder finder = new ContainerFinder(info, rootNode);
 		Container current = finder.getNextContainer();
 		final List<String> elementNames = List.of("code","EmpList", "Combos", "GridView", "Documents");
 		if(current != null) {
@@ -144,22 +156,5 @@ class XmlContentTests {
 			fail("Not current container");
 		}
 	}
-	
-	
-//	@Test
-//	void XXXXXXXXXXXXXXX() {
-//		SiteMapContentGetter<PomMapperApp> contentGetter = new SiteMapContentGetter<>(XML_SOURCE);
-//		XmlContent content = contentGetter.getContent(PomMapperApp.class).get();
-//		Module mod = content.getModules().get(0);
-//		ElementClass item = mod.getMenus().get(0).getMenuItems().get(0);
-//		List<ElementFunction> funcs = item.getElementFunctions();
-////		funcs.forEach(f -> System.out.println(String.format("ANNOTATION\n%s", f.toString())));
-//		 	
-//		funcs.forEach(f -> {
-//			String m = new DynamicTestMethodBuilder(f, new SiteMapInfo().setAuthor("SteveBrown").setVersion("1.0.0")).build();
-//			System.out.println(m); // TODO - remove or log 	
-//		});
-//		
-////		assertEquals("payroll", mod.getName());
-//	}	
+
 }

@@ -26,6 +26,9 @@ import site_mapper.jaxb.pom.SiteMapInfo;
  * @version 1.0
  * 	Initial
  * @since 1.0
+ * 
+ * Write all the components of a class file
+ * for JsPanelWithIFrame.java.
  */
 public class ComponentWriterJsPanelWithIFrame 
 	implements ComponentWriterSetter, ElementConstructor	{
@@ -39,8 +42,19 @@ public class ComponentWriterJsPanelWithIFrame
 	
 	@Override //ComponentWriter
 	public void addImport(Import imp) {
-		getImportNames().add(imp);
+		boolean addIt = true;
+		
+		getImportNames();
+		for(Import i: imports) {
+			var str = imp.getImportString();
+			if(i.getImportString().equals(str)) {
+				addIt = false;
+				break;
+			}
+		}
+		if(addIt)	imports.add(imp);
 	}
+	
 	@Override //ComponentInfo
 	public List<Import> getImportNames() {
 		if(imports==null) {
@@ -48,13 +62,16 @@ public class ComponentWriterJsPanelWithIFrame
 			imports.add(new NewImport(new UseImport("static org.junit.jupiter.api.Assertions.assertTrue")));
 			imports.add(new NewImport(new UseImport("static org.junit.jupiter.api.Assertions.fail")));
 			imports.add(new NewImport(new UseImport("java.util.List")));
+			imports.add(new NewImport(new UseImport("java.util.Arrays")));
 			imports.add(new NewImport(new UseImport("org.openqa.selenium.By")));
 			imports.add(new NewImport(new UseImport("control_builder.*")));
 			imports.add(new NewImport(new UseImport("site_mapper.annotations.SiteMap")));
-			imports.add(new NewImport(new UseImport("site_mapper.annotations.SiteMap")));
 			imports.add(new NewImport(new UseImport("org.junit.jupiter.api.DynamicTest")));
 			imports.add(new NewImport(new FindImport("TestControl", siteMapInfo)));
+			imports.add(new NewImport(new FindImport("ControlGetter", siteMapInfo)));
+			imports.add(new NewImport(new FindImport("ControlGetterGroup", siteMapInfo)));
 			imports.add(new NewImport(new FindImport("JsPanelWithIFrame", siteMapInfo)));
+			imports.add(new NewImport(new FindImport("ControlData", siteMapInfo)));
 			imports.add(new NewImport(new FindImport("CoreData", siteMapInfo))); 
 		}
 		return imports;

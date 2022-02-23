@@ -11,4 +11,5 @@ package file.imports;
  */
 public abstract class Import {
 	public abstract String toString();
+	public abstract String getImportString();
 }

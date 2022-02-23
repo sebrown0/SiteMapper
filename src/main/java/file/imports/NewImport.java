@@ -30,5 +30,9 @@ public class NewImport extends Import {
 	public String toString() {		
 		return line.getPath() + "\n";
 	}
+	@Override
+	public String getImportString() {
+		return line.getImportString();
+	}	
 
 }
