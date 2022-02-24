@@ -33,7 +33,7 @@ public class StringUtils {
 		return s;
 	}
 
-	public static String camelCase(String str) {
+	public static String asCamelCase(String str) {
 		String res = "";
 		if(str != null && str.length() > 0) {
 			String firstChar = str.substring(0, 1).toLowerCase();
@@ -42,7 +42,7 @@ public class StringUtils {
 		return res;
 	}
 	
-	public static String pascalCase(String str) {
+	public static String asPascalCase(String str) {
 		String res = "";
 		if(str != null && str.length() > 0) {
 			String firstChar = str.substring(0, 1).toUpperCase();

@@ -28,13 +28,13 @@ public class ControlStringGetter {
 		return "\t\tControlGetter ";
 	}
 	private String getName() {
-		return StringUtils.camelCase(element.getElementName());
+		return StringUtils.asCamelCase(element.getElementName());
 	}
 	private String getType() {
-		return StringUtils.pascalCase(element.getElementType());
+		return StringUtils.asPascalCase(element.getElementType());
 	}
 	private String getElementName() {
-		return StringUtils.pascalCase(element.getElementName());
+		return StringUtils.asPascalCase(element.getElementName());
 	}
 	private String getLocator() {
 		Locator loc = element.getLocator(); 

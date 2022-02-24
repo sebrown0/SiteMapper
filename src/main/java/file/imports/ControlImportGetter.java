@@ -18,7 +18,7 @@ import utils.StringUtils;
 public class ControlImportGetter {
 
 	public static Import getImportForContolGetter(String type, SiteMapInfo info) {
-		final String impStr = "ControlGetter" + StringUtils.pascalCase(type);
+		final String impStr = "ControlGetter" + StringUtils.asPascalCase(type);
 		return new NewImport(new FindImport(impStr, info));
 	}
 }

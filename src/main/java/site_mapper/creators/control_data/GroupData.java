@@ -49,10 +49,10 @@ public class GroupData implements ControlData {
 		}		
 	}
 	private void setName() {
-		name = StringUtils.pascalCase(cont.getName());		
+		name = StringUtils.asPascalCase(cont.getName());		
 	}
 	private void setVarName() {
-		varName = StringUtils.camelCase(cont.getName());
+		varName = StringUtils.asCamelCase(cont.getName());
 	}
 	private void setLocator() {
 		Locator loc = cont.getLocator();

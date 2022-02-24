@@ -33,8 +33,8 @@ public class TreeWalker {
 				Container ret = setCurrentContainer();				
 				while(ret != null) {
 					nodes.add(currentNode);
-					ret = getNextContainer();			
-					treeVisitor.addNode(currentNode);					
+					treeVisitor.addNode(currentNode);				
+					ret = getNextContainer();									
 				}	
 			}			
 		}				

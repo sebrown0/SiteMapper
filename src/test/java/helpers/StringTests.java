@@ -24,12 +24,12 @@ class StringTests {
 
 	@Test
 	void camelCase() {
-		assertEquals("oneTwo", StringUtils.camelCase("OneTwo"));		
+		assertEquals("oneTwo", StringUtils.asCamelCase("OneTwo"));		
 	}
 	
 	@Test
 	void pascalCase() {
-		assertEquals("OneTwo", StringUtils.pascalCase("oneTwo"));		
+		assertEquals("OneTwo", StringUtils.asPascalCase("oneTwo"));		
 	}
 
 }

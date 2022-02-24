@@ -6,22 +6,15 @@ package tests;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-import java.time.LocalDate;
-import java.time.LocalTime;
-import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
-import site_mapper.creators.ComponentWriter;
-import site_mapper.creators.control_data.ControlDataFunctionBuilder;
 import site_mapper.jaxb.containers.Container;
-import site_mapper.jaxb.containers.ControlStringFromContainers;
 import site_mapper.jaxb.containers.Node;
 import site_mapper.jaxb.pom.Element;
 import site_mapper.jaxb.pom.Locator;
-import site_mapper.jaxb.pom.SiteMapInfo;
 
 /**
  * @author SteveBrown
@@ -34,21 +27,21 @@ import site_mapper.jaxb.pom.SiteMapInfo;
  * how ContainerTree works.
  */
 class ContainerTests {
-	private static ComponentWriter componentWriter_isNULL = null;
-	private static ControlDataFunctionBuilder builder_isNULL = null;
+//	private static ComponentWriter componentWriter_isNULL = null;
+//	private static ControlDataFunctionBuilder builder_isNULL = null;
 	
 	private static Container root;
 	private static Container level_1_A;
 	private static Locator level_1_ALoc = 
 			new Locator().setBy("css").setLocator("a[id='LEVEL_1_A']");
-	private static SiteMapInfo info = new SiteMapInfo()
-			.setAuthor("SteveBrown")
-			.setVersion("1.0.0")
-			.setXmlSource("")
-			.setRootDir("C:/Users/SteveBrown/eclipse-workspace/2021/SiteMapper")
-			.setElementLibrary("C:/Users/SteveBrown/eclipse-workspace/2021/DTest")
-			.setDate(LocalDate.now().format(DateTimeFormatter.ofPattern("dd/MM/yyyy")))
-			.setTime(LocalTime.now().format(DateTimeFormatter.ofPattern("hh:mm:ss")));
+//	private static SiteMapInfo info = new SiteMapInfo()
+//			.setAuthor("SteveBrown")
+//			.setVersion("1.0.0")
+//			.setXmlSource("")
+//			.setRootDir("C:/Users/SteveBrown/eclipse-workspace/2021/SiteMapper")
+//			.setElementLibrary("C:/Users/SteveBrown/eclipse-workspace/2021/DTest")
+//			.setDate(LocalDate.now().format(DateTimeFormatter.ofPattern("dd/MM/yyyy")))
+//			.setTime(LocalTime.now().format(DateTimeFormatter.ofPattern("hh:mm:ss")));
 	
 	@Test
 	void jjjjjjjjjj() {

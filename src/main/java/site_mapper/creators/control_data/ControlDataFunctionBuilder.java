@@ -3,6 +3,10 @@
  */
 package site_mapper.creators.control_data;
 
+import static utils.StringUtils.asCamelCase;
+import static utils.StringUtils.asPascalCase;
+import static utils.StringUtils.removeTrailingComma;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -14,7 +18,6 @@ import site_mapper.jaxb.containers.Node;
 import site_mapper.jaxb.containers.TreeVisitor;
 import site_mapper.jaxb.pom.Element;
 import site_mapper.jaxb.pom.SiteMapInfo;
-import utils.StringUtils;
 
 /**
  * @author SteveBrown
@@ -66,7 +69,10 @@ public class ControlDataFunctionBuilder implements TreeVisitor {
 	
 	//TODO - refactor
 	private void addNodeControls(Node n) {
-		String name = n.getName();
+		String nodeName = n.getName();
+		String nodeNamePascal = asPascalCase(nodeName);
+		String nodeNameCamel = asCamelCase(nodeName);
+
 		String type = n.getType();
 		String locStr = n.getLocStr();
 		String incElements = "";
@@ -77,24 +83,23 @@ public class ControlDataFunctionBuilder implements TreeVisitor {
 		String grpStr = String.format(
 				"\t\tControlGetterGroup %s =\n\t\t\tnew ControlGetter%s" +
 				"(\"%s\", coreData%s)\n\t\t\t\t.addControls(Arrays.asList(", 
-				StringUtils.camelCase(name), 
-				StringUtils.pascalCase(type), 
-				StringUtils.pascalCase(name), 
+				nodeNameCamel, 
+				asPascalCase(type), 
+				nodeNamePascal, 
 				getLocator(locStr));
 		
 		if(n.isIncludedInControlList()) {
-			var cntrlName = StringUtils.camelCase(name);
-			if(inMyControls.contains(cntrlName) == false) {
+			if(inMyControls.contains(nodeNameCamel) == false) {
 				inMyControls += 
 						String.format(
 								"\n\t\t\t\tnew ControlData(%s),", 
-								cntrlName);	
+								nodeNameCamel);	
 			}			
 		}
 		
 		if(nodeContainers != null) {
 			for (Container c : nodeContainers) {				
-				incContainers += c.getName() + ", ";						
+				incContainers += asCamelCase(c.getName()) + ", ";						
 			}	
 		}
 		if(nodeElements != null) {
@@ -106,17 +111,17 @@ public class ControlDataFunctionBuilder implements TreeVisitor {
 					elementNames.add(elName);
 					elements.add(e.getElementString() + "\n");
 				}
-				incElements += e.getElementName() + ", ";
+				incElements += asCamelCase(e.getElementName()) + ", ";
 			}	
 		}
 		
 		grpStr += 
 			getIncContainers(incContainers, incElements) + 
-			StringUtils.removeTrailingComma(incElements) + "));\n";
+			removeTrailingComma(incElements) + "));\n";
 		
-		if(groupNames.contains(name) == false) {
+		if(groupNames.contains(nodeName) == false) {
 			addToImports(type);
-			groupNames.add(name);
+			groupNames.add(nodeName);
 			groups.add(grpStr);
 		}		
 	}
@@ -131,10 +136,10 @@ public class ControlDataFunctionBuilder implements TreeVisitor {
 	private String getIncContainers(String incContainers, String incElements) {
 		return 
 			(incElements.length()>0) ? 
-				incContainers : StringUtils.removeTrailingComma(incContainers);
+				incContainers : removeTrailingComma(incContainers);
 	}
 	public String getInMyControls() {
-		return StringUtils.removeTrailingComma(inMyControls);
+		return removeTrailingComma(inMyControls);
 	}
 	public List<String> getGroups(){
 		return groups;
