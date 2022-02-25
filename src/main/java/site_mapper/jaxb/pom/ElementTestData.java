@@ -29,9 +29,11 @@ public class ElementTestData {
 		return text;
 	}
 		
-	public List<String> getList(){		
-		String[] items = list.split(",");
-		List<String> res = Arrays.asList(items);
+	public List<String> getList(){
+		List<String> res = null;
+		if(list != null) {
+			res = Arrays.asList(list.split(","));	
+		}		
 		return res;
 	}
 }
