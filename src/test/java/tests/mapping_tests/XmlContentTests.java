@@ -14,12 +14,14 @@ import org.junit.jupiter.api.Test;
 import app.SiteMapContentGetter;
 import app.xml_content.PomMapperTest;
 import app.xml_content.XmlContent;
+import site_mapper.elements.ElementDataList;
+import site_mapper.elements.ElementDataText;
+import site_mapper.elements.TestDataGetter;
 import site_mapper.jaxb.containers.Container;
 import site_mapper.jaxb.containers.XmlContainer;
 import site_mapper.jaxb.menu_items.MenuItem;
 import site_mapper.jaxb.pom.Element;
 import site_mapper.jaxb.pom.ElementFunction;
-import site_mapper.jaxb.pom.ElementTestData;
 import site_mapper.jaxb.pom.Module;
 import site_mapper.jaxb.pom.PomMapperApp;
 
@@ -81,9 +83,10 @@ class XmlContentTests {
 		Container tabBasicDetails =  tabs.getContainers().get(0);
 		Container grpGradeInput =  tabBasicDetails.getContainers().get(0);
 		Element elGrade = grpGradeInput.getElements().get(0);
-		ElementTestData data = elGrade.getTestDataIn();
+		TestDataGetter testDataGetter = elGrade.getTestDataIn();		
+		ElementDataText testData = (ElementDataText) testDataGetter.getTestData();
 		
-		assertEquals("some test data in", data.getText());
+		assertEquals("some test data in", testData.getText());
 	}
 	
 	@Test
@@ -97,11 +100,12 @@ class XmlContentTests {
 		Container tabBasicDetails =  tabs.getContainers().get(0);
 		Container grpGradeInput =  tabBasicDetails.getContainers().get(0);
 		Element elGrade = grpGradeInput.getElements().get(0);
-		ElementTestData data = elGrade.getTestDataOut();
+		TestDataGetter testDataGetter = elGrade.getTestDataOut();
+		ElementDataList testData = (ElementDataList) testDataGetter.getTestData();
 		
-		assertEquals("item_1", data.getList().get(0));
+		assertEquals("item_1", testData.getData().get(0));
 	}
-	
+		
 	@Test
 	void mapTestObjects() {
 		/*

@@ -21,14 +21,6 @@ import jakarta.xml.bind.annotation.XmlRootElement;
 public class MenuItemType {	
 	private TypeAttributes attributes;
 	private String type;
-
-	public String getType() {
-		return type;
-	}	
-
-	public TypeAttributes getAttributes() {
-		return attributes;
-	}
 	
 	@XmlElements({
 		@XmlElement(name="JsPanelWithIFrame", type=JsPanelWithIFrame.class)
@@ -42,5 +34,12 @@ public class MenuItemType {
 	public void setType(String type) {
 		this.type = type;
 	}
-	
+
+	public String getType() {
+		return type;
+	}	
+
+	public TypeAttributes getAttributes() {
+		return attributes;
+	}
 }
