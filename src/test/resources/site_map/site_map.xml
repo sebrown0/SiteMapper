@@ -99,6 +99,14 @@
                   <Details type="input" name="IdCardNo"/>
                   <Locator by="css" text="input[id='FORM_ID']"/>              
                 </Element>
+                <Container type="InputGroup" name="GradeInput">
+                  <Locator by="xpath" text="//i[@class='fa fa-list']/ancestor::div[@class='input-group']"/>
+                  <Element>
+                    <Details type="TextSelect" name="Grade"/>
+                    <TestData data="some test data"/>
+                    <Locator by="css" text="input[id='GRADE_CODE']"/>              
+                  </Element>
+                </Container>  
               </Container>  
               
               <Container type="Tab" name="Settings">

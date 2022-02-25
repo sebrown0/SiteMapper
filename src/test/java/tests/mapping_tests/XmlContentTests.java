@@ -14,10 +14,12 @@ import org.junit.jupiter.api.Test;
 import app.SiteMapContentGetter;
 import app.xml_content.PomMapperTest;
 import app.xml_content.XmlContent;
+import site_mapper.jaxb.containers.Container;
 import site_mapper.jaxb.containers.XmlContainer;
 import site_mapper.jaxb.menu_items.MenuItem;
 import site_mapper.jaxb.pom.Element;
 import site_mapper.jaxb.pom.ElementFunction;
+import site_mapper.jaxb.pom.ElementTestData;
 import site_mapper.jaxb.pom.Module;
 import site_mapper.jaxb.pom.PomMapperApp;
 
@@ -66,6 +68,22 @@ class XmlContentTests {
 		MenuItem empDetails = mod.getMenus().get(0).getMenuItems().get(0);
 		
 		assertEquals("Save Record", empDetails.getFooter().getContainers().get(0).getElements().get(0).getToolTipText());
+	}
+	
+	@Test
+	void get_testData() {
+		SiteMapContentGetter<PomMapperApp> contentGetter = new SiteMapContentGetter<>(XML_SOURCE);
+		XmlContent content = contentGetter.getContent(PomMapperApp.class).get();
+		Module mod = content.getModules().get(0);
+		MenuItem empDetails = mod.getMenus().get(0).getMenuItems().get(0);
+		Container body = empDetails.getBody();
+		Container tabs =  body.getContainers().get(0);
+		Container tabBasicDetails =  tabs.getContainers().get(0);
+		Container grpGradeInput =  tabBasicDetails.getContainers().get(0);
+		Element elGrade = grpGradeInput.getElements().get(0);
+		ElementTestData data = elGrade.getTestData();
+		
+		assertEquals("some test data", data.getData());
 	}
 	
 	@Test

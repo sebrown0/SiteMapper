@@ -23,12 +23,18 @@ public class Element implements ElementCreation, ElementData {
 	private Locator locator;
 	@XmlElement(name="ToolTip")
 	private ElementToolTip toolTip;
+	@XmlElement(name="TestData")
+	private ElementTestData testData;
 	@XmlElement(name="Function")
 	private ElementFunction elementFunction;
-		
+	
 	public Element setType(String type) {
 		if(details == null) details = new ElementDetails();
 		details.setType(type);
+		return this;
+	}
+	public Element setTestData(ElementTestData testData) {
+		this.testData = testData;
 		return this;
 	}
 	public Element setName(String name) {
@@ -46,7 +52,6 @@ public class Element implements ElementCreation, ElementData {
 		details.setFafa(fafa);
 		return this;
 	}
-
 	public Element setBy(String by) {
 		if(locator == null) locator = new Locator();
 		this.locator.setBy(by);
@@ -74,11 +79,14 @@ public class Element implements ElementCreation, ElementData {
 	@Override //ElementDetails
 	public String getToolTipText() {
 		return (toolTip != null) ? toolTip.getText() : "";
-	}
-	
+	}	
 	@Override //ElementDetails
 	public String getElementName() {
 		return (details != null) ? details.getElementName() : "";
+	}
+	@Override //ElementDetails
+	public ElementTestData setTestData() {
+		return testData;
 	}
 	@Override //ElementDetails
 	public String getText() {
@@ -88,6 +96,10 @@ public class Element implements ElementCreation, ElementData {
 	public String getFafa() {
 		return (details != null) ? details.getFafa() : "";
 	}
+	@Override //ElementDetails
+	public ElementTestData getTestData() {
+		return testData;
+	}	
 	@Override //ElementCreation
 	public String getElementType() {
 		return (details != null) ? details.getElementType() : "";
