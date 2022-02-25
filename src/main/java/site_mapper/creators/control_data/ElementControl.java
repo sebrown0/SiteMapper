@@ -9,6 +9,6 @@ package site_mapper.creators.control_data;
  * 	Initial
  * @since 1.0
  */
-public interface ElementData {
-	String getElementString();
+public interface ElementControl {
+	String getElementAsControlGetter();
 }

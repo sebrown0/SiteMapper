@@ -109,7 +109,7 @@ public class ControlDataFunctionBuilder implements TreeVisitor {
 				if(elementNames.contains(elName) == false) {
 					addToImports(e.getElementType());
 					elementNames.add(elName);
-					elements.add(e.getElementString() + "\n");
+					elements.add(e.getElementAsControlGetter() + "\n");
 				}
 				incElements += asCamelCase(e.getElementName()) + ", ";
 			}	

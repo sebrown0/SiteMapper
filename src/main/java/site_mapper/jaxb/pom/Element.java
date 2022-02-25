@@ -6,7 +6,7 @@ package site_mapper.jaxb.pom;
 import jakarta.xml.bind.annotation.XmlElement;
 import jakarta.xml.bind.annotation.XmlRootElement;
 import site_mapper.creators.control_data.ControlStringGetter;
-import site_mapper.creators.control_data.ElementData;
+import site_mapper.creators.control_data.ElementControl;
 import site_mapper.elements.ElementCreation;
 
 /**
@@ -16,7 +16,7 @@ import site_mapper.elements.ElementCreation;
  * @since 1.0
  */
 @XmlRootElement(name="Element")
-public class Element implements ElementCreation, ElementData {		
+public class Element implements ElementCreation, ElementControl {		
 	@XmlElement(name="Details")
 	private ElementDetails details;
 	@XmlElement(name="Locator")
@@ -123,8 +123,8 @@ public class Element implements ElementCreation, ElementData {
 		}		
 	}
 	
-	@Override
-	public String getElementString() {
+	@Override //ElementControl
+	public String getElementAsControlGetter() {
 		return new ControlStringGetter(this).getString();
 	}
 	

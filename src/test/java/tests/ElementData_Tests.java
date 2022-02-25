@@ -4,7 +4,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 import org.junit.jupiter.api.Test;
 
-import site_mapper.creators.control_data.ElementData;
+import site_mapper.creators.control_data.ElementControl;
 import site_mapper.jaxb.pom.Element;
 import site_mapper.jaxb.pom.Locator;
 
@@ -28,8 +28,8 @@ class ElementData_Tests {
 				"\t\tControlGetter save =\n" +
 				"\t\t\tnew ControlGetterButton(\"Save\", coreData, By.cssSelector(\"button[name='SAVE']\"));";
 		
-		ElementData elData = e;		
-		assertEquals(res, elData.getElementString());
+		ElementControl elData = e;		
+		assertEquals(res, elData.getElementAsControlGetter());
 	}
 
 }
