@@ -23,18 +23,16 @@ public class Element implements ElementCreation, ElementControl {
 	private Locator locator;
 	@XmlElement(name="ToolTip")
 	private ElementToolTip toolTip;
-	@XmlElement(name="TestData")
-	private ElementTestData testData;
+	@XmlElement(name="TestDataIn")
+	private ElementTestData testDataIn;
+	@XmlElement(name="TestDataOut")
+	private ElementTestData testDataOut;
 	@XmlElement(name="Function")
 	private ElementFunction elementFunction;
 	
 	public Element setType(String type) {
 		if(details == null) details = new ElementDetails();
 		details.setType(type);
-		return this;
-	}
-	public Element setTestData(ElementTestData testData) {
-		this.testData = testData;
 		return this;
 	}
 	public Element setName(String name) {
@@ -85,8 +83,14 @@ public class Element implements ElementCreation, ElementControl {
 		return (details != null) ? details.getElementName() : "";
 	}
 	@Override //ElementDetails
-	public ElementTestData setTestData() {
-		return testData;
+	public Element setTestDataIn(ElementTestData data) {
+		this.testDataIn = data;
+		return this;
+	}
+	@Override //ElementDetails
+	public Element setTestDataOut(ElementTestData data) {
+		this.testDataOut = data;
+		return this;
 	}
 	@Override //ElementDetails
 	public String getText() {
@@ -97,8 +101,12 @@ public class Element implements ElementCreation, ElementControl {
 		return (details != null) ? details.getFafa() : "";
 	}
 	@Override //ElementDetails
-	public ElementTestData getTestData() {
-		return testData;
+	public ElementTestData getTestDataIn() {
+		return testDataIn;
+	}	
+	@Override //ElementDetails
+	public ElementTestData getTestDataOut() {
+		return testDataOut;
 	}	
 	@Override //ElementCreation
 	public String getElementType() {

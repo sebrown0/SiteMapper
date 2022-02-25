@@ -101,10 +101,12 @@
                 </Element>
                 <Container type="InputGroup" name="GradeInput">
                   <Locator by="xpath" text="//i[@class='fa fa-list']/ancestor::div[@class='input-group']"/>
-                  <Element>
+                  <Element>                  
                     <Details type="TextSelect" name="Grade"/>
-                    <TestData data="some test data"/>
-                    <Locator by="css" text="input[id='GRADE_CODE']"/>              
+                    <Locator by="css" text="input[id='GRADE_CODE']"/>    
+                    <!-- can be text or comma separated list (maybe add object) -->
+                    <TestDataIn text="some test data in" list="item_1,item_2"/>
+                    <TestDataOut text="some test data out" list="item_1,item_2"/>
                   </Element>
                 </Container>  
               </Container>  

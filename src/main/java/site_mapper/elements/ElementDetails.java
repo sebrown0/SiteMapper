@@ -3,6 +3,7 @@
  */
 package site_mapper.elements;
 
+import site_mapper.jaxb.pom.Element;
 import site_mapper.jaxb.pom.ElementTestData;
 
 /**
@@ -16,6 +17,8 @@ public interface ElementDetails {
 	String getText();
 	String getToolTipText(); 
 	String getFafa();
-	ElementTestData setTestData();
-	ElementTestData getTestData();
+	Element setTestDataIn(ElementTestData data);
+	Element setTestDataOut(ElementTestData data);
+	ElementTestData getTestDataIn();
+	ElementTestData getTestDataOut();
 }

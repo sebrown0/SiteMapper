@@ -71,7 +71,7 @@ class XmlContentTests {
 	}
 	
 	@Test
-	void get_testData() {
+	void get_testData_In() {
 		SiteMapContentGetter<PomMapperApp> contentGetter = new SiteMapContentGetter<>(XML_SOURCE);
 		XmlContent content = contentGetter.getContent(PomMapperApp.class).get();
 		Module mod = content.getModules().get(0);
@@ -81,9 +81,25 @@ class XmlContentTests {
 		Container tabBasicDetails =  tabs.getContainers().get(0);
 		Container grpGradeInput =  tabBasicDetails.getContainers().get(0);
 		Element elGrade = grpGradeInput.getElements().get(0);
-		ElementTestData data = elGrade.getTestData();
+		ElementTestData data = elGrade.getTestDataIn();
 		
-		assertEquals("some test data", data.getData());
+		assertEquals("some test data in", data.getText());
+	}
+	
+	@Test
+	void get_testDataList_from_out() {
+		SiteMapContentGetter<PomMapperApp> contentGetter = new SiteMapContentGetter<>(XML_SOURCE);
+		XmlContent content = contentGetter.getContent(PomMapperApp.class).get();
+		Module mod = content.getModules().get(0);
+		MenuItem empDetails = mod.getMenus().get(0).getMenuItems().get(0);
+		Container body = empDetails.getBody();
+		Container tabs =  body.getContainers().get(0);
+		Container tabBasicDetails =  tabs.getContainers().get(0);
+		Container grpGradeInput =  tabBasicDetails.getContainers().get(0);
+		Element elGrade = grpGradeInput.getElements().get(0);
+		ElementTestData data = elGrade.getTestDataOut();
+		
+		assertEquals("item_1", data.getList().get(0));
 	}
 	
 	@Test
