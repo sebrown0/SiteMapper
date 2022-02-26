@@ -24,11 +24,18 @@ public class Element implements ElementCreation, ElementControl {
 	@XmlElement(name="ToolTip")
 	private ElementToolTip toolTip;
 	@XmlElement(name="TestDataIn")
-	private ElementTestData testDataIn;
+//	
+	private TestDataIn testData;
 	@XmlElement(name="TestDataOut")
 	private ElementTestData testDataOut;
 	@XmlElement(name="Function")
 	private ElementFunction elementFunction;
+	
+	private ElementTestData testDataIn;
+	public TestDataIn getTestData() {
+		return testData;
+	}
+	
 	
 	public Element setType(String type) {
 		if(details == null) details = new ElementDetails();

@@ -3,16 +3,9 @@
  */
 package site_mapper.jaxb.pom;
 
-import java.io.Serializable;
-import java.util.List;
-
-import jakarta.xml.bind.annotation.XmlAccessType;
-import jakarta.xml.bind.annotation.XmlAccessorType;
-import jakarta.xml.bind.annotation.XmlElement;
-import jakarta.xml.bind.annotation.XmlElementWrapper;
-import jakarta.xml.bind.annotation.XmlElements;
 import jakarta.xml.bind.annotation.XmlRootElement;
 import jakarta.xml.bind.annotation.XmlSeeAlso;
+import jakarta.xml.bind.annotation.XmlType;
 
 /**
  * @author SteveBrown
@@ -20,12 +13,17 @@ import jakarta.xml.bind.annotation.XmlSeeAlso;
  * 	Initial
  * @since 1.0
  */
-@XmlRootElement(name="TestData")
-@XmlSeeAlso({TestDataIn.class})
-public abstract class TestData implements Serializable {
-	private static final long serialVersionUID = 1L;
+//@XmlRootElement(name="TestData")
+//@XmlType
+//@XmlSeeAlso({TestDataList.class, TestDataText.class})
+public abstract class TestData {
+	public abstract String getValue();
+//
+//	public String getValue() {
+//		return "NOOOOO";
+//	}
 	
-	abstract String getValue();
+//	abstract String getValue();
 	
 //  @XmlElementWrapper(name="In")
 //  @XmlElements({

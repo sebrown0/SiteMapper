@@ -24,6 +24,9 @@ import site_mapper.jaxb.pom.Element;
 import site_mapper.jaxb.pom.ElementFunction;
 import site_mapper.jaxb.pom.Module;
 import site_mapper.jaxb.pom.PomMapperApp;
+import site_mapper.jaxb.pom.TestDataIn;
+import site_mapper.jaxb.pom.TestDataList;
+import site_mapper.jaxb.pom.TestDataText;
 
 /**
  * @author SteveBrown
@@ -82,10 +85,16 @@ class XmlContentTests {
 		Container tabBasicDetails =  tabs.getContainers().get(0);
 		Container grpGradeInput =  tabBasicDetails.getContainers().get(0);
 		Element elGrade = grpGradeInput.getElements().get(0);
-		TestDataGetter testDataGetter = elGrade.getTestDataIn();		
-		ElementDataText testData = (ElementDataText) testDataGetter.getTestData();
+//		TestDataGetter testDataGetter = elGrade.getTestDataIn();		
+//		ElementDataText testData = (ElementDataText) testDataGetter.getTestData();
+		TestDataIn testData =  (TestDataIn) elGrade.getTestData();
+//			
+//		TestDataText data = (TestDataText) testData.getValue(); 
+		TestDataList data = (TestDataList) testData.getValue();
 		
-		assertEquals("some test data in", testData.getText());
+		System.out.println(data.getValue());
+//		assertEquals("some test data in", testData.getValue());
+		assertTrue(testData != null);
 	}
 	
 	@Test

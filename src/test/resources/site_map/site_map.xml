@@ -104,10 +104,19 @@
                   <Element>                  
                     <Details type="TextSelect" name="Grade"/>
                     <Locator by="css" text="input[id='GRADE_CODE']"/>    
-                    <!-- can be text or comma separated list [NOT BOTH!] (maybe add object)--> 
+                    <!-- can be text or comma separated list [NOT BOTH!] (maybe add object) 
                     <TestDataIn  text="some test data in"/>
                     <TestDataOut list="item_1,item_2"/>
+                    -->
+                    <TestDataIn>
+                    	<!--  <text name="text" value="hhh"/>-->
+                    	<list name="list" value="1,2,3"/>
+                    </TestDataIn>
                     
+                    <!-- 
+                    <TestDataIn name="text" value="hhhhhh">                    	
+                   	</TestDataIn>
+                   	 -->
                   </Element>
                 </Container>  
               </Container>  
