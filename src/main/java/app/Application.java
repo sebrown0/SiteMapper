@@ -27,8 +27,9 @@ public final class Application {
 	 * TODO - XML_SOURCE as argument.
 	 */
 	public static void main(String[] args) {
-		SiteMapContentGetter<PomMapperApp> contentGetter = new SiteMapContentGetter<>(XML_SOURCE);
-		XmlContent content = contentGetter.getContent(PomMapperApp.class).get();
+		SiteMapContentGetter<PomMapperApp> contentGetter = 
+				new SiteMapContentGetter<>(XML_SOURCE, PomMapperApp.class);
+		XmlContent content = contentGetter.getContent().get();
 		PomMapperProd mapper = new PomMapperProd(content);
 		mapper.createPomsFromSource(XML_SOURCE);		
 	}

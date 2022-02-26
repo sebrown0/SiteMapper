@@ -76,8 +76,9 @@ class PomMapperTests {
 		
 	@Test @Order(2)
 	void createPomsFromXML() {		
-		SiteMapContentGetter<PomMapperApp> contentGetter = new SiteMapContentGetter<>(XML_SOURCE);
-		XmlContent content = contentGetter.getContent(PomMapperApp.class).get();
+		SiteMapContentGetter<PomMapperApp> contentGetter = 
+				new SiteMapContentGetter<>(XML_SOURCE, PomMapperApp.class);
+		XmlContent content = contentGetter.getContent().get();
 		PomMapperTest mapper = new PomMapperTest((new PomMapperTests()).new PomTestData(), content);
 		mapper.createPomsFromSource(XML_SOURCE);
 		

@@ -16,8 +16,9 @@ import app.SiteMapContentGetter;
 public class DynamicTestMapper {
 	
 	public static Optional<DynamicTestApp> getDynamicTestContent(String XML_SOURCE){
-		SiteMapContentGetter<DynamicTestApp> contentGetter = new SiteMapContentGetter<>(XML_SOURCE);		
-		Optional<DynamicTestApp> content = contentGetter.getContent(DynamicTestApp.class);
+		SiteMapContentGetter<DynamicTestApp> contentGetter = 
+				new SiteMapContentGetter<>(XML_SOURCE, DynamicTestApp.class);		
+		Optional<DynamicTestApp> content = contentGetter.getContent();
 		return content;
 	}
 	/*

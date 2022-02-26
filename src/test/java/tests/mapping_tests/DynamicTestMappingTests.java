@@ -33,18 +33,18 @@ class DynamicTestMappingTests {
 	private static final String XML_SOURCE = 
 	"./src/test/resources/site_map/site_map.xml";
 
+	private static final SiteMapContentGetter<DynamicTestApp> contentGetter = 
+			new SiteMapContentGetter<>(XML_SOURCE, DynamicTestApp.class);		
 	@Test
-	void getContentFrom_DynamicTestApp() {
-		SiteMapContentGetter<DynamicTestApp> contentGetter = new SiteMapContentGetter<>(XML_SOURCE);		
-		Optional<DynamicTestApp> content = contentGetter.getContent(DynamicTestApp.class);
+	void getContentFrom_DynamicTestApp() {		
+		Optional<DynamicTestApp> content = contentGetter.getContent();
 		
 		assertFalse(content.isEmpty());
 	}
 
 	@Test
-	void getInfoFrom_DynamicTestApp() {
-		SiteMapContentGetter<DynamicTestApp> contentGetter = new SiteMapContentGetter<>(XML_SOURCE);		
-		Optional<DynamicTestApp> content = contentGetter.getContent(DynamicTestApp.class);
+	void getInfoFrom_DynamicTestApp() {		
+		Optional<DynamicTestApp> content = contentGetter.getContent();
 		SiteMapInfo info = content.get().getSiteMapInfo();
 		
 		assertEquals(DateTimeFormatter.ofPattern("dd/MM/yyyy").format(LocalDate.now()), info.getDate());
@@ -52,8 +52,7 @@ class DynamicTestMappingTests {
 	
 	@Test
 	void getModuleFrom_DynamicTestApp() {
-		SiteMapContentGetter<DynamicTestApp> contentGetter = new SiteMapContentGetter<>(XML_SOURCE);		
-		Optional<DynamicTestApp> content = contentGetter.getContent(DynamicTestApp.class);
+		Optional<DynamicTestApp> content = contentGetter.getContent();
 		List<Module> modules = content.get().getModules();
 		
 		assertTrue(modules.size()>0);
@@ -61,9 +60,8 @@ class DynamicTestMappingTests {
 	}
 
 	@Test
-	void get_includeElementsForTestFrom_DynamicTestApp() {
-		SiteMapContentGetter<DynamicTestApp> contentGetter = new SiteMapContentGetter<>(XML_SOURCE);		
-		Optional<DynamicTestApp> content = contentGetter.getContent(DynamicTestApp.class);
+	void get_includeElementsForTestFrom_DynamicTestApp() {		
+		Optional<DynamicTestApp> content = contentGetter.getContent();
 		List<String> elements = content.get().getIncludeElementsForTest();
 		
 		assertTrue(elements.size()>0);

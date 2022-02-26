@@ -23,40 +23,38 @@ import jakarta.xml.bind.Unmarshaller;
  * 	Initial
  * @since 1.0
  */
-public class SiteMapContentGetter <T extends XmlContent> {
-	
+public class SiteMapContentGetter <T extends XmlContent> {	
 	private Logger logger = LogManager.getLogger("site_mapper.app.log");
-//	private Logger logger = LogManager.getLogger(this.getClass());
 	private JAXBContext jc;
-	private Unmarshaller unmarshaller;
-	
-	private Optional<T> content = Optional.empty();
-	
+	private Unmarshaller unmarshaller;	
+	private Optional<T> content = Optional.empty();	
 	private final String XML_SOURCE;
+	private final Class<T> clazz;
 	
-	public SiteMapContentGetter(final String XML_SOURCE) {
-		this.XML_SOURCE = XML_SOURCE;	
+	public SiteMapContentGetter(final String XML_SOURCE, Class<T> clazz) {
+		this.XML_SOURCE = XML_SOURCE;
+		this.clazz = clazz;
 	}
-	
-	public Optional<T> getContent(Class<T> clazz) {
+		
+	public Optional<T> getContent() {
 		try {
 			setJaxContext(clazz);
-			unmarshallSource();
-			getSource().ifPresentOrElse(
-					src -> {
-						content = getMapperNew(src, clazz);								
-					}, 
-					new Runnable() {					
-						@Override
-						public void run() {
-							logger.error("Error getting the source [" + XML_SOURCE + "] for unmarshling");
-						}
-					});
+			setUnmarshaller();
 		} catch (JAXBException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		setContent(clazz);
 		return content;
+	}
+	
+	private void setJaxContext(Class<T> clazz) throws JAXBException {
+		jc = JAXBContext.newInstance(clazz);
+	}
+
+	private void setUnmarshaller() throws JAXBException {
+		unmarshaller = jc.createUnmarshaller();
+    unmarshaller.setProperty("eclipselink.media-type", "application/xml");      
+    unmarshaller.setProperty(UnmarshallerProperties.DISABLE_SECURE_PROCESSING, Boolean.TRUE);  
 	}
 	
 	private Optional<StreamSource> getSource() {
@@ -64,28 +62,27 @@ public class SiteMapContentGetter <T extends XmlContent> {
 		return Optional.ofNullable(new StreamSource(XML_SOURCE));
 	}
 
-	private Optional<T> getMapperNew(StreamSource s, Class<T> clazz){
-		Optional<T> app = Optional.ofNullable(null);
+	private Optional<T> getUnmarshalledContent(StreamSource s, Class<T> clazz){
+		Optional<T> content = Optional.ofNullable(null);
 		try {
-			app = Optional.ofNullable(unmarshaller.unmarshal(s, clazz).getValue());			
+			content = Optional.ofNullable(unmarshaller.unmarshal(s, clazz).getValue());			
 		} catch (JAXBException e) {
 			logger.error("Error unmarshalling source");
 		}	 
-		return app;
+		return content;
 	}
 
-//	private void writeLogHeader() {
-//		logger.info("Creating POMs");
-//	}
-	
-	private void setJaxContext(Class<T> clazz) throws JAXBException {
-		jc = JAXBContext.newInstance(clazz);
+	private void setContent(Class<T> clazz){
+		getSource().ifPresentOrElse(
+				src -> {
+					content = getUnmarshalledContent(src, clazz);								
+				}, 
+				new Runnable() {					
+					@Override
+					public void run() {
+						logger.error("Error getting the source [" + XML_SOURCE + "] for unmarshling");
+					}
+				});
 	}
-	private void unmarshallSource() throws JAXBException {
-		unmarshaller = jc.createUnmarshaller();
-    unmarshaller.setProperty("eclipselink.media-type", "application/xml");      
-    unmarshaller.setProperty(UnmarshallerProperties.DISABLE_SECURE_PROCESSING, Boolean.TRUE);  
-	}
-	
 
 }
