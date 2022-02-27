@@ -9,7 +9,7 @@ import jakarta.xml.bind.annotation.XmlAttribute;
 import jakarta.xml.bind.annotation.XmlRootElement;
 
 /**
- * @author Brown
+ * @author SteveBrown
  * @version 1.0
  * 	Initial
  * @since 1.0
@@ -23,10 +23,5 @@ public class TestDataText extends TestData {
 	public String getValue() {
 		return value;
 	}
-
-	public void setValue(String value) {
-		this.value = value;
-	}
-	
 	
 }

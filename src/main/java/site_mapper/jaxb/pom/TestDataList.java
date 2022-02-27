@@ -9,14 +9,14 @@ import jakarta.xml.bind.annotation.XmlAttribute;
 import jakarta.xml.bind.annotation.XmlRootElement;
 
 /**
- * @author Brown
+ * @author SteveBrown
  * @version 1.0
  * 	Initial
  * @since 1.0
  */
 @XmlRootElement(name="list")
 @XmlAccessorType(XmlAccessType.FIELD)
-public class TestDataList extends TestData{
+public class TestDataList extends TestData {
 	@XmlAttribute
 	private String value;
 

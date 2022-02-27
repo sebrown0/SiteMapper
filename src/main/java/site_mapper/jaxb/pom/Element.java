@@ -25,33 +25,11 @@ public class Element implements ElementCreation, ElementControl {
 	private ElementToolTip toolTip;		
 	@XmlElement(name="Function")
 	private ElementFunction elementFunction;
-	
-
 	@XmlElement(name="TestDataIn")
-	private TestDataIn testDataIn;
-	
+	private TestDataIn testDataIn;	
 	@XmlElement(name="TestDataOut")	
-	private TestDataOut testDataOut;
+	private TestDataOut testDataOut;		
 		
-	@Override //ElementDetails
-	public Element setTestDataIn(TestDataIn data) {
-		this.testDataIn = data;
-		return this;
-	}
-	@Override //ElementDetails
-	public Element setTestDataOut(TestDataOut data) {
-		this.testDataOut = data;
-		return this;
-	}
-	@Override //ElementDetails
-	public TestDataIn getTestDataIn() {
-		return testDataIn;
-	}	
-	@Override //ElementDetails
-	public TestDataOut getTestDataOut() {
-		return testDataOut;
-	}	
-	//	
 	public Element setType(String type) {
 		if(details == null) details = new ElementDetails();
 		details.setType(type);
@@ -85,17 +63,33 @@ public class Element implements ElementCreation, ElementControl {
 	public Element setLocator(Locator locator) {
 		this.locator = locator;
 		return this;
-	}
-	
+	}	
 	public Element setelementFunction(ElementFunction elementFunction) {
 		this.elementFunction = elementFunction;
 		return this;
-	}
-		
+	}		
 	public Locator getLocator() {		
 		return locator;
 	}
 	
+	@Override //ElementDetails
+	public Element setTestDataIn(TestDataIn data) {
+		this.testDataIn = data;
+		return this;
+	}
+	@Override //ElementDetails
+	public Element setTestDataOut(TestDataOut data) {
+		this.testDataOut = data;
+		return this;
+	}
+	@Override //ElementDetails
+	public TestDataIn getTestDataIn() {
+		return testDataIn;
+	}	
+	@Override //ElementDetails
+	public TestDataOut getTestDataOut() {
+		return testDataOut;
+	}
 	@Override //ElementDetails
 	public String getToolTipText() {
 		return (toolTip != null) ? toolTip.getText() : "";
@@ -104,7 +98,6 @@ public class Element implements ElementCreation, ElementControl {
 	public String getElementName() {
 		return (details != null) ? details.getElementName() : "";
 	}
-
 	@Override //ElementDetails
 	public String getText() {
 		return (details != null) ? details.getText() : "";

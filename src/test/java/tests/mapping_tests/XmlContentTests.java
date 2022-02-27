@@ -92,7 +92,7 @@ class XmlContentTests {
 		Container grpGradeInput =  tabBasicDetails.getContainers().get(0);
 		Element elGrade = grpGradeInput.getElements().get(0);
 		TestDataIn testData =  (TestDataIn) elGrade.getTestDataIn(); 
-		TestDataList data = (TestDataList) testData.getValue();
+		TestDataList data = (TestDataList) testData.getTestData();
 		
 		assertEquals("1,2,3", data.getValue());
 	}
