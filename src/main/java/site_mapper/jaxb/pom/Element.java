@@ -51,8 +51,7 @@ public class Element implements ElementCreation, ElementControl {
 	public TestDataOut getTestDataOut() {
 		return testDataOut;
 	}	
-	
-	
+		
 	public Element setType(String type) {
 		if(details == null) details = new ElementDetails();
 		details.setType(type);
