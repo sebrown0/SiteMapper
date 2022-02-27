@@ -7,6 +7,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.junit.jupiter.api.BeforeAll;
@@ -22,10 +23,10 @@ import site_mapper.jaxb.pom.Element;
 import site_mapper.jaxb.pom.ElementFunction;
 import site_mapper.jaxb.pom.Module;
 import site_mapper.jaxb.pom.PomMapperApp;
-import site_mapper.jaxb.pom.TestDataIn;
-import site_mapper.jaxb.pom.TestDataList;
-import site_mapper.jaxb.pom.TestDataOut;
-import site_mapper.jaxb.pom.TestDataText;
+import site_mapper.jaxb.pom.test_data.TestDataIn;
+import site_mapper.jaxb.pom.test_data.TestDataList;
+import site_mapper.jaxb.pom.test_data.TestDataOut;
+import site_mapper.jaxb.pom.test_data.TestDataText;
 
 /**
  * @author SteveBrown
@@ -96,6 +97,19 @@ class XmlContentTests {
 		
 		assertEquals("1,2,3", data.getValue());
 	}
+
+	@Test
+	void getTestData_as_list_fromDataIn() {
+		Container tabs =  body.getContainers().get(0);
+		Container tabBasicDetails =  tabs.getContainers().get(0);
+		Container grpGradeInput =  tabBasicDetails.getContainers().get(0);
+		Element elGrade = grpGradeInput.getElements().get(0);
+		TestDataIn testData =  (TestDataIn) elGrade.getTestDataIn(); 
+		TestDataList data = (TestDataList) testData.getTestData();
+		List<String> dataList = data.getAsList();
+		
+		assertEquals("3", dataList.get(2));
+	}
 	
 	@Test
 	void getTestDataText_fromDataOut() {
@@ -108,8 +122,6 @@ class XmlContentTests {
 		
 		assertEquals("some text out", data.getValue());
 	}
-	
-
 		
 	@Test
 	void mapTestObjects() {
@@ -130,7 +142,7 @@ class XmlContentTests {
 		assertEquals(
 				"\n\t@TestControl(type=\"button\")\n" +
 				"\tpublic DynamicTest buttonSave () {\n" +
-				"\t\treturn DynamicTest.dynamicTest(\"[buttonSave] *NOT IMPLEMENTED*\", () -> assertTrue(true));\n" +
+				"\t\treturn DynamicTest.dynamicTest(\"[buttonSave]\", () -> fail(\"*NOT IMPLEMENTED*\"));\n" +
 				"\t}", 
 				func.toString()); 	
 	}

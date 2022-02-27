@@ -1,7 +1,7 @@
 /**
  * 
  */
-package site_mapper.jaxb.pom;
+package site_mapper.jaxb.pom.test_data;
 
 import jakarta.xml.bind.annotation.XmlAccessType;
 import jakarta.xml.bind.annotation.XmlAccessorType;
@@ -14,7 +14,7 @@ import jakarta.xml.bind.annotation.XmlRootElement;
  * 	Initial
  * @since 1.0
  */
-@XmlRootElement(name="text")
+@XmlRootElement(name="Text")
 @XmlAccessorType(XmlAccessType.FIELD)
 public class TestDataText extends TestData {
 	@XmlAttribute

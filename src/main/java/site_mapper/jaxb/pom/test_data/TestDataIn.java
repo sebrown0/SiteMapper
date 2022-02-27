@@ -1,7 +1,7 @@
 /**
  * 
  */
-package site_mapper.jaxb.pom;
+package site_mapper.jaxb.pom.test_data;
 
 import jakarta.xml.bind.annotation.XmlAccessType;
 import jakarta.xml.bind.annotation.XmlAccessorType;
@@ -20,8 +20,8 @@ import jakarta.xml.bind.annotation.XmlRootElement;
 @XmlAccessorType(XmlAccessType.FIELD)
 public class TestDataIn {
 	@XmlElements(value={
-		@XmlElement(name="text", type=TestDataText.class),
-		@XmlElement(name="list", type=TestDataList.class)
+		@XmlElement(name="Text", type=TestDataText.class),
+		@XmlElement(name="List", type=TestDataList.class)
 	})
 	private TestData testData;
 	

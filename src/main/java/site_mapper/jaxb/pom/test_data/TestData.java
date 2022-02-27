@@ -1,7 +1,7 @@
 /**
  * 
  */
-package site_mapper.jaxb.pom;
+package site_mapper.jaxb.pom.test_data;
 
 /**
  * @author SteveBrown

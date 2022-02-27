@@ -106,10 +106,10 @@
                     <Details type="TextSelect" name="Grade"/>
                     <Locator by="css" text="input[id='GRADE_CODE']"/>
 					  <TestDataIn>                    	
-                    	<list value="1,2,3"/>
+                    	<List value="1,2,3"/>
                       </TestDataIn>
      				  <TestDataOut>                    	
-                    	<text value="some text out"/>
+                    	<Text value="some text out"/>
                       </TestDataOut>
                   </Element>
                 </Container>  

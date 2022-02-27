@@ -4,8 +4,8 @@
 package site_mapper.elements;
 
 import site_mapper.jaxb.pom.Element;
-import site_mapper.jaxb.pom.TestDataIn;
-import site_mapper.jaxb.pom.TestDataOut;
+import site_mapper.jaxb.pom.test_data.TestDataIn;
+import site_mapper.jaxb.pom.test_data.TestDataOut;
 
 /**
  * @author SteveBrown

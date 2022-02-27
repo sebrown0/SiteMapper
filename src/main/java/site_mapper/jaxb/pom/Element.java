@@ -8,6 +8,8 @@ import jakarta.xml.bind.annotation.XmlRootElement;
 import site_mapper.creators.control_data.ControlStringGetter;
 import site_mapper.creators.control_data.ElementControl;
 import site_mapper.elements.ElementCreation;
+import site_mapper.jaxb.pom.test_data.TestDataIn;
+import site_mapper.jaxb.pom.test_data.TestDataOut;
 
 /**
  * @author SteveBrown

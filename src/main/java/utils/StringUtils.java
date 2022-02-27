@@ -3,6 +3,9 @@
  */
 package utils;
 
+import java.util.Arrays;
+import java.util.List;
+
 /**
  * @author SteveBrown
  * @version 1.0
@@ -51,4 +54,11 @@ public class StringUtils {
 		return res;
 	}
 	
+	public static List<String> getListFromString(String str, String separator) {
+		List<String> res = null;
+		if(str != null) {
+			res = Arrays.asList(str.split(separator));
+		}
+		return res;
+	}	
 }
