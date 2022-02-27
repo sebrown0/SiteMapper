@@ -99,24 +99,18 @@
                   <Details type="input" name="IdCardNo"/>
                   <Locator by="css" text="input[id='FORM_ID']"/>              
                 </Element>
+                
                 <Container type="InputGroup" name="GradeInput">
                   <Locator by="xpath" text="//i[@class='fa fa-list']/ancestor::div[@class='input-group']"/>
                   <Element>                  
                     <Details type="TextSelect" name="Grade"/>
-                    <Locator by="css" text="input[id='GRADE_CODE']"/>    
-                    <!-- can be text or comma separated list [NOT BOTH!] (maybe add object) 
-                    <TestDataIn  text="some test data in"/>
-                    <TestDataOut list="item_1,item_2"/>
-                    -->
-                    <TestDataIn>
-                    	<!--  <text name="text" value="hhh"/>-->
-                    	<list name="list" value="1,2,3"/>
-                    </TestDataIn>
-                    
-                    <!-- 
-                    <TestDataIn name="text" value="hhhhhh">                    	
-                   	</TestDataIn>
-                   	 -->
+                    <Locator by="css" text="input[id='GRADE_CODE']"/>
+					  <TestDataIn>                    	
+                    	<list value="1,2,3"/>
+                      </TestDataIn>
+     				  <TestDataOut>                    	
+                    	<text value="some text out"/>
+                      </TestDataOut>
                   </Element>
                 </Container>  
               </Container>  

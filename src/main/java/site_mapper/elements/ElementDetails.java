@@ -4,7 +4,8 @@
 package site_mapper.elements;
 
 import site_mapper.jaxb.pom.Element;
-import site_mapper.jaxb.pom.ElementTestData;
+import site_mapper.jaxb.pom.TestDataIn;
+import site_mapper.jaxb.pom.TestDataOut;
 
 /**
  * @author SteveBrown
@@ -17,8 +18,8 @@ public interface ElementDetails {
 	String getText();
 	String getToolTipText(); 
 	String getFafa();
-	Element setTestDataIn(ElementTestData data);
-	Element setTestDataOut(ElementTestData data);
-	ElementTestData getTestDataIn();
-	ElementTestData getTestDataOut();
+	Element setTestDataIn(TestDataIn data);
+	Element setTestDataOut(TestDataOut data);
+	TestDataIn getTestDataIn();
+	TestDataOut getTestDataOut();
 }

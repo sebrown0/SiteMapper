@@ -16,9 +16,9 @@ import jakarta.xml.bind.annotation.XmlRootElement;
  * @since 1.0
  */
 
-@XmlRootElement(name="TestDataIn")
+@XmlRootElement(name="TestDataOut")
 @XmlAccessorType(XmlAccessType.FIELD)
-public class TestDataIn {
+public class TestDataOut {
 	@XmlElements(value={
 		@XmlElement(name="text", type=TestDataText.class),
 		@XmlElement(name="list", type=TestDataList.class)
