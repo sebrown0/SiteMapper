@@ -23,5 +23,8 @@ public class TestDataText extends TestData {
 	public String getValue() {
 		return value;
 	}
-	
+	public TestData setValue(String value) {
+		this.value = value;
+		return this;
+	}
 }

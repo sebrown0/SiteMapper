@@ -36,11 +36,7 @@ public class Container implements XmlContainer {
 	public boolean isParentContiner() {
 		return (containers != null && containers.size() > 0) ? true : false;
 	}
-	
-//	public String getContainerString() {
-//		return ContainerStringGetter.getStringFrom(this);
-//	}
-	
+		
 	@Override
 	public String getType() {
 		return type;

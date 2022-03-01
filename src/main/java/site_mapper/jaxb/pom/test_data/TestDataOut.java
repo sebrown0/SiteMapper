@@ -23,10 +23,12 @@ public class TestDataOut {
 		@XmlElement(name="Text", type=TestDataText.class),
 		@XmlElement(name="List", type=TestDataList.class)
 	})
-	private TestData value;
+	private TestData testData;
 	
-	public TestData getValue() {
-		return value;
+	public TestData getTestData() {
+		return testData;
 	}
-
+	public void setTestData(TestData testData) {
+		this.testData = testData;
+	}
 }

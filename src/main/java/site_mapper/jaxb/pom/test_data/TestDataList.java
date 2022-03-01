@@ -26,6 +26,10 @@ public class TestDataList extends TestData {
 	public String getValue() {
 		return value;
 	}
+	public TestData setValue(String value) {
+		this.value = value;
+		return this;
+	}
 	
 	public List<String> getAsList(){
 		return StringUtils.getListFromString(value, ",");

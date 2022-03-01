@@ -105,7 +105,7 @@
                   <Element>                  
                     <Details type="TextSelect" name="Grade"/>
                     <Locator by="css" text="input[id='GRADE_CODE']"/>
-					  <TestDataIn>                    	
+					  <TestDataIn insertWith="AnInsertClass">                    	
                     	<List value="1,2,3"/>
                       </TestDataIn>
      				  <TestDataOut>                    	

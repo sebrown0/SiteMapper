@@ -87,7 +87,7 @@ class XmlContentTests {
 	}
 
 	@Test
-	void getTestDataList_fromDataIn() {
+	void get_TestDataList_fromDataIn() {
 		Container tabs =  body.getContainers().get(0);
 		Container tabBasicDetails =  tabs.getContainers().get(0);
 		Container grpGradeInput =  tabBasicDetails.getContainers().get(0);
@@ -112,13 +112,25 @@ class XmlContentTests {
 	}
 	
 	@Test
+	void getTestData_insertClass_fromDataIn() {
+		Container tabs =  body.getContainers().get(0);
+		Container tabBasicDetails =  tabs.getContainers().get(0);
+		Container grpGradeInput =  tabBasicDetails.getContainers().get(0);
+		Element elGrade = grpGradeInput.getElements().get(0);
+		TestDataIn testData =  (TestDataIn) elGrade.getTestDataIn(); 
+
+		
+		assertEquals("AnInsertClass", testData.getInsertWith());
+	}
+	
+	@Test
 	void getTestDataText_fromDataOut() {
 		Container tabs =  body.getContainers().get(0);
 		Container tabBasicDetails =  tabs.getContainers().get(0);
 		Container grpGradeInput =  tabBasicDetails.getContainers().get(0);
 		Element elGrade = grpGradeInput.getElements().get(0);
 		TestDataOut testData =  elGrade.getTestDataOut(); 
-		TestDataText data = (TestDataText) testData.getValue();
+		TestDataText data = (TestDataText) testData.getTestData();
 		
 		assertEquals("some text out", data.getValue());
 	}
