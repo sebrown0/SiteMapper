@@ -3,6 +3,8 @@
  */
 package site_mapper.creators.control_data;
 
+import java.util.List;
+
 import site_mapper.jaxb.pom.Element;
 import site_mapper.jaxb.pom.Locator;
 import utils.StringUtils;
@@ -36,16 +38,24 @@ public class ControlStringGetter {
 	private String getElementName() {
 		return StringUtils.asPascalCase(element.getElementName());
 	}
-	private String getLocator() {
-		Locator loc = element.getLocator(); 
-		return (loc != null) ? ", " + loc.toString() : "";
+	private String getLocators() {
+		String res = "";
+		List<Locator> locs = element.getLocator();
+//		Locator loc = element.getLocator();
+		if(locs != null) {
+			for(Locator loc : locs) {
+				res += ", " + loc.toString();
+			}
+		}
+		return res;
+//		return (loc != null) ? ", " + loc.toString() : "";
 	}
 	public String getString() {		
 		return 
 			String.format(
 					"%s%s =\n\t\t\tnew ControlGetter%s(\"%s\", coreData%s);",
 					getInitial(), getName(), getType(),
-					getElementName(), getLocator());
+					getElementName(), getLocators());
 	}
 
 }

@@ -113,8 +113,8 @@ class ContainerTests {
 		Element save = 
 			new Element()
 				.setName("save")
-				.setType("button")
-				.setLocator(new Locator().setBy("css").setLocator("div[class='SAVE']"));
+				.setType("button");
+//				.setLocator(new Locator().setBy("css").setLocator("div[class='SAVE']"));
 		
 		Container level_2_A= 
 			new Container()

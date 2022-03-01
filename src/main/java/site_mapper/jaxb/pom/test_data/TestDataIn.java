@@ -32,13 +32,15 @@ public class TestDataIn {
 	public TestData getTestData() {
 		return testData;
 	}
-	public void setTestData(TestData testData) {
+	public TestDataIn setTestData(TestData testData) {
 		this.testData = testData;
+		return this;
 	}
 	public String getInsertWith() {
 		return insertWith;
 	}
-	public void setInsertWith(String insertWith) {
+	public TestDataIn setInsertWith(String insertWith) {
 		this.insertWith = insertWith;
+		return this;
 	}
 }

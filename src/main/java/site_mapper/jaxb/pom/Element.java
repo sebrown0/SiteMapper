@@ -3,6 +3,8 @@
  */
 package site_mapper.jaxb.pom;
 
+import java.util.List;
+
 import jakarta.xml.bind.annotation.XmlElement;
 import jakarta.xml.bind.annotation.XmlRootElement;
 import site_mapper.creators.control_data.ControlStringGetter;
@@ -22,7 +24,7 @@ public class Element implements ElementCreation, ElementControl {
 	@XmlElement(name="Details")
 	private ElementDetails details;
 	@XmlElement(name="Locator")
-	private Locator locator;
+	private List<Locator> locator;
 	@XmlElement(name="ToolTip")
 	private ElementToolTip toolTip;		
 	@XmlElement(name="Function")
@@ -52,27 +54,36 @@ public class Element implements ElementCreation, ElementControl {
 		details.setFafa(fafa);
 		return this;
 	}
-	public Element setBy(String by) {
-		if(locator == null) locator = new Locator();
-		this.locator.setBy(by);
-		return this;
-	}
-	public Element setLocator(String locator) {
-		if(this.locator == null) this.locator = new Locator();
-		this.locator.setLocator(locator);
-		return this;
-	}
-	public Element setLocator(Locator locator) {
-		this.locator = locator;
-		return this;
-	}	
+//	public Element setBy(String by) {
+//		Locator loc = new Locator();
+//		loc.setBy(by);
+//		locator.add(loc);
+//		return this;
+//	}
+//	public Element setBy(String by) {
+//		if(locator == null) locator = new Locator();
+//		this.locator.setBy(by);
+//		return this;
+//	}
+//	public Element setLocator(String locator) {
+//		if(this.locator == null) this.locator = new Locator();
+//		this.locator.setLocator(locator);
+//		return this;
+//	}
+//	public Element setLocator(Locator locator) {
+//		this.locator = locator;
+//		return this;
+//	}	
 	public Element setelementFunction(ElementFunction elementFunction) {
 		this.elementFunction = elementFunction;
 		return this;
-	}		
-	public Locator getLocator() {		
+	}	
+	public List<Locator> getLocator() {		
 		return locator;
 	}
+//	public Locator getLocator() {		
+//		return locator;
+//	}
 	
 	@Override //ElementDetails
 	public Element setTestDataIn(TestDataIn data) {
@@ -115,11 +126,13 @@ public class Element implements ElementCreation, ElementControl {
 	}
 	@Override //ElementCreation
 	public String getByLocatorValue() {
-		return (locator != null) ? locator.getLocator() : "";		
+		return null;
+//		return (locator != null) ? locator.getLocator() : "";		
 	}
 	@Override //ElementCreation
 	public String getByLocatorType() {
-		return (locator != null) ? locator.getBy() : "";		
+		return null;
+//		return (locator != null) ? locator.getBy() : "";		
 	}
 	public ElementFunction getElementFunction() {
 		if(elementFunction != null) {

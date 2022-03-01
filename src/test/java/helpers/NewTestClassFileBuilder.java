@@ -82,21 +82,21 @@ public class NewTestClassFileBuilder {
 		menuItemType.setAttributes(attributes);
 	}
 	private void setElements() {
-		SAVE_BUTTON = new Element()
-				.setType("button").setName("save").setBy("css")
-				.setLocator("button[name='SAVE']")
-				.setelementFunction(
-						new ElementFunction()
-							.setName("save").setType("button").isDefaultPass(true));
-		
-		SEARCH_BUTTON = new Element()
-				.setType("button").setName("search").setBy("css")
-				.setLocator("button[name='QBF1']")
-				.setelementFunction(
-						new ElementFunction()
-							.setName("save").setType("button").isDefaultPass(false));
-		
-		EMP_CODE_TEXT_OUT = new Element().setType("text_out").setName("code").setBy("css").setLocator("input[id='FORM_ID']");
+//		SAVE_BUTTON = new Element()
+//				.setType("button").setName("save").setBy("css")
+//				.setLocator("button[name='SAVE']")
+//				.setelementFunction(
+//						new ElementFunction()
+//							.setName("save").setType("button").isDefaultPass(true));
+//		
+//		SEARCH_BUTTON = new Element()
+//				.setType("button").setName("search").setBy("css")
+//				.setLocator("button[name='QBF1']")
+//				.setelementFunction(
+//						new ElementFunction()
+//							.setName("save").setType("button").isDefaultPass(false));
+//		
+//		EMP_CODE_TEXT_OUT = new Element().setType("text_out").setName("code").setBy("css").setLocator("input[id='FORM_ID']");
 	}
 	private void setMenuItem() {
 		MENU_ITEM = new MenuItem();
