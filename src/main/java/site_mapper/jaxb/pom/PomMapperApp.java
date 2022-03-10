@@ -34,4 +34,5 @@ public class PomMapperApp implements XmlContent {
 	public SiteMapInfo getSiteMapInfo() {
 		return siteMapInfo;
 	}
+	
 }

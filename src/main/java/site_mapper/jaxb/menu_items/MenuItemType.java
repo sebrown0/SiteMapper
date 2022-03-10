@@ -26,6 +26,7 @@ public class MenuItemType {
 		@XmlElement(name="JsPanelWithIFrame", type=JsPanelWithIFrame.class)
 	})
 	public MenuItemType setAttributes(TypeAttributes js) {
+		System.out.println("->>>>>>>" + js.getPanelTitle()); // TODO - remove or log 	
 		this.attributes = js;		
 		return this;
 	}
