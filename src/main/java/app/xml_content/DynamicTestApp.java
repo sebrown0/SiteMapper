@@ -9,6 +9,7 @@ import jakarta.xml.bind.annotation.XmlElementWrapper;
 import jakarta.xml.bind.annotation.XmlRootElement;
 import site_mapper.jaxb.containers.Container;
 import site_mapper.jaxb.menu_items.MenuItem;
+import site_mapper.jaxb.pom.Element;
 import site_mapper.jaxb.pom.Menu;
 import site_mapper.jaxb.pom.Module;
 import site_mapper.jaxb.pom.SiteMapInfo;
@@ -23,14 +24,14 @@ import site_mapper.jaxb.pom.SiteMapInfo;
  * for dynamic tests.
  * 
  */
-@XmlRootElement(name = "SiteMap")
+@XmlRootElement(name="SiteMap")
 @XmlAccessorType(XmlAccessType.FIELD)
 public class DynamicTestApp implements XmlContent, XmlTestContent {	
 	@XmlElement(name="Info")
 	private SiteMapInfo siteMapInfo;
 	
 	@XmlElementWrapper(name="IncludeElementsForTest")
-	@XmlElement(name="Include")
+	@XmlElement(name="Include", namespace="IncludeElementsInTest")
 	private List<String> includeElementsForTest;
 	
 	@XmlElementWrapper(name="Modules")
@@ -89,10 +90,22 @@ public class DynamicTestApp implements XmlContent, XmlTestContent {
 	
 	private String getItemContainers(MenuItem item) {
 		String res = "";
-		for(Container c: item.getAllContainers()) {
-			res += "\n    " + c.getName();
-		}
-//		System.out.println("conts->" + item.getHeader().getName() ); // TODO - remove or log 	
+		Container hdr = item.getHeader();
+		res += "\n    " + hdr.getName();
+		res += "\n     Elements\n     --------" + hdr.getName();
+		res += "\n     " + getElements(hdr);
+		
+//		for(Container c: item.getAllContainers()) {
+//			res += "\n    " + c.getName();
+//		} 	
+		return res;
+	}
+	
+	private String getElements(Container c) {
+		String res = "";
+//		for(Element e : c.getElements()) {
+//			res += "\n     " + e.getElementName();
+//		}
 		return res;
 	}
 //	**********************

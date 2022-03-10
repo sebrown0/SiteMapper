@@ -21,17 +21,17 @@ import jakarta.xml.bind.annotation.XmlRootElement;
 @XmlRootElement(name="Info")
 @XmlAccessorType(XmlAccessType.FIELD)
 public class SiteMapInfo {
-	@XmlElement(name="Author")
+	@XmlElement(name="Author", namespace="SiteMapInfo")
 	private String author;
-	@XmlElement(name="Version")
+	@XmlElement(name="Version", namespace="SiteMapInfo")
 	private String version;
-	@XmlElement(name="RootDir")	
+	@XmlElement(name="RootDir", namespace="SiteMapInfo")	
 	private String rootDir;
-	@XmlElement(name="ElementLibrary")	
+	@XmlElement(name="ElementLibrary", namespace="SiteMapInfo")	
 	private String elementLibrary;
-	@XmlElement(name="ParentPackage")
+	@XmlElement(name="ParentPackage", namespace="SiteMapInfo")
 	private String parentPackage;
-	@XmlElement(name="CreationMethod")
+	@XmlElement(name="CreationMethod", namespace="SiteMapInfo")
 	private String creationMethod;
 	
 	private String xmlSource;

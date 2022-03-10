@@ -1,6 +1,6 @@
-@XmlSchema(namespace = "Root",
+@XmlSchema(namespace = app.Constants.ROOT_NAME_SPACE,
            xmlns = {@XmlNs(prefix = "",
-                           namespaceURI = "Root")},
+                           namespaceURI = app.Constants.ROOT_NAME_SPACE)},
            elementFormDefault = XmlNsForm.QUALIFIED)
 package site_mapper.jaxb.menu_items;
 import jakarta.xml.bind.annotation.XmlNs;

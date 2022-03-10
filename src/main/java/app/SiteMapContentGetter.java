@@ -1,19 +1,27 @@
-/**
- * 
- */
 package app;
 
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.util.Optional;
 
+import javax.xml.parsers.ParserConfigurationException;
+import javax.xml.parsers.SAXParser;
+import javax.xml.parsers.SAXParserFactory;
+import javax.xml.transform.sax.SAXSource;
 import javax.xml.transform.stream.StreamSource;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.eclipse.persistence.jaxb.UnmarshallerProperties;
+import org.xml.sax.InputSource;
+import org.xml.sax.SAXException;
+import org.xml.sax.XMLReader;
+import org.xml.sax.helpers.DefaultHandler;
 
 import app.xml_content.XmlContent;
 import jakarta.xml.bind.JAXBContext;
 import jakarta.xml.bind.JAXBException;
+import jakarta.xml.bind.Marshaller;
 import jakarta.xml.bind.Unmarshaller;
 
 
@@ -31,6 +39,12 @@ public class SiteMapContentGetter <T extends XmlContent> {
 	private final String XML_SOURCE;
 	private final Class<T> clazz;
 	
+  private static final String JAXP_SCHEMA_LANGUAGE =
+      "http://java.sun.com/xml/jaxp/properties/schemaLanguage";
+  
+  private static final String W3C_XML_SCHEMA =
+      "http://www.w3.org/2001/XMLSchema";
+  
 	public SiteMapContentGetter(final String XML_SOURCE, Class<T> clazz) {
 		this.XML_SOURCE = XML_SOURCE;
 		this.clazz = clazz;
@@ -43,7 +57,7 @@ public class SiteMapContentGetter <T extends XmlContent> {
 		} catch (JAXBException e) {
 			e.printStackTrace();
 		}
-		setContent(clazz);
+//		setContent(clazz);
 		return content;
 	}
 	
@@ -51,10 +65,45 @@ public class SiteMapContentGetter <T extends XmlContent> {
 		jc = JAXBContext.newInstance(clazz);
 	}
 
+	@SuppressWarnings("unchecked")
 	private void setUnmarshaller() throws JAXBException {
 		unmarshaller = jc.createUnmarshaller();
     unmarshaller.setProperty("eclipselink.media-type", "application/xml");      
-    unmarshaller.setProperty(UnmarshallerProperties.DISABLE_SECURE_PROCESSING, Boolean.TRUE);  
+    unmarshaller.setProperty(UnmarshallerProperties.DISABLE_SECURE_PROCESSING, Boolean.TRUE);
+//    unmarshaller.setProperty(Marshaller., Boolean.TRUE);  
+    
+    SAXParserFactory spf = SAXParserFactory.newInstance();
+
+    spf.setXIncludeAware(true);
+    spf.setNamespaceAware(true);
+//    spf.setValidating(true); // Not required for JAXB/XInclude
+    
+    SAXParser saxParser = null;
+		try {
+			saxParser = spf.newSAXParser();
+			saxParser.setProperty(JAXP_SCHEMA_LANGUAGE, W3C_XML_SCHEMA);
+		} catch (ParserConfigurationException | SAXException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+    
+
+    try {
+			XMLReader xr = saxParser.getXMLReader();			
+			SAXSource source = new SAXSource(xr, new InputSource(new FileInputStream(XML_SOURCE)));
+			content = (Optional<T>) Optional.ofNullable(unmarshaller.unmarshal(source));
+		} catch (SAXException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+//    XMLReader xr = (XMLReader) spf.newSAXParser().getXMLReader();
+//    SAXSource source = new SAXSource(xr, new InputSource(new   
+//        FileInputStream(classXMLFile)));
+ catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+    
 	}
 	
 	private Optional<StreamSource> getSource() {
@@ -84,5 +133,6 @@ public class SiteMapContentGetter <T extends XmlContent> {
 					}
 				});
 	}
+
 
 }
