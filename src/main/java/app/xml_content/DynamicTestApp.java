@@ -7,6 +7,9 @@ import jakarta.xml.bind.annotation.XmlAccessorType;
 import jakarta.xml.bind.annotation.XmlElement;
 import jakarta.xml.bind.annotation.XmlElementWrapper;
 import jakarta.xml.bind.annotation.XmlRootElement;
+import site_mapper.jaxb.containers.Container;
+import site_mapper.jaxb.menu_items.MenuItem;
+import site_mapper.jaxb.pom.Menu;
 import site_mapper.jaxb.pom.Module;
 import site_mapper.jaxb.pom.SiteMapInfo;
 
@@ -49,6 +52,49 @@ public class DynamicTestApp implements XmlContent, XmlTestContent {
 		return includeElementsForTest;
 	}
 		
+	@Override 
+	public String toString() {
+		return String.format("Info[%s], modules%s",  siteMapInfo.toString(), modulesToString());
+	}
+	
+	private String modulesToString() {
+		String els = "\n";
+		if(modules != null) {
+			for(Module m: modules) {				
+				els += "\n" + m.getName();
+				els += "\n" + getMenus(m);
+			}
+		}
+		return els;
+	}
+	
+	private String getMenus(Module m) {
+		String res = "\n  Menus\n  -----";
+		for(Menu men: m.getMenus()) {
+			res += "\n  " + men.getName();
+			res += "\n   Items\n   -----" + getMenuItems(men);
+		}
+		return res;
+	}
+	
+	private String getMenuItems(Menu men) {
+		String res = "";
+		for(MenuItem item: men.getMenuItems()) {
+			res += "\n   " + item.getName() + "(type: " + item.getMenuItemType().getType() + ")" ;
+//			res += "\n   " + item.getName();
+			res += "\n    Containers\n    ----------" + getItemContainers(item);
+		}
+		return res;
+	}
+	
+	private String getItemContainers(MenuItem item) {
+		String res = "";
+		for(Container c: item.getAllContainers()) {
+			res += "\n    " + c.getName();
+		}
+//		System.out.println("conts->" + item.getHeader().getName() ); // TODO - remove or log 	
+		return res;
+	}
 //	**********************
 //	* THIS GOES IN DTest *
 //  **********************
