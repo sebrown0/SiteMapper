@@ -16,16 +16,16 @@ import jakarta.xml.bind.annotation.XmlRootElement;
  */
 @XmlRootElement(name="Container", namespace="MenuItem")
 @XmlAccessorType(XmlAccessType.FIELD)
-public class Header {
+public class MenuItemContainer {
 	@XmlElement(name="Container", namespace="MenuItem")
-	private Container headerContainer;
+	private Container itemContainer;
 
-	public Container getHeaderContainer() {
-		return headerContainer;
+	public Container getItemContainer() {
+		return itemContainer;
 	}
 
-	public void setHeaderContainer(Container headerContainer) {
-		this.headerContainer = headerContainer;
+	public void setItemContainer(Container itemContainer) {
+		this.itemContainer = itemContainer;
 	}
 		
 }

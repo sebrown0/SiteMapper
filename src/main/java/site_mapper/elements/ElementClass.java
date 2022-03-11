@@ -7,6 +7,7 @@ import java.util.List;
 
 import site_mapper.creators.ComponentWriter;
 import site_mapper.jaxb.containers.Container;
+import site_mapper.jaxb.containers.MenuItemContainer;
 import site_mapper.jaxb.menu_items.MenuItemType;
 import site_mapper.jaxb.menu_items.TypeAttributes;
 import site_mapper.jaxb.pom.SiteMapInfo;
@@ -27,9 +28,9 @@ public interface ElementClass {
 	String getTypeName();
 	MenuItemType getMenuItemType();
 	List<Container> getAllContainers();
-	Container getHeader();
-	Container getBody();
-	Container getFooter();
+	MenuItemContainer getHeader();
+	MenuItemContainer getBody();
+	MenuItemContainer getFooter();
 	SiteMapInfo getSiteMapInfo();
 	ComponentWriter getComponentWriter();
 	boolean hasControlList();

@@ -55,7 +55,7 @@ class XmlContentTests {
 		content = contentGetter.getContent().get();
 		mod = content.getModules().get(0);
 		empDetails = mod.getMenus().get(0).getMenuItems().get(0);
-		body = empDetails.getBody();	
+		body = empDetails.getBody().getItemContainer();	
 	}
 	
 	@Test
@@ -79,8 +79,7 @@ class XmlContentTests {
 	void get_toolTip() {		
 		assertEquals("Save Record", 
 				empDetails.getFooter()
-									.getContainers()
-									.get(0)
+									.getItemContainer()									
 									.getElements()
 									.get(0)
 									.getToolTipText());
@@ -148,7 +147,7 @@ class XmlContentTests {
 
 	@Test 
 	void elementFunction_withDefaultPass() {
-		Element e = content.getModules().get(0).getMenus().get(0).getMenuItems().get(0).getFooter().getContainers().get(0).getElements().get(0);
+		Element e = content.getModules().get(0).getMenus().get(0).getMenuItems().get(0).getFooter().getItemContainer().getElements().get(0);
 		ElementFunction func = e.getElementFunction().setType("button").setName("save");
 		
 		assertEquals(
@@ -161,7 +160,7 @@ class XmlContentTests {
 
 	@Test 
 	void elementFunction_withoutDefaultPass() {
-		Element e = content.getModules().get(0).getMenus().get(0).getMenuItems().get(0).getFooter().getContainers().get(0).getElements().get(0);
+		Element e = content.getModules().get(0).getMenus().get(0).getMenuItems().get(0).getFooter().getItemContainer().getElements().get(0);
 		ElementFunction 
 			func = 
 				e.getElementFunction()
@@ -179,7 +178,7 @@ class XmlContentTests {
 
 	@Test
 	void get_empLookup_from_headerContainer() {
-		XmlContainer header = content.getModules().get(0).getMenus().get(0).getMenuItems().get(0).getHeader();
+		XmlContainer header = content.getModules().get(0).getMenus().get(0).getMenuItems().get(0).getHeader().getItemContainer();
 		XmlContainer empLookup = header.getContainers().get(0);
 		assertEquals("EmpLookup", empLookup.getName());		
 	}

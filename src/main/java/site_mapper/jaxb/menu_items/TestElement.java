@@ -3,7 +3,7 @@
  */
 package site_mapper.jaxb.menu_items;
 
-import site_mapper.jaxb.containers.Container;
+import site_mapper.jaxb.containers.MenuItemContainer;
 import site_mapper.jaxb.pom.SiteMapInfo;
 
 /**
@@ -20,9 +20,9 @@ public interface TestElement {
 	TestElement setTestMenuName(String str);
 	TestElement setTestClassName(String str);
 	TestElement setTestItemType(MenuItemType menuItemType);
-	TestElement setHeaderContainer(Container cont);
-	TestElement setBodyContainer(Container cont);
-	TestElement setFooterContainer(Container cont);
+	TestElement setHeaderContainer(MenuItemContainer cont);
+	TestElement setBodyContainer(MenuItemContainer cont);
+	TestElement setFooterContainer(MenuItemContainer cont);
 	TestElement setSiteMapInfo(SiteMapInfo info);
 	TestElement setTypeAttributes (TypeAttributes getTypeAttributes);
 	TestElement setName(String str); 

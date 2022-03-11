@@ -30,6 +30,7 @@ public class TreeWalker {
 			currentNode = root;
 			if(isValidRoot(root)) {
 				nodes.add(root);
+				treeVisitor.addNode(root);				
 				Container ret = setCurrentContainer();				
 				while(ret != null) {
 					nodes.add(currentNode);
@@ -45,13 +46,22 @@ public class TreeWalker {
 	}
 	
 	private Container setCurrentContainer() {
-		Container ret = null;
+		Container ret = currentNode.getCurrentContainer();
 		if(currentNode != null && currentNode.hasAnotherContainer()) {
 			ret = currentNode.getNextContainer();
 			currentNode = new Node(currentNode, ret, isContainerIncludedInControlList());
 		}
 		return ret;
 	}
+	
+//	private Container setCurrentContainer() {
+//		Container ret = null;
+//		if(currentNode != null && currentNode.hasAnotherContainer()) {
+//			ret = currentNode.getNextContainer();
+//			currentNode = new Node(currentNode, ret, isContainerIncludedInControlList());
+//		}
+//		return ret;
+//	}
 	
 	private boolean isContainerIncludedInControlList() {
 		return (currentNode.getPrev() == null) ? true : false;

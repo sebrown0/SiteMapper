@@ -128,9 +128,9 @@ public class ClassBody {
 					new ControlStringFromContainers(
 							info,
 							componentWriter,
-							new Node(clazz.getHeader()),
-							new Node(clazz.getBody()),
-							new Node(clazz.getFooter()));
+							new Node(clazz.getHeader().getItemContainer()),
+							new Node(clazz.getBody().getItemContainer()),
+							new Node(clazz.getFooter().getItemContainer()));
 						
 //			super.dataFunc = tree.traverseTree().getBuildMyControlsString();			
 			super.dataFunc = tree.getBuildMyControlsString();

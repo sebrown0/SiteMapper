@@ -69,7 +69,7 @@ public class Node {
 		return ret;
 	}	
 	public Container getCurrentContainer() {
-		return containers.get(current);
+		return (containers != null) ? containers.get(current) : null;
 	}	
 	public boolean isIncludedInControlList() {
 		return isIncludedInControlList;
