@@ -19,7 +19,7 @@ import site_mapper.jaxb.pom.test_data.TestDataOut;
  * 	Initial
  * @since 1.0
  */
-@XmlRootElement(name="Element")
+@XmlRootElement(name="Element", namespace="Container")
 public class Element implements ElementCreation, ElementControl {		
 	@XmlElement(name="Details", namespace="Element")
 	private ElementDetails details;

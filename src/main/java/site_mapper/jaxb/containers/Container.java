@@ -19,20 +19,20 @@ import site_mapper.jaxb.pom.Locator;
  * 	Initial
  * @since 1.0
  */
-@XmlRootElement(name="HeaderElements")
+@XmlRootElement(name="Container", namespace="MenuItem")
 @XmlAccessorType(XmlAccessType.FIELD)
 public class Container implements XmlContainer {
 	@XmlAttribute(name="type")
 	private String type;
 	@XmlAttribute(name="name")
 	private String name;
-	@XmlElement(name="Locator")
+	@XmlElement(name="Locator", namespace="Container")
 	private Locator locator;
-	@XmlElement(name="Container")
+	@XmlElement(name="Container", namespace="Container")
 	private List<Container> containers;
-	@XmlElement(name="Element")
+	@XmlElement(name="Element", namespace="Container")
 	private List<Element> elements;
-	
+		
 	public boolean isParentContiner() {
 		return (containers != null && containers.size() > 0) ? true : false;
 	}

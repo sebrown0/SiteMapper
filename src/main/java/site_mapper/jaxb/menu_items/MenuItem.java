@@ -16,6 +16,7 @@ import jakarta.xml.bind.annotation.XmlRootElement;
 import site_mapper.creators.ComponentWriter;
 import site_mapper.elements.ElementClass;
 import site_mapper.jaxb.containers.Container;
+import site_mapper.jaxb.containers.Header;
 import site_mapper.jaxb.pom.SiteMapInfo;
 
 /**
@@ -40,20 +41,23 @@ public class MenuItem implements ElementClass, TestElement {
 	@XmlAttribute(name="class")
 	private String className;	
 	
-	@XmlElement(name="Type")
+	@XmlElement(name="Type", namespace="MenuItem")
 	private MenuItemType menuItemType;	
-	@XmlElement(name="HeaderElements")
-	private Container headerContainer;	
-	@XmlElement(name="BodyElements")
+	@XmlElement(name="HeaderElements", namespace="MenuItem")
+	private Header header;
+	
+	@XmlElement(name="BodyElements", namespace="MenuItem")
 	private Container bodyContainer;	
-	@XmlElement(name="FooterElements")
+	@XmlElement(name="FooterElements", namespace="MenuItem")
 	private Container footerContainer;
+	
+	private Container headerContainer;	
 	
 	private String menuPackageName;
 	private String moduleName;	
 	private SiteMapInfo siteMapInfo;
 	private List<Container> allContainers;	
-	
+		
 	@Override //ElementClass
 	public String getName() {
 		return name;

@@ -15,7 +15,7 @@ import site_mapper.creators.control_data.ByLocatorTypeFactory;
  * 	Initial
  * @since 1.0
  */
-@XmlRootElement(name="Locator")
+@XmlRootElement(name="Locator", namespace="Container")
 @XmlAccessorType(XmlAccessType.FIELD)
 public class Locator {
 	@XmlAttribute(name="by")
