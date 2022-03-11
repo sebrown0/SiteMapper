@@ -15,6 +15,8 @@ import org.apache.logging.log4j.Logger;
 import org.eclipse.persistence.jaxb.UnmarshallerProperties;
 import org.xml.sax.InputSource;
 import org.xml.sax.SAXException;
+import org.xml.sax.SAXNotRecognizedException;
+import org.xml.sax.SAXNotSupportedException;
 import org.xml.sax.XMLReader;
 import org.xml.sax.helpers.DefaultHandler;
 
@@ -70,12 +72,18 @@ public class SiteMapContentGetter <T extends XmlContent> {
 		unmarshaller = jc.createUnmarshaller();
     unmarshaller.setProperty("eclipselink.media-type", "application/xml");      
     unmarshaller.setProperty(UnmarshallerProperties.DISABLE_SECURE_PROCESSING, Boolean.TRUE);
-//    unmarshaller.setProperty(Marshaller., Boolean.TRUE);  
-    
+        
     SAXParserFactory spf = SAXParserFactory.newInstance();
 
     spf.setXIncludeAware(true);
     spf.setNamespaceAware(true);
+    try {
+    	
+			spf.setFeature("http://apache.org/xml/features/xinclude/fixup-base-uris", false);
+		} catch (SAXNotRecognizedException | SAXNotSupportedException | ParserConfigurationException e2) {
+			// TODO Auto-generated catch block
+			e2.printStackTrace();
+		}
 //    spf.setValidating(true); // Not required for JAXB/XInclude
     
     SAXParser saxParser = null;
@@ -96,9 +104,7 @@ public class SiteMapContentGetter <T extends XmlContent> {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-//    XMLReader xr = (XMLReader) spf.newSAXParser().getXMLReader();
-//    SAXSource source = new SAXSource(xr, new InputSource(new   
-//        FileInputStream(classXMLFile)));
+
  catch (FileNotFoundException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
