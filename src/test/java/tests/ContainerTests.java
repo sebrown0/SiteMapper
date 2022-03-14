@@ -12,7 +12,8 @@ import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
 import site_mapper.jaxb.containers.Container;
-import site_mapper.jaxb.containers.Node;
+import site_mapper.jaxb.node.Node;
+import site_mapper.jaxb.node.ParentNode;
 import site_mapper.jaxb.pom.Element;
 import site_mapper.jaxb.pom.Locator;
 
@@ -170,7 +171,7 @@ class ContainerTests {
 	
 	@Test
 	void getNextContainer() {
-		Node rootNode = new Node(root);
+		Node rootNode = new ParentNode(root);
 		Container one = rootNode.getNextContainer();
 		assertEquals(one.getName(), "level_1_A");
 		Container two = rootNode.getNextContainer();

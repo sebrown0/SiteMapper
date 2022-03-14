@@ -1,7 +1,9 @@
 /**
  * 
  */
-package site_mapper.jaxb.containers;
+package site_mapper.jaxb.tree;
+
+import site_mapper.jaxb.node.Node;
 
 /**
  * @author SteveBrown

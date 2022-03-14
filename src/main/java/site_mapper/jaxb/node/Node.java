@@ -1,10 +1,11 @@
 /**
  * 
  */
-package site_mapper.jaxb.containers;
+package site_mapper.jaxb.node;
 
 import java.util.List;
 
+import site_mapper.jaxb.containers.Container;
 import site_mapper.jaxb.pom.Element;
 
 /**
@@ -15,26 +16,21 @@ import site_mapper.jaxb.pom.Element;
  * 
  * Node in the tree of containers from the XML file.
  */
-public class Node {
-	private Node prev;
+public abstract class Node {
+	protected Node prev;
+	protected boolean isIncludedInControlList;
+	
 	private String name;
 	private String type;
-	private String locStr;
+	private String locStr;	
 	private int current = 0;
-	private int numContainers;
-	private boolean isIncludedInControlList;
+	private int numContainers;	
 	private List<Container> containers;	
 	private List<Element> elements;
 			
 	public Node(Container container) {	
 		initialise(container);
-		isIncludedInControlList = true;
-	}
-
-	public Node(Node prev, Container container) {
-		this.prev = prev;
-
-		initialise(container);
+		setNumContainers();
 	}
 	
 	private void initialise(Container container) {
@@ -43,9 +39,7 @@ public class Node {
 			type = container.getType();
 			locStr = container.getLocatorStr();
 			containers = container.getContainers();
-			elements =  container.getElements();
-			
-			setNumContainers();			
+			elements =  container.getElements();			
 		}
 	}
 	

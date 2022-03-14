@@ -1,10 +1,14 @@
 /**
  * 
  */
-package site_mapper.jaxb.containers;
+package site_mapper.jaxb.tree;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import site_mapper.jaxb.containers.Container;
+import site_mapper.jaxb.node.ChildNode;
+import site_mapper.jaxb.node.Node;
 
 /**
  * @author SteveBrown
@@ -49,7 +53,7 @@ public class TreeWalker {
 		Container ret = currentNode.getCurrentContainer();
 		if(currentNode != null && currentNode.hasAnotherContainer()) {			
 			ret = currentNode.getNextContainer();
-			currentNode = new Node(currentNode, ret);				
+			currentNode = new ChildNode(currentNode, ret);				
 		}		
 		return ret;
 	}
@@ -65,7 +69,7 @@ public class TreeWalker {
 				if(prev.hasAnotherContainer()) {
 					ret = prev.getNextContainer();
 					if(ret != null) {
-						currentNode = new Node(currentNode, ret);
+						currentNode = new ChildNode(currentNode, ret);
 					}				
 				}else {
 					prev = prev.getPrev();

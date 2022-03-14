@@ -14,10 +14,10 @@ import file.annotation.SiteMapAnnotation;
 import file.imports.ControlImportGetter;
 import site_mapper.creators.ComponentWriter;
 import site_mapper.jaxb.containers.Container;
-import site_mapper.jaxb.containers.Node;
-import site_mapper.jaxb.containers.TreeVisitor;
+import site_mapper.jaxb.node.Node;
 import site_mapper.jaxb.pom.Element;
 import site_mapper.jaxb.pom.SiteMapInfo;
+import site_mapper.jaxb.tree.TreeVisitor;
 
 /**
  * @author SteveBrown

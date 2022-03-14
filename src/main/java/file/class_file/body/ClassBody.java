@@ -19,7 +19,8 @@ import site_mapper.elements.ElementClass;
 import site_mapper.elements.ElementConstructor;
 import site_mapper.jaxb.containers.Container;
 import site_mapper.jaxb.containers.ControlStringFromContainers;
-import site_mapper.jaxb.containers.Node;
+import site_mapper.jaxb.node.Node;
+import site_mapper.jaxb.node.ParentNode;
 import site_mapper.jaxb.pom.SiteMapInfo;
 
 /**
@@ -128,9 +129,9 @@ public class ClassBody {
 					new ControlStringFromContainers(
 							info,
 							componentWriter,
-							new Node(clazz.getHeaderContainer()),
-							new Node(clazz.getBodyContainer()),
-							new Node(clazz.getFooterContainer()));
+							new ParentNode(clazz.getHeaderContainer()),
+							new ParentNode(clazz.getBodyContainer()),
+							new ParentNode(clazz.getFooterContainer()));
 						
 //			super.dataFunc = tree.traverseTree().getBuildMyControlsString();			
 			super.dataFunc = tree.getBuildMyControlsString();
