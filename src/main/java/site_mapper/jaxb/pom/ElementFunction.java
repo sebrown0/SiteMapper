@@ -15,14 +15,15 @@ import jakarta.xml.bind.annotation.XmlRootElement;
  * 	Initial
  * @since 1.0
  */
-@XmlRootElement(name="Function")
+@XmlRootElement(name="Function", namespace="Function")
 @XmlAccessorType(XmlAccessType.FIELD)
 public class ElementFunction {
+	@XmlAttribute(name="name")
+	private String name;
 	@XmlAttribute(name="isDefaultPass")
 	private String defaultPass;
-	
-	private String type;	
-	private String name;
+	@XmlAttribute(name="type")
+	private String type;		
 	
 	public ElementFunction isDefaultPass(boolean defaultPass) {
 		this.defaultPass = (defaultPass == true) ? "true" : "false";
@@ -47,7 +48,8 @@ public class ElementFunction {
 	
 	@Override
 	public String toString() {
-		String funcName = type+Formatter.capitaliseFirstChar(name);
+//		String funcName = type+Formatter.capitaliseFirstChar(name);
+		String funcName = Formatter.capitaliseFirstChar(name);
 		String res = 
 			getTestAnnotation() +
 			getDeclaration(funcName) + 

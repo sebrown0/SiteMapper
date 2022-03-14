@@ -32,9 +32,9 @@ public class DynamicTestMethodBuilder {
 	public String build() {
 		String res = "";
 		if(anno != null) {
-			res = String.format("%s%s", anno.toString(), func.toString());
+			res = String.format("\n%s%s", anno.toString(), func.toString());
 		}else if (info != null) {
-			res = String.format("%s%s", new NewAnnotation(info, 1), func.toString());
+			res = String.format("\n%s%s", new NewAnnotation(info, 1), func.toString());
 		}else {
 //			TOOD - ERROR
 		}

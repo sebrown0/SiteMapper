@@ -4,6 +4,7 @@
 package file.class_file.body;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.Scanner;
 
 import file.class_file.constructor.ClassConstructor;
@@ -19,7 +20,6 @@ import site_mapper.elements.ElementClass;
 import site_mapper.elements.ElementConstructor;
 import site_mapper.jaxb.containers.Container;
 import site_mapper.jaxb.containers.ControlStringFromContainers;
-import site_mapper.jaxb.node.Node;
 import site_mapper.jaxb.node.ParentNode;
 import site_mapper.jaxb.pom.SiteMapInfo;
 
@@ -126,49 +126,30 @@ public class ClassBody {
 
 		public BodyBuilder setElements() {
 			ControlStringFromContainers tree = 
-					new ControlStringFromContainers(
-							info,
-							componentWriter,
-							new ParentNode(clazz.getHeaderContainer()),
-							new ParentNode(clazz.getBodyContainer()),
-							new ParentNode(clazz.getFooterContainer()));
-						
-//			super.dataFunc = tree.traverseTree().getBuildMyControlsString();			
+				new ControlStringFromContainers(
+					info,
+					componentWriter,
+					new ParentNode(clazz.getHeaderContainer()),
+					new ParentNode(clazz.getBodyContainer()),
+					new ParentNode(clazz.getFooterContainer()));
+					
 			super.dataFunc = tree.getBuildMyControlsString();
 			return this;
 		}
 		
 		public BodyBuilder setDynamicTestMethods() {
 			dynamicTestMethods = new Lines<>();
-			List<Container> containers = clazz.getAllContainers();
-//			List<ElementFunction> funcs = clazz.getElementFunctions();
-			
-			clazz
-				.getAllContainers()
-					.forEach(c -> {
-						
-					});
-			
-//			if(containers != null) {
-//				containers.forEach(f -> 
-//					dynamicTestMethods.addLine(
-//						new DynamicTestMethodBuilder(f, info).build()
-//				));	
-//			}			
+			Optional<List<Container>> containers = Optional.ofNullable(clazz.getAllContainers());					
+			containers.ifPresent(cnts -> {
+				cnts.forEach(c -> {
+					if(c.getFunction() != null) {
+						dynamicTestMethods.addLine(new DynamicTestMethodBuilder(c.getFunction(), info).build());
+						System.out.println(c.getName() + " has funciton"); // TODO - remove or log					
+					}					
+				});
+			});		
 			return this;
 		}
-//		public BodyBuilder setDynamicTestMethods() {
-//			dynamicTestMethods = new Lines<>();
-//			List<Container> containers = clazz.getAllContainers();
-////			List<ElementFunction> funcs = clazz.getElementFunctions();
-//			if(funcs != null) {
-//				funcs.forEach(f -> 
-//					dynamicTestMethods.addLine(
-//						new DynamicTestMethodBuilder(f, info).build()
-//				));	
-//			}			
-//			return this;
-//		}	
 		
 		@Override
 		public ClassBody build() {

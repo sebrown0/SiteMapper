@@ -11,6 +11,7 @@ import jakarta.xml.bind.annotation.XmlAttribute;
 import jakarta.xml.bind.annotation.XmlElement;
 import jakarta.xml.bind.annotation.XmlRootElement;
 import site_mapper.jaxb.pom.Element;
+import site_mapper.jaxb.pom.ElementFunction;
 import site_mapper.jaxb.pom.Locator;
 
 /**
@@ -32,6 +33,8 @@ public class Container implements XmlContainer {
 	private List<Container> containers;
 	@XmlElement(name="Element", namespace="Container")
 	private List<Element> elements;
+	@XmlElement(name="Function", namespace="Container")
+	private ElementFunction function;
 		
 	public boolean isParentContiner() {
 		return (containers != null && containers.size() > 0) ? true : false;
@@ -79,6 +82,9 @@ public class Container implements XmlContainer {
 	public Container setElements(List<Element> elements) {
 		this.elements = elements;
 		return this;
+	}
+	public ElementFunction getFunction() {
+		return function;
 	}
 	
 }
