@@ -27,14 +27,16 @@ public class Node {
 	private List<Element> elements;
 			
 	public Node(Container container) {	
-		initialise(container);				
+		initialise(container);
+		isIncludedInControlList = true;
 	}
 
-	public Node(Node prev, Container container, boolean isIncludedInControlList) {
+	public Node(Node prev, Container container) {
 		this.prev = prev;
-		this.isIncludedInControlList = isIncludedInControlList;
+
 		initialise(container);
 	}
+	
 	private void initialise(Container container) {
 		if(container != null) {
 			name = container.getName();
@@ -42,6 +44,7 @@ public class Node {
 			locStr = container.getLocatorStr();
 			containers = container.getContainers();
 			elements =  container.getElements();
+			
 			setNumContainers();			
 		}
 	}
@@ -89,5 +92,5 @@ public class Node {
 	public List<Element> getElements() {
 		return elements;
 	}
-	
+
 }

@@ -121,16 +121,18 @@ public class MenuItem implements ElementClass, TestElement {
 		return menuItemContainers;		
 	}
 	
+	@Override //ElementClass
 	public Container getHeaderContainer() {
 		return (headerContainer != null) ? headerContainer.getItemContainer() : null;
 	}
+	@Override //ElementClass
 	public Container getBodyContainer() {
 		return (bodyContainer != null) ? bodyContainer.getItemContainer() : null;
 	}
+	@Override //ElementClass
 	public Container getFooterContainer() {
 		return (footerContainer != null) ? footerContainer.getItemContainer() : null;
-	}
-	
+	}	
 	@Override //ElementClass
 	public MenuItemContainer getHeader() {
 		return headerContainer;

@@ -16,14 +16,14 @@ import jakarta.xml.bind.annotation.XmlRootElement;
  * 	Initial
  * @since 1.0
  */
-@XmlRootElement(name="Type")
+@XmlRootElement(name="Type", namespace="MenuItem")
 @XmlAccessorType(XmlAccessType.PROPERTY)
 public class MenuItemType {	
 	private TypeAttributes attributes;
 	private String type;
 	
 	@XmlElements({
-		@XmlElement(name="JsPanelWithIFrame", type=JsPanelWithIFrame.class)
+		@XmlElement(name="JsPanelWithIFrame", type=JsPanelWithIFrame.class, namespace="MenuItem")
 	})
 	public MenuItemType setAttributes(TypeAttributes js) {
 		this.attributes = js;		

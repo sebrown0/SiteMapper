@@ -29,12 +29,12 @@ public class TreeWalker {
 			Node root = roots[idx];
 			currentNode = root;
 			if(isValidRoot(root)) {
+				Container ret = setCurrentContainer();
 				nodes.add(root);
-				treeVisitor.addNode(root);				
-				Container ret = setCurrentContainer();				
+				treeVisitor.addNode(root);								
 				while(ret != null) {
 					nodes.add(currentNode);
-					treeVisitor.addNode(currentNode);				
+					treeVisitor.addNode(currentNode);				  
 					ret = getNextContainer();									
 				}	
 			}			
@@ -47,26 +47,13 @@ public class TreeWalker {
 	
 	private Container setCurrentContainer() {
 		Container ret = currentNode.getCurrentContainer();
-		if(currentNode != null && currentNode.hasAnotherContainer()) {
+		if(currentNode != null && currentNode.hasAnotherContainer()) {			
 			ret = currentNode.getNextContainer();
-			currentNode = new Node(currentNode, ret, isContainerIncludedInControlList());
-		}
+			currentNode = new Node(currentNode, ret);				
+		}		
 		return ret;
 	}
-	
-//	private Container setCurrentContainer() {
-//		Container ret = null;
-//		if(currentNode != null && currentNode.hasAnotherContainer()) {
-//			ret = currentNode.getNextContainer();
-//			currentNode = new Node(currentNode, ret, isContainerIncludedInControlList());
-//		}
-//		return ret;
-//	}
-	
-	private boolean isContainerIncludedInControlList() {
-		return (currentNode.getPrev() == null) ? true : false;
-	}
-	
+
 	public Container getNextContainer() {
 		Container ret = null;
 		
@@ -78,7 +65,7 @@ public class TreeWalker {
 				if(prev.hasAnotherContainer()) {
 					ret = prev.getNextContainer();
 					if(ret != null) {
-						currentNode = new Node(currentNode, ret, isNodeIncludedInControlList(prev));
+						currentNode = new Node(currentNode, ret);
 					}				
 				}else {
 					prev = prev.getPrev();
@@ -87,19 +74,5 @@ public class TreeWalker {
 		}		
 		return ret;
 	}
-	
-	private boolean isNodeIncludedInControlList(Node prev) {
-		boolean ret = false;
-		if(prev == null) {
-			ret = true;
-		}else if(prev.getPrev() == null) {//root
-			ret = true;
-		}		
-		return ret;
-	}
 
-//	@Override //TreeNodes
-//	public List<Node> getNodes() {
-//		return nodes;
-//	}
 }

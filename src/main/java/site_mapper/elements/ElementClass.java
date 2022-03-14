@@ -35,4 +35,8 @@ public interface ElementClass {
 	ComponentWriter getComponentWriter();
 	boolean hasControlList();
 	
+	Container getHeaderContainer();	
+	Container getBodyContainer();	
+	Container getFooterContainer();
+	
 }

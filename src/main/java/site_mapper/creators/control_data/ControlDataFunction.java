@@ -37,7 +37,7 @@ public class ControlDataFunction {
 				getGroups(groups) +
 				"\t\tvar myControls =\n" +
 				"\t\t\tList.of(" +
-				builder.getInMyControls() +
+				builder.getInMyControls() +  
 				"\n\t\t\t);";
 					
 			func += "\n\t\tsuper.buildPanelControls(myControls);\n\t}";		

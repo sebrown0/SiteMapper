@@ -93,7 +93,7 @@ public class ControlDataFunctionBuilder implements TreeVisitor {
 				inMyControls += 
 						String.format(
 								"\n\t\t\t\tnew ControlData(%s),", 
-								nodeNameCamel);	
+								nodeNameCamel);
 			}			
 		}
 		
