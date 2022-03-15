@@ -71,9 +71,16 @@ public class ElementFunction {
 	private String getFunctionName() {
 		String res="";
 		if(prntName != null) {
-			res = Formatter.capitaliseFirstChar(prntName) + Formatter.capitaliseFirstChar(name);
+			res = 
+				"Container" +
+				Formatter.capitaliseFirstChar(prntName) + 
+				Formatter.capitaliseFirstChar(name) + 
+				"FunctionTest";
 		}else {
-			res = Formatter.capitaliseFirstChar(name);
+			res = 
+				Formatter.capitaliseFirstChar(subtype) + 
+				Formatter.capitaliseFirstChar(name) + 
+				"FunctionTest";
 		}
 		return res;
 	}

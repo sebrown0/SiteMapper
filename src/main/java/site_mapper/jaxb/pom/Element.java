@@ -137,9 +137,21 @@ public class Element implements ElementCreation, ElementControl {
 	public ElementFunction getElementFunction() {
 		if(elementFunction != null) {
 			return 
+				elementFunction;
+//					.setName(getElementName())
+//					.setType(getElementType())
+//					.setSubtype(getByLocatorType());	
+		}else {
+			return null;
+		}		
+	}
+	public ElementFunction getElementFunction(ElementDetails details) {
+		if(elementFunction != null) {
+			return 
 				elementFunction
-					.setName(getElementName())
-					.setType(getElementType());	
+					.setName(details.getElementName())
+					.setType("element")
+					.setSubtype(details.getElementType());	
 		}else {
 			return null;
 		}		
@@ -154,6 +166,9 @@ public class Element implements ElementCreation, ElementControl {
 	public String toString() {
 		return String.format("Element [details=%s, locator=%s, toolTip=%s, elementFunction=%s]", details, locator, toolTip,
 				elementFunction);
+	}
+	public ElementDetails getDetails() {
+		return details;
 	}	
 				
 }

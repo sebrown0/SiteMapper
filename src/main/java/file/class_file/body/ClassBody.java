@@ -22,6 +22,7 @@ import site_mapper.elements.ElementConstructor;
 import site_mapper.jaxb.containers.Container;
 import site_mapper.jaxb.containers.ControlStringFromContainers;
 import site_mapper.jaxb.node.ParentNode;
+import site_mapper.jaxb.pom.Element;
 import site_mapper.jaxb.pom.SiteMapInfo;
 
 /**
@@ -151,16 +152,32 @@ public class ClassBody {
 		
 		public BodyBuilder setDynamicTestMethods() {
 			dynamicTestMethods = new Lines<>();
-			Optional<List<Container>> containers = Optional.ofNullable(clazz.getAllContainers());					
+			Optional<List<Container>> containers = Optional.ofNullable(clazz.getAllContainers());
 			containers.ifPresent(cnts -> {
 				cnts.forEach(c -> {
+//					System.out.println("cont name = " + c.getName()); // TODO - remove or log 	
 					if(c.getFunctionWithParentName() != null) {
-						dynamicTestMethods.addLine(new DynamicTestMethodBuilder(c.getFunctionWithParentName(), info).build());
-						System.out.println(c.getName() + " has funciton"); // TODO - remove or log					
+						dynamicTestMethods.addLine(addContainerTests(c));						
 					}					
+					addElementTests(c);
 				});
-			});		
+			});
+			
 			return this;
+		}
+		
+		private String addContainerTests(Container c) {
+			return new DynamicTestMethodBuilder(c.getFunctionWithParentName(), info).build();
+			
+		}
+		
+		private void addElementTests(Container c) {
+			List<Element> elements = c.getElements();
+			if(elements != null) {
+				elements.forEach(e -> {
+					dynamicTestMethods.addLine(new DynamicTestMethodBuilder(e.getElementFunction(e.getDetails()), info).build());
+				});
+			}
 		}
 		
 		@Override
