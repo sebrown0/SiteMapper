@@ -18,8 +18,9 @@ import jakarta.xml.bind.annotation.XmlRootElement;
 @XmlRootElement(name="Function", namespace="Function")
 @XmlAccessorType(XmlAccessType.FIELD)
 public class ElementFunction {
-	@XmlAttribute(name="name")
-	private String name;
+//	The name is set from the element...
+//	@XmlAttribute(name="name")
+//	private String name;
 	@XmlAttribute(name="isDefaultPass")
 	private String defaultPass;
 	@XmlAttribute(name="type")
@@ -28,12 +29,8 @@ public class ElementFunction {
 	private String subtype;		
 	
 	private String prntName;
-	
-	public ElementFunction setParentName(String name) {
-		prntName = name;
-		return this;
-	}
-	
+	private String name;
+		
 	public ElementFunction isDefaultPass(boolean defaultPass) {
 		this.defaultPass = (defaultPass == true) ? "true" : "false";
 		return this;
@@ -55,6 +52,10 @@ public class ElementFunction {
 	}
 	public ElementFunction setName(String name) {
 		this.name = name;
+		return this;
+	}
+	public ElementFunction setParentName(String name) {
+		prntName = name;
 		return this;
 	}
 	

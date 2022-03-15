@@ -11,6 +11,4 @@ package site_mapper.elements;
  */
 public interface ElementCreation extends ElementDetails {	
 	public String getElementType();
-	public String getByLocatorValue();
-	public String getByLocatorType();
 }

@@ -84,17 +84,7 @@ public class MenuItem implements ElementClass, TestElement {
 	public MenuItemType getMenuItemType() {
 		return menuItemType;
 	}
-//	@Override //ElementClass
-//	public List<Container> getAllContainers() {
-//		if(allContainers == null) {
-//			allContainers = new ArrayList<>();
-//			Stream
-//				.of(headerContainer, bodyContainer, footerContainer)
-//				.filter(s -> s != null)
-//				.forEach(allContainers::add);
-//		} 	
-//		return allContainers;				
-//	}
+	
 	@Override //ElementClass
 	public List<Container> getAllContainers() {
 		if(allContainers == null) {
@@ -163,20 +153,6 @@ public class MenuItem implements ElementClass, TestElement {
 		List<Container> containers = getAllContainers();
 		return (containers != null && containers.size() > 0) ? true : false;
 	}
-//	@Override //ElementClass
-//	public List<ElementFunction> getElementFunctions() {
-//		List<Container> elements = getAllContainers();
-//		if(elements != null) {
-//			List<ElementFunction> funcs = 
-//					elements.stream()
-//						.filter(f -> f.getElementFunction() != null)
-//						.map(e -> e.getElementFunction())
-//						.collect(Collectors.toList()); 
-//				return funcs;				
-//		}else {
-//			return null;
-//		}		
-//	}
 	@Override //ElementClass
 	public TypeAttributes getTypeAttributes() {
 		return menuItemType.getAttributes();
@@ -238,16 +214,6 @@ public class MenuItem implements ElementClass, TestElement {
 		return this;
 	}
 	
-//	public Tab getTab(String tabName) {
-//		Tab res = null;
-//		for (Tab t : tabs) {
-//			if(t.getName().equalsIgnoreCase(tabName)) {
-//				res = t;
-//				break;
-//			}
-//		}
-//		return res;
-//	}
 	@Override
 	public String toString() {
 		return String.format(
@@ -255,6 +221,5 @@ public class MenuItem implements ElementClass, TestElement {
 				name, packageName, className, menuItemType, headerContainer, bodyContainer, footerContainer, menuPackageName,
 				moduleName, siteMapInfo);
 	}
-	
-				
+					
 }

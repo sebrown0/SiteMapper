@@ -175,7 +175,8 @@ public class ClassBody {
 			List<Element> elements = c.getElements();
 			if(elements != null) {
 				elements.forEach(e -> {
-					dynamicTestMethods.addLine(new DynamicTestMethodBuilder(e.getElementFunction(e.getDetails()), info).build());
+					dynamicTestMethods.addLine(
+							new DynamicTestMethodBuilder(e.getElementFunction(), info).build());
 				});
 			}
 		}

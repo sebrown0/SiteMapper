@@ -54,36 +54,13 @@ public class Element implements ElementCreation, ElementControl {
 		details.setFafa(fafa);
 		return this;
 	}
-//	public Element setBy(String by) {
-//		Locator loc = new Locator();
-//		loc.setBy(by);
-//		locator.add(loc);
-//		return this;
-//	}
-//	public Element setBy(String by) {
-//		if(locator == null) locator = new Locator();
-//		this.locator.setBy(by);
-//		return this;
-//	}
-//	public Element setLocator(String locator) {
-//		if(this.locator == null) this.locator = new Locator();
-//		this.locator.setLocator(locator);
-//		return this;
-//	}
-//	public Element setLocator(Locator locator) {
-//		this.locator = locator;
-//		return this;
-//	}	
 	public Element setelementFunction(ElementFunction elementFunction) {
-		this.elementFunction = elementFunction;
+		this.elementFunction = elementFunction.setName(getElementName());
 		return this;
 	}	
 	public List<Locator> getLocator() {		
 		return locator;
 	}
-//	public Locator getLocator() {		
-//		return locator;
-//	}
 	
 	@Override //ElementDetails
 	public Element setTestDataIn(TestDataIn data) {
@@ -124,28 +101,8 @@ public class Element implements ElementCreation, ElementControl {
 	public String getElementType() {
 		return (details != null) ? details.getElementType() : "";
 	}
-	@Override //ElementCreation
-	public String getByLocatorValue() {
-		return null;
-//		return (locator != null) ? locator.getLocator() : "";		
-	}
-	@Override //ElementCreation
-	public String getByLocatorType() {
-		return null;
-//		return (locator != null) ? locator.getBy() : "";		
-	}
+	
 	public ElementFunction getElementFunction() {
-		if(elementFunction != null) {
-			return 
-				elementFunction;
-//					.setName(getElementName())
-//					.setType(getElementType())
-//					.setSubtype(getByLocatorType());	
-		}else {
-			return null;
-		}		
-	}
-	public ElementFunction getElementFunction(ElementDetails details) {
 		if(elementFunction != null) {
 			return 
 				elementFunction
