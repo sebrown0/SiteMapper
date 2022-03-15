@@ -83,8 +83,8 @@ public class Container implements XmlContainer {
 		this.elements = elements;
 		return this;
 	}
-	public ElementFunction getFunction() {
-		return function;
+	public ElementFunction getFunctionWithParentName() {
+		return (function != null) ? function.setParentName(this.name) : null;
 	}
 	
 }

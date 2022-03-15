@@ -7,6 +7,7 @@ import java.util.List;
 
 import site_mapper.jaxb.containers.Container;
 import site_mapper.jaxb.pom.Element;
+import site_mapper.jaxb.pom.ElementFunction;
 
 /**
  * @author SteveBrown
@@ -27,6 +28,7 @@ public abstract class Node {
 	private int numContainers;	
 	private List<Container> containers;	
 	private List<Element> elements;
+	private ElementFunction function;
 			
 	public Node(Container container) {	
 		initialise(container);
@@ -40,6 +42,7 @@ public abstract class Node {
 			locStr = container.getLocatorStr();
 			containers = container.getContainers();
 			elements =  container.getElements();			
+			function = container.getFunctionWithParentName();
 		}
 	}
 	
@@ -66,7 +69,7 @@ public abstract class Node {
 		return ret;
 	}	
 	public Container getCurrentContainer() {
-		return (containers != null) ? containers.get(current) : null;
+		return (containers != null && current < containers.size()) ? containers.get(current) : null;
 	}	
 	public boolean isIncludedInControlList() {
 		return isIncludedInControlList;
@@ -85,6 +88,10 @@ public abstract class Node {
 	}
 	public List<Element> getElements() {
 		return elements;
+	}
+
+	public ElementFunction getFunction() {
+		return function;
 	}
 
 }

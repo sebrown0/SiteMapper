@@ -24,6 +24,15 @@ public class ElementFunction {
 	private String defaultPass;
 	@XmlAttribute(name="type")
 	private String type;		
+	@XmlAttribute(name="subtype")
+	private String subtype;		
+	
+	private String prntName;
+	
+	public ElementFunction setParentName(String name) {
+		prntName = name;
+		return this;
+	}
 	
 	public ElementFunction isDefaultPass(boolean defaultPass) {
 		this.defaultPass = (defaultPass == true) ? "true" : "false";
@@ -40,7 +49,10 @@ public class ElementFunction {
 		this.type = type;
 		return this;
 	}
-
+	public ElementFunction setSubtype(String subtype) {
+		this.subtype = subtype;
+		return this;
+	}
 	public ElementFunction setName(String name) {
 		this.name = name;
 		return this;
@@ -48,8 +60,7 @@ public class ElementFunction {
 	
 	@Override
 	public String toString() {
-//		String funcName = type+Formatter.capitaliseFirstChar(name);
-		String funcName = Formatter.capitaliseFirstChar(name);
+		String funcName = getFunctionName();
 		String res = 
 			getTestAnnotation() +
 			getDeclaration(funcName) + 
@@ -57,8 +68,20 @@ public class ElementFunction {
 			"\t}";
 		return res;
 	}
+	private String getFunctionName() {
+		String res="";
+		if(prntName != null) {
+			res = Formatter.capitaliseFirstChar(prntName) + Formatter.capitaliseFirstChar(name);
+		}else {
+			res = Formatter.capitaliseFirstChar(name);
+		}
+		return res;
+	}
 	private String getTestAnnotation() {
-		return "\n\t@TestControl(type=\"" + type + "\")\n";
+		return String.format("\n\t@TestControl(type=\"%s\", subtype=\"%s\")\n", type, getSubtype());
+	}
+	private String getSubtype() {
+		return (type.equalsIgnoreCase("container")) ? "none" : subtype;
 	}
 	private String getDeclaration(String funcName) {		
 		return String.format("\tpublic DynamicTest %s () {\n", funcName);
@@ -70,6 +93,18 @@ public class ElementFunction {
 		}else {
 			return start + "\", () -> fail(\"*NOT IMPLEMENTED*\"));\n";
 		}
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public String getDefaultPass() {
+		return defaultPass;
+	}
+
+	public String getType() {
+		return type;
 	}
 	
 }

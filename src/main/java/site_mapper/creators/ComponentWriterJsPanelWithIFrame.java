@@ -16,6 +16,7 @@ import file.imports.Import;
 import file.imports.NewImport;
 import file.variable.ClassVariable;
 import file.variable.Variable;
+import site_mapper.elements.DefaultNoArgsConstructor;
 import site_mapper.elements.ElementClass;
 import site_mapper.elements.ElementConstructor;
 import site_mapper.jaxb.menu_items.TypeAttributes;
@@ -31,7 +32,7 @@ import site_mapper.jaxb.pom.SiteMapInfo;
  * for JsPanelWithIFrame.java.
  */
 public class ComponentWriterJsPanelWithIFrame 
-	implements ComponentWriterSetter, ElementConstructor	{
+	implements ComponentWriterSetter, ElementConstructor, DefaultNoArgsConstructor {
 	
 	private ElementClass elementClass;
 	private SiteMapInfo siteMapInfo;
@@ -39,6 +40,7 @@ public class ComponentWriterJsPanelWithIFrame
 	private ClassVariable menuTitle;
 	private ClassVariable menuParentName;	
 	private List<Import> imports;
+	private SiteMapAnnotation annotation;
 	
 	@Override //ComponentWriter
 	public void addImport(Import imp) {
@@ -104,6 +106,7 @@ public class ComponentWriterJsPanelWithIFrame
 			
 	@Override //ComponentWriterSetter
 	public ComponentWriterSetter setSiteMapInfo(SiteMapInfo siteMapInfo) {
+		annotation = new NewAnnotation(siteMapInfo, 1);
 		this.siteMapInfo = siteMapInfo;
 		return this;
 	}
@@ -114,8 +117,7 @@ public class ComponentWriterJsPanelWithIFrame
 		return this;
 	}
 	
-	public void setTypeAttributes() {
-		SiteMapAnnotation annotation = new NewAnnotation(siteMapInfo, 1);
+	public void setTypeAttributes() {		
 		TypeAttributes typeAttributes = elementClass.getTypeAttributes();
 
 		if(typeAttributes != null) {
@@ -145,6 +147,12 @@ public class ComponentWriterJsPanelWithIFrame
 						Formatter.capitaliseFirstChar(elementClass.getPackage()) + "\";")
 				.withAnnotation(annotation)
 				.build();	
+	}
+
+	@Override //DefaultNoArgsConstructor
+	public String getConstructor() {
+		String res = String.format("%s\n\tpublic %s(){}", annotation.toString(), elementClass.getClassName());
+		return res;
 	}
 		
 }

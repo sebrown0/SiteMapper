@@ -16,6 +16,7 @@ import file.method.MethodList;
 import file.variable.ExistingClassVariableMapper;
 import file.variable.Variables;
 import site_mapper.creators.ComponentWriter;
+import site_mapper.elements.DefaultNoArgsConstructor;
 import site_mapper.elements.ElementClass;
 import site_mapper.elements.ElementConstructor;
 import site_mapper.jaxb.containers.Container;
@@ -36,6 +37,7 @@ import site_mapper.jaxb.pom.SiteMapInfo;
 public class ClassBody {
 	private final Variables vars;
 	private final ClassConstructor cnstr;
+	private final String defaultCnstr;		
 	private final MethodList methods;
 	private final String dataFunc;
 	private final Lines<String> dynamicTestMethods;
@@ -43,6 +45,7 @@ public class ClassBody {
 	public ClassBody(BodyBuilder b) {
 		this.vars = b.vars;
 		this.cnstr = b.cnstr;
+		this.defaultCnstr = b.defaultCnstr;
 		this.methods = b.methods;
 		this.dataFunc= b.dataFunc;
 		this.dynamicTestMethods = b.dynamicTestMethods;
@@ -62,8 +65,9 @@ public class ClassBody {
 	public String toString() {		
 		String res =
 				String.format(
-				"%s\n%s\n\n%s%s%s%s\n", 
+				"%s\n%s\n\n%s%s%s%s%s\n", 
 				Formatter.getValueOf(vars),
+				Formatter.getValueOf(defaultCnstr),
 				Formatter.getValueOf(cnstr),
 				Formatter.getValueOf(dataFunc),
 				Formatter.getValueOf(methods),
@@ -74,7 +78,8 @@ public class ClassBody {
 	
 	public abstract static class BodyBuilder {
 		protected Variables vars;
-		protected ClassConstructor cnstr;		
+		protected ClassConstructor cnstr;
+		protected String defaultCnstr;		
 		protected MethodList methods;
 		protected Lines<String> dynamicTestMethods;
 		
@@ -112,6 +117,13 @@ public class ClassBody {
 			return this;
 		}
 
+		public BodyBuilder setDefaultConstructor() {
+			if(componentWriter instanceof DefaultNoArgsConstructor) {
+				super.defaultCnstr = ((DefaultNoArgsConstructor)componentWriter).getConstructor();
+			}
+			return this;
+		}
+		
 		@Override
 		public BodyBuilder setConstructor() {
 			super.cnstr = 
@@ -142,8 +154,8 @@ public class ClassBody {
 			Optional<List<Container>> containers = Optional.ofNullable(clazz.getAllContainers());					
 			containers.ifPresent(cnts -> {
 				cnts.forEach(c -> {
-					if(c.getFunction() != null) {
-						dynamicTestMethods.addLine(new DynamicTestMethodBuilder(c.getFunction(), info).build());
+					if(c.getFunctionWithParentName() != null) {
+						dynamicTestMethods.addLine(new DynamicTestMethodBuilder(c.getFunctionWithParentName(), info).build());
 						System.out.println(c.getName() + " has funciton"); // TODO - remove or log					
 					}					
 				});
@@ -154,6 +166,7 @@ public class ClassBody {
 		@Override
 		public ClassBody build() {
 			setVars();
+			setDefaultConstructor();
 			setConstructor();
 			setElements();
 			setDynamicTestMethods();
