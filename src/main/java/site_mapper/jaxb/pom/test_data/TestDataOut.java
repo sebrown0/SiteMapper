@@ -16,12 +16,12 @@ import jakarta.xml.bind.annotation.XmlRootElement;
  * @since 1.0
  */
 
-@XmlRootElement(name="TestDataOut")
+@XmlRootElement(name="TestDataOut", namespace="TestDataOut")
 @XmlAccessorType(XmlAccessType.FIELD)
 public class TestDataOut {
 	@XmlElements(value={
-		@XmlElement(name="Text", type=TestDataText.class),
-		@XmlElement(name="List", type=TestDataList.class)
+		@XmlElement(name="Text", namespace="TestDataOut", type=TestDataText.class),
+		@XmlElement(name="List", namespace="TestDataOut", type=TestDataList.class)
 	})
 	private TestData testData;
 	

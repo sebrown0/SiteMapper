@@ -17,18 +17,18 @@ import jakarta.xml.bind.annotation.XmlRootElement;
  * @since 1.0
  */
 
-@XmlRootElement(name="TestDataIn")
+@XmlRootElement(name="TestDataIn", namespace="TestDataIn")
 @XmlAccessorType(XmlAccessType.FIELD)
 public class TestDataIn {
 	@XmlAttribute(name="insertWith")
 	private String insertWith;
 	
 	@XmlElements(value={
-		@XmlElement(name="Text", type=TestDataText.class),
-		@XmlElement(name="List", type=TestDataList.class)
+		@XmlElement(name="Text", namespace="TestDataIn", type=TestDataText.class),
+		@XmlElement(name="List", namespace="TestDataIn", type=TestDataList.class)
 	})
 	private TestData testData;
-	
+		
 	public TestData getTestData() {
 		return testData;
 	}

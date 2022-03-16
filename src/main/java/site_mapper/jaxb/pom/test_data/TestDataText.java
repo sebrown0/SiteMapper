@@ -14,7 +14,7 @@ import jakarta.xml.bind.annotation.XmlRootElement;
  * 	Initial
  * @since 1.0
  */
-@XmlRootElement(name="Text")
+@XmlRootElement(name="Text", namespace="Text")
 @XmlAccessorType(XmlAccessType.FIELD)
 public class TestDataText extends TestData {
 	@XmlAttribute

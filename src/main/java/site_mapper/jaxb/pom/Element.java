@@ -29,9 +29,9 @@ public class Element implements ElementCreation, ElementControl {
 	private ElementToolTip toolTip;		
 	@XmlElement(name="Function", namespace="Element")
 	private ElementFunction elementFunction;
-	@XmlElement(name="TestDataIn")
+	@XmlElement(name="TestDataIn", namespace="Element")
 	private TestDataIn testDataIn;	
-	@XmlElement(name="TestDataOut")	
+	@XmlElement(name="TestDataOut", namespace="Element")	
 	private TestDataOut testDataOut;		
 		
 	public Element setType(String type) {
