@@ -21,9 +21,7 @@ public class ContainerWalker {
 	private Node currentNode;
 	private Node root;
 	private List<Container> containers = new ArrayList<>();
-	
-	String tab = "";
-	
+		
 	public ContainerWalker(Node root) {
 		this.root = root;
 		this.nodes = new ArrayList<>();
@@ -32,8 +30,6 @@ public class ContainerWalker {
 	public List<Container> traverseContainers() {
 		currentNode = root;
 		if(isValidRoot(root)) {
-//			System.out.println(tab + root.getName()); // TODO - remove or log
-//			tab += "  ";
 			Container ret = setCurrentContainer();
 			addCont(ret);
 			nodes.add(root); 									
@@ -47,21 +43,11 @@ public class ContainerWalker {
 	}
 	
 	private void addCont(Container c) {
-		if(c != null) {
-//		if(c != null && notExcluded(c)) {			
-			containers.add(c);
-//			System.out.println(tab + c.getName()); // TODO - remove or log	
+		if(c != null) {			
+			containers.add(c);	
 		}
 	}
-	
-	private boolean notExcluded(Container c) {
-		String name = c.getName();
-		return (
-				name.startsWith("Header") || 
-				name.startsWith("Body") || 
-				name.startsWith("Footer")) ? false : true;
-	}
-	
+		
 	private boolean isValidRoot(Node root) {
 		return (root.getContainers() != null || root.getElements() != null) ? true : false;
 	}
@@ -87,7 +73,6 @@ public class ContainerWalker {
 					ret = prev.getNextContainer();
 					if(ret != null) {
 						currentNode = new ChildNode(currentNode, ret);
-						tab += "  ";
 					}				
 				}else {
 					prev = prev.getPrev();

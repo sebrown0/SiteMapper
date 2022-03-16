@@ -15,7 +15,6 @@ import jakarta.xml.bind.annotation.XmlRootElement;
 import site_mapper.creators.ComponentWriter;
 import site_mapper.elements.ElementClass;
 import site_mapper.jaxb.containers.Container;
-import site_mapper.jaxb.containers.ZZZ_MenuItemContainer;
 import site_mapper.jaxb.node.Node;
 import site_mapper.jaxb.node.ParentNode;
 import site_mapper.jaxb.pom.SiteMapInfo;
@@ -47,17 +46,13 @@ public class MenuItem implements ElementClass, TestElement {
 	private MenuItemType menuItemType;	
 	@XmlElement(name="Container", namespace="MenuItem")
 	private List<Container> itemContainers;	
-//	@XmlElement(name="BodyElements", namespace="MenuItem")
-//	private MenuItemContainer bodyContainer;	
-//	@XmlElement(name="FooterElements", namespace="MenuItem")
-//	private MenuItemContainer footerContainer;
+
 		
 	private String menuPackageName;
 	private String moduleName;	
 	private SiteMapInfo siteMapInfo;
 	private List<Container> allContainers;	
-	private List<ZZZ_MenuItemContainer> menuItemContainers;	
-		
+			
 	@Override //ElementClass
 	public String getName() {
 		return name;
@@ -178,21 +173,7 @@ public class MenuItem implements ElementClass, TestElement {
 		this.siteMapInfo = info;
 		return this;
 	}
-	@Override //TestElement
-	public TestElement setHeaderContainer(ZZZ_MenuItemContainer cont) {
-//		this.headerContainer = cont;
-		return this;
-	}
-	@Override //TestElement
-	public TestElement setBodyContainer(ZZZ_MenuItemContainer cont) {
-//		this.bodyContainer = cont;
-		return this;
-	}
-	@Override //TestElement
-	public TestElement setFooterContainer(ZZZ_MenuItemContainer cont) {
-//		this.footerContainer = cont;
-		return this;
-	}
+	
 	@Override //TestElement
 	public TestElement setTestModuleName(String str) {
 		this.moduleName = str;
