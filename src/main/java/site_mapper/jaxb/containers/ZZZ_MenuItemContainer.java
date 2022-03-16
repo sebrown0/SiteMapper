@@ -3,6 +3,8 @@
  */
 package site_mapper.jaxb.containers;
 
+import java.util.List;
+
 import jakarta.xml.bind.annotation.XmlAccessType;
 import jakarta.xml.bind.annotation.XmlAccessorType;
 import jakarta.xml.bind.annotation.XmlElement;
@@ -16,16 +18,16 @@ import jakarta.xml.bind.annotation.XmlRootElement;
  */
 @XmlRootElement(name="Container", namespace="MenuItem")
 @XmlAccessorType(XmlAccessType.FIELD)
-public class MenuItemContainer {
+public class ZZZ_MenuItemContainer {
 	@XmlElement(name="Container", namespace="MenuItem")
-	private Container itemContainer;
+	private List<Container> itemContainers;
 
-	public Container getItemContainer() {
-		return itemContainer;
+	public List<Container> getItemContainer() {
+		return itemContainers;
 	}
 
-	public void setItemContainer(Container itemContainer) {
-		this.itemContainer = itemContainer;
+	public void setItemContainer(List<Container> itemContainers) {
+		this.itemContainers = itemContainers;
 	}
 		
 }

@@ -55,7 +55,7 @@ class XmlContentTests {
 		content = contentGetter.getContent().get();
 		mod = content.getModules().get(0);
 		empDetails = mod.getMenus().get(0).getMenuItems().get(0);
-		body = empDetails.getBody().getItemContainer();	
+//		body = empDetails.getBody().getItemContainer();	
 	}
 	
 	@Test
@@ -75,15 +75,15 @@ class XmlContentTests {
 		assertEquals("payroll", mod.getName());
 	}
 	
-	@Test
-	void get_toolTip() {		
-		assertEquals("Save Record", 
-				empDetails.getFooter()
-									.getItemContainer()									
-									.getElements()
-									.get(0)
-									.getToolTipText());
-	}
+//	@Test
+//	void get_toolTip() {		
+//		assertEquals("Save Record", 
+//				empDetails.getFooter()
+//									.getItemContainer()									
+//									.getElements()
+//									.get(0)
+//									.getToolTipText());
+//	}
 
 	@Test
 	void get_TestDataList_fromDataIn() {
@@ -145,43 +145,43 @@ class XmlContentTests {
 		mapper.createPomsFromSource(XML_SOURCE);
 	}
 
-	@Test 
-	void elementFunction_withDefaultPass() {
-		Element e = content.getModules().get(0).getMenus().get(0).getMenuItems().get(0).getFooter().getItemContainer().getElements().get(0);
-		ElementFunction func = e.getElementFunction().setType("button").setName("save");
-		
-		assertEquals(
-				"\n\t@TestControl(type=\"button\")\n" +
-				"\tpublic DynamicTest buttonSave () {\n" +
-				"\t\treturn DynamicTest.dynamicTest(\"[buttonSave]\", () -> fail(\"*NOT IMPLEMENTED*\"));\n" +
-				"\t}", 
-				func.toString()); 	
-	}
+//	@Test 
+//	void elementFunction_withDefaultPass() {
+//		Element e = content.getModules().get(0).getMenus().get(0).getMenuItems().get(0).getFooter().getItemContainer().getElements().get(0);
+//		ElementFunction func = e.getElementFunction().setType("button").setName("save");
+//		
+//		assertEquals(
+//				"\n\t@TestControl(type=\"button\")\n" +
+//				"\tpublic DynamicTest buttonSave () {\n" +
+//				"\t\treturn DynamicTest.dynamicTest(\"[buttonSave]\", () -> fail(\"*NOT IMPLEMENTED*\"));\n" +
+//				"\t}", 
+//				func.toString()); 	
+//	}
 
-	@Test 
-	void elementFunction_withoutDefaultPass() {
-		Element e = content.getModules().get(0).getMenus().get(0).getMenuItems().get(0).getFooter().getItemContainer().getElements().get(0);
-		ElementFunction 
-			func = 
-				e.getElementFunction()
-						.setType("button")
-						.setName("save")
-						.isDefaultPass(false);
-		
-		assertEquals(
-				"\n\t@TestControl(type=\"button\")\n" +
-				"\tpublic DynamicTest buttonSave () {\n" +
-				"\t\treturn DynamicTest.dynamicTest(\"[buttonSave]\", () -> fail(\"*NOT IMPLEMENTED*\"));\n" +
-				"\t}", 
-				func.toString()); 	
-	}
-
-	@Test
-	void get_empLookup_from_headerContainer() {
-		XmlContainer header = content.getModules().get(0).getMenus().get(0).getMenuItems().get(0).getHeader().getItemContainer();
-		XmlContainer empLookup = header.getContainers().get(0);
-		assertEquals("EmpLookup", empLookup.getName());		
-	}
+//	@Test 
+//	void elementFunction_withoutDefaultPass() {
+//		Element e = content.getModules().get(0).getMenus().get(0).getMenuItems().get(0).getFooter().getItemContainer().getElements().get(0);
+//		ElementFunction 
+//			func = 
+//				e.getElementFunction()
+//						.setType("button")
+//						.setName("save")
+//						.isDefaultPass(false);
+//		
+//		assertEquals(
+//				"\n\t@TestControl(type=\"button\")\n" +
+//				"\tpublic DynamicTest buttonSave () {\n" +
+//				"\t\treturn DynamicTest.dynamicTest(\"[buttonSave]\", () -> fail(\"*NOT IMPLEMENTED*\"));\n" +
+//				"\t}", 
+//				func.toString()); 	
+//	}
+//
+//	@Test
+//	void get_empLookup_from_headerContainer() {
+//		XmlContainer header = content.getModules().get(0).getMenus().get(0).getMenuItems().get(0).getHeader().getItemContainer();
+//		XmlContainer empLookup = header.getContainers().get(0);
+//		assertEquals("EmpLookup", empLookup.getName());		
+//	}
 	
 //	@Test
 //	void get_elements_fromEmpLookup() {

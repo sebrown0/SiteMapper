@@ -155,7 +155,6 @@ public class ClassBody {
 			Optional<List<Container>> containers = Optional.ofNullable(clazz.getAllContainers());
 			containers.ifPresent(cnts -> {
 				cnts.forEach(c -> {
-//					System.out.println("cont name = " + c.getName()); // TODO - remove or log 	
 					if(c.getFunctionWithParentName() != null) {
 						dynamicTestMethods.addLine(addContainerTests(c));						
 					}					

@@ -60,9 +60,18 @@ public class ControlDataFunctionBuilder implements TreeVisitor {
 		return (
 				n != null && 
 				n.getName() != null && n.getName().length() > 0 && 
-				n.getType() != null && n.getType().length() > 0 ) ? true : false;
+				n.getType() != null && n.getType().length() > 0 && 
+				notExcluded(n)) ? true : false;
 	}
 		
+	private boolean notExcluded(Node n) {
+		String name = n.getName();
+		return (
+				name.startsWith("Header") || 
+				name.startsWith("Body") || 
+				name.startsWith("Footer")) ? false : true;
+	}
+	
 	private String getLocator(String loc) {
 		return (loc != null && loc.length() > 0) ? ", " + loc : "";
 	}

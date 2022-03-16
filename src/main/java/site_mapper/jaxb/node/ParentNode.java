@@ -14,7 +14,7 @@ import site_mapper.jaxb.containers.Container;
  * Parent nodes are added to myControls 
  * and have no previous node.
  */
-public class ParentNode extends Node{
+public class ParentNode extends Node {
 
 	public ParentNode(Container container) {
 		super(container);

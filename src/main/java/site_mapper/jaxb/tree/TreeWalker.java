@@ -9,6 +9,7 @@ import java.util.List;
 import site_mapper.jaxb.containers.Container;
 import site_mapper.jaxb.node.ChildNode;
 import site_mapper.jaxb.node.Node;
+import site_mapper.jaxb.node.ParentNode;
 
 /**
  * @author SteveBrown
@@ -35,15 +36,32 @@ public class TreeWalker {
 			if(isValidRoot(root)) {
 				Container ret = setCurrentContainer();
 				nodes.add(root);
-				treeVisitor.addNode(root);								
+				addNodeToVisitor(root);
+//				treeVisitor.addNode(root);								
 				while(ret != null) {
 					nodes.add(currentNode);
-					treeVisitor.addNode(currentNode);				  
+					addNodeToVisitor(currentNode);
+//					treeVisitor.addNode(currentNode);				  
 					ret = getNextContainer();									
 				}	
 			}			
 		}				
 	}
+	
+	private void addNodeToVisitor(Node n) {
+		if(n != null) {			
+//		if(n != null && notExcluded(n)) {			
+			treeVisitor.addNode(currentNode);				 	
+		}
+	}
+	
+//	private boolean notExcluded(Node n) {
+//		String name = n.getName();
+//		return (
+//				name.startsWith("Header") || 
+//				name.startsWith("Body") || 
+//				name.startsWith("Footer")) ? false : true;
+//	}
 	
 	private boolean isValidRoot(Node root) {
 		return (root.getContainers() != null || root.getElements() != null) ? true : false;
@@ -53,7 +71,11 @@ public class TreeWalker {
 		Container ret = currentNode.getCurrentContainer();
 		if(currentNode != null && currentNode.hasAnotherContainer()) {			
 			ret = currentNode.getNextContainer();
-			currentNode = new ChildNode(currentNode, ret);				
+			if(ret.isParentContiner()) {
+				currentNode = new ParentNode(ret);
+			}else {
+				currentNode = new ChildNode(currentNode, ret).includeInControlList();	
+			}							
 		}		
 		return ret;
 	}
@@ -69,8 +91,15 @@ public class TreeWalker {
 				if(prev.hasAnotherContainer()) {
 					ret = prev.getNextContainer();
 					if(ret != null) {
-						currentNode = new ChildNode(currentNode, ret);
-					}				
+						if(ret.isParentContiner()) {
+							currentNode = new ParentNode(ret);
+						}else {
+							currentNode = new ChildNode(currentNode, ret).includeInControlList();	
+						}
+					}
+//					if(ret != null) {
+//						currentNode = new ChildNode(currentNode, ret);
+//					}				
 				}else {
 					prev = prev.getPrev();
 				}			

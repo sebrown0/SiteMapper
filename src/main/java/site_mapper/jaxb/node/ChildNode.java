@@ -24,4 +24,8 @@ public class ChildNode extends Node {
 		super.prev = prev;
 	}
 
+	public ChildNode includeInControlList() {
+		super.isIncludedInControlList = true;
+		return this;
+	}
 }

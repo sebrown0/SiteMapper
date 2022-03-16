@@ -5,7 +5,6 @@ package site_mapper.jaxb.menu_items;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Stream;
 
 import file.helpers.Formatter;
 import jakarta.xml.bind.annotation.XmlAccessType;
@@ -16,8 +15,11 @@ import jakarta.xml.bind.annotation.XmlRootElement;
 import site_mapper.creators.ComponentWriter;
 import site_mapper.elements.ElementClass;
 import site_mapper.jaxb.containers.Container;
-import site_mapper.jaxb.containers.MenuItemContainer;
+import site_mapper.jaxb.containers.ZZZ_MenuItemContainer;
+import site_mapper.jaxb.node.Node;
+import site_mapper.jaxb.node.ParentNode;
 import site_mapper.jaxb.pom.SiteMapInfo;
+import site_mapper.jaxb.tree.ContainerWalker;
 
 /**
  * @author SteveBrown
@@ -43,18 +45,18 @@ public class MenuItem implements ElementClass, TestElement {
 	
 	@XmlElement(name="Type", namespace="MenuItem")
 	private MenuItemType menuItemType;	
-	@XmlElement(name="HeaderElements", namespace="MenuItem")
-	private MenuItemContainer headerContainer;	
-	@XmlElement(name="BodyElements", namespace="MenuItem")
-	private MenuItemContainer bodyContainer;	
-	@XmlElement(name="FooterElements", namespace="MenuItem")
-	private MenuItemContainer footerContainer;
+	@XmlElement(name="Container", namespace="MenuItem")
+	private List<Container> itemContainers;	
+//	@XmlElement(name="BodyElements", namespace="MenuItem")
+//	private MenuItemContainer bodyContainer;	
+//	@XmlElement(name="FooterElements", namespace="MenuItem")
+//	private MenuItemContainer footerContainer;
 		
 	private String menuPackageName;
 	private String moduleName;	
 	private SiteMapInfo siteMapInfo;
 	private List<Container> allContainers;	
-	private List<MenuItemContainer> menuItemContainers;	
+	private List<ZZZ_MenuItemContainer> menuItemContainers;	
 		
 	@Override //ElementClass
 	public String getName() {
@@ -89,52 +91,45 @@ public class MenuItem implements ElementClass, TestElement {
 	public List<Container> getAllContainers() {
 		if(allContainers == null) {
 			allContainers = new ArrayList<>();
-			getMenuItemContainers()
-				.forEach(
-						itm -> { 
-							var cont = itm.getItemContainer();
-							if(cont != null) {
-								allContainers.add(cont);
-							}
-						});
+			if(itemContainers != null) {
+				itemContainers.forEach(c ->	allContainers.addAll(getChildren(c)));	
+			}			
 		} 	
 		return allContainers;				
 	}
-	public List<MenuItemContainer> getMenuItemContainers(){
-		if(menuItemContainers == null) {
-			menuItemContainers = new ArrayList<>();
-			Stream
-				.of(headerContainer, bodyContainer, footerContainer)
-				.filter(s -> s != null)
-				.forEach(menuItemContainers::add);
-		} 	
-		return menuItemContainers;		
+	
+	private List<Container> getChildren(Container c) {
+		Node n = new ParentNode(c);
+		ContainerWalker walker = new ContainerWalker(n);
+		return walker.traverseContainers();
 	}
 	
+	
+	private Container getItemContainer(String name) {
+		Container res = null;
+		if(itemContainers != null) {
+			for(Container c : itemContainers) {
+				if(c.getName().equalsIgnoreCase(name)) {
+					res = c;
+					break;
+				}
+			}
+		}
+		return res;
+	}
 	@Override //ElementClass
 	public Container getHeaderContainer() {
-		return (headerContainer != null) ? headerContainer.getItemContainer() : null;
+		return getItemContainer("HeaderElements");
 	}
 	@Override //ElementClass
 	public Container getBodyContainer() {
-		return (bodyContainer != null) ? bodyContainer.getItemContainer() : null;
+		return getItemContainer("BodyElements");
 	}
 	@Override //ElementClass
 	public Container getFooterContainer() {
-		return (footerContainer != null) ? footerContainer.getItemContainer() : null;
+		return getItemContainer("FooterElements");
 	}	
-	@Override //ElementClass
-	public MenuItemContainer getHeader() {
-		return headerContainer;
-	}
-	@Override //ElementClass
-	public MenuItemContainer getBody() {
-		return bodyContainer;
-	}
-	@Override //ElementClass
-	public MenuItemContainer getFooter() {
-		return footerContainer;
-	}
+	
 	@Override //ElementClass
 	public SiteMapInfo getSiteMapInfo() {
 		return siteMapInfo;
@@ -184,18 +179,18 @@ public class MenuItem implements ElementClass, TestElement {
 		return this;
 	}
 	@Override //TestElement
-	public TestElement setHeaderContainer(MenuItemContainer cont) {
-		this.headerContainer = cont;
+	public TestElement setHeaderContainer(ZZZ_MenuItemContainer cont) {
+//		this.headerContainer = cont;
 		return this;
 	}
 	@Override //TestElement
-	public TestElement setBodyContainer(MenuItemContainer cont) {
-		this.bodyContainer = cont;
+	public TestElement setBodyContainer(ZZZ_MenuItemContainer cont) {
+//		this.bodyContainer = cont;
 		return this;
 	}
 	@Override //TestElement
-	public TestElement setFooterContainer(MenuItemContainer cont) {
-		this.footerContainer = cont;
+	public TestElement setFooterContainer(ZZZ_MenuItemContainer cont) {
+//		this.footerContainer = cont;
 		return this;
 	}
 	@Override //TestElement
@@ -213,13 +208,13 @@ public class MenuItem implements ElementClass, TestElement {
 		this.menuItemType.setAttributes(att);
 		return this;
 	}
-	
-	@Override
-	public String toString() {
-		return String.format(
-				"MenuItem [name=%s, packageName=%s, className=%s, menuItemType=%s, headerElements=%s, bodyElements=%s, footerElements=%s, menuPackageName=%s, moduleName=%s, siteMapInfo=%s]",
-				name, packageName, className, menuItemType, headerContainer, bodyContainer, footerContainer, menuPackageName,
-				moduleName, siteMapInfo);
-	}
+		
+//	@Override
+//	public String toString() {
+//		return String.format(
+//				"MenuItem [name=%s, packageName=%s, className=%s, menuItemType=%s, headerElements=%s, bodyElements=%s, footerElements=%s, menuPackageName=%s, moduleName=%s, siteMapInfo=%s]",
+//				name, packageName, className, menuItemType, headerContainer, bodyContainer, footerContainer, menuPackageName,
+//				moduleName, siteMapInfo);
+//	}
 					
 }
