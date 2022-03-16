@@ -3,9 +3,6 @@
  */
 package site_mapper.jaxb.tree;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import site_mapper.jaxb.containers.Container;
 import site_mapper.jaxb.node.ChildNode;
 import site_mapper.jaxb.node.Node;
@@ -18,15 +15,14 @@ import site_mapper.jaxb.node.ParentNode;
  * @since 1.0
  */
 public class TreeWalker {
-	private List<Node> nodes;
 	private Node currentNode;
+	
 	private TreeVisitor treeVisitor;
 	private Node[] roots;
 	
 	public TreeWalker(TreeVisitor treeVisitor, Node... roots) {
 		this.treeVisitor = treeVisitor;
 		this.roots = roots;
-		this.nodes = new ArrayList<>();
 	}
 
 	public void traverseTree() {			
@@ -34,11 +30,8 @@ public class TreeWalker {
 			Node root = roots[idx];
 			currentNode = root;
 			if(isValidRoot(root)) {
-				Container ret = setCurrentContainer();
-				nodes.add(root);
-				addNodeToVisitor(root);								
+				Container ret = setCurrentContainer();								
 				while(ret != null) {
-					nodes.add(currentNode);
 					addNodeToVisitor(currentNode); 
 					ret = getNextContainer();									
 				}	
