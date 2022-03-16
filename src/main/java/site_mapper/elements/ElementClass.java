@@ -27,9 +27,7 @@ public interface ElementClass {
 	String getTypeName();
 	MenuItemType getMenuItemType();
 	List<Container> getAllContainers();
-//	MenuItemContainer getHeader();
-//	MenuItemContainer getBody();
-//	MenuItemContainer getFooter();
+
 	SiteMapInfo getSiteMapInfo();
 	ComponentWriter getComponentWriter();
 	boolean hasControlList();

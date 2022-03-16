@@ -36,12 +36,10 @@ public class TreeWalker {
 			if(isValidRoot(root)) {
 				Container ret = setCurrentContainer();
 				nodes.add(root);
-				addNodeToVisitor(root);
-//				treeVisitor.addNode(root);								
+				addNodeToVisitor(root);								
 				while(ret != null) {
 					nodes.add(currentNode);
-					addNodeToVisitor(currentNode);
-//					treeVisitor.addNode(currentNode);				  
+					addNodeToVisitor(currentNode); 
 					ret = getNextContainer();									
 				}	
 			}			
@@ -50,19 +48,10 @@ public class TreeWalker {
 	
 	private void addNodeToVisitor(Node n) {
 		if(n != null) {			
-//		if(n != null && notExcluded(n)) {			
 			treeVisitor.addNode(currentNode);				 	
 		}
 	}
-	
-//	private boolean notExcluded(Node n) {
-//		String name = n.getName();
-//		return (
-//				name.startsWith("Header") || 
-//				name.startsWith("Body") || 
-//				name.startsWith("Footer")) ? false : true;
-//	}
-	
+		
 	private boolean isValidRoot(Node root) {
 		return (root.getContainers() != null || root.getElements() != null) ? true : false;
 	}
@@ -97,9 +86,6 @@ public class TreeWalker {
 							currentNode = new ChildNode(currentNode, ret).includeInControlList();	
 						}
 					}
-//					if(ret != null) {
-//						currentNode = new ChildNode(currentNode, ret);
-//					}				
 				}else {
 					prev = prev.getPrev();
 				}			
