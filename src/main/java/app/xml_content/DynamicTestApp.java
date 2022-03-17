@@ -7,7 +7,6 @@ import jakarta.xml.bind.annotation.XmlAccessorType;
 import jakarta.xml.bind.annotation.XmlElement;
 import jakarta.xml.bind.annotation.XmlElementWrapper;
 import jakarta.xml.bind.annotation.XmlRootElement;
-import site_mapper.jaxb.containers.Container;
 import site_mapper.jaxb.menu_items.MenuItem;
 import site_mapper.jaxb.pom.Menu;
 import site_mapper.jaxb.pom.Module;
@@ -33,8 +32,8 @@ public class DynamicTestApp implements XmlContent, XmlTestContent {
 	@XmlElement(name="Include", namespace="IncludeElementsInTest")
 	private List<String> includeElementsForTest;
 	
-	@XmlElementWrapper(name="Modules")
-  @XmlElement(name="Module")
+	@XmlElementWrapper(name="Modules")//, namespace="Modules")
+  @XmlElement(name="Module", namespace="Modules")
   private List<Module> modules;
 
 	@Override //XmlContent
@@ -100,13 +99,13 @@ public class DynamicTestApp implements XmlContent, XmlTestContent {
 		return res;
 	}
 	
-	private String getElements(Container c) {
-		String res = "";
+//	private String getElements(Container c) {
+//		String res = "";
 //		for(Element e : c.getElements()) {
 //			res += "\n     " + e.getElementName();
 //		}
-		return res;
-	}
+//		return res;
+//	}
 //	**********************
 //	* THIS GOES IN DTest *
 //  **********************

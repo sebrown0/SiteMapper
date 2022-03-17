@@ -32,7 +32,7 @@ import site_mapper.jaxb.tree.ContainerWalker;
  * 
  * Is the ClassFile.
  */
-@XmlRootElement(name="MenuItem")
+@XmlRootElement(name="MenuItem", namespace="Menu")
 @XmlAccessorType(XmlAccessType.FIELD)
 public class MenuItem implements ElementClass, TestElement {
 	@XmlAttribute(name="name")

@@ -19,13 +19,13 @@ import site_mapper.jaxb.menu_items.MenuItem;
  * Menu found in a module.
  * 
  */
-@XmlRootElement(name="Menu")
+@XmlRootElement(name="Menu", namespace="Menus")
 public class Menu {
 	@XmlAttribute(name="name")
 	private String name;	
 	@XmlAttribute(name="package")
 	private String packageName;	
-  @XmlElement(name="MenuItem")
+  @XmlElement(name="MenuItem", namespace="Menu")
   private List<MenuItem> menuItems;
     	
 	public List<MenuItem> getMenuItems() {

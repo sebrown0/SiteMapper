@@ -15,12 +15,12 @@ import jakarta.xml.bind.annotation.XmlRootElement;
  * 
  * Module found in the site_map.xml.
  */
-@XmlRootElement(name = "Module")
+@XmlRootElement(name="Module", namespace="Modules")
 public class Module {	
 	@XmlAttribute(name="name")
 	private String name;
-  @XmlElementWrapper(name="Menus")
-  @XmlElement(name="Menu")
+  @XmlElementWrapper(name="Menus", namespace="Module")
+  @XmlElement(name="Menu", namespace="Menus")
   private List<Menu> menus;
         
   public String getName() {

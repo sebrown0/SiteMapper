@@ -16,13 +16,13 @@ import jakarta.xml.bind.annotation.XmlRootElement;
  * JAXB class representing the top level of the site_map.xml.
  * Used to create the site mapped classes.
  */
-@XmlRootElement(name = "SiteMap")
+@XmlRootElement(name="SiteMap")
 public class PomMapperApp implements XmlContent {	
 	@XmlElement(name="Info")
 	private SiteMapInfo siteMapInfo;
 	
 	@XmlElementWrapper(name="Modules")
-  @XmlElement(name="Module")
+  @XmlElement(name="Module", namespace="Modules")
   private List<Module> modules;
 	
 	@Override //XmlContent
