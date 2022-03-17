@@ -22,20 +22,20 @@ import site_mapper.jaxb.pom.SiteMapInfo;
  */
 public class ModuleMapper {
 	public static void mapModules(
-			Module module, PackageSetter packageSetter, PackageHierarchy ph, final SiteMapInfo siteMap) {
+		Module module, PackageSetter packageSetter, 
+		PackageHierarchy ph, final SiteMapInfo siteMap) {
 		
-		String name = module.getName();
-		PackageMaker.makeWithPackageInfo(siteMap, ph.reset().addCurrent(name));
+		String modName = module.getName();
+		PackageMaker.makeWithPackageInfo(siteMap, ph.reset(modName));
   	
   	LogManager
   		.getLogger(ModuleMapper.class)
-  		.info("Found module [" + name + "]. Attempting to map menus");
+  		.info("Found module [" + modName + "]. Attempting to map menus");
   	
   	List<Menu> menus = module.getMenus(); 
-		if(menus != null) {			
-			menus.forEach(m -> {								 					
-				MenuMapper.mapMenus(m, packageSetter, siteMap, ph, name);
-	  	});	
+		if(menus != null) {
+			MenuMapper menuMapper = new MenuMapper(packageSetter, siteMap, ph, modName);
+			menus.forEach(m -> menuMapper.mapMenu(m) );	
 		}  	
 	}
 }

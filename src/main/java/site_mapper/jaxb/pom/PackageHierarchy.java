@@ -34,8 +34,8 @@ public class PackageHierarchy {
 		return this;
 	}
 	
-	public PackageHierarchy reset() {
-		current = packageNames.peek();
+	public PackageHierarchy reset(String moduleName) {
+		current = "object_models/modules/" + moduleName;
 		packageNames.clear();		
 		packageNames.add(current);
 		return this;
@@ -77,14 +77,15 @@ public class PackageHierarchy {
 		return (ret.length()>0) ? ret.substring(0, ret.length()-1) : "";
 	}
 
+	public PackageHierarchy setMenuPackageName(String packageName) {
+		this.packageName = packageName;
+		return this;
+	}
+	
 	@Override
 	public String toString() {
 		return "PackageHierarchy [root=" + root + ", current=" + current + ", packageNames=" + packageNames + ", ret=" + ret
 				+ "]";
-	}
-
-	public void setMenuPackageName(String packageName) {
-		this.packageName = packageName;
 	}
 	
 }

@@ -21,22 +21,42 @@ import site_mapper.jaxb.pom.SiteMapInfo;
  * 	Initial
  * @since 1.0
  */
-public class MenuMapper {
-	private static final Logger logger = LogManager.getLogger(MenuMapper.class);
-  
-  public static void mapMenus(
-  		Menu menu, PackageSetter packageSetter, SiteMapInfo siteMapInfo, PackageHierarchy ph, String moduleName) {
-  	
-  	String name = menu.getName();
-  	String packageName = menu.getPackageName();
+public class MenuMapper {	
+	private PackageSetter packageSetter;
+	private SiteMapInfo siteMapInfo;
+	private PackageHierarchy ph;
+	private String moduleName;
+	
+	private static final Logger LOGGER = LogManager.getLogger(MenuMapper.class);
+
+	public MenuMapper(PackageSetter packageSetter, SiteMapInfo siteMapInfo, PackageHierarchy ph, String moduleName) {
+		this.packageSetter = packageSetter;
+		this.siteMapInfo = siteMapInfo;
+		this.ph = ph;
+		this.moduleName = moduleName;
+	}
+
+	public void mapMenu(Menu menu) {  	
+		logMsg(menu);		
+		createPackageForMenu(menu);		
+		mapItemsForThisMenu(menu);		
+	}
+
+	private void logMsg(Menu menu) {
+		String menuName = menu.getName();
+		LOGGER.info("Found menu [" + menuName + "]. Attempting to map menu items");
+	}
+	
+	private void createPackageForMenu(Menu menu) {		
+  	String packageName = menu.getPackageName();  	
+  	ph.reset(moduleName).addCurrent(packageName);
+		PackageMaker.makeWithPackageInfo(siteMapInfo, ph);
+	}
+	
+  private void mapItemsForThisMenu(Menu menu) {
   	List<MenuItem> menuItems = menu.getMenuItems();
   	
-  	ph.setMenuPackageName(packageName);
-		PackageMaker.makeWithPackageInfo(siteMapInfo, ph.addCurrent(packageName));		
-		
-		logger.info("Found menu [" + name + "]. Attempting to map menu items");
-		
-		if(menuItems != null) {
+  	if(menuItems != null) {
 			menuItems.forEach(item -> {
 				item.setSiteMapInfo(siteMapInfo);				
 				item.setTestModuleName(moduleName);
@@ -44,5 +64,5 @@ public class MenuMapper {
 				new MenuItemMapper(packageSetter, item, ph).createPoms();
 			});	
 		}		
-	}
+  }
 }
