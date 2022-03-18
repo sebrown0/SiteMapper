@@ -4,8 +4,8 @@
 package app.xml_content;
 
 import file.class_package.PackageSetter;
-import site_mapper.creators.ClassMakerDirector;
-import site_mapper.creators.PackageMaker;
+import site_mapper.creators.clazz.ClassMakerDirector;
+import site_mapper.creators.package_maker.PackageMaker;
 import site_mapper.jaxb.menu_items.MenuItem;
 import site_mapper.jaxb.pom.PackageHierarchy;
 import site_mapper.jaxb.pom.SiteMapInfo;

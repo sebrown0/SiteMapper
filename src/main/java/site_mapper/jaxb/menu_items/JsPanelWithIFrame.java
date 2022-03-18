@@ -7,8 +7,8 @@ import jakarta.xml.bind.annotation.XmlAccessType;
 import jakarta.xml.bind.annotation.XmlAccessorType;
 import jakarta.xml.bind.annotation.XmlAttribute;
 import jakarta.xml.bind.annotation.XmlRootElement;
-import site_mapper.creators.ComponentWriter;
-import site_mapper.creators.ComponentWriterJsPanelWithIFrame;
+import site_mapper.creators.component_writer.ComponentWriter;
+import site_mapper.creators.component_writer.ComponentWriterJsPanelWithIFrame;
 
 /**
  * @author SteveBrown

@@ -18,16 +18,24 @@ import java.util.Queue;
  *  fwd slash notation root/package1/package2
  */
 public class PackageHierarchy {
-	private String root;
+	private final String ROOT;
+	private final String PRNT_PACKAGE;
 	private String current;
 	private String packageName;	
 	private Queue<String> packageNames = new LinkedList<String>();
 	private String ret;
 	
-	public PackageHierarchy(String root, String current) {
-		this.root = root;
-		addCurrent(current);		
+	public PackageHierarchy(SiteMapInfo info) {
+		this.ROOT = info.getRootDir();
+		this.PRNT_PACKAGE = info.getParentPackage();
+		
+		addCurrent(PRNT_PACKAGE);		
 	}
+		
+//	public PackageHierarchy(String root, String current) {
+//		this.root = root;
+//		addCurrent(current);		
+//	}
 
 	public PackageHierarchy removeCurrent() {		
 		packageNames.remove(current);		
@@ -52,7 +60,11 @@ public class PackageHierarchy {
 	}
 	
 	public String getRoot() {
-		return root;
+		return ROOT;
+	}
+	
+	public String getParentPackage() {
+		return PRNT_PACKAGE;
 	}
 	
 	public String getPackageName() {
@@ -77,14 +89,14 @@ public class PackageHierarchy {
 		return (ret.length()>0) ? ret.substring(0, ret.length()-1) : "";
 	}
 
-	public PackageHierarchy setMenuPackageName(String packageName) {
-		this.packageName = packageName;
-		return this;
-	}
+//	public PackageHierarchy setMenuPackageName(String packageName) {
+//		this.packageName = packageName;
+//		return this;
+//	}
 	
 	@Override
 	public String toString() {
-		return "PackageHierarchy [root=" + root + ", current=" + current + ", packageNames=" + packageNames + ", ret=" + ret
+		return "PackageHierarchy [root=" + ROOT + ", current=" + current + ", packageNames=" + packageNames + ", ret=" + ret
 				+ "]";
 	}
 	

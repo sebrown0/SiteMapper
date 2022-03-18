@@ -22,8 +22,8 @@ import file.variable.ClassVariable;
 import file.variable.Variables;
 import helpers.ExistingTestClassFileBuilder;
 import helpers.NewTestClassFileBuilder;
-import site_mapper.creators.ComponentWriter;
-import site_mapper.creators.ComponentWriterJsPanelWithIFrame;
+import site_mapper.creators.component_writer.ComponentWriter;
+import site_mapper.creators.component_writer.ComponentWriterJsPanelWithIFrame;
 import site_mapper.jaxb.pom.SiteMapInfo;
 
 /**

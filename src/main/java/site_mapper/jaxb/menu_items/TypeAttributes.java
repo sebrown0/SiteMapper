@@ -3,7 +3,7 @@
  */
 package site_mapper.jaxb.menu_items;
 
-import site_mapper.creators.ComponentWriter;
+import site_mapper.creators.component_writer.ComponentWriter;
 
 /**
  * @author SteveBrown

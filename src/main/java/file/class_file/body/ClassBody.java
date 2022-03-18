@@ -15,7 +15,7 @@ import file.method.ExistingMethodMapper;
 import file.method.MethodList;
 import file.variable.ExistingClassVariableMapper;
 import file.variable.Variables;
-import site_mapper.creators.ComponentWriter;
+import site_mapper.creators.component_writer.ComponentWriter;
 import site_mapper.elements.DefaultNoArgsConstructor;
 import site_mapper.elements.ElementClass;
 import site_mapper.elements.ElementConstructor;

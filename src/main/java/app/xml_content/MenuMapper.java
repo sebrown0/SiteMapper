@@ -9,7 +9,8 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import file.class_package.PackageSetter;
-import site_mapper.creators.PackageMaker;
+import site_mapper.creators.navigation.NavElementAdder;
+import site_mapper.creators.package_maker.PackageMaker;
 import site_mapper.jaxb.menu_items.MenuItem;
 import site_mapper.jaxb.pom.PackageHierarchy;
 import site_mapper.jaxb.pom.SiteMapInfo;
@@ -26,6 +27,7 @@ public class MenuMapper {
 	private SiteMapInfo siteMapInfo;
 	private PackageHierarchy ph;
 	private String moduleName;
+	private NavElementAdder elementAdder;
 	
 	private static final Logger LOGGER = LogManager.getLogger(MenuMapper.class);
 
@@ -57,12 +59,36 @@ public class MenuMapper {
   	List<MenuItem> menuItems = menu.getMenuItems();
   	
   	if(menuItems != null) {
+  		setNavCreator(menu);
 			menuItems.forEach(item -> {
-				item.setSiteMapInfo(siteMapInfo);				
-				item.setTestModuleName(moduleName);
-				item.setTestMenuName(menu.getPackageName());				
-				new MenuItemMapper(packageSetter, item, ph).createPoms();
-			});	
+				addItemToNavigation(item);
+				createPom(menu, item);								
+			});
+			writeNavigation();
 		}		
+  }
+  
+  private void setNavCreator(Menu menu) {
+  	elementAdder = 
+  		menu.getMenuType()
+  			.getNavCreator()
+  			.setPackageHierarchy(ph)
+  			.setMenuName(menu.getName())
+  			.setModuleName(moduleName);
+  }
+  
+  private void addItemToNavigation(MenuItem item) {
+		elementAdder.addElement(item.getClassName());
+  }
+  
+  private void createPom(Menu menu, MenuItem item) {
+  	item.setSiteMapInfo(siteMapInfo);				
+		item.setTestModuleName(moduleName);
+		item.setTestMenuName(menu.getPackageName());				
+		new MenuItemMapper(packageSetter, item, ph).createPoms();
+  }
+  
+  private void writeNavigation() {
+  	elementAdder.writeNavClass();
   }
 }

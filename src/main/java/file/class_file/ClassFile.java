@@ -22,8 +22,8 @@ import file.comment.ExistingComment;
 import file.comment.NewComment;
 import file.helpers.LineMapper;
 import file.imports.ImportList;
-import site_mapper.creators.ComponentWriter;
-import site_mapper.creators.ComponentWriterSetter;
+import site_mapper.creators.component_writer.ComponentWriter;
+import site_mapper.creators.component_writer.ComponentWriterSetter;
 import site_mapper.elements.ElementClass;
 import site_mapper.jaxb.pom.SiteMapInfo;
 

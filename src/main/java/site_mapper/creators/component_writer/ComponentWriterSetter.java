@@ -1,7 +1,7 @@
 /**
  * 
  */
-package site_mapper.creators;
+package site_mapper.creators.component_writer;
 
 import site_mapper.elements.ElementClass;
 import site_mapper.jaxb.pom.SiteMapInfo;

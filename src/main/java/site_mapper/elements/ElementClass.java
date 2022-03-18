@@ -5,7 +5,7 @@ package site_mapper.elements;
 
 import java.util.List;
 
-import site_mapper.creators.ComponentWriter;
+import site_mapper.creators.component_writer.ComponentWriter;
 import site_mapper.jaxb.containers.Container;
 import site_mapper.jaxb.menu_items.MenuItemType;
 import site_mapper.jaxb.menu_items.TypeAttributes;

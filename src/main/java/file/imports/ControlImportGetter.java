@@ -3,7 +3,7 @@
  */
 package file.imports;
 
-import site_mapper.creators.FindImport;
+import site_mapper.creators.imports.FindImport;
 import site_mapper.jaxb.pom.SiteMapInfo;
 import utils.StringUtils;
 

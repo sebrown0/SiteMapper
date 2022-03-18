@@ -1,7 +1,7 @@
 /**
  * 
  */
-package site_mapper.creators;
+package site_mapper.creators.component_writer;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -16,6 +16,8 @@ import file.imports.Import;
 import file.imports.NewImport;
 import file.variable.ClassVariable;
 import file.variable.Variable;
+import site_mapper.creators.imports.FindImport;
+import site_mapper.creators.imports.UseImport;
 import site_mapper.elements.DefaultNoArgsConstructor;
 import site_mapper.elements.ElementClass;
 import site_mapper.elements.ElementConstructor;

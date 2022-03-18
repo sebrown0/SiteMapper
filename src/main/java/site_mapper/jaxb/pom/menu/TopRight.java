@@ -6,6 +6,8 @@ import java.util.stream.Collectors;
 import file.helpers.Formatter;
 import jakarta.xml.bind.annotation.XmlElement;
 import jakarta.xml.bind.annotation.XmlRootElement;
+import site_mapper.creators.navigation.NavBarElementCreator;
+import site_mapper.creators.navigation.NavElementAdder;
 import site_mapper.jaxb.menu_items.MenuItem;
 import site_mapper.jaxb.menu_items.MenuItemTop;
 
@@ -39,6 +41,11 @@ public class TopRight extends MenuType {
 	}  
 	public String getPackageName() {
 		return PACKAGE_NAME;
+	}
+	
+	@Override
+	public NavElementAdder getNavCreator() {
+		return new NavBarElementCreator();
 	}
 	
 	@Override

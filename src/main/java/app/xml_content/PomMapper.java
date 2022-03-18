@@ -5,7 +5,7 @@ package app.xml_content;
 
 import file.class_package.PackageSetter;
 import file.class_package.ProdPackageSetter;
-import site_mapper.creators.PackageMaker;
+import site_mapper.creators.package_maker.PackageMaker;
 import site_mapper.jaxb.pom.Module;
 import site_mapper.jaxb.pom.PackageHierarchy;
 import site_mapper.jaxb.pom.SiteMapInfo;
@@ -31,8 +31,7 @@ public abstract class PomMapper {
 	public abstract void createPomsFromSource(final String XML_SOURCE);
 		
 	protected void setPackageHierarchy() {
-		packageHierarchy = 
-				new PackageHierarchy(info.getRootDir(), info.getParentPackage());
+		packageHierarchy = new PackageHierarchy(info);
 	}
 	protected void makePackage() {
 		PackageMaker.makeParentWithPackageInfo(info, packageHierarchy);		

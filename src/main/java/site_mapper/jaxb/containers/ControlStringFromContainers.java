@@ -7,7 +7,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import file.annotation.NewAnnotation;
-import site_mapper.creators.ComponentWriter;
+import site_mapper.creators.component_writer.ComponentWriter;
 import site_mapper.creators.control_data.ControlDataFunction;
 import site_mapper.creators.control_data.ControlDataFunctionBuilder;
 import site_mapper.jaxb.node.Node;

@@ -25,7 +25,7 @@ import site_mapper.jaxb.containers.Container;
  */
 @XmlRootElement(name="MenuItem", namespace="TopRightMenu")
 @XmlAccessorType(XmlAccessType.FIELD)
-public class MenuItemTop extends MenuItemDetails {
+public class MenuItemTop extends MenuItemDetails {//implements NavElementAdder {
 	@XmlAttribute(name="name")
 	private String name;
 	@XmlAttribute(name="package")

@@ -6,6 +6,8 @@ import java.util.stream.Collectors;
 import file.helpers.Formatter;
 import jakarta.xml.bind.annotation.XmlElement;
 import jakarta.xml.bind.annotation.XmlRootElement;
+import site_mapper.creators.navigation.LeftMenuElementCreator;
+import site_mapper.creators.navigation.NavElementAdder;
 import site_mapper.jaxb.menu_items.MenuItem;
 import site_mapper.jaxb.menu_items.MenuItemLeft;
 
@@ -33,7 +35,6 @@ public class LeftMenu extends MenuType {
   		menuItems.stream()
   			.map(MenuItem::new)
   			.collect(Collectors.toList());
-//  	return menuItems.stream().map(m -> new MenuItem(m)).collect(Collectors.toList());
 	}
   
 	public String getName() {
@@ -48,6 +49,11 @@ public class LeftMenu extends MenuType {
 		return 
 			String.format("Menu [name=%s, packageName=%s, menuItems=[%s]]", 
 				NAME, PACKAGE_NAME, Formatter.getAsCommaSeparatedList(menuItems));
+	}
+
+	@Override
+	public NavElementAdder getNavCreator() {
+		return new LeftMenuElementCreator();
 	}
 
 }

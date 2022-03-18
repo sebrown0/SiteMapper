@@ -8,7 +8,7 @@ import java.util.List;
 import org.apache.logging.log4j.LogManager;
 
 import file.class_package.PackageSetter;
-import site_mapper.creators.PackageMaker;
+import site_mapper.creators.package_maker.PackageMaker;
 import site_mapper.jaxb.pom.Module;
 import site_mapper.jaxb.pom.PackageHierarchy;
 import site_mapper.jaxb.pom.SiteMapInfo;

@@ -1,7 +1,7 @@
 /**
  * 
  */
-package site_mapper.creators;
+package site_mapper.creators.imports;
 
 /**
  * @author SteveBrown

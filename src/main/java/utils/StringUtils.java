@@ -35,6 +35,11 @@ public class StringUtils {
 		String s = str.replace("/", with); 
 		return s;
 	}
+	
+	public static String replaceDots(String str, String with) {
+		String s = str.replaceAll("\\.", with); 
+		return s;
+	}
 
 	public static String asCamelCase(String str) {
 		String res = "";

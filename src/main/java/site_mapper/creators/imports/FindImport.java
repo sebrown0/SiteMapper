@@ -1,7 +1,7 @@
 /**
  * 
  */
-package site_mapper.creators;
+package site_mapper.creators.imports;
 
 import org.apache.logging.log4j.LogManager;
 

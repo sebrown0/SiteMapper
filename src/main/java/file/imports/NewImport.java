@@ -3,7 +3,7 @@
  */
 package file.imports;
 
-import site_mapper.creators.ImportType;
+import site_mapper.creators.imports.ImportType;
 
 /**
  * @author SteveBrown

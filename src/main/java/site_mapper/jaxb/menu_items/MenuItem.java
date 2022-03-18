@@ -7,7 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import file.helpers.Formatter;
-import site_mapper.creators.ComponentWriter;
+import site_mapper.creators.component_writer.ComponentWriter;
 import site_mapper.elements.ElementClass;
 import site_mapper.jaxb.containers.Container;
 import site_mapper.jaxb.node.Node;

@@ -12,7 +12,7 @@ import java.util.List;
 
 import file.annotation.SiteMapAnnotation;
 import file.imports.ControlImportGetter;
-import site_mapper.creators.ComponentWriter;
+import site_mapper.creators.component_writer.ComponentWriter;
 import site_mapper.jaxb.containers.Container;
 import site_mapper.jaxb.node.Node;
 import site_mapper.jaxb.pom.Element;
