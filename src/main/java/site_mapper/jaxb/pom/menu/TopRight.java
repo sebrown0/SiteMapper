@@ -1,10 +1,12 @@
 package site_mapper.jaxb.pom.menu;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 import file.helpers.Formatter;
 import jakarta.xml.bind.annotation.XmlElement;
 import jakarta.xml.bind.annotation.XmlRootElement;
+import site_mapper.jaxb.menu_items.MenuItem;
 import site_mapper.jaxb.menu_items.MenuItemTop;
 
 /** 
@@ -15,7 +17,7 @@ import site_mapper.jaxb.menu_items.MenuItemTop;
  * 	Get MenuItems' tests from the map returned from MenuItem.
  * @since 1.0
  * 
- * Menu found in a module.
+ * Top right menu, found in a module.
  * 
  */
 @XmlRootElement(name="Menu", namespace="Menu")
@@ -26,8 +28,8 @@ public class TopRight extends MenuType {
 	@XmlElement(name="MenuItem", namespace="TopRightMenu")
   private List<MenuItemTop> menuItems;  
 	
-	public List<MenuItemTop> getMenuItems() {
-		return menuItems;
+	public List<MenuItem> getMenuItems() {
+		return menuItems.stream().map(m -> new MenuItem(m)).collect(Collectors.toList());
 	}
 	public String getName() {
 		return NAME;
@@ -38,7 +40,9 @@ public class TopRight extends MenuType {
 	
 	@Override
 	public String toString() {
-		return String.format("Menu [name=%s, packageName=%s, menuItems=[%s]]", NAME, PACKAGE_NAME, Formatter.getAsCommaSeparatedList(menuItems));
+		return 
+			String.format("Menu [name=%s, packageName=%s, menuItems=[%s]]", 
+				NAME, PACKAGE_NAME, Formatter.getAsCommaSeparatedList(menuItems));
 	}
 
 }

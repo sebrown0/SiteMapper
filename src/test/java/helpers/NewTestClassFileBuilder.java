@@ -8,7 +8,6 @@ import file.class_package.TestPackageSetter;
 import site_mapper.elements.ElementClass;
 import site_mapper.elements.ElementCreation;
 import site_mapper.jaxb.menu_items.JsPanelWithIFrame;
-import site_mapper.jaxb.menu_items.MenuItemLeft;
 import site_mapper.jaxb.menu_items.MenuItemType;
 import site_mapper.jaxb.menu_items.TestElement;
 import site_mapper.jaxb.pom.SiteMapInfo;
@@ -59,16 +58,16 @@ public class NewTestClassFileBuilder {
 				"\t}";
 	}
 	
-	private SiteMapInfo SITE_MAP_INFO() {
-		return new SiteMapInfo()
-			.setAuthor(fileBuilder.AUTHOR)
-			.setVersion(fileBuilder.VERSION)
-			.setXmlSource(fileBuilder.XML_SOURCE)
-			.setRootDir("C:/Users/SteveBrown/eclipse-workspace/2021/SiteMapper")
-			.setElementLibrary("C:/Users/SteveBrown/eclipse-workspace/2021/DTest")
-			.setDate(fileBuilder.DATE)
-			.setTime(fileBuilder.TIME);
-	}
+//	private SiteMapInfo SITE_MAP_INFO() {
+//		return new SiteMapInfo()
+//			.setAuthor(fileBuilder.AUTHOR)
+//			.setVersion(fileBuilder.VERSION)
+//			.setXmlSource(fileBuilder.XML_SOURCE)
+//			.setRootDir("C:/Users/SteveBrown/eclipse-workspace/2021/SiteMapper")
+//			.setElementLibrary("C:/Users/SteveBrown/eclipse-workspace/2021/DTest")
+//			.setDate(fileBuilder.DATE)
+//			.setTime(fileBuilder.TIME);
+//	}
 	
 	private void setAttributes() {
 		attributes = new JsPanelWithIFrame();		
@@ -97,13 +96,13 @@ public class NewTestClassFileBuilder {
 //		EMP_CODE_TEXT_OUT = new Element().setType("text_out").setName("code").setBy("css").setLocator("input[id='FORM_ID']");
 	}
 	private void setMenuItem() {
-		MENU_ITEM = new MenuItemLeft();
-		MENU_ITEM
-			.setName("Employee Details")
-			.setTestPackage("employees")
-			.setTestClassName("EmployeeDetails")
-			.setTestItemType(menuItemType)
-			.setSiteMapInfo(this.SITE_MAP_INFO());
+//		MENU_ITEM = (TestElement) new MenuItem().getItemContainers();
+//		MENU_ITEM
+//			.setName("Employee Details")
+//			.setTestPackage("employees")
+//			.setTestClassName("EmployeeDetails")
+//			.setTestItemType(menuItemType)
+//			.setSiteMapInfo(this.SITE_MAP_INFO());
 //			TODO
 //			.setElements(
 //				Arrays.asList(

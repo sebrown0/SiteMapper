@@ -3,6 +3,10 @@
  */
 package site_mapper.jaxb.pom.menu;
 
+import java.util.List;
+
+import site_mapper.jaxb.menu_items.MenuItem;
+
 /**
  * @author SteveBrown
  * @version 1.0
@@ -10,19 +14,7 @@ package site_mapper.jaxb.pom.menu;
  * @since 1.0
  */
 public abstract class MenuType {
-//  private final String NAME;
-//  private final String PACKAGE_NAME;
-//    
-//	public MenuType(String name, String packageName) {
-//		NAME = name;
-//		PACKAGE_NAME = packageName;
-//	}
-//	
 	public abstract String getName();
 	public abstract String getPackageName();
-	
-//	@Override
-//	public String toString() {
-//		return String.format("Menu [name=%s, packageName=%s, menuItems=[%s]]", NAME, PACKAGE_NAME, Formatter.getAsCommaSeparatedList(menuItems));
-//	}
+	public abstract List<MenuItem> getMenuItems();
 }

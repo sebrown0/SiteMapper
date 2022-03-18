@@ -20,12 +20,7 @@ import site_mapper.jaxb.menu_items.MenuItem;
  * 
  */
 @XmlRootElement(name="Menu", namespace="Menus")
-public class Menu {
-//	@XmlAttribute(name="name")
-//	private String name;	
-//	@XmlAttribute(name="package")
-//	private String packageName;
-	
+public class Menu {	
   @XmlElements(value = { 
     @XmlElement(name="Left", 
     						namespace="Menu",
@@ -35,15 +30,9 @@ public class Menu {
                 type=TopRight.class)
   })
   private MenuType menuType;
-  
-  @XmlElement(name="MenuItem", namespace="LeftMenu")
-  private List<MenuItem> menuItems;
-  
-  @XmlElement(name="MenuItem", namespace="TopRightMenu")
-  private List<MenuItem> menuItemsTop;
-  
+    
 	public List<MenuItem> getMenuItems() {
-		return menuItems;
+		return menuType.getMenuItems();
 	}
 	public String getName() {
 		return (menuType != null) ? menuType.getName() : null;
@@ -61,7 +50,9 @@ public class Menu {
 	
 	@Override
 	public String toString() {
-		return String.format("Menu [name=%s, packageName=%s, menuItems=[%s]]", getName(), getPackageName(), Formatter.getAsCommaSeparatedList(menuItems));
+		return 
+			String.format("Menu [name=%s, packageName=%s, menuItems=[%s]]", 
+			getName(), getPackageName(), Formatter.getAsCommaSeparatedList(menuType.getMenuItems()));
 	}
 
 }
