@@ -29,7 +29,11 @@ public class LeftMenu extends MenuType {
   private List<MenuItemLeft> menuItems;
     
   public List<MenuItem> getMenuItems() {
-  	return menuItems.stream().map(m -> new MenuItem(m)).collect(Collectors.toList());
+  	return 
+  		menuItems.stream()
+  			.map(MenuItem::new)
+  			.collect(Collectors.toList());
+//  	return menuItems.stream().map(m -> new MenuItem(m)).collect(Collectors.toList());
 	}
   
 	public String getName() {

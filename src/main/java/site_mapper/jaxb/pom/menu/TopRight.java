@@ -29,7 +29,10 @@ public class TopRight extends MenuType {
   private List<MenuItemTop> menuItems;  
 	
 	public List<MenuItem> getMenuItems() {
-		return menuItems.stream().map(m -> new MenuItem(m)).collect(Collectors.toList());
+		return 
+			menuItems.stream()
+				.map(MenuItem::new)
+				.collect(Collectors.toList());
 	}
 	public String getName() {
 		return NAME;

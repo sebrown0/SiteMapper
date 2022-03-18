@@ -31,7 +31,7 @@ public class ControlDataFunction {
 		
 		if(elements.size()>0 || groups.size()>0) {
 			func = 
-				"\t" + annotation.toString() +	
+				"\n\n\t" + annotation.toString() +	
 				"\n\tprivate void buildMyControls() {\n" +
 				getElements(elements) +
 				getGroups(groups) +

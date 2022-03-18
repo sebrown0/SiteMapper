@@ -17,6 +17,11 @@ import site_mapper.jaxb.containers.Container;
  * @version 1.0
  * 	Initial
  * @since 1.0
+ * 
+ * The details for a menu item in the left menu.
+ * 
+ * The only difference to other menu items is the
+ * namespace, which we need to unmarshall the XML.
  */
 
 @XmlRootElement(name="MenuItem", namespace="LeftMenu")

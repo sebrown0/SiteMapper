@@ -17,8 +17,12 @@ import site_mapper.jaxb.containers.Container;
  * @version 1.0
  * 	Initial
  * @since 1.0
+ * 
+ * The details for a menu item in the top-right menu.
+ * 
+ * The only difference to other menu items is the
+ * namespace, which we need to unmarshall the XML.
  */
-
 @XmlRootElement(name="MenuItem", namespace="TopRightMenu")
 @XmlAccessorType(XmlAccessType.FIELD)
 public class MenuItemTop extends MenuItemDetails {
