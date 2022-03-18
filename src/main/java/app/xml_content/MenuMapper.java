@@ -11,9 +11,9 @@ import org.apache.logging.log4j.Logger;
 import file.class_package.PackageSetter;
 import site_mapper.creators.PackageMaker;
 import site_mapper.jaxb.menu_items.MenuItem;
-import site_mapper.jaxb.pom.Menu;
 import site_mapper.jaxb.pom.PackageHierarchy;
 import site_mapper.jaxb.pom.SiteMapInfo;
+import site_mapper.jaxb.pom.menu.Menu;
 
 /**
  * @author Brown

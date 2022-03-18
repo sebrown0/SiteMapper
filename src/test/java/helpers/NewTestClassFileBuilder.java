@@ -8,11 +8,9 @@ import file.class_package.TestPackageSetter;
 import site_mapper.elements.ElementClass;
 import site_mapper.elements.ElementCreation;
 import site_mapper.jaxb.menu_items.JsPanelWithIFrame;
-import site_mapper.jaxb.menu_items.MenuItem;
+import site_mapper.jaxb.menu_items.MenuItemLeft;
 import site_mapper.jaxb.menu_items.MenuItemType;
 import site_mapper.jaxb.menu_items.TestElement;
-import site_mapper.jaxb.pom.Element;
-import site_mapper.jaxb.pom.ElementFunction;
 import site_mapper.jaxb.pom.SiteMapInfo;
 
 /**
@@ -99,7 +97,7 @@ public class NewTestClassFileBuilder {
 //		EMP_CODE_TEXT_OUT = new Element().setType("text_out").setName("code").setBy("css").setLocator("input[id='FORM_ID']");
 	}
 	private void setMenuItem() {
-		MENU_ITEM = new MenuItem();
+		MENU_ITEM = new MenuItemLeft();
 		MENU_ITEM
 			.setName("Employee Details")
 			.setTestPackage("employees")
