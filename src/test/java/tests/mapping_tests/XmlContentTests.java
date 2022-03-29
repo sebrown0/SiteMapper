@@ -7,7 +7,6 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-import java.util.List;
 import java.util.Optional;
 
 import org.junit.jupiter.api.BeforeAll;
@@ -17,16 +16,9 @@ import app.SiteMapContentGetter;
 import app.xml_content.PomMapperTest;
 import app.xml_content.XmlContent;
 import site_mapper.jaxb.containers.Container;
-import site_mapper.jaxb.containers.XmlContainer;
 import site_mapper.jaxb.menu_items.MenuItem;
-import site_mapper.jaxb.pom.Element;
-import site_mapper.jaxb.pom.ElementFunction;
 import site_mapper.jaxb.pom.Module;
 import site_mapper.jaxb.pom.PomMapperApp;
-import site_mapper.jaxb.pom.test_data.TestDataIn;
-import site_mapper.jaxb.pom.test_data.TestDataList;
-import site_mapper.jaxb.pom.test_data.TestDataOut;
-import site_mapper.jaxb.pom.test_data.TestDataText;
 
 /**
  * @author SteveBrown
@@ -122,17 +114,17 @@ class XmlContentTests {
 //		assertEquals("AnInsertClass", testData.getInsertWith());
 //	}
 	
-	@Test
-	void getTestDataText_fromDataOut() {
-		Container tabs =  body.getContainers().get(0);
-		Container tabBasicDetails =  tabs.getContainers().get(0);
-		Container grpGradeInput =  tabBasicDetails.getContainers().get(0);
-		Element elGrade = grpGradeInput.getElements().get(0);
-		TestDataOut testData =  elGrade.getTestDataOut(); 
-		TestDataText data = (TestDataText) testData.getTestData();
-		
-		assertEquals("some text out", data.getValue());
-	}
+//	@Test
+//	void getTestDataText_fromDataOut() {
+//		Container tabs =  body.getContainers().get(0);
+//		Container tabBasicDetails =  tabs.getContainers().get(0);
+//		Container grpGradeInput =  tabBasicDetails.getContainers().get(0);
+//		Element elGrade = grpGradeInput.getElements().get(0);
+//		TestDataOut testData =  elGrade.getTestDataOut(); 
+//		TestDataText data = (TestDataText) testData.getTestData();
+//		
+//		assertEquals("some text out", data.getValue());
+//	}
 		
 	@Test
 	void mapTestObjects() {

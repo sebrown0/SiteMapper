@@ -16,8 +16,6 @@ import jakarta.xml.bind.annotation.XmlRootElement;
  * 	Initial
  * @since 1.0
  */
-
-//@XmlRootElement(name="Type", namespace="MenuItem")
 @XmlRootElement(name="Type", namespace="MenuItemType")
 @XmlAccessorType(XmlAccessType.PROPERTY)
 public class MenuItemType {	

@@ -5,9 +5,7 @@ package site_mapper.jaxb.pom.test_data;
 
 import jakarta.xml.bind.annotation.XmlAccessType;
 import jakarta.xml.bind.annotation.XmlAccessorType;
-import jakarta.xml.bind.annotation.XmlAttribute;
 import jakarta.xml.bind.annotation.XmlElement;
-import jakarta.xml.bind.annotation.XmlElements;
 import jakarta.xml.bind.annotation.XmlRootElement;
 
 /**
@@ -17,7 +15,6 @@ import jakarta.xml.bind.annotation.XmlRootElement;
  * @since 1.0
  */
 
-//@XmlRootElement(name="TestDataIn", namespace="TestDataIn")
 @XmlRootElement(name="TestDataIn", namespace="ElementType")
 @XmlAccessorType(XmlAccessType.FIELD)
 public class TestDataIn {
