@@ -10,6 +10,7 @@ import jakarta.xml.bind.annotation.XmlRootElement;
 import site_mapper.creators.control_data.ControlStringGetter;
 import site_mapper.creators.control_data.ElementControl;
 import site_mapper.elements.ElementCreation;
+import site_mapper.jaxb.pom.test_data.TestData;
 import site_mapper.jaxb.pom.test_data.TestDataIn;
 import site_mapper.jaxb.pom.test_data.TestDataOut;
 
@@ -29,10 +30,14 @@ public class Element implements ElementCreation, ElementControl {
 	private ElementToolTip toolTip;		
 	@XmlElement(name="Function", namespace="ElementType")
 	private ElementFunction elementFunction;
-	@XmlElement(name="TestDataIn", namespace="ElementType")
-	private TestDataIn testDataIn;	
-	@XmlElement(name="TestDataOut", namespace="ElementType")	
-	private TestDataOut testDataOut;		
+	
+	@XmlElement(name="TestData", namespace="ElementType")	
+	private TestData testData;
+	
+//	@XmlElement(name="TestDataIn", namespace="ElementType")
+//	private TestDataIn testDataIn;	
+//	@XmlElement(name="TestDataOut", namespace="ElementType")	
+//	private TestDataOut testDataOut;		
 		
 	public Element setType(String type) {
 		if(details == null) details = new ElementDetails();
@@ -62,23 +67,28 @@ public class Element implements ElementCreation, ElementControl {
 		return locator;
 	}
 	
-	@Override //ElementDetails
-	public Element setTestDataIn(TestDataIn data) {
-		this.testDataIn = data;
+//	@Override //ElementDetails
+//	public Element setTestDataIn(TestDataIn data) {
+//		this.testDataIn = data;
+//		return this;
+//	}
+//	@Override //ElementDetails
+//	public Element setTestDataOut(TestDataOut data) {
+//		this.testDataOut = data;
+//		return this;
+//	}
+	@Override
+	public Element setTestData(TestData data) {
+		this.testData = data;
 		return this;
-	}
-	@Override //ElementDetails
-	public Element setTestDataOut(TestDataOut data) {
-		this.testDataOut = data;
-		return this;
-	}
+	}	
 	@Override //ElementDetails
 	public TestDataIn getTestDataIn() {
-		return testDataIn;
+		return testData.getTestDataIn();
 	}	
 	@Override //ElementDetails
 	public TestDataOut getTestDataOut() {
-		return testDataOut;
+		return testData.getTestDataOut();
 	}
 	@Override //ElementDetails
 	public String getToolTipText() {
@@ -126,6 +136,7 @@ public class Element implements ElementCreation, ElementControl {
 	}
 	public ElementDetails getDetails() {
 		return details;
-	}	
+	}
+
 				
 }

@@ -22,12 +22,12 @@ import site_mapper.jaxb.menu_items.MenuItemTop;
  * Top right menu, found in a module.
  * 
  */
-@XmlRootElement(name="Menu", namespace="Menu")
+@XmlRootElement(name="TopRight", namespace="Menu")
 public class TopRight extends MenuType {
   private static final String NAME="TopRight";
 	private static final String PACKAGE_NAME="top_right_nav";
 	
-	@XmlElement(name="MenuItem", namespace="TopRightMenu")
+	@XmlElement(name="MenuItem", namespace="Menu")
   private List<MenuItemTop> menuItems;  
 	
 	public List<MenuItem> getMenuItems() {

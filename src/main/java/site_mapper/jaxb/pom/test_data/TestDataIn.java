@@ -15,33 +15,11 @@ import jakarta.xml.bind.annotation.XmlRootElement;
  * @since 1.0
  */
 
-@XmlRootElement(name="TestDataIn", namespace="ElementType")
+@XmlRootElement(name="In", namespace="ElementType")
 @XmlAccessorType(XmlAccessType.FIELD)
 public class TestDataIn {
-	@XmlElement(name="Data", namespace="ElementType")
+	
+	@XmlElement(name="Data", namespace="TestData")
 	Data data;
 	
-//	@XmlAttribute(name="insertWith")
-//	private String insertWith;
-//	
-//	@XmlElements(value={
-//		@XmlElement(name="Text", namespace="TestDataIn", type=TestDataText.class),
-//		@XmlElement(name="List", namespace="TestDataIn", type=TestDataList.class)
-//	})
-//	private TestData testData;
-//		
-//	public TestData getTestData() {
-//		return testData;
-//	}
-//	public TestDataIn setTestData(TestData testData) {
-//		this.testData = testData;
-//		return this;
-//	}
-//	public String getInsertWith() {
-//		return insertWith;
-//	}
-//	public TestDataIn setInsertWith(String insertWith) {
-//		this.insertWith = insertWith;
-//		return this;
-//	}
 }

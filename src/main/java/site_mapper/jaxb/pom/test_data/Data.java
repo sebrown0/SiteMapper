@@ -14,7 +14,7 @@ import jakarta.xml.bind.annotation.XmlRootElement;
  * 	Initial
  * @since 1.0
  */
-@XmlRootElement(name="Data", namespace="ElementType")
+@XmlRootElement(name="Data", namespace="TestData")
 public class Data {
 	@XmlElement(name="item", namespace = "TestData")
 	List<TestDataItem> testDataList;
