@@ -19,14 +19,14 @@ import utils.StringUtils;
  */
 @XmlRootElement(name="List")
 @XmlAccessorType(XmlAccessType.FIELD)
-public class TestDataList extends TestData {
+public class TestDataList extends ZZZ_TestData {
 	@XmlAttribute
 	private String value;
 
 	public String getValue() {
 		return value;
 	}
-	public TestData setValue(String value) {
+	public ZZZ_TestData setValue(String value) {
 		this.value = value;
 		return this;
 	}

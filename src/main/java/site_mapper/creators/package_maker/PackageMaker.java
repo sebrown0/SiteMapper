@@ -43,7 +43,7 @@ public class PackageMaker {
 	public static void makeWithPackageInfo(SiteMapInfo siteMap, PackageHierarchy ph) {
 		filePath = ph.getRoot() + "/" + ph.getHierarchyFwdSlashNotation();
 		packagePath = ph.getHierarchyDotNotation();
-		
+
 		makePackages();
 		createPackageInfo(siteMap, Comments.getPackageComments(siteMap));
 	}

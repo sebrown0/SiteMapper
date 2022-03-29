@@ -20,7 +20,8 @@ import site_mapper.jaxb.pom.Locator;
  * 	Initial
  * @since 1.0
  */
-@XmlRootElement(name="Container", namespace="MenuItem")
+//@XmlRootElement(name="Container", namespace="MenuItem")
+@XmlRootElement(name="Container", namespace="MenuItemType")
 @XmlAccessorType(XmlAccessType.FIELD)
 public class Container implements XmlContainer {
 	@XmlAttribute(name="type")

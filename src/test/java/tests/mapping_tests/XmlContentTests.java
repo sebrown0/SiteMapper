@@ -85,42 +85,42 @@ class XmlContentTests {
 //									.getToolTipText());
 //	}
 
-	@Test
-	void get_TestDataList_fromDataIn() {
-		Container tabs =  body.getContainers().get(0);
-		Container tabBasicDetails =  tabs.getContainers().get(0);
-		Container grpGradeInput =  tabBasicDetails.getContainers().get(0);
-		Element elGrade = grpGradeInput.getElements().get(0);
-		TestDataIn testData =  (TestDataIn) elGrade.getTestDataIn(); 
-		TestDataList data = (TestDataList) testData.getTestData();
-		
-		assertEquals("1,2,3", data.getValue());
-	}
+//	@Test
+//	void get_TestDataList_fromDataIn() {
+//		Container tabs =  body.getContainers().get(0);
+//		Container tabBasicDetails =  tabs.getContainers().get(0);
+//		Container grpGradeInput =  tabBasicDetails.getContainers().get(0);
+//		Element elGrade = grpGradeInput.getElements().get(0);
+//		TestDataIn testData =  (TestDataIn) elGrade.getTestDataIn(); 
+//		TestDataList data = (TestDataList) testData.getTestData();
+//		
+//		assertEquals("1,2,3", data.getValue());
+//	}
 
-	@Test
-	void getTestData_as_list_fromDataIn() {
-		Container tabs =  body.getContainers().get(0);
-		Container tabBasicDetails =  tabs.getContainers().get(0);
-		Container grpGradeInput =  tabBasicDetails.getContainers().get(0);
-		Element elGrade = grpGradeInput.getElements().get(0);
-		TestDataIn testData =  (TestDataIn) elGrade.getTestDataIn(); 
-		TestDataList data = (TestDataList) testData.getTestData();
-		List<String> dataList = data.getAsList();
-		
-		assertEquals("3", dataList.get(2));
-	}
+//	@Test
+//	void getTestData_as_list_fromDataIn() {
+//		Container tabs =  body.getContainers().get(0);
+//		Container tabBasicDetails =  tabs.getContainers().get(0);
+//		Container grpGradeInput =  tabBasicDetails.getContainers().get(0);
+//		Element elGrade = grpGradeInput.getElements().get(0);
+//		TestDataIn testData =  (TestDataIn) elGrade.getTestDataIn(); 
+//		TestDataList data = (TestDataList) testData.getTestData();
+//		List<String> dataList = data.getAsList();
+//		
+//		assertEquals("3", dataList.get(2));
+//	}
 	
-	@Test
-	void getTestData_insertClass_fromDataIn() {
-		Container tabs =  body.getContainers().get(0);
-		Container tabBasicDetails =  tabs.getContainers().get(0);
-		Container grpGradeInput =  tabBasicDetails.getContainers().get(0);
-		Element elGrade = grpGradeInput.getElements().get(0);
-		TestDataIn testData =  (TestDataIn) elGrade.getTestDataIn(); 
-
-		
-		assertEquals("AnInsertClass", testData.getInsertWith());
-	}
+//	@Test
+//	void getTestData_insertClass_fromDataIn() {
+//		Container tabs =  body.getContainers().get(0);
+//		Container tabBasicDetails =  tabs.getContainers().get(0);
+//		Container grpGradeInput =  tabBasicDetails.getContainers().get(0);
+//		Element elGrade = grpGradeInput.getElements().get(0);
+//		TestDataIn testData =  (TestDataIn) elGrade.getTestDataIn(); 
+//
+//		
+//		assertEquals("AnInsertClass", testData.getInsertWith());
+//	}
 	
 	@Test
 	void getTestDataText_fromDataOut() {

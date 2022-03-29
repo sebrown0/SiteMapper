@@ -17,30 +17,34 @@ import jakarta.xml.bind.annotation.XmlRootElement;
  * @since 1.0
  */
 
-@XmlRootElement(name="TestDataIn", namespace="TestDataIn")
+//@XmlRootElement(name="TestDataIn", namespace="TestDataIn")
+@XmlRootElement(name="TestDataIn", namespace="ElementType")
 @XmlAccessorType(XmlAccessType.FIELD)
 public class TestDataIn {
-	@XmlAttribute(name="insertWith")
-	private String insertWith;
+	@XmlElement(name="Data", namespace="ElementType")
+	Data data;
 	
-	@XmlElements(value={
-		@XmlElement(name="Text", namespace="TestDataIn", type=TestDataText.class),
-		@XmlElement(name="List", namespace="TestDataIn", type=TestDataList.class)
-	})
-	private TestData testData;
-		
-	public TestData getTestData() {
-		return testData;
-	}
-	public TestDataIn setTestData(TestData testData) {
-		this.testData = testData;
-		return this;
-	}
-	public String getInsertWith() {
-		return insertWith;
-	}
-	public TestDataIn setInsertWith(String insertWith) {
-		this.insertWith = insertWith;
-		return this;
-	}
+//	@XmlAttribute(name="insertWith")
+//	private String insertWith;
+//	
+//	@XmlElements(value={
+//		@XmlElement(name="Text", namespace="TestDataIn", type=TestDataText.class),
+//		@XmlElement(name="List", namespace="TestDataIn", type=TestDataList.class)
+//	})
+//	private TestData testData;
+//		
+//	public TestData getTestData() {
+//		return testData;
+//	}
+//	public TestDataIn setTestData(TestData testData) {
+//		this.testData = testData;
+//		return this;
+//	}
+//	public String getInsertWith() {
+//		return insertWith;
+//	}
+//	public TestDataIn setInsertWith(String insertWith) {
+//		this.insertWith = insertWith;
+//		return this;
+//	}
 }

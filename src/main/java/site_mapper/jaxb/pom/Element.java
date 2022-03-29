@@ -21,17 +21,17 @@ import site_mapper.jaxb.pom.test_data.TestDataOut;
  */
 @XmlRootElement(name="Element", namespace="Container")
 public class Element implements ElementCreation, ElementControl {		
-	@XmlElement(name="Details", namespace="Element")
+	@XmlElement(name="Details", namespace="ElementType")
 	private ElementDetails details;
-	@XmlElement(name="Locator", namespace="Element")
+	@XmlElement(name="Locator", namespace="ElementType")
 	private List<Locator> locator;
-	@XmlElement(name="ToolTip", namespace="Element")
+	@XmlElement(name="ToolTip", namespace="ElementType")
 	private ElementToolTip toolTip;		
-	@XmlElement(name="Function", namespace="Element")
+	@XmlElement(name="Function", namespace="ElementType")
 	private ElementFunction elementFunction;
-	@XmlElement(name="TestDataIn", namespace="Element")
+	@XmlElement(name="TestDataIn", namespace="ElementType")
 	private TestDataIn testDataIn;	
-	@XmlElement(name="TestDataOut", namespace="Element")	
+	@XmlElement(name="TestDataOut", namespace="ElementType")	
 	private TestDataOut testDataOut;		
 		
 	public Element setType(String type) {

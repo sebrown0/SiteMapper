@@ -16,14 +16,14 @@ import jakarta.xml.bind.annotation.XmlRootElement;
  */
 @XmlRootElement(name="Text", namespace="Text")
 @XmlAccessorType(XmlAccessType.FIELD)
-public class TestDataText extends TestData {
+public class TestDataText extends ZZZ_TestData {
 	@XmlAttribute
 	private String value;
 
 	public String getValue() {
 		return value;
 	}
-	public TestData setValue(String value) {
+	public ZZZ_TestData setValue(String value) {
 		this.value = value;
 		return this;
 	}

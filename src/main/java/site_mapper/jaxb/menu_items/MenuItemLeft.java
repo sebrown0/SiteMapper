@@ -34,9 +34,9 @@ public class MenuItemLeft extends MenuItemDetails {
 	@XmlAttribute(name="class")
 	private String className;	
 	
-	@XmlElement(name="Type", namespace="MenuItem")
+	@XmlElement(name="Type", namespace="MenuItemType")
 	private MenuItemType menuItemType;	
-	@XmlElement(name="Container", namespace="MenuItem")
+	@XmlElement(name="Container", namespace="MenuItemType")
 	private List<Container> itemContainers;
 
 	public MenuItemLeft() {}

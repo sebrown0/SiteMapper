@@ -22,12 +22,12 @@ import site_mapper.jaxb.menu_items.MenuItemLeft;
  * Left menu type, found in a module.
  * 
  */
-@XmlRootElement(name="Menu", namespace="Menus")
+@XmlRootElement(name="Left", namespace="Menu")
 public class LeftMenu extends MenuType {
 	private static final String NAME="Left";
   private static final String PACKAGE_NAME="left_menu";
   
-	@XmlElement(name="MenuItem", namespace="LeftMenu")
+  @XmlElement(name="MenuItem", namespace="Menu")
   private List<MenuItemLeft> menuItems;
     
   public List<MenuItem> getMenuItems() {
