@@ -20,6 +20,6 @@ public interface NavElementAdder {
 	NavElementAdder setModuleName(String modName);
 //	NavElementAdder setMenuName(String menuName);
 	NavElementAdder setPackageHierarchy(PackageHierarchy ph);
-	void addElement(MenuItem item);
+	void addElement(NavElement_XXX navElements, MenuItem item);
 	void writeNavClass();	
 }

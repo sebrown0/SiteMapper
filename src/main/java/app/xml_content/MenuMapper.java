@@ -10,6 +10,7 @@ import org.apache.logging.log4j.Logger;
 
 import file.class_package.PackageSetter;
 import site_mapper.creators.navigation.NavElementAdder;
+import site_mapper.creators.navigation.NavElement_XXX;
 import site_mapper.creators.package_maker.PackageMaker;
 import site_mapper.jaxb.menu_items.MenuItem;
 import site_mapper.jaxb.pom.PackageHierarchy;
@@ -57,6 +58,7 @@ public class MenuMapper {
 	
   private void mapItemsForThisMenu(MenuType menu) {
   	List<MenuItem> menuItems = menu.getMenuItems();
+  	NavElement_XXX adder = new NavElement_XXX();
   	
   	if(menuItems != null) {
   		setNavCreator(menu);
@@ -86,6 +88,7 @@ public class MenuMapper {
   	item.setSiteMapInfo(siteMapInfo);				
 		item.setTestModuleName(moduleName);
 		item.setTestMenuName(menu.getPackageName());				
+		System.out.println("Write pom for ->" + item.getClassName()); // TODO - remove or log 	
 		new MenuItemMapper(packageSetter, item, ph).createPoms();
   }
   

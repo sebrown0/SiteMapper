@@ -1,5 +1,7 @@
 package site_mapper.creators.navigation;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.regex.Pattern;
 
 import site_mapper.jaxb.menu_items.MenuItem;
@@ -13,32 +15,9 @@ import utils.StringUtils;
  * 
  * 
  */
-public class NavBarElementCreator extends NavElementCreator {
-	
+public class NavBarCreator extends NavElementCreator {
+	private List<NavBarElementCreator> elementCreators = new ArrayList<>();
 	private static final String NAV_PATH = "top_right_nav";
-	
-//	public NavBarElementCreator() {
-//		super(NAV_PATH);
-//	}
-
-//	@Override
-//	public String toString() {
-//		String res = 
-//			String.format(
-//				"%s\n%s\n%s\n%s\n%s\n%s\n\n%s\n\n%s\n%s\n}", 
-//				getPackage(),
-//				getCommonImports(),
-//				getImports(),
-//				getComment(),
-//				getDeclaration(),
-//				getVars(),
-//				getConstructor(),
-//				getSetElements(),
-//				getOverriddenFunctions());
-//		
-//		System.out.println("NavBarElementCreator.toString() -> " + res); // TODO - remove or log 	
-//		return res;
-//	}
 
 	@Override
 	public String toString() {
@@ -55,13 +34,9 @@ public class NavBarElementCreator extends NavElementCreator {
 				getSetElements(),
 				getOverriddenFunctions());
 		
-		System.out.println("NavBarElementCreator.toString() -> " + res); // TODO - remove or log 	
 		return res;
 	}
 	
-	/*
-	 * THIS HAS TO GO INTO NavBarCreator
-	 */
 	@Override //NavElementAdder
 	public void addElement(NavElement_XXX adder, MenuItem item) {
 		adder.addTopRightItem(item);
