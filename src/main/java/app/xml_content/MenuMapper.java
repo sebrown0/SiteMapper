@@ -76,16 +76,7 @@ public class MenuMapper {
   			.setMenuName(menu.getName())
   			.setModuleName(moduleName);
   }
-  
-//  private void setNavCreator(MenuType menu) {
-//  	elementAdder = 
-//  		menu.getMenuType()
-//  			.getNavCreator()
-//  			.setPackageHierarchy(ph)
-//  			.setMenuName(menu.getName())
-//  			.setModuleName(moduleName);
-//  }
-  
+    
   private void addItemToNavigation(MenuItem item) {
 		elementAdder.addElement(item.getClassName());
   }

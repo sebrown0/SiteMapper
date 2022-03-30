@@ -1,7 +1,6 @@
 package site_mapper.jaxb.pom.menu;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 import file.helpers.Formatter;
 import jakarta.xml.bind.annotation.XmlElement;
@@ -9,7 +8,6 @@ import jakarta.xml.bind.annotation.XmlRootElement;
 import site_mapper.creators.navigation.NavBarElementCreator;
 import site_mapper.creators.navigation.NavElementAdder;
 import site_mapper.jaxb.menu_items.MenuItem;
-import site_mapper.jaxb.menu_items.MenuItemTop;
 
 /** 
  * @author SteveBrown
@@ -23,18 +21,15 @@ import site_mapper.jaxb.menu_items.MenuItemTop;
  * 
  */
 @XmlRootElement(name="TopRight", namespace="Menu")
-public class TopRight extends MenuType {
+public class TopRightMenu extends MenuType {
   private static final String NAME="TopRight";
 	private static final String PACKAGE_NAME="top_right_nav";
 	
 	@XmlElement(name="MenuItem", namespace="Menu")
-  private List<MenuItemTop> menuItems;  
+  private List<MenuItem> menuItems;  
 	
 	public List<MenuItem> getMenuItems() {
-		return 
-			menuItems.stream()
-				.map(MenuItem::new)
-				.collect(Collectors.toList());
+		return menuItems;
 	}
 	public String getName() {
 		return NAME;

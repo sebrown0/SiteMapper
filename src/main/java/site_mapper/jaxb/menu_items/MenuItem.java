@@ -7,6 +7,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 import file.helpers.Formatter;
+import jakarta.xml.bind.annotation.XmlAccessType;
+import jakarta.xml.bind.annotation.XmlAccessorType;
+import jakarta.xml.bind.annotation.XmlAttribute;
+import jakarta.xml.bind.annotation.XmlElement;
+import jakarta.xml.bind.annotation.XmlRootElement;
 import site_mapper.creators.component_writer.ComponentWriter;
 import site_mapper.elements.ElementClass;
 import site_mapper.jaxb.containers.Container;
@@ -27,29 +32,25 @@ import site_mapper.jaxb.tree.ContainerWalker;
  * 
  * Represents the ClassFile, i.e. SalaryDetails.java.
  */
+@XmlRootElement(name="MenuItem", namespace="Menu")
+@XmlAccessorType(XmlAccessType.FIELD)
 public class MenuItem implements ElementClass, TestElement {
+	@XmlAttribute(name="name")
 	private String name;
+	@XmlAttribute(name="package")
 	private String packageName;
+	@XmlAttribute(name="class")
 	private String className;	
+	
+	@XmlElement(name="Type", namespace="MenuItemType")
+	private MenuItemType menuItemType;	
+	@XmlElement(name="Container", namespace="MenuItemType")
+	private List<Container> itemContainers;
+	
 	private String menuPackageName;
 	private String moduleName;	
 	private SiteMapInfo siteMapInfo;
 	private List<Container> allContainers;	
-	private List<Container> itemContainers;	
-	private MenuItemType menuItemType;	
-					
-	/** 
-	 * @param itemDetails 
-	 * Get the item's details from the unmarshalled menu item, 
-	 * i.e. left menu, top-right menu etc.
-	 */
-	public MenuItem(MenuItemDetails itemDetails) {
-		this.name = itemDetails.getName();
-		this.packageName = itemDetails.getPackageName();
-		this.className = itemDetails.getClassName();
-		this.itemContainers = itemDetails.getItemContainers();
-		this.menuItemType = itemDetails.getMenuItemType();
-	}
 	
 	@Override //ElementClass
 	public String getName() {

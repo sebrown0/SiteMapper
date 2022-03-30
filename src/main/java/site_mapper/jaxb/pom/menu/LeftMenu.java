@@ -1,7 +1,6 @@
 package site_mapper.jaxb.pom.menu;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 import file.helpers.Formatter;
 import jakarta.xml.bind.annotation.XmlElement;
@@ -9,7 +8,6 @@ import jakarta.xml.bind.annotation.XmlRootElement;
 import site_mapper.creators.navigation.LeftMenuElementCreator;
 import site_mapper.creators.navigation.NavElementAdder;
 import site_mapper.jaxb.menu_items.MenuItem;
-import site_mapper.jaxb.menu_items.MenuItemLeft;
 
 /** 
  * @author SteveBrown
@@ -28,13 +26,10 @@ public class LeftMenu extends MenuType {
   private static final String PACKAGE_NAME="left_menu";
   
   @XmlElement(name="MenuItem", namespace="Menu")
-  private List<MenuItemLeft> menuItems;
-    
+  private List<MenuItem> menuItems;
+  
   public List<MenuItem> getMenuItems() {
-  	return 
-  		menuItems.stream()
-  			.map(MenuItem::new)
-  			.collect(Collectors.toList());
+  	return menuItems;
 	}
   
 	public String getName() {
