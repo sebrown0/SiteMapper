@@ -4,6 +4,7 @@
 package site_mapper.creators.navigation;
 
 import site_mapper.jaxb.pom.PackageHierarchy;
+import site_mapper.jaxb.pom.SiteMapInfo;
 
 /**
  * @author SteveBrown
@@ -14,6 +15,7 @@ import site_mapper.jaxb.pom.PackageHierarchy;
  * Add an item to a nav creator.
  */
 public interface NavElementAdder {
+	NavElementAdder setSiteMapInfo(SiteMapInfo info);
 	NavElementAdder setModuleName(String modName);
 	NavElementAdder setMenuName(String menuName);
 	NavElementAdder setPackageHierarchy(PackageHierarchy ph);

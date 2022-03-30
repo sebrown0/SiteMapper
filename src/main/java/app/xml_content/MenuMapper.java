@@ -72,6 +72,7 @@ public class MenuMapper {
   	elementAdder = 
   		menu
   			.getNavCreator()
+  			.setSiteMapInfo(siteMapInfo)
   			.setPackageHierarchy(ph)
   			.setMenuName(menu.getName())
   			.setModuleName(moduleName);

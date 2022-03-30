@@ -4,6 +4,7 @@
 package site_mapper.creators.navigation;
 
 import site_mapper.jaxb.pom.PackageHierarchy;
+import site_mapper.jaxb.pom.SiteMapInfo;
 
 /**
  * @author SteveBrown
@@ -15,6 +16,7 @@ public class LeftMenuElementCreator implements NavElementAdder {
 	private String modName;
 	private String menuName;
 	private PackageHierarchy ph;
+	private SiteMapInfo info;
 	
 	@Override
 	public void addElement(String itemName) {
@@ -35,6 +37,11 @@ public class LeftMenuElementCreator implements NavElementAdder {
 	@Override
 	public NavElementAdder setMenuName(String menuName) {
 		this.menuName = menuName;
+		return this;
+	}
+	@Override
+	public NavElementAdder setSiteMapInfo(SiteMapInfo info) {
+		this.info = info;
 		return this;
 	}
 
