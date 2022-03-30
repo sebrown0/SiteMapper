@@ -12,7 +12,7 @@ import site_mapper.creators.package_maker.PackageMaker;
 import site_mapper.jaxb.pom.Module;
 import site_mapper.jaxb.pom.PackageHierarchy;
 import site_mapper.jaxb.pom.SiteMapInfo;
-import site_mapper.jaxb.pom.menu.Menu;
+import site_mapper.jaxb.pom.menu.MenuType;
 
 /**
  * @author Brown
@@ -32,7 +32,7 @@ public class ModuleMapper {
   		.getLogger(ModuleMapper.class)
   		.info("Found module [" + modName + "]. Attempting to map menus");
   	
-  	List<Menu> menus = module.getMenus(); 
+  	List<MenuType> menus = module.getMenus(); 
 		if(menus != null) {
 			MenuMapper menuMapper = new MenuMapper(packageSetter, siteMap, ph, modName);
 			menus.forEach(m -> menuMapper.mapMenu(m) );	

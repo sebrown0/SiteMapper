@@ -20,8 +20,6 @@ public interface ElementDetails {
 	String getToolTipText(); 
 	String getFafa();
 	Element setTestData(TestData data);
-//	Element setTestDataIn(TestDataIn data);
-//	Element setTestDataOut(TestDataOut data);
 	TestDataIn getTestDataIn();
 	TestDataOut getTestDataOut();
 }

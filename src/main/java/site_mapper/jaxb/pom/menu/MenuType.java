@@ -15,8 +15,10 @@ import site_mapper.jaxb.menu_items.MenuItem;
  * @since 1.0
  */
 public abstract class MenuType {
+	
 	public abstract String getName();
 	public abstract String getPackageName();
 	public abstract List<MenuItem> getMenuItems();
 	public abstract NavElementAdder getNavCreator();
+	
 }

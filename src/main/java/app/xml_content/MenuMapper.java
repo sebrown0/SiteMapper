@@ -14,7 +14,7 @@ import site_mapper.creators.package_maker.PackageMaker;
 import site_mapper.jaxb.menu_items.MenuItem;
 import site_mapper.jaxb.pom.PackageHierarchy;
 import site_mapper.jaxb.pom.SiteMapInfo;
-import site_mapper.jaxb.pom.menu.Menu;
+import site_mapper.jaxb.pom.menu.MenuType;
 
 /**
  * @author Brown
@@ -38,24 +38,24 @@ public class MenuMapper {
 		this.moduleName = moduleName;
 	}
 
-	public void mapMenu(Menu menu) {  	
+	public void mapMenu(MenuType menu) {  	
 		logMsg(menu);		
 		createPackageForMenu(menu);		
 		mapItemsForThisMenu(menu);		
 	}
 
-	private void logMsg(Menu menu) {
+	private void logMsg(MenuType menu) {
 		String menuName = menu.getName();
 		LOGGER.info("Found menu [" + menuName + "]. Attempting to map menu items");
 	}
 	
-	private void createPackageForMenu(Menu menu) {		
+	private void createPackageForMenu(MenuType menu) {		
   	String packageName = menu.getPackageName();  	
   	ph.reset(moduleName).addCurrent(packageName);
 		PackageMaker.makeWithPackageInfo(siteMapInfo, ph);
 	}
 	
-  private void mapItemsForThisMenu(Menu menu) {
+  private void mapItemsForThisMenu(MenuType menu) {
   	List<MenuItem> menuItems = menu.getMenuItems();
   	
   	if(menuItems != null) {
@@ -68,20 +68,29 @@ public class MenuMapper {
 		}		
   }
   
-  private void setNavCreator(Menu menu) {
+  private void setNavCreator(MenuType menu) {
   	elementAdder = 
-  		menu.getMenuType()
+  		menu
   			.getNavCreator()
   			.setPackageHierarchy(ph)
   			.setMenuName(menu.getName())
   			.setModuleName(moduleName);
   }
   
+//  private void setNavCreator(MenuType menu) {
+//  	elementAdder = 
+//  		menu.getMenuType()
+//  			.getNavCreator()
+//  			.setPackageHierarchy(ph)
+//  			.setMenuName(menu.getName())
+//  			.setModuleName(moduleName);
+//  }
+  
   private void addItemToNavigation(MenuItem item) {
 		elementAdder.addElement(item.getClassName());
   }
   
-  private void createPom(Menu menu, MenuItem item) {
+  private void createPom(MenuType menu, MenuItem item) {
   	item.setSiteMapInfo(siteMapInfo);				
 		item.setTestModuleName(moduleName);
 		item.setTestMenuName(menu.getPackageName());				

@@ -29,16 +29,10 @@ public class Element implements ElementCreation, ElementControl {
 	@XmlElement(name="ToolTip", namespace="ElementType")
 	private ElementToolTip toolTip;		
 	@XmlElement(name="Function", namespace="ElementType")
-	private ElementFunction elementFunction;
-	
+	private ElementFunction elementFunction;	
 	@XmlElement(name="TestData", namespace="ElementType")	
 	private TestData testData;
-	
-//	@XmlElement(name="TestDataIn", namespace="ElementType")
-//	private TestDataIn testDataIn;	
-//	@XmlElement(name="TestDataOut", namespace="ElementType")	
-//	private TestDataOut testDataOut;		
-		
+			
 	public Element setType(String type) {
 		if(details == null) details = new ElementDetails();
 		details.setType(type);
@@ -67,16 +61,6 @@ public class Element implements ElementCreation, ElementControl {
 		return locator;
 	}
 	
-//	@Override //ElementDetails
-//	public Element setTestDataIn(TestDataIn data) {
-//		this.testDataIn = data;
-//		return this;
-//	}
-//	@Override //ElementDetails
-//	public Element setTestDataOut(TestDataOut data) {
-//		this.testDataOut = data;
-//		return this;
-//	}
 	@Override
 	public Element setTestData(TestData data) {
 		this.testData = data;

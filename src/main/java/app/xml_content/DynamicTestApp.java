@@ -10,7 +10,7 @@ import jakarta.xml.bind.annotation.XmlRootElement;
 import site_mapper.jaxb.menu_items.MenuItem;
 import site_mapper.jaxb.pom.Module;
 import site_mapper.jaxb.pom.SiteMapInfo;
-import site_mapper.jaxb.pom.menu.Menu;
+import site_mapper.jaxb.pom.menu.MenuType;
 
 /** 
  * @author SteveBrown
@@ -69,14 +69,14 @@ public class DynamicTestApp implements XmlContent, XmlTestContent {
 	
 	private String getMenus(Module m) {
 		String res = "\n  Menus\n  -----";
-		for(Menu men: m.getMenus()) {
+		for(MenuType men: m.getMenus()) {
 			res += "\n  " + men.getName();
 			res += "\n   Items\n   -----" + getMenuItems(men);
 		}
 		return res;
 	}
 	
-	private String getMenuItems(Menu men) {
+	private String getMenuItems(MenuType men) {
 		String res = "";
 		for(MenuItem item: men.getMenuItems()) {
 			res += "\n   " + item.getName() + "(type: " + item.getMenuItemType().getType() + ")" ;

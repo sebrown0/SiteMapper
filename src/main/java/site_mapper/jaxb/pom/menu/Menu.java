@@ -23,10 +23,10 @@ import site_mapper.jaxb.menu_items.MenuItem;
 public class Menu {	
   @XmlElements(value = { 
     @XmlElement(name="Left", 
-    						namespace="Menu",
+    						namespace="Menus",
                 type=LeftMenu.class),
     @XmlElement(name="TopRight",
-    						namespace="Menu",
+    						namespace="Menus",
                 type=TopRight.class)
   })
   private MenuType menuType;
