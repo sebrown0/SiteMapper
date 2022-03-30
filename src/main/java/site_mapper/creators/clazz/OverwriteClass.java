@@ -22,7 +22,7 @@ public class OverwriteClass implements ClassMaker {
 
 	public OverwriteClass(ElementClass elementClass, PackageHierarchy packageHierarchy, PackageSetter packageSetter) {
 		this.elementClass = elementClass;
-		this.packageHierarchy = packageHierarchy;
+		this.packageHierarchy = packageHierarchy.setPackageName(elementClass.getParentPackage());
 		this.packageSetter = packageSetter;
 	}
 

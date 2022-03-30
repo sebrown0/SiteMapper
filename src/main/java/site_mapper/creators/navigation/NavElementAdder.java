@@ -3,6 +3,7 @@
  */
 package site_mapper.creators.navigation;
 
+import site_mapper.jaxb.menu_items.MenuItem;
 import site_mapper.jaxb.pom.PackageHierarchy;
 import site_mapper.jaxb.pom.SiteMapInfo;
 
@@ -17,8 +18,8 @@ import site_mapper.jaxb.pom.SiteMapInfo;
 public interface NavElementAdder {
 	NavElementAdder setSiteMapInfo(SiteMapInfo info);
 	NavElementAdder setModuleName(String modName);
-	NavElementAdder setMenuName(String menuName);
+//	NavElementAdder setMenuName(String menuName);
 	NavElementAdder setPackageHierarchy(PackageHierarchy ph);
-	void addElement(String itemName);
+	void addElement(MenuItem item);
 	void writeNavClass();	
 }

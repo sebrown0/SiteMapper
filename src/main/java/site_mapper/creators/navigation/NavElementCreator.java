@@ -5,9 +5,9 @@ package site_mapper.creators.navigation;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.regex.Pattern;
 
 import file.comment.NewComment;
+import site_mapper.jaxb.menu_items.MenuItem;
 import site_mapper.jaxb.pom.PackageHierarchy;
 import site_mapper.jaxb.pom.SiteMapInfo;
 import utils.FileWriter;
@@ -23,45 +23,31 @@ import utils.StringUtils;
  * 
  * 
  */
-public abstract class NavElementCreator implements NavElementAdder {
-	private List<String> imports = new ArrayList<>();
-	private List<String> elements = new ArrayList<>();
-	
-	private String modName;
-	@SuppressWarnings("unused")
-	private String menuName;
-	private String pckage;
-	private String className;
-	private PackageHierarchy ph;
-	private String root;
-	
+public abstract class NavElementCreator implements NavElementAdder {	
+	private String root;	
 	private SiteMapInfo info;
 	
-	private final String NAV_PATH;
+	protected PackageHierarchy ph;
+	protected String modName;
+	protected String className;
+	protected String parentPackage;
+	protected List<String> imports = new ArrayList<>();
+	protected List<String> elements = new ArrayList<>();
 	
-	protected String parentPackage;// = "object_models.modules";
-	
-	public NavElementCreator(String nAV_PATH) {
-		NAV_PATH = nAV_PATH;
-	}
-
 	protected abstract String getCommonImports();
+	protected abstract String getOverriddenFunctions();
+	protected abstract String getDeclaration();
+	protected abstract void setClassName();
+//	protected abstract void addImport(MenuItem item);	
+//	protected abstract void addElementToList(MenuItem item);
 	
-	@Override
-	public void addElement(String itemName) {
-//		System.out.println(String.format("Add item [%s], in menu [%s], for module [%s]", itemName, menuName, modName)); // TODO - remove or log 	
-		addImport(itemName);
-		addElementToList(itemName);
-	}
-
-	protected void addImport(String itemName) {
-		imports.add(String.format("\nimport " + StringUtils.replaceFwdSlashes(ph.getParentPackage(), ".") + ".common.nav.nav_bar_elements.NavBar%s;", itemName));
-	}
 	
-	protected void addElementToList(String itemName) {
-		elements.add(String.format("{\n\t\t\t\"%s\", new NavBar%s(coreData)},", itemName, itemName));
-	}
-	
+//	public void addElement(MenuItem item) {
+////		System.out.println(String.format("Add item [%s], in menu [%s], for module [%s]", itemName, menuName, modName)); // TODO - remove or log 	
+//		addImport(item);
+//		addElementToList(item);
+//	}
+		
 	@Override
 	public NavElementAdder setPackageHierarchy(PackageHierarchy ph) {
 		this.ph = ph;
@@ -74,56 +60,31 @@ public abstract class NavElementCreator implements NavElementAdder {
 		this.modName = modName;
 		return this;
 	}
-	@Override
-	public NavElementAdder setMenuName(String menuName) {
-		this.menuName = menuName;
-		return this;
-	}
+//	@Override
+//	public NavElementAdder setMenuName(String menuName) {
+//		this.menuName = menuName;
+//		return this;
+//	}
 	@Override
 	public NavElementAdder setSiteMapInfo(SiteMapInfo info) {
 		this.info = info;
 		return this;
 	}
-	
-//	@Override
-//	public String toString() {
-//		String res = 
-//			String.format(
-//				"%s\n%s\n%s\n%s\n%s\n%s\n\n%s\n\n%s\n%s\n}", 
-//				getPackage(),
-//				getCommonImports(),
-//				getImports(),
-//				getComment(),
-//				getDeclaration(),
-//				getVars(),
-//				getConstructor(),
-//				getSetElements(),
-//				getOverriddenFunctions());
-//		
-//		System.out.println("NavBarElementCreator.toString() -> " + res); // TODO - remove or log 	
-//		return res;
+		
+//	private void setPackage() {
+//		pckage = String.format("%s.%s.%s", parentPackage, modName, NAV_PATH);
 //	}
 	
-	private void setPackage() {
-		pckage = String.format("%s.%s.%s", parentPackage, modName, NAV_PATH);
-	}
-	
 	protected String getPackage() {
-		return "package " + StringUtils.replaceFwdSlashes(ph.getParentPackage(), ".") + "." + modName + ".top_right_nav;";
-	}
-	
-
-	
-	private void setClassName() {
-		className = String.format("NavBar%sElements", StringUtils.asPascalCase(modName));
-	}
-	
-	protected String getDeclaration() {		
 		return 
-			String.format(
-				"public class %s implements NavBarElementStrategy {", 
-				className);
+			"package " + 
+			StringUtils.replaceFwdSlashes(ph.getParentPackage(), ".") + "." + 
+			modName +  "." +
+			ph.getPackageName() + ";";
+//			".top_right_nav;";
 	}
+			
+
 	
 	protected String getImports() {
 		String res="";		
@@ -167,35 +128,26 @@ public abstract class NavElementCreator implements NavElementAdder {
 		return res + "\n\t\t}).collect(Collectors.toMap(data -> (String) data[0], data -> (NavBarElement) data[1])); \n\t}";
 	}
 	
-	protected String getOverriddenFunctions() {
-		return 
-			"\n\t@Override\r\n" +
-			"\tpublic Map<String, NavBarElement> getElements() {\n" +
-			"\t\treturn elements;\n" +
-				"\t}\n\n" +
-
-			"\t@Override\n" +
-			"\tpublic QuickLinks getQuickLinks() {\n" +
-			"\t\treturn new QuickLinksPayroll(driver);\n" +
-			"\t}";
-	}
-
 	@Override
 	public void writeNavClass() {
-		setPackage();
+//		setPackage();
 		setClassName();
 //		/object_models.modulespayrolltop_right_nav
 		
-		String filePath = root + "/" +  ph.getParentPackage() + "/" + modName + "/" + "top_right_nav";
+//		String filePath = root + "/" +  ph.getParentPackage() + "/" + modName + "/" + "top_right_nav";
+		String filePath = root + "/" +  ph.getParentPackage() + "/" + modName + "/" + ph.getPackageName();
 		FileWriter.writeFile(this, filePath, className + ".java");
+
+		//	C:/Users/SteveBrown/eclipse-workspace/2021/DTest/src/main/java/object_models/modules/payroll/top_right_nav
+		
 //		object_models/modules/payroll/top_right_nav
 //		object_models.modules.common.nav.nav_bar_elements.NavBarEmployeeCreation;
 		
 //		object_models.modules.payroll.top_right_nav
-		System.out.println("\n\nwriteNavClass"); // TODO - remove or log 	
-		System.out.println("\n-------------"); // TODO - remove or log
-		System.out.println("\n\n" + this.toString()); // TODO - remove or log
-		System.out.println("\n\n Write to -> " + filePath + "/" + className + ".java"); // TODO - remove or log 	
+//		System.out.println("\n\nwriteNavClass"); // TODO - remove or log 	
+//		System.out.println("\n-------------"); // TODO - remove or log
+//		System.out.println("\n\n" + this.toString()); // TODO - remove or log
+//		System.out.println("\n\n Write to -> " + filePath + "/" + className + ".java"); // TODO - remove or log 	
 	}
 
 }

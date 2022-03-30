@@ -74,12 +74,12 @@ public class MenuMapper {
   			.getNavCreator()
   			.setSiteMapInfo(siteMapInfo)
   			.setPackageHierarchy(ph)
-  			.setMenuName(menu.getName())
+//  			.setMenuName(menu.getName())
   			.setModuleName(moduleName);
   }
     
   private void addItemToNavigation(MenuItem item) {
-		elementAdder.addElement(item.getClassName());
+		elementAdder.addElement(item);
   }
   
   private void createPom(MenuType menu, MenuItem item) {

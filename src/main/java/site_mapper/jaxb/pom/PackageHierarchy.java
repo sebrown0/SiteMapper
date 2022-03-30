@@ -76,8 +76,13 @@ public class PackageHierarchy {
 	}
 	
 	public String getHierarchyDotNotation() {
-		return getHierarchy(".");
+		String res=getHierarchy(".");
+		if(res.contains("/")) {
+			res = res.replace("/", ".");
+		}
+		return res;
 	}
+	
 	public String getHierarchyFwdSlashNotation() {
 		return getHierarchy("/");
 	}
@@ -98,6 +103,11 @@ public class PackageHierarchy {
 	public String toString() {
 		return "PackageHierarchy [root=" + ROOT + ", current=" + current + ", packageNames=" + packageNames + ", ret=" + ret
 				+ "]";
+	}
+
+	public PackageHierarchy setPackageName(String packageName) {
+		this.packageName = packageName;
+		return this;
 	}
 	
 }
