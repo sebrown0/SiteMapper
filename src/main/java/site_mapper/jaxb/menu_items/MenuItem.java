@@ -45,6 +45,8 @@ public class MenuItem implements ElementClass, TestElement {
 	private String faFa;
 	@XmlAttribute(name="returns")	
 	private String returnsObject;	
+	@XmlAttribute(name="tooltip")	
+	private String tooltip;	
 	
 	@XmlElement(name="Type", namespace="MenuItemType")
 	private MenuItemType menuItemType;	
@@ -203,6 +205,12 @@ public class MenuItem implements ElementClass, TestElement {
 	}
 	public void setReturnsObject(String returnsObject) {
 		this.returnsObject = returnsObject;
+	}
+	public String getTooltip() {
+		return tooltip;
+	}
+	public void setTooltip(String tooltip) {
+		this.tooltip = tooltip;
 	}
 		
 //	@Override
