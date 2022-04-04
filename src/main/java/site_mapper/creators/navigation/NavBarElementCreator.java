@@ -14,7 +14,6 @@ import utils.StringUtils;
  * 
  */
 public class NavBarElementCreator extends NavElementCreator {
-//	private static final String NAV_PATH = "top_right_nav";
 
 	@Override
 	public String toString() {
@@ -34,9 +33,6 @@ public class NavBarElementCreator extends NavElementCreator {
 		return res;
 	}
 	
-	/*
-	 * THIS HAS TO GO INTO NavBarCreator
-	 */
 	@Override //NavElementAdder
 	public void addElement(MenuItem item) {		
 		addImport(item);
@@ -81,7 +77,7 @@ public class NavBarElementCreator extends NavElementCreator {
 			"\nimport java.util.stream.Collectors;" + 
 			"\nimport java.util.stream.Stream;" + 
 			"\nimport org.openqa.selenium.WebDriver;" +
-			"\nimport object_models.top_right_nav_bar.common.NavBarElement;" + 
+			"\nimport object_models.modules.common.nav.NavBarElement;" + 
 			"\nimport " + p + ".pages.homepage.CoreData;" +
 			"\nimport " + parentPackage + ".common.nav.nav_bar_elements.NavBarElementStrategy;" + 
 			"\nimport " + parentPackage + ".common.nav.quick_links.QuickLinks;" +

@@ -20,7 +20,6 @@ import utils.StringUtils;
  * 	Initial
  * @since 1.0
  * 
- * 
  */
 public abstract class NavElementCreator implements NavElementAdder {	
 	private String root;	
@@ -37,16 +36,7 @@ public abstract class NavElementCreator implements NavElementAdder {
 	protected abstract String getOverriddenFunctions();
 	protected abstract String getDeclaration();
 	protected abstract void setClassName();
-//	protected abstract void addImport(MenuItem item);	
-//	protected abstract void addElementToList(MenuItem item);
-	
-	
-//	public void addElement(MenuItem item) {
-////		System.out.println(String.format("Add item [%s], in menu [%s], for module [%s]", itemName, menuName, modName)); // TODO - remove or log 	
-//		addImport(item);
-//		addElementToList(item);
-//	}
-		
+
 	@Override
 	public NavElementAdder setPackageHierarchy(PackageHierarchy ph) {
 		this.ph = ph;
@@ -59,20 +49,12 @@ public abstract class NavElementCreator implements NavElementAdder {
 		this.modName = modName;
 		return this;
 	}
-//	@Override
-//	public NavElementAdder setMenuName(String menuName) {
-//		this.menuName = menuName;
-//		return this;
-//	}
+	
 	@Override
 	public NavElementAdder setSiteMapInfo(SiteMapInfo info) {
 		this.info = info;
 		return this;
 	}
-		
-//	private void setPackage() {
-//		pckage = String.format("%s.%s.%s", parentPackage, modName, NAV_PATH);
-//	}
 	
 	protected String getPackage() {
 		return 
@@ -80,10 +62,7 @@ public abstract class NavElementCreator implements NavElementAdder {
 			StringUtils.replaceFwdSlashes(ph.getParentPackage(), ".") + "." + 
 			modName +  "." +
 			ph.getPackageName() + ";";
-//			".top_right_nav;";
 	}
-			
-
 	
 	protected String getImports() {
 		String res="";		
@@ -129,24 +108,9 @@ public abstract class NavElementCreator implements NavElementAdder {
 	
 	@Override
 	public void writeNavClass() {
-//		setPackage();
-		setClassName();
-//		/object_models.modulespayrolltop_right_nav
-		
-//		String filePath = root + "/" +  ph.getParentPackage() + "/" + modName + "/" + "top_right_nav";
+		setClassName();	
 		String filePath = root + "/" +  ph.getParentPackage() + "/" + modName + "/" + ph.getPackageName();
-		FileWriter.writeFile(this, filePath, className + ".java");
-
-		//	C:/Users/SteveBrown/eclipse-workspace/2021/DTest/src/main/java/object_models/modules/payroll/top_right_nav
-		
-//		object_models/modules/payroll/top_right_nav
-//		object_models.modules.common.nav.nav_bar_elements.NavBarEmployeeCreation;
-		
-//		object_models.modules.payroll.top_right_nav
-//		System.out.println("\n\nwriteNavClass"); // TODO - remove or log 	
-//		System.out.println("\n-------------"); // TODO - remove or log
-//		System.out.println("\n\n" + this.toString()); // TODO - remove or log
-//		System.out.println("\n\n Write to -> " + filePath + "/" + className + ".java"); // TODO - remove or log 	
+		FileWriter.writeFile(this, filePath, className + ".java");		 	
 	}
 
 }

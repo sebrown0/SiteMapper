@@ -41,7 +41,6 @@ public class TopRightElementCreator {
 	}
 	
 	public void writeNavBarElement() {
-		// NavBarElementStrategy.java
 		String filePath = info.getRootDir() + "/object_models/modules/common/nav/nav_bar_elements/";
 		FileWriter.writeFile(this, filePath, itemName + ".java");
 	}
