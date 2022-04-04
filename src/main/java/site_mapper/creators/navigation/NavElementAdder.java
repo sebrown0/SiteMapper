@@ -18,8 +18,8 @@ import site_mapper.jaxb.pom.SiteMapInfo;
 public interface NavElementAdder {
 	NavElementAdder setSiteMapInfo(SiteMapInfo info);
 	NavElementAdder setModuleName(String modName);
-//	NavElementAdder setMenuName(String menuName);
 	NavElementAdder setPackageHierarchy(PackageHierarchy ph);
-	void addElement(NavElement_XXX navElements, MenuItem item);
+	
+	void addElement(MenuItem item);
 	void writeNavClass();	
 }

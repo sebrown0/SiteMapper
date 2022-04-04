@@ -21,7 +21,7 @@ import site_mapper.jaxb.menu_items.MenuItem;
  * 
  */
 @XmlRootElement(name="TopRight", namespace="Menu")
-public class TopRightMenu extends MenuType {
+public class TopRightNav extends MenuType {
   private static final String NAME="TopRight";
 	private static final String PACKAGE_NAME="top_right_nav";
 	

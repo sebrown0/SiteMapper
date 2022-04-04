@@ -21,10 +21,6 @@ public class LeftMenuElementCreator  extends NavElementCreator {
 	private Map<String, List<String>> parents = new HashMap<>();
 	private List<String> standAlone = new ArrayList<>();
 	private MenuItem currentItem;
-	
-	public LeftMenuElementCreator() {
-			System.out.println("->LeftMenuElementCreator"); // TODO - remove or log 	
-	}
 
 	@Override
 	protected String getCommonImports() {
@@ -66,17 +62,22 @@ public class LeftMenuElementCreator  extends NavElementCreator {
 	}
 	
 	@Override //NavElementAdder
-	public void addElement(NavElement_XXX adder, MenuItem item) {
-		adder.addLeftItem(item);
+	public void addElement(MenuItem item) {		
 		this.currentItem = item;
 		String prntPackage = addImport();	
 		addElementToList(prntPackage);
 	}
 	protected String addImport() {
-		String prntPackage = StringUtils.asCamelCase(currentItem.getPackage());
-		String imp="\nimport " + ph.getHierarchyDotNotation() + "." + prntPackage  + "." + currentItem.getClassName()+ ";";
-		imports.add(imp);
-		
+		var itemsPackage = currentItem.getPackage();
+		String prntPackage = null;
+		String imp = "\nimport " + ph.getHierarchyDotNotation() + ".";
+				
+		if(itemsPackage != null && itemsPackage.length() > 0) {
+			prntPackage = StringUtils.asCamelCase(itemsPackage);
+			imp += prntPackage + ".";			
+		}
+		imp +=  currentItem.getClassName()+ ";";
+		imports.add(imp);	
 		return prntPackage;
 	}
 	

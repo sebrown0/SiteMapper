@@ -24,6 +24,10 @@ import org.apache.logging.log4j.Logger;
 public class FileWriter {
 	private static Optional<BufferedWriter> fileOut;		
 	private static final Logger LOGGER = LogManager.getLogger(FileWriter.class);	
+	/*
+	 * TIS SHOULD COME FROM INFO
+	 * AND NOT BE PREPENDED BY THE CALLING ITEM
+	 */
 	private static final String ROOT = "C:/Users/SteveBrown/eclipse-workspace/2021/DTest/src/main/java/";
 	
 	//Dir may not be created so create it first.

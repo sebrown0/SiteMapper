@@ -39,8 +39,12 @@ public class MenuItem implements ElementClass, TestElement {
 	private String name;
 	@XmlAttribute(name="package")
 	private String packageName;
-	@XmlAttribute(name="class")
+	@XmlAttribute(name="class")	
 	private String className;	
+	@XmlAttribute(name="fafa")	
+	private String faFa;
+	@XmlAttribute(name="returns")	
+	private String returnsObject;	
 	
 	@XmlElement(name="Type", namespace="MenuItemType")
 	private MenuItemType menuItemType;	
@@ -187,6 +191,18 @@ public class MenuItem implements ElementClass, TestElement {
 	public TestElement setTypeAttributes(TypeAttributes att) {
 		this.menuItemType.setAttributes(att);
 		return this;
+	}
+	public String getFaFa() {
+		return faFa;
+	}
+	public String getReturnsObject() {
+		return returnsObject;
+	}
+	public void setFaFa(String faFa) {
+		this.faFa = faFa;
+	}
+	public void setReturnsObject(String returnsObject) {
+		this.returnsObject = returnsObject;
 	}
 		
 //	@Override

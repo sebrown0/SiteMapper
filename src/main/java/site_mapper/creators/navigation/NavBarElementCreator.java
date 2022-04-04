@@ -14,31 +14,7 @@ import utils.StringUtils;
  * 
  */
 public class NavBarElementCreator extends NavElementCreator {
-	//DELETED NavBarCreator
-	private static final String NAV_PATH = "top_right_nav";
-	
-//	public NavBarElementCreator() {
-//		super(NAV_PATH);
-//	}
-
-//	@Override
-//	public String toString() {
-//		String res = 
-//			String.format(
-//				"%s\n%s\n%s\n%s\n%s\n%s\n\n%s\n\n%s\n%s\n}", 
-//				getPackage(),
-//				getCommonImports(),
-//				getImports(),
-//				getComment(),
-//				getDeclaration(),
-//				getVars(),
-//				getConstructor(),
-//				getSetElements(),
-//				getOverriddenFunctions());
-//		
-//		System.out.println("NavBarElementCreator.toString() -> " + res); // TODO - remove or log 	
-//		return res;
-//	}
+//	private static final String NAV_PATH = "top_right_nav";
 
 	@Override
 	public String toString() {
@@ -54,8 +30,7 @@ public class NavBarElementCreator extends NavElementCreator {
 				getConstructor(),
 				getSetElements(),
 				getOverriddenFunctions());
-		
-		System.out.println("NavBarElementCreator.toString() -> " + res); // TODO - remove or log 	
+			
 		return res;
 	}
 	
@@ -63,24 +38,29 @@ public class NavBarElementCreator extends NavElementCreator {
 	 * THIS HAS TO GO INTO NavBarCreator
 	 */
 	@Override //NavElementAdder
-	public void addElement(NavElement_XXX adder, MenuItem item) {
-		adder.addTopRightItem(item);
+	public void addElement(MenuItem item) {		
 		addImport(item);
 		addElementToList(item);
+		writeNavBarElement(item);
 	}
 	
-	protected void addImport(MenuItem item) {
+	private void addImport(MenuItem item) {
 		imports.add(
 				String.format(
 						"\nimport " + parentPackage + 
-						".common.nav.nav_bar_elements.NavBar%s;", item.getName()));
+						".common.nav.nav_bar_elements.NavBar%s;", item.getClassName()));
 	}
 	
-	protected void addElementToList(MenuItem item) {
+	private void addElementToList(MenuItem item) {		
+		var itemNameAsNav = "NavBar" + item.getClassName(); 
 		elements.add(
 				String.format(
-						"{\n\t\t\t\"%s\", new NavBar%s(coreData)},", 
-						item.getName(), item.getName()));
+						"{\n\t\t\t%s.ORIGINAL_NAME, new %s(coreData)},", 
+						itemNameAsNav, itemNameAsNav));
+	}
+
+	private void writeNavBarElement(MenuItem item) {
+		new TopRightElementCreator(item, info).writeNavBarElement();
 	}
 	
 	@Override
