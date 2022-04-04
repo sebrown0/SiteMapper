@@ -29,6 +29,7 @@ public class MenuMapper {
 	private PackageHierarchy ph;
 	private String moduleName;
 	private NavElementAdder elementAdder;
+	private NavElement_XXX adder = new NavElement_XXX();
 	
 	private static final Logger LOGGER = LogManager.getLogger(MenuMapper.class);
 
@@ -58,8 +59,7 @@ public class MenuMapper {
 	
   private void mapItemsForThisMenu(MenuType menu) {
   	List<MenuItem> menuItems = menu.getMenuItems();
-  	NavElement_XXX adder = new NavElement_XXX();
-  	
+  	  	
   	if(menuItems != null) {
   		setNavCreator(menu);
 			menuItems.forEach(item -> {
@@ -81,7 +81,7 @@ public class MenuMapper {
   }
     
   private void addItemToNavigation(MenuItem item) {
-		elementAdder.addElement(item);
+		elementAdder.addElement(adder, item);
   }
   
   private void createPom(MenuType menu, MenuItem item) {

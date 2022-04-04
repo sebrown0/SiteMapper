@@ -14,7 +14,7 @@ import utils.StringUtils;
  * 
  */
 public class NavBarElementCreator extends NavElementCreator {
-	
+	//DELETED NavBarCreator
 	private static final String NAV_PATH = "top_right_nav";
 	
 //	public NavBarElementCreator() {

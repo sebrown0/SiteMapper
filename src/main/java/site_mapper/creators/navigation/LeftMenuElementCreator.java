@@ -22,6 +22,10 @@ public class LeftMenuElementCreator  extends NavElementCreator {
 	private List<String> standAlone = new ArrayList<>();
 	private MenuItem currentItem;
 	
+	public LeftMenuElementCreator() {
+			System.out.println("->LeftMenuElementCreator"); // TODO - remove or log 	
+	}
+
 	@Override
 	protected String getCommonImports() {
 		return 
