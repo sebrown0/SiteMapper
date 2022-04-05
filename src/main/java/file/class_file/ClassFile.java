@@ -21,6 +21,7 @@ import file.comment.Comment;
 import file.comment.ExistingComment;
 import file.comment.NewComment;
 import file.helpers.LineMapper;
+import file.imports.Import;
 import file.imports.ImportList;
 import site_mapper.creators.component_writer.ComponentWriter;
 import site_mapper.creators.component_writer.ComponentWriterSetter;
@@ -94,7 +95,7 @@ public class ClassFile {
 		return classBody;
 	}
 		
-	public abstract static class ClassBuilder {
+	public abstract static class ClassBuilder implements ImportAppender{
 		protected ClassPackage inPackage;
 		protected ImportList imports;
 		protected Comment comment;
@@ -148,6 +149,11 @@ public class ClassFile {
 		public ClassFile build() {
 			return new ClassFile(this);
 		}
+		@Override
+		public void appendImport(Import imp) {
+			super.imports.addImport(imp);
+		}
+		
 	}
 	
 	public static class NewClassFileBuilder extends ClassBuilder {
@@ -161,8 +167,7 @@ public class ClassFile {
 			this.info = clazz.getSiteMapInfo();
 			this.packageSetter = packageSetter;
 			
-			setComponentWriter();
-			
+			setComponentWriter();			
 			setInPackage();
 			setImports();
 			setComment();
@@ -201,7 +206,7 @@ public class ClassFile {
 		private void setClassBody() {			
 			ClassBody classBody = 
 					new ClassBody
-						.NewClassBody(componentWriter, clazz, info)
+						.NewClassBody(componentWriter, clazz, info, this)
 						.build();
 			super.classBody = classBody;
 		}
@@ -209,6 +214,11 @@ public class ClassFile {
 		@Override
 		public ClassFile build() {
 			return new ClassFile(this);
+		}
+
+		@Override
+		public void appendImport(Import imp) {
+			super.imports.addImport(imp);			
 		}
 	}
 

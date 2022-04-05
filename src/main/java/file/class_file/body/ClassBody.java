@@ -7,6 +7,7 @@ import java.util.List;
 import java.util.Optional;
 import java.util.Scanner;
 
+import file.class_file.ImportAppender;
 import file.class_file.constructor.ClassConstructor;
 import file.class_file.constructor.ExistingConstructorMapper;
 import file.helpers.Formatter;
@@ -41,6 +42,7 @@ public class ClassBody {
 	private final String defaultCnstr;		
 	private final MethodList methods;
 	private final String dataFunc;
+	private final String libraryFunc;
 	private final Lines<String> dynamicTestMethods;
 	
 	public ClassBody(BodyBuilder b) {
@@ -50,6 +52,7 @@ public class ClassBody {
 		this.methods = b.methods;
 		this.dataFunc= b.dataFunc;
 		this.dynamicTestMethods = b.dynamicTestMethods;
+		this.libraryFunc = b.libraryFuncStr;
 	}
 	
 	public Variables getVars() {
@@ -66,11 +69,12 @@ public class ClassBody {
 	public String toString() {		
 		String res =
 				String.format(
-				"%s\n%s\n\n%s%s%s%s%s\n", 
+				"%s\n%s\n\n%s%s\n\n%s%s%s%s\n", 
 				Formatter.getValueOf(vars),
 				Formatter.getValueOf(defaultCnstr),
 				Formatter.getValueOf(cnstr),
 				Formatter.getValueOf(dataFunc),
+				Formatter.getValueOf(libraryFunc),
 				Formatter.getValueOf(methods),
 				Formatter.getNewLineIfValueExists(dynamicTestMethods),
 				Formatter.getValueOfStripTrailing(dynamicTestMethods));
@@ -81,6 +85,7 @@ public class ClassBody {
 		protected Variables vars;
 		protected ClassConstructor cnstr;
 		protected String defaultCnstr;		
+		protected String libraryFuncStr;
 		protected MethodList methods;
 		protected Lines<String> dynamicTestMethods;
 		
@@ -103,11 +108,17 @@ public class ClassBody {
 		private ComponentWriter componentWriter;
 		private SiteMapInfo info;
 		private ElementClass clazz;
+		private ImportAppender importAppender;
 		
-		public NewClassBody(ComponentWriter componentWriter, ElementClass clazz, SiteMapInfo info) {
+//		private final Logger LOGGER = LogManager.getLogger(NewClassBody.class);
+		
+		public NewClassBody(
+			ComponentWriter componentWriter, ElementClass clazz, SiteMapInfo info, ImportAppender importAppender) {
+			
 			this.componentWriter = componentWriter;
 			this.info = info;
 			this.clazz = clazz;
+			this.importAppender = importAppender;
 		}
 
 		@Override
@@ -118,7 +129,7 @@ public class ClassBody {
 			return this;
 		}
 
-		public BodyBuilder setDefaultConstructor() {
+		private BodyBuilder setDefaultConstructor() {
 			if(componentWriter instanceof DefaultNoArgsConstructor) {
 				super.defaultCnstr = ((DefaultNoArgsConstructor)componentWriter).getConstructor();
 			}
@@ -137,7 +148,7 @@ public class ClassBody {
 			return this;
 		}
 
-		public BodyBuilder setElements() {
+		private BodyBuilder setElements() {
 			ControlStringFromContainers tree = 
 				new ControlStringFromContainers(
 					info,
@@ -150,7 +161,7 @@ public class ClassBody {
 			return this;
 		}
 		
-		public BodyBuilder setDynamicTestMethods() {
+		private BodyBuilder setDynamicTestMethods() {
 			dynamicTestMethods = new Lines<>();
 			Optional<List<Container>> containers = Optional.ofNullable(clazz.getAllContainers());
 			containers.ifPresent(cnts -> {
@@ -180,6 +191,13 @@ public class ClassBody {
 			}
 		}
 		
+		private BodyBuilder setLibrary() {
+			LibraryFunction libFunc = new LibraryFunction(info, clazz);			
+			super.libraryFuncStr = libFunc.getLibraryFunction(importAppender);
+			
+			return this;
+		}
+		
 		@Override
 		public ClassBody build() {
 			setVars();
@@ -187,8 +205,10 @@ public class ClassBody {
 			setConstructor();
 			setElements();
 			setDynamicTestMethods();
+			setLibrary();
 			return new ClassBody(this);
 		}
+
 	}
 	
 	/** 

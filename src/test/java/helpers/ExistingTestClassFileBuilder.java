@@ -224,5 +224,10 @@ public class ExistingTestClassFileBuilder extends ClassBuilder {
 		this.setClassBody(bodyBuilder.build());
 		return new ClassFile(this);
 	}
+	@Override
+	public void appendImport(Import imp) {
+		// TODO Auto-generated method stub
+		
+	}
 
 }

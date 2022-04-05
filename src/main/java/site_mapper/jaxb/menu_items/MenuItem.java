@@ -47,6 +47,8 @@ public class MenuItem implements ElementClass, TestElement {
 	private String returnsObject;	
 	@XmlAttribute(name="tooltip")	
 	private String tooltip;	
+	@XmlAttribute(name="library")	
+	private String library;	
 	
 	@XmlElement(name="Type", namespace="MenuItemType")
 	private MenuItemType menuItemType;	
@@ -211,6 +213,13 @@ public class MenuItem implements ElementClass, TestElement {
 	}
 	public void setTooltip(String tooltip) {
 		this.tooltip = tooltip;
+	}
+	@Override //ElementClass
+	public String getLibrary() {
+		return library;
+	}
+	public void setLibrary(String library) {
+		this.library = library;
 	}
 		
 //	@Override

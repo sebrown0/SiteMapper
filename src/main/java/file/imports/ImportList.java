@@ -21,6 +21,14 @@ public class ImportList {
 		this.imports = imports;
 	}
 	
+	public void addImport(Import imp) {
+		imports.add(imp);
+	}
+	
+	public void addImports(List<Import> imps) {
+		imports.addAll(imps);
+	}
+	
 	public List<Import> getImports() {
 		return imports;
 	}

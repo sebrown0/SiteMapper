@@ -85,8 +85,7 @@ public class MenuMapper {
   private void createPom(MenuType menu, MenuItem item) {
   	item.setSiteMapInfo(siteMapInfo);				
 		item.setTestModuleName(moduleName);
-		item.setTestMenuName(menu.getPackageName());				
-		System.out.println("Write pom for ->" + item.getClassName()); // TODO - remove or log 	
+		item.setTestMenuName(menu.getPackageName());
 		new MenuItemMapper(packageSetter, item, ph).createPoms();
   }
   

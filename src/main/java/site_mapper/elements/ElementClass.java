@@ -25,6 +25,8 @@ public interface ElementClass {
 	String getClassName();	
 	String getModuleName();
 	String getTypeName();
+	String getLibrary();
+	
 	MenuItemType getMenuItemType();
 	List<Container> getAllContainers();
 
