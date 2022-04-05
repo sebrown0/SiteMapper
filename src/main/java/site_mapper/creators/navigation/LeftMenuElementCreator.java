@@ -118,10 +118,8 @@ public class LeftMenuElementCreator  extends NavElementCreator {
 						"\tprivate static final List<String> %s = Arrays.asList(", nameUpper);
 			
 			//Parents
-//			for(String c : e.getValue()) {
-				res += String.format("\n\t\t%s.MENU_TITLE,", StringUtils.asPascalCase(currentItem.getClassName()));
-				res = StringUtils.removeTrailingComma(res);
-//			}
+			res += String.format("\n\t\t%s.MENU_TITLE,", StringUtils.asPascalCase(currentItem.getClassName()));
+			res = StringUtils.removeTrailingComma(res);
 			res += "\n\t);";
 			
 			res += String.format("\n\tpublic List<String> get%s() {\n\t\treturn %s;\n\t}", namePascal, nameUpper);
