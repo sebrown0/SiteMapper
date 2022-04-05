@@ -108,7 +108,7 @@ public class LeftMenuElementCreator  extends NavElementCreator {
 	}
 
 	private Object getParentDeclarations() {
-		String res = null;
+		String res = "";
 		for (Map.Entry<String, List<String>> e : parents.entrySet()) {
 			var namePascal = StringUtils.asPascalCase(e.getKey());
 			var nameUpper = namePascal.toUpperCase();

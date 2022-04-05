@@ -35,7 +35,9 @@ public class ModuleMapper {
   	List<MenuType> menus = module.getMenus(); 
 		if(menus != null) {
 			MenuMapper menuMapper = new MenuMapper(packageSetter, siteMap, ph, modName);
-			menus.forEach(m -> menuMapper.mapMenu(m) );	
+			menus.stream()
+				.filter(m -> m != null)
+				.forEach(m -> menuMapper.mapMenu(m) );	
 		}  	
 	}
 }
