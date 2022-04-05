@@ -43,8 +43,8 @@ public class MenuItem implements ElementClass, TestElement {
 	private String className;	
 	@XmlAttribute(name="fafa")	
 	private String faFa;
-	@XmlAttribute(name="returns")	
-	private String returnsObject;	
+//	@XmlAttribute(name="returns")	
+//	private String returnsObject;	
 	@XmlAttribute(name="tooltip")	
 	private String tooltip;	
 	@XmlAttribute(name="library")	
@@ -199,15 +199,15 @@ public class MenuItem implements ElementClass, TestElement {
 	public String getFaFa() {
 		return faFa;
 	}
-	public String getReturnsObject() {
-		return returnsObject;
-	}
+//	public String getReturnsObject() {
+//		return returnsObject;
+//	}
 	public void setFaFa(String faFa) {
 		this.faFa = faFa;
 	}
-	public void setReturnsObject(String returnsObject) {
-		this.returnsObject = returnsObject;
-	}
+//	public void setReturnsObject(String returnsObject) {
+//		this.returnsObject = returnsObject;
+//	}
 	public String getTooltip() {
 		return tooltip;
 	}
