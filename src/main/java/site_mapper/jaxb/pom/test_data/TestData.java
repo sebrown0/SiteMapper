@@ -14,7 +14,6 @@ import jakarta.xml.bind.annotation.XmlRootElement;
  */
 @XmlRootElement(name="TestData", namespace="ElementType")
 public class TestData {
-
 	@XmlElement(name="In", namespace="ElementType")	
 	private TestDataIn testDataIn;
 	
@@ -27,6 +26,16 @@ public class TestData {
 
 	public TestDataOut getTestDataOut() {
 		return testDataOut;
+	}
+
+	public TestData setTestDataIn(TestDataIn testDataIn) {
+		this.testDataIn = testDataIn;
+		return this;
+	}
+
+	public TestData setTestDataOut(TestDataOut testDataOut) {
+		this.testDataOut = testDataOut;
+		return this;
 	}
 	
 }

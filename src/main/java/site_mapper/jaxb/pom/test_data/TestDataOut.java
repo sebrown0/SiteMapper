@@ -17,9 +17,17 @@ import jakarta.xml.bind.annotation.XmlRootElement;
 
 @XmlRootElement(name="Out", namespace="ElementType")
 @XmlAccessorType(XmlAccessType.FIELD)
-public class TestDataOut {
-	
+public class TestDataOut {	
 	@XmlElement(name="Data", namespace="TestData")
-	Data data;
+	private Data data;
+
+	public Data getData() {
+		return data;
+	}
+
+	public TestDataOut setData(Data data) {
+		this.data = data;
+		return this;
+	}
 	
 }

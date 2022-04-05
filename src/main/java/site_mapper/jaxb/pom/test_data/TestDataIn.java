@@ -20,6 +20,15 @@ import jakarta.xml.bind.annotation.XmlRootElement;
 public class TestDataIn {
 	
 	@XmlElement(name="Data", namespace="TestData")
-	Data data;
+	private Data data;
+
+	public Data getData() {
+		return data;
+	}
+
+	public TestDataIn setData(Data data) {
+		this.data = data;
+		return this;
+	}
 	
 }

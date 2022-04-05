@@ -17,5 +17,15 @@ import jakarta.xml.bind.annotation.XmlRootElement;
 @XmlRootElement(name="Data", namespace="TestData")
 public class Data {
 	@XmlElement(name="item", namespace = "TestData")
-	List<TestDataItem> testDataList;
+	private List<TestDataItem> testDataList;
+
+	public List<TestDataItem> getTestDataList() {
+		return testDataList;
+	}
+
+	public Data setTestDataList(List<TestDataItem> testDataList) {
+		this.testDataList = testDataList;
+		return this;
+	}
+	
 }
