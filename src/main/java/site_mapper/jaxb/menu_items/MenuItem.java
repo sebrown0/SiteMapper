@@ -199,15 +199,9 @@ public class MenuItem implements ElementClass, TestElement {
 	public String getFaFa() {
 		return faFa;
 	}
-//	public String getReturnsObject() {
-//		return returnsObject;
-//	}
 	public void setFaFa(String faFa) {
 		this.faFa = faFa;
 	}
-//	public void setReturnsObject(String returnsObject) {
-//		this.returnsObject = returnsObject;
-//	}
 	public String getTooltip() {
 		return tooltip;
 	}

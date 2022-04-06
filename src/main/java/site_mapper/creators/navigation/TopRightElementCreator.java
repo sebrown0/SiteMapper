@@ -32,7 +32,6 @@ public class TopRightElementCreator {
 	
 	private void setNames() {
 		itemName = "NavBar" + item.getClassName();
-//		objName = item.getReturnsObject();
 		objName = item.getClassName();
 	}
 	private void setIsValidObject() {
