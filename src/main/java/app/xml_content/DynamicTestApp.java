@@ -8,6 +8,7 @@ import jakarta.xml.bind.annotation.XmlElement;
 import jakarta.xml.bind.annotation.XmlElementWrapper;
 import jakarta.xml.bind.annotation.XmlRootElement;
 import site_mapper.jaxb.menu_items.MenuItem;
+import site_mapper.jaxb.pom.DynamicTestInfo;
 import site_mapper.jaxb.pom.Module;
 import site_mapper.jaxb.pom.SiteMapInfo;
 import site_mapper.jaxb.pom.menu.MenuType;
@@ -27,6 +28,9 @@ import site_mapper.jaxb.pom.menu.MenuType;
 public class DynamicTestApp implements XmlContent, XmlTestContent {	
 	@XmlElement(name="Info")
 	private SiteMapInfo siteMapInfo;
+	
+	@XmlElement(name="DynamicTestInfo")
+	private DynamicTestInfo dynamicTestInfo;
 	
 	@XmlElementWrapper(name="IncludeElementsForTest")
 	@XmlElement(name="Include", namespace="IncludeElementsInTest")
