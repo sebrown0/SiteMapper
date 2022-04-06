@@ -36,7 +36,7 @@ public class DynamicTestApp implements XmlContent, XmlTestContent {
 	@XmlElement(name="Include", namespace="IncludeElementsInTest")
 	private List<String> includeElementsForTest;
 	
-	@XmlElementWrapper(name="Modules")//, namespace="Modules")
+	@XmlElementWrapper(name="Modules")
   @XmlElement(name="Module", namespace="Modules")
   private List<Module> modules;
 
@@ -48,6 +48,11 @@ public class DynamicTestApp implements XmlContent, XmlTestContent {
 	@Override //XmlContent
 	public SiteMapInfo getSiteMapInfo() {
 		return siteMapInfo;
+	}
+
+	@Override //XmlContent
+	public DynamicTestInfo getDynamicTestInfo() {
+		return dynamicTestInfo;
 	}
 	
 	@Override //XmlTestContent
@@ -102,6 +107,7 @@ public class DynamicTestApp implements XmlContent, XmlTestContent {
 //		} 	
 		return res;
 	}
+
 	
 //	private String getElements(Container c) {
 //		String res = "";

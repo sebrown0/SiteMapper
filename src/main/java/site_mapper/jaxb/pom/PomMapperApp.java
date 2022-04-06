@@ -37,4 +37,9 @@ public class PomMapperApp implements XmlContent {
 	public SiteMapInfo getSiteMapInfo() {
 		return siteMapInfo;
 	}
+
+	@Override //XmlContent
+	public DynamicTestInfo getDynamicTestInfo() {
+		return dynamicTestInfo;
+	}
 }

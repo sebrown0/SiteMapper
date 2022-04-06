@@ -5,6 +5,7 @@ package app.xml_content;
 
 import java.util.List;
 
+import site_mapper.jaxb.pom.DynamicTestInfo;
 import site_mapper.jaxb.pom.Module;
 import site_mapper.jaxb.pom.SiteMapInfo;
 
@@ -16,5 +17,6 @@ import site_mapper.jaxb.pom.SiteMapInfo;
  */
 public interface XmlContent {
 	SiteMapInfo getSiteMapInfo();
+	DynamicTestInfo getDynamicTestInfo();
 	List<Module> getModules();	
 }
