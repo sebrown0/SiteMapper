@@ -21,6 +21,9 @@ public class PomMapperApp implements XmlContent {
 	@XmlElement(name="Info")
 	private SiteMapInfo siteMapInfo;
 	
+	@XmlElement(name="DynamicTestInfo")
+	private DynamicTestInfo dynamicTestInfo;
+	
 	@XmlElementWrapper(name="Modules")
   @XmlElement(name="Module", namespace="Modules")
   private List<Module> modules;
