@@ -11,8 +11,7 @@ import site_mapper.creators.control_data.ControlStringGetter;
 import site_mapper.creators.control_data.ElementControl;
 import site_mapper.elements.ElementCreation;
 import site_mapper.jaxb.pom.test_data.TestData;
-import site_mapper.jaxb.pom.test_data.TestDataIn;
-import site_mapper.jaxb.pom.test_data.TestDataOut;
+import site_mapper.jaxb.pom.test_data.TestDataItem;
 
 /**
  * @author SteveBrown
@@ -67,11 +66,11 @@ public class Element implements ElementCreation, ElementControl {
 		return this;
 	}	
 	@Override //ElementDetails
-	public TestDataIn getTestDataIn() {
-		return testData.getTestDataIn();
+	public List<TestDataItem> getTestDataIn() {
+		return testData.getTestDataIn();		
 	}	
 	@Override //ElementDetails
-	public TestDataOut getTestDataOut() {
+	public List<TestDataItem> getTestDataOut() {
 		return testData.getTestDataOut();
 	}
 	@Override //ElementDetails

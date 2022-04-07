@@ -3,7 +3,10 @@
  */
 package site_mapper.jaxb.pom.test_data;
 
+import java.util.List;
+
 import jakarta.xml.bind.annotation.XmlElement;
+import jakarta.xml.bind.annotation.XmlElementWrapper;
 import jakarta.xml.bind.annotation.XmlRootElement;
 
 /**
@@ -14,26 +17,28 @@ import jakarta.xml.bind.annotation.XmlRootElement;
  */
 @XmlRootElement(name="TestData", namespace="ElementType")
 public class TestData {
-	@XmlElement(name="In", namespace="ElementType")	
-	private TestDataIn testDataIn;
+	@XmlElementWrapper(name="In", namespace="ElementType")
+	@XmlElement(name="item", namespace="TestData")	
+	private List<TestDataItem> testDataIn;
 	
-	@XmlElement(name="Out", namespace="ElementType")	
-	private TestDataOut testDataOut;
+	@XmlElementWrapper(name="Out", namespace="ElementType")
+	@XmlElement(name="item", namespace="TestData")	
+	private List<TestDataItem> testDataOut;
 
-	public TestDataIn getTestDataIn() {
+	public List<TestDataItem> getTestDataIn() {
 		return testDataIn;
 	}
 
-	public TestDataOut getTestDataOut() {
+	public List<TestDataItem> getTestDataOut() {
 		return testDataOut;
 	}
 
-	public TestData setTestDataIn(TestDataIn testDataIn) {
+	public TestData setTestDataIn(List<TestDataItem> testDataIn) {
 		this.testDataIn = testDataIn;
 		return this;
 	}
 
-	public TestData setTestDataOut(TestDataOut testDataOut) {
+	public TestData setTestDataOut(List<TestDataItem> testDataOut) {
 		this.testDataOut = testDataOut;
 		return this;
 	}

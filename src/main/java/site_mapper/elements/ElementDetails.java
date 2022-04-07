@@ -3,10 +3,11 @@
  */
 package site_mapper.elements;
 
+import java.util.List;
+
 import site_mapper.jaxb.pom.Element;
 import site_mapper.jaxb.pom.test_data.TestData;
-import site_mapper.jaxb.pom.test_data.TestDataIn;
-import site_mapper.jaxb.pom.test_data.TestDataOut;
+import site_mapper.jaxb.pom.test_data.TestDataItem;
 
 /**
  * @author SteveBrown
@@ -20,6 +21,6 @@ public interface ElementDetails {
 	String getToolTipText(); 
 	String getFafa();
 	Element setTestData(TestData data);
-	TestDataIn getTestDataIn();
-	TestDataOut getTestDataOut();
+	List<TestDataItem> getTestDataIn();
+	List<TestDataItem> getTestDataOut();
 }
