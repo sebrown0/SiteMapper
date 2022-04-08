@@ -56,10 +56,11 @@ public class ClassFile {
 	@Override 
 	public String toString() {
 		return String.format(
-				"%s\n\n%s\n%s%s\n%s\n}", 
+				"%s\n\n%s\n%s%s\n%s\n%s\n}", 
 				getPackageStr(), 
 				getImportStr(), 
 				getCommentStr(), 
+				getSuppressUnusedStr(),
 				getDeclarationStr(), 
 				getClassBodyStr());		
 	}
@@ -71,6 +72,9 @@ public class ClassFile {
 	}
 	public String getCommentStr() {
 		return (comment != null) ? comment.toString() + "\n": "/* COMMENT NOT FOUND */\n";
+	}
+	public String getSuppressUnusedStr() {
+		return "@SuppressWarnings(\"unused\")";
 	}
 	public String getDeclarationStr() {
 		return (declaration != null) ? declaration.toString() : "/* CLASS DECLARATION NOT FOUND */\n";

@@ -109,9 +109,7 @@ public class ClassBody {
 		private SiteMapInfo info;
 		private ElementClass clazz;
 		private ImportAppender importAppender;
-		
-//		private final Logger LOGGER = LogManager.getLogger(NewClassBody.class);
-		
+				
 		public NewClassBody(
 			ComponentWriter componentWriter, ElementClass clazz, SiteMapInfo info, ImportAppender importAppender) {
 			

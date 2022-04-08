@@ -53,7 +53,7 @@ public class ControlStringGetter {
 	public String getString() {		
 		return 
 			String.format(
-					"%s%s =\n\t\t\tnew ControlGetter%s(\"%s\", coreData%s);",
+					"%s%s =\n\t\t\tnew ControlGetter%s(\"%s\", coreData%s, this);",
 					getInitial(), getName(), getType(),
 					getElementName(), getLocators());
 	}
