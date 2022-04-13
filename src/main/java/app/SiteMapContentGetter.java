@@ -101,11 +101,11 @@ public class SiteMapContentGetter <T extends XmlContent> {
 		} catch (SAXException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-		}
-
- catch (FileNotFoundException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+		} catch (FileNotFoundException e) {
+			var msg = String.format("Cannot map POMs, XML file [%s] not found. So quitting!", XML_SOURCE);
+			System.out.println(msg); 	
+			logger.error(msg);
+			System.exit(0);
 		}
     
 	}

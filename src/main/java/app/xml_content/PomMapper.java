@@ -28,7 +28,7 @@ public abstract class PomMapper {
 		this.packageSetter = new ProdPackageSetter();
 	}
 		
-	public abstract void createPomsFromSource(final String XML_SOURCE);
+	public abstract void createPomsFromSource(final String ROOT_DIR, final String XML_SOURCE);
 		
 	protected void setPackageHierarchy() {
 		packageHierarchy = new PackageHierarchy(info);

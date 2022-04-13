@@ -24,9 +24,7 @@ public class SiteMapInfo {
 	@XmlElement(name="Author", namespace="SiteMapInfo")
 	private String author;
 	@XmlElement(name="Version", namespace="SiteMapInfo")
-	private String version;
-	@XmlElement(name="RootDir", namespace="SiteMapInfo")	
-	private String rootDir;
+	private String version;	
 	@XmlElement(name="ElementLibrary", namespace="SiteMapInfo")	
 	private String elementLibrary;
 	@XmlElement(name="ParentPackage", namespace="SiteMapInfo")
@@ -34,6 +32,7 @@ public class SiteMapInfo {
 	@XmlElement(name="CreationMethod", namespace="SiteMapInfo")
 	private String creationMethod;
 	
+	private String rootDir;
 	private String xmlSource;
 	private String date;
 	private String time;

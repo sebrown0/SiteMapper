@@ -20,9 +20,10 @@ public class PomMapperTest extends PomMapper {
 	}
 	
 	@Override
-	public void createPomsFromSource(final String XML_SOURCE) {
+	public void createPomsFromSource(final String ROOT_DIR, final String XML_SOURCE) {
 		if(info != null) {
 			info.setXmlSource(XML_SOURCE);
+			info.setRootDir(ROOT_DIR);
 			visitor.setSiteMapInfo(info);
 			setPackageHierarchy();
 			makePackage();

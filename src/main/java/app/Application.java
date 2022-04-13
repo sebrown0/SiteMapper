@@ -14,13 +14,18 @@ import site_mapper.jaxb.pom.PomMapperApp;
  * @since 1.0
  */
 public final class Application {
+//	private static final String ROOT = 			
+//			"C:/Users/SteveBrown/eclipse-workspace/2021/DTest";
+//	
+//	private static final String XML_SOURCE = 
+//			ROOT + "/src/main/resources/site_map/site_map.xml";
+		
 	private static final String ROOT = 			
-			"C:/Users/SteveBrown/eclipse-workspace/2021/DTest";
+			"C:/Users/SteveBrown/eclipse-workspace/2021/AUT_DECOUPLE/src/main/java";
 	
 	private static final String XML_SOURCE = 
-			ROOT + "/src/main/resources/site_map/site_map.xml";
+			"C:/Users/SteveBrown/eclipse-workspace/2021/AUT_DECOUPLE/src/main/resources/xml/site_map.xml";
 	
-		
 	/**
 	 * @param args
 	 * 	None
@@ -30,8 +35,10 @@ public final class Application {
 		SiteMapContentGetter<PomMapperApp> contentGetter = 
 				new SiteMapContentGetter<>(XML_SOURCE, PomMapperApp.class);
 		XmlContent content = contentGetter.getContent().get();
+				
 		PomMapperProd mapper = new PomMapperProd(content);
-		mapper.createPomsFromSource(XML_SOURCE);		
+		mapper.createPomsFromSource(ROOT, XML_SOURCE);		
+
 	}
 
 }

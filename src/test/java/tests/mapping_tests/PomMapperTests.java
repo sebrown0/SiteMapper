@@ -80,7 +80,7 @@ class PomMapperTests {
 				new SiteMapContentGetter<>(XML_SOURCE, PomMapperApp.class);
 		XmlContent content = contentGetter.getContent().get();
 		PomMapperTest mapper = new PomMapperTest((new PomMapperTests()).new PomTestData(), content);
-		mapper.createPomsFromSource(XML_SOURCE);
+		mapper.createPomsFromSource(ROOT, XML_SOURCE); //IF THERE ARE PROBLEMS IT COULD BE THE ROOT.
 		
 		//Check the result.
 		ExistingFileScanner scanner = new ExistingFileScanner();

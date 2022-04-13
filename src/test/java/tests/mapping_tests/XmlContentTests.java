@@ -134,7 +134,9 @@ class XmlContentTests {
 		 * for the created classes.
 		 */		
 		PomMapperTest mapper = new PomMapperTest((new PomMapperTests()).new PomTestData(), content);
-		mapper.createPomsFromSource(XML_SOURCE);
+		
+		String ROOT = null; //IF THERE ARE PROBLEMS IT COULD BE THE ROOT.
+		mapper.createPomsFromSource(ROOT, XML_SOURCE);
 	}
 
 //	@Test 

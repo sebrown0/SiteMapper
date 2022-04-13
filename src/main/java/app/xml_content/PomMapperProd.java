@@ -14,9 +14,10 @@ public class PomMapperProd extends PomMapper {
 		super(content);
 	}
 		
-	public void createPomsFromSource(final String XML_SOURCE) {
+	public void createPomsFromSource(final String ROOT_DIR, final String XML_SOURCE) {
 		if(info != null) {
 			info.setXmlSource(XML_SOURCE);
+			info.setRootDir(ROOT_DIR);
 			setPackageHierarchy();
 			makePackage();
 			createPoms(XML_SOURCE);	
