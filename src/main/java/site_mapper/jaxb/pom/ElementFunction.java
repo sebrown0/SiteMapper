@@ -3,11 +3,16 @@
  */
 package site_mapper.jaxb.pom;
 
+import java.util.List;
+
 import file.helpers.Formatter;
 import jakarta.xml.bind.annotation.XmlAccessType;
 import jakarta.xml.bind.annotation.XmlAccessorType;
 import jakarta.xml.bind.annotation.XmlAttribute;
+import jakarta.xml.bind.annotation.XmlElement;
+import jakarta.xml.bind.annotation.XmlElementWrapper;
 import jakarta.xml.bind.annotation.XmlRootElement;
+import site_mapper.jaxb.pom.content.EmployeeContent;
 
 /**
  * @author SteveBrown
@@ -27,6 +32,13 @@ public class ElementFunction {
 	private String type;		
 	@XmlAttribute(name="subtype")
 	private String subtype;		
+	@XmlAttribute(name="functionName")
+	private String functionName;		
+	@XmlAttribute(name="functionMessage")
+	private String functionMessage;		
+	@XmlElementWrapper(name = "data", namespace = "Function")
+	@XmlElement(name = "Employee", namespace = "Function")
+	private List<EmployeeContent> employees;
 	
 	private String prntName;
 	private String name;
@@ -61,6 +73,10 @@ public class ElementFunction {
 	
 	@Override
 	public String toString() {
+		/*
+		 * TODO
+		 * HAVE TO ADD ELEMENT FUNCTION CLASSES AS IMPORTS...
+		 */
 		String funcName = getFunctionName();
 		String res = 
 			getTestAnnotation() +
@@ -96,7 +112,17 @@ public class ElementFunction {
 	}
 	private String getDynamicTest(String funcName) {
 		String start = String.format("\t\treturn DynamicTest.dynamicTest(\"[%s]", funcName);
-		if(isDefaultPass()) {
+		if(functionMessage != null) {			
+			start += " " + functionMessage + "\", ";
+			if(functionName != null) {
+				start += 
+						String.format("() -> {\n"
+						+ "					TestFunction test = new %s();\n"
+						+ "					test.run(coreData);\n"
+						+ "				});", functionName);
+			}
+			return start;
+		}else	if(isDefaultPass()) {
 			return start + " *NOT IMPLEMENTED*\", () -> assertTrue(true));\n";
 		}else {
 			return start + "\", () -> fail(\"*NOT IMPLEMENTED*\"));\n";
@@ -113,6 +139,10 @@ public class ElementFunction {
 
 	public String getType() {
 		return type;
+	}
+
+	public EmployeeContent getEmployee() {
+		return employees.get(0);
 	}
 	
 }
