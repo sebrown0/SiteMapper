@@ -1,6 +1,6 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
-  <groupId>org.dakar.site_mapper</groupId>
+  <groupId>com.dakar.automated_testing</groupId>
   <artifactId>SiteMapper</artifactId>
   <version>1.0.0</version>
   
@@ -8,24 +8,7 @@
      <maven.compiler.source>15</maven.compiler.source>
      <maven.compiler.target>15</maven.compiler.target>
   </properties>
-  
-  <build>
-    <plugins>      
-        <plugin>
-           <groupId>org.apache.maven.plugins</groupId>
-           <artifactId>maven-install-plugin</artifactId>
-           <version>2.5.1</version>
-           <configuration>
-              <groupId>com.dakar.automated_testing</groupId>
-              <artifactId>${project}</artifactId>
-              <version>${project.version}</version>
-              <packaging>jar</packaging>
-              <file>${basedir}/dependencies/${project}-${project.version}.jar</file>
-              <generatePom>true</generatePom>
-           </configuration>           
-        </plugin>      
-    </plugins>
-  </build>
+   
   
    <dependencies>   
 
