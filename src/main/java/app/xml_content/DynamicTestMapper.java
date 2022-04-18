@@ -18,8 +18,11 @@ public class DynamicTestMapper {
 	public static Optional<DynamicTestApp> getDynamicTestContent(String XML_SOURCE){
 		SiteMapContentGetter<DynamicTestApp> contentGetter = 
 				new SiteMapContentGetter<>(XML_SOURCE, DynamicTestApp.class);		
-		Optional<DynamicTestApp> content = contentGetter.getContent();
-		return content;
+//		Optional<DynamicTestApp> content = contentGetter.getContent();
+		
+		XmlContent content = (XmlContent) contentGetter.getContent().get();
+		DynamicTestApp app = (DynamicTestApp) content;
+		return Optional.ofNullable(app);
 	}
 	/*
 	 * *************************

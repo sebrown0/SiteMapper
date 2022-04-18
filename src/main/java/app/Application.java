@@ -29,7 +29,7 @@ public final class Application {
 	public static void main(String[] args) {
 		SiteMapContentGetter<PomMapperApp> contentGetter = 
 				new SiteMapContentGetter<>(XML_SOURCE, PomMapperApp.class);
-		XmlContent content = contentGetter.getContent().get();
+		XmlContent content = (XmlContent) contentGetter.getContent().get();
 				
 		PomMapperProd mapper = new PomMapperProd(content);
 		mapper.createPomsFromSource(ROOT, XML_SOURCE);		

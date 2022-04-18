@@ -26,7 +26,8 @@ public class PomCreator {
 	private static XmlContent getXmlContent(String xmlSource) {
 		SiteMapContentGetter<PomMapperApp> contentGetter = 
 				new SiteMapContentGetter<>(xmlSource, PomMapperApp.class);
-		return contentGetter.getContent().get();
+		
+		return (XmlContent) contentGetter.getContent().get();
 	}
 	
 	private static void createPomsFromSource(AutDataGetter withAutData, XmlContent content) {
