@@ -3,6 +3,8 @@
  */
 package site_mapper.creators.imports;
 
+import java.util.Map;
+
 import org.apache.logging.log4j.LogManager;
 
 import file.helpers.FileFinder;
@@ -18,7 +20,7 @@ import site_mapper.jaxb.pom.SiteMapInfo;
  *  which could be in a different project, workspace etc.
  * @since 1.0
  */
-public class FindImport implements ImportType{
+public class FindImport implements ImportType {
 	private String importStr;
 	private SiteMapInfo siteMapInfo;
 	
@@ -27,6 +29,18 @@ public class FindImport implements ImportType{
 		this.siteMapInfo = siteMapInfo;
 	}
 
+	@Override
+	public String getPath(FoundImports foundImports) {
+		if(foundImports != null) {
+			Map<String, String> resolved = foundImports.getFoundImports();
+			if(resolved != null && resolved.containsKey(importStr)) {			
+				return "import " + foundImports.getFoundImports().get(importStr) + ";";
+			}
+		}		
+		//Not in resolved imports so try to find it.
+		return getPath();
+	}
+		
 	@Override
 	public String getPath() {
 		String importPath = "";

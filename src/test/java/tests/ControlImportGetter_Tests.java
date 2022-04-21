@@ -17,23 +17,23 @@ class ControlImportGetter_Tests {
 		new SiteMapInfo()			
 			.setElementLibrary("");
 	
-	@Test
-	void validGroup() {		
-		Import res = ControlImportGetter.getImportForContolGetter("Group", GOOD_INFO);
-		assertEquals("import control_builder.control_getters.group.ControlGetterGroup;\n", res.toString());
-	}
-
-	@Test
-	void validTab() {		
-		Import res = ControlImportGetter.getImportForContolGetter("Tab", GOOD_INFO);
-		assertEquals("import control_builder.control_getters.group.ControlGetterTab;\n", res.toString());
-	}
-	
-	@Test
-	void invalidTab() {		
-		Import res = ControlImportGetter.getImportForContolGetter("Tab", BAD_INFO);
-		assertEquals("/* Placeholder for missing import [ControlGetterTab] */\n", res.toString());
-	}
+//	@Test
+//	void validGroup() {		
+//		Import res = ControlImportGetter.getImportForContolGetter("Group", GOOD_INFO);
+//		assertEquals("import control_builder.control_getters.group.ControlGetterGroup;\n", res.toString());
+//	}
+//
+//	@Test
+//	void validTab() {		
+//		Import res = ControlImportGetter.getImportForContolGetter("Tab", GOOD_INFO);
+//		assertEquals("import control_builder.control_getters.group.ControlGetterTab;\n", res.toString());
+//	}
+//	
+//	@Test
+//	void invalidTab() {		
+//		Import res = ControlImportGetter.getImportForContolGetter("Tab", BAD_INFO);
+//		assertEquals("/* Placeholder for missing import [ControlGetterTab] */\n", res.toString());
+//	}
 
 
 }

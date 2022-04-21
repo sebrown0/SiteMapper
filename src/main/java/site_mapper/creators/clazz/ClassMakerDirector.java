@@ -5,6 +5,7 @@ import org.apache.logging.log4j.Logger;
 
 import file.class_file.ClassFile;
 import file.class_package.PackageSetter;
+import site_mapper.creators.imports.FoundImports;
 import site_mapper.elements.ElementClass;
 import site_mapper.jaxb.pom.PackageHierarchy;
 
@@ -24,22 +25,24 @@ public class ClassMakerDirector {
 	private ClassFile classFile;
 	private Logger logger = LogManager.getLogger(ClassMakerDirector.class);
 	private PackageSetter packageSetter;
+	private FoundImports imps;
 	
-	public ClassMakerDirector(ElementClass elementClass, PackageHierarchy ph, PackageSetter packageSetter) {
+	public ClassMakerDirector(ElementClass elementClass, PackageHierarchy ph, PackageSetter packageSetter, FoundImports imps) {
 		this.elementClass = elementClass;
 		this.packageHierarchy = ph;
 		this.packageSetter = packageSetter;
+		this.imps = imps;
 	}
 
 	public void makeClass() {
 		ClassMaker classMaker = null;
 		
 		if(overWritingExisting()) {
-			classMaker = new OverwriteClass(elementClass, packageHierarchy, packageSetter);			
+			classMaker = new OverwriteClass(elementClass, packageHierarchy, packageSetter, imps);			
 		}else if (ignoringExisting()) {
-			classMaker = new IgnoreClass(elementClass, packageHierarchy, packageSetter);			
+			classMaker = new IgnoreClass(elementClass, packageHierarchy, packageSetter, imps);			
 		}else if (diffExisting()) {
-			classMaker = new DiffClass(elementClass, packageHierarchy, packageSetter);
+			classMaker = new DiffClass(elementClass, packageHierarchy, packageSetter, imps);
 		}else {
 			logger.error(
 					String.format("Incorrect mode specified for class [%s] in module [%s]", 

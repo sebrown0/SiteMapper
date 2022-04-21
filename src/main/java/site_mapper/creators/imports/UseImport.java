@@ -24,5 +24,9 @@ public class UseImport implements ImportType{
 	public String getImportString() {
 		return importStr;
 	}
+	@Override
+	public String getPath(FoundImports foundImports) {		
+		return getPath();		
+	}
 
 }

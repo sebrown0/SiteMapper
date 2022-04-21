@@ -3,6 +3,7 @@
  */
 package file.imports;
 
+import site_mapper.creators.imports.FoundImports;
 import site_mapper.creators.imports.ImportType;
 
 /**
@@ -16,9 +17,11 @@ import site_mapper.creators.imports.ImportType;
  */
 public class NewImport extends Import {
 	private ImportType line;
+	private FoundImports foundImports;
 	
-	public NewImport(ImportType line) {
+	public NewImport(ImportType line, FoundImports foundImports) {
 		this.line = line;
+		this.foundImports = foundImports;
 	}
 
 	public Import addLine(ImportType line) {
@@ -28,7 +31,7 @@ public class NewImport extends Import {
 	
 	@Override
 	public String toString() {		
-		return line.getPath() + "\n";
+		return line.getPath(foundImports) + "\n";
 	}
 	@Override
 	public String getImportString() {

@@ -9,6 +9,7 @@ import file.class_file.ClassFile;
 import file.class_package.PackageSetter;
 import file.helpers.ExistingFileDetails;
 import file.helpers.FileFinder;
+import site_mapper.creators.imports.FoundImports;
 import site_mapper.elements.ElementClass;
 import site_mapper.jaxb.pom.PackageHierarchy;
 
@@ -19,8 +20,9 @@ import site_mapper.jaxb.pom.PackageHierarchy;
  * @since 1.0
  */
 public class IgnoreClass extends OverwriteClass implements ClassMaker {
-	public IgnoreClass(ElementClass elementClass, PackageHierarchy packageHierarchy, PackageSetter packageSetter) {
-		super(elementClass, packageHierarchy, packageSetter);
+	
+	public IgnoreClass(ElementClass elementClass, PackageHierarchy packageHierarchy, PackageSetter packageSetter, FoundImports imps) {
+		super(elementClass, packageHierarchy, packageSetter, imps);
 	}
 
 	@Override //ClassMaker

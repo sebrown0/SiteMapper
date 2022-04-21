@@ -5,6 +5,7 @@ package app.xml_content;
 
 import file.class_package.PackageSetter;
 import file.class_package.ProdPackageSetter;
+import site_mapper.creators.imports.FoundImports;
 import site_mapper.creators.package_maker.PackageMaker;
 import site_mapper.jaxb.pom.Module;
 import site_mapper.jaxb.pom.PackageHierarchy;
@@ -22,10 +23,13 @@ public abstract class PomMapper {
 	protected PackageHierarchy packageHierarchy;
 	protected SiteMapInfo info;
 	
-	public PomMapper(XmlContent content) {
+	private FoundImports imps;
+	
+	public PomMapper(XmlContent content, FoundImports imps) {
 		this.content = content;
 		this.info = content.getSiteMapInfo();
 		this.packageSetter = new ProdPackageSetter();
+		this.imps = imps;
 	}
 		
 	public abstract void createPomsFromSource(final String ROOT_DIR, final String XML_SOURCE);
@@ -38,7 +42,7 @@ public abstract class PomMapper {
 	}
 	protected void createPoms(final String XML_SOURCE) {		
 		for (Module m : content.getModules()) {
-			ModuleMapper.mapModules(m, packageSetter, packageHierarchy, info);
+			ModuleMapper.mapModules(m, packageSetter, packageHierarchy, info, imps);
 		}					
 	}
 }

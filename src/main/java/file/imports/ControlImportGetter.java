@@ -4,6 +4,7 @@
 package file.imports;
 
 import site_mapper.creators.imports.FindImport;
+import site_mapper.creators.imports.FoundImports;
 import site_mapper.jaxb.pom.SiteMapInfo;
 import utils.StringUtils;
 
@@ -17,8 +18,8 @@ import utils.StringUtils;
  */
 public class ControlImportGetter {
 
-	public static Import getImportForContolGetter(String type, SiteMapInfo info) {
+	public static Import getImportForContolGetter(String type, SiteMapInfo info, FoundImports foundImports) {
 		final String impStr = "ControlGetter" + StringUtils.asPascalCase(type);
-		return new NewImport(new FindImport(impStr, info));
+		return new NewImport(new FindImport(impStr, info), foundImports);
 	}
 }

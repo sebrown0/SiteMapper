@@ -12,6 +12,7 @@ import file.helpers.FileFinder;
 import file.imports.Import;
 import file.imports.NewImport;
 import site_mapper.creators.imports.FindImport;
+import site_mapper.creators.imports.FoundImports;
 import site_mapper.elements.ElementClass;
 import site_mapper.jaxb.pom.SiteMapInfo;
 
@@ -37,12 +38,12 @@ public class LibraryFunction {
 		this.clazz = clazz;
 	}
 
-	public String getLibraryFunction(ImportAppender importAppender) {		
+	public String getLibraryFunction(ImportAppender importAppender, FoundImports foundImports) {		
 		String libName = clazz.getLibrary();
 		
 		if(libName != null) {
 			if(FileFinder.fileExists(info.getRootDir(), libName + ".java")) {
-				appendImport(importAppender, libName);
+				appendImport(importAppender, foundImports, libName);
 				return goodLibrary(libName); 	
 			}else {
 				logError(libName);			
@@ -66,8 +67,8 @@ public class LibraryFunction {
 					"[%s] has no library", clazz.getClassName()));
 	}
 	
-	private void appendImport(ImportAppender importAppender, String libName) {
-		Import imp = new NewImport(new FindImport(libName, info));
+	private void appendImport(ImportAppender importAppender, FoundImports foundImports, String libName) {
+		Import imp = new NewImport(new FindImport(libName, info), foundImports);
 		importAppender.appendImport(imp);
 	}
 	

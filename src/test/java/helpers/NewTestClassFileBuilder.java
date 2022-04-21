@@ -3,9 +3,6 @@
  */
 package helpers;
 import file.class_file.ClassFile;
-import file.class_file.ClassFile.NewClassFileBuilder;
-import file.class_package.TestPackageSetter;
-import site_mapper.elements.ElementClass;
 import site_mapper.elements.ElementCreation;
 import site_mapper.jaxb.menu_items.JsPanelWithIFrame;
 import site_mapper.jaxb.menu_items.MenuItemType;
@@ -111,7 +108,8 @@ public class NewTestClassFileBuilder {
 //					(Element)EMP_CODE_TEXT_OUT));
 	}
 	private void setClassFile() {
-		classFile = new NewClassFileBuilder((ElementClass) MENU_ITEM, new TestPackageSetter()).build();
+		classFile=null; //TODO
+//		classFile = new NewClassFileBuilder((ElementClass) MENU_ITEM, new TestPackageSetter()).build();
 	}
 
 	public ClassFile getClassFile() {

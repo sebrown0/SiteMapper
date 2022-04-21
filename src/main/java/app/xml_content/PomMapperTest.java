@@ -4,6 +4,7 @@
 package app.xml_content;
 
 import app.PomMapperVisitor;
+import site_mapper.creators.imports.FoundImports;
 
 /**
  * @author SteveBrown
@@ -14,8 +15,8 @@ import app.PomMapperVisitor;
 public class PomMapperTest extends PomMapper {
 	private PomMapperVisitor visitor;
 		
-	public PomMapperTest(PomMapperVisitor visitor, XmlContent content) {	
-		super(content);
+	public PomMapperTest(PomMapperVisitor visitor, XmlContent content, FoundImports imps) {	
+		super(content, imps);
 		this.visitor = visitor;
 	}
 	

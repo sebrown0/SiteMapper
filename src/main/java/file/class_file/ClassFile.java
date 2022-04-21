@@ -25,6 +25,7 @@ import file.imports.Import;
 import file.imports.ImportList;
 import site_mapper.creators.component_writer.ComponentWriter;
 import site_mapper.creators.component_writer.ComponentWriterSetter;
+import site_mapper.creators.imports.FoundImports;
 import site_mapper.elements.ElementClass;
 import site_mapper.jaxb.pom.SiteMapInfo;
 
@@ -165,11 +166,13 @@ public class ClassFile {
 		private ElementClass clazz;
 		private SiteMapInfo info;
 		private PackageSetter packageSetter;
+		private FoundImports imps;
 		
-		public NewClassFileBuilder(ElementClass clazz, PackageSetter packageSetter) {
+		public NewClassFileBuilder(ElementClass clazz, PackageSetter packageSetter, FoundImports imps) {
 			this.clazz = clazz;
 			this.info = clazz.getSiteMapInfo();
 			this.packageSetter = packageSetter;
+			this.imps = imps;
 			
 			setComponentWriter();			
 			setInPackage();
@@ -184,6 +187,7 @@ public class ClassFile {
 			componentWriter = clazz.getComponentWriter();
 			((ComponentWriterSetter) componentWriter).setSiteMapInfo(info);
 			((ComponentWriterSetter) componentWriter).setElementClass(clazz);
+			((ComponentWriterSetter) componentWriter).setFoundImports(imps);
 		}
 		
 		@Override
@@ -210,7 +214,7 @@ public class ClassFile {
 		private void setClassBody() {			
 			ClassBody classBody = 
 					new ClassBody
-						.NewClassBody(componentWriter, clazz, info, this)
+						.NewClassBody(componentWriter, clazz, info, this, imps)
 						.build();
 			super.classBody = classBody;
 		}

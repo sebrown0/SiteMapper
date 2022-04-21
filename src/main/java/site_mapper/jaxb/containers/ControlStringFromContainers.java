@@ -10,6 +10,7 @@ import file.annotation.NewAnnotation;
 import site_mapper.creators.component_writer.ComponentWriter;
 import site_mapper.creators.control_data.ControlDataFunction;
 import site_mapper.creators.control_data.ControlDataFunctionBuilder;
+import site_mapper.creators.imports.FoundImports;
 import site_mapper.jaxb.node.Node;
 import site_mapper.jaxb.pom.SiteMapInfo;
 import site_mapper.jaxb.tree.TreeWalker;
@@ -30,15 +31,16 @@ public class ControlStringFromContainers {
 	private Node[] roots;
 	private Logger logger;
 	private ControlDataFunctionBuilder treeVisitor;
-
+	
 	public ControlStringFromContainers(
-		SiteMapInfo info,	ComponentWriter componentWriter, Node... roots) {
+		SiteMapInfo info, FoundImports foundImports,	ComponentWriter componentWriter, Node... roots) {
 		
-		this.roots = roots;		
+		this.roots = roots;
+			
 		logger = LogManager.getLogger(ControlStringFromContainers.class);		
 		treeVisitor = 
 			new ControlDataFunctionBuilder(
-				new NewAnnotation(info), componentWriter, info);	
+				new NewAnnotation(info), componentWriter, info, foundImports);	
 	}	
 		
 	public String getBuildMyControlsString() {

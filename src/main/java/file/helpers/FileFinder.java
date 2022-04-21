@@ -61,7 +61,23 @@ public class FileFinder {
 		return result;
 	}
 	
-	private static Optional<String> findFilePath(final String ROOT, final String fileName){
+	public static Optional<String> findFilePath(final String ROOT, final String fileName, final String ignoreFolder){
+		filePath = Optional.ofNullable(null);
+		try (Stream<Path> walkStream = Files.walk(Paths.get(ROOT))) {
+	    walkStream.filter(
+	    	p -> p.toFile().isFile()).forEach(f -> {
+	    		var fp = f.toString();
+		      if (!fp.contains(ignoreFolder) && fp.endsWith("\\" + fileName)) {
+		      	filePath = Optional.ofNullable(f.toString());
+		      }
+	    });
+		} catch (IOException e) {
+			logger.error("Could not get file path for [ROOT=" + ROOT + "], [FILE=" + fileName + "]");
+		}
+		return filePath;
+	}
+	
+	public static Optional<String> findFilePath(final String ROOT, final String fileName){
 		filePath = Optional.ofNullable(null);
 		try (Stream<Path> walkStream = Files.walk(Paths.get(ROOT))) {
 	    walkStream.filter(p -> p.toFile().isFile()).forEach(f -> {

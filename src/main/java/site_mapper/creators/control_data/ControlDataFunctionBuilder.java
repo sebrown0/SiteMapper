@@ -13,6 +13,7 @@ import java.util.List;
 import file.annotation.SiteMapAnnotation;
 import file.imports.ControlImportGetter;
 import site_mapper.creators.component_writer.ComponentWriter;
+import site_mapper.creators.imports.FoundImports;
 import site_mapper.jaxb.containers.Container;
 import site_mapper.jaxb.node.Node;
 import site_mapper.jaxb.pom.Element;
@@ -43,11 +44,13 @@ public class ControlDataFunctionBuilder implements TreeVisitor {
 	private String inMyControls = "";
 	private ComponentWriter compWriter;
 	private SiteMapInfo info;
+	private FoundImports foundImports;
 	
-	public ControlDataFunctionBuilder(SiteMapAnnotation anno, ComponentWriter cw, SiteMapInfo info) {		
+	public ControlDataFunctionBuilder(SiteMapAnnotation anno, ComponentWriter cw, SiteMapInfo info, FoundImports foundImports) {		
 		this.anno = anno;		
 		this.compWriter = cw;
 		this.info = info;
+		this.foundImports = foundImports;
 	}	
 
 	@Override //TreeVisitor
@@ -139,7 +142,7 @@ public class ControlDataFunctionBuilder implements TreeVisitor {
 		compWriter
 			.addImport(
 				ControlImportGetter
-				.getImportForContolGetter(type, info));
+				.getImportForContolGetter(type, info, foundImports));
 	}
 		
 	private String getIncContainers(String incContainers, String incElements) {

@@ -12,4 +12,5 @@ package site_mapper.creators.imports;
 public interface ImportType {
 	String getImportString();
 	String getPath();
+	String getPath(FoundImports foundImports);	
 }

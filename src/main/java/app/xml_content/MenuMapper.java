@@ -9,6 +9,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import file.class_package.PackageSetter;
+import site_mapper.creators.imports.FoundImports;
 import site_mapper.creators.navigation.NavElementAdder;
 import site_mapper.creators.package_maker.PackageMaker;
 import site_mapper.jaxb.menu_items.MenuItem;
@@ -28,14 +29,15 @@ public class MenuMapper {
 	private PackageHierarchy ph;
 	private String moduleName;
 	private NavElementAdder elementAdder;
-		
+	private FoundImports imps;	
 	private static final Logger LOGGER = LogManager.getLogger(MenuMapper.class);
 
-	public MenuMapper(PackageSetter packageSetter, SiteMapInfo siteMapInfo, PackageHierarchy ph, String moduleName) {
+	public MenuMapper(PackageSetter packageSetter, SiteMapInfo siteMapInfo, PackageHierarchy ph, String moduleName, FoundImports imps) {
 		this.packageSetter = packageSetter;
 		this.siteMapInfo = siteMapInfo;
 		this.ph = ph;
 		this.moduleName = moduleName;
+		this.imps = imps;
 	}
 
 	public void mapMenu(MenuType menu) {  	
@@ -86,7 +88,7 @@ public class MenuMapper {
   	item.setSiteMapInfo(siteMapInfo);				
 		item.setTestModuleName(moduleName);
 		item.setTestMenuName(menu.getPackageName());
-		new MenuItemMapper(packageSetter, item, ph).createPoms();
+		new MenuItemMapper(packageSetter, item, ph, imps).createPoms();
   }
   
   private void writeNavigation() {

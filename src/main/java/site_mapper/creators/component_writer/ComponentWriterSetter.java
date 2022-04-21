@@ -3,6 +3,7 @@
  */
 package site_mapper.creators.component_writer;
 
+import site_mapper.creators.imports.FoundImports;
 import site_mapper.elements.ElementClass;
 import site_mapper.jaxb.pom.SiteMapInfo;
 
@@ -15,4 +16,5 @@ import site_mapper.jaxb.pom.SiteMapInfo;
 public interface ComponentWriterSetter extends ComponentWriter {	
 	ComponentWriterSetter setElementClass(ElementClass elementClass);
 	ComponentWriterSetter setSiteMapInfo(SiteMapInfo siteMapInfo);
+	ComponentWriterSetter setFoundImports(FoundImports imps);	
 }
