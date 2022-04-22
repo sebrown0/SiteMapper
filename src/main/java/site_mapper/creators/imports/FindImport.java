@@ -32,9 +32,9 @@ public class FindImport implements ImportType {
 	@Override
 	public String getPath(FoundImports foundImports) {
 		if(foundImports != null) {
-			Map<String, String> resolved = foundImports.getFoundImports();
+			Map<String, String> resolved = foundImports.getResolvedImports();
 			if(resolved != null && resolved.containsKey(importStr)) {			
-				return "import " + foundImports.getFoundImports().get(importStr) + ";";
+				return "import " + foundImports.getResolvedImports().get(importStr) + ";";
 			}
 		}		
 		//Not in resolved imports so try to find it.

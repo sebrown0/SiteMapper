@@ -140,10 +140,6 @@ public class ControlDataFunctionBuilder implements TreeVisitor {
 	}
 	
 	private void addToImports(String type) {
-		if(type.contains("LeftMenuElements")) {
-			System.out.println("->" ); // TODO - remove or log 	
-		}
-		System.out.println("->" + type); // TODO - remove or log
 		compWriter
 			.addImport(
 				ControlImportGetter

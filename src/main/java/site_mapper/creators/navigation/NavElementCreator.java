@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import file.comment.NewComment;
+import site_mapper.creators.imports.RequiredImports;
 import site_mapper.jaxb.pom.PackageHierarchy;
 import site_mapper.jaxb.pom.SiteMapInfo;
 import utils.FileWriter;
@@ -21,7 +22,7 @@ import utils.StringUtils;
  * @since 1.0
  * 
  */
-public abstract class NavElementCreator implements NavElementAdder {	
+public abstract class NavElementCreator implements NavElementAdder, RequiredImports {	
 	private String root;	
 	
 	protected SiteMapInfo info;	

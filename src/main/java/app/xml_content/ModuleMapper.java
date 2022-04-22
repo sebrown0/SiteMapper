@@ -8,7 +8,7 @@ import java.util.List;
 import org.apache.logging.log4j.LogManager;
 
 import file.class_package.PackageSetter;
-import site_mapper.creators.imports.FoundImports;
+import site_mapper.creators.imports.ImportMatcher;
 import site_mapper.creators.package_maker.PackageMaker;
 import site_mapper.jaxb.pom.Module;
 import site_mapper.jaxb.pom.PackageHierarchy;
@@ -24,7 +24,7 @@ import site_mapper.jaxb.pom.menu.MenuType;
 public class ModuleMapper {
 	public static void mapModules(
 		Module module, PackageSetter packageSetter, 
-		PackageHierarchy ph, final SiteMapInfo siteMap, FoundImports imps) {
+		PackageHierarchy ph, final SiteMapInfo siteMap, ImportMatcher impMatcher) {
 		
 		String modName = module.getName();
 		PackageMaker.makeWithPackageInfo(siteMap, ph.reset(modName));
@@ -35,7 +35,7 @@ public class ModuleMapper {
   	
   	List<MenuType> menus = module.getMenus(); 
 		if(menus != null) {
-			MenuMapper menuMapper = new MenuMapper(packageSetter, siteMap, ph, modName, imps);
+			MenuMapper menuMapper = new MenuMapper(packageSetter, siteMap, ph, modName, impMatcher);
 			menus.stream()
 				.filter(m -> m != null)
 				.forEach(m -> menuMapper.mapMenu(m) );	

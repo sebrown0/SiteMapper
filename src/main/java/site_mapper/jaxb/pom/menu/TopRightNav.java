@@ -6,6 +6,7 @@ import file.helpers.Formatter;
 import jakarta.xml.bind.annotation.XmlElement;
 import jakarta.xml.bind.annotation.XmlRootElement;
 import site_mapper.creators.imports.FoundImports;
+import site_mapper.creators.imports.ImportMatcher;
 import site_mapper.creators.navigation.NavBarElementCreator;
 import site_mapper.creators.navigation.NavElementAdder;
 import site_mapper.jaxb.menu_items.MenuItem;
@@ -40,8 +41,8 @@ public class TopRightNav extends MenuType {
 	}
 	
 	@Override
-	public NavElementAdder getNavCreator(FoundImports foundImports) {
-		return new NavBarElementCreator(foundImports);
+	public NavElementAdder getNavCreator(ImportMatcher impMatcher) {
+		return new NavBarElementCreator(impMatcher);
 	}
 	
 	@Override

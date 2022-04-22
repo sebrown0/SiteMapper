@@ -20,22 +20,30 @@ import file.helpers.FileFinder;
  * 	Initial
  * @since 1.0
  */
-public class ImportFinder implements FoundImports {
+public class ImportFinder implements FoundImports {//, RequiredImports {
 	private Map<String, String> found = new HashMap<>();
 	private List<String> missing = new ArrayList<>();
 	private String root;
 	private String ignoreFolder;
-			
+	private List<String> required;
+	
 	private String currentImp;
 	
 	private final Logger LOGGER = LogManager.getLogger(ImportFinder.class);	
 	
-	public ImportFinder(String root, String ignoreFolder) {
+	public ImportFinder(String root, String ignoreFolder, RequiredImports required) {
 		this.root = root;
 		this.ignoreFolder = ignoreFolder;
+		this.required = required.getRequiredImports();
 	}
 	
-	public void resolveRequired(List<String> required) {
+	public ImportFinder(String root, String ignoreFolder, List<String> required) {
+		this.root = root;
+		this.ignoreFolder = ignoreFolder;
+		this.required = required;
+	}
+	
+	public void findRequired() {
 		LOGGER.info("Attempting to find required imports");
 		required.forEach(imp -> {			
 			currentImp = imp;			
@@ -83,13 +91,18 @@ public class ImportFinder implements FoundImports {
 		return Optional.ofNullable(res);
 	}
 
-	@Override
-	public Map<String, String> getFoundImports() {
+	@Override //FoundImports
+	public Map<String, String> getResolvedImports() {
 		return found;
 	}
 
 	public List<String> getMissing() {
 		return missing;
 	}
+
+//	@Override //RequriedImports
+//	public List<String> getRequiredImports() {
+//		return required;
+//	}
 	
 }

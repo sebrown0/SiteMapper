@@ -8,6 +8,8 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import site_mapper.creators.imports.RequiredImports;
+
 /**
  * @author SteveBrown
  * @version 1.0
@@ -18,7 +20,7 @@ import java.util.stream.Collectors;
  * class should be listed in here.
  * 
  */
-public class ComponentImports {
+public class ComponentImports implements RequiredImports {
 	private List<String> all = new ArrayList<>();
 	
 	public List<String> getControls(){
@@ -50,6 +52,16 @@ public class ComponentImports {
 		return lst.stream()
 			.filter(f ->  { return (all.contains(f)) ? false : true; } )
 			.collect(Collectors.toList());
+	}
+
+	@Override
+	public List<String> getRequiredImports() {
+		return getAll();
+	}
+
+	@Override
+	public void updateWithMatched(String imp) {
+		//N/A
 	}
 	
 }

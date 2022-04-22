@@ -17,7 +17,7 @@ import file.method.MethodList;
 import file.variable.ExistingClassVariableMapper;
 import file.variable.Variables;
 import site_mapper.creators.component_writer.ComponentWriter;
-import site_mapper.creators.imports.FoundImports;
+import site_mapper.creators.imports.ImportMatcher;
 import site_mapper.elements.DefaultNoArgsConstructor;
 import site_mapper.elements.ElementClass;
 import site_mapper.elements.ElementConstructor;
@@ -110,17 +110,17 @@ public class ClassBody {
 		private SiteMapInfo info;
 		private ElementClass clazz;
 		private ImportAppender importAppender;
-		private FoundImports foundImports;
+		private ImportMatcher impMatcher;
 		
 		public NewClassBody(
 			ComponentWriter componentWriter, ElementClass clazz, SiteMapInfo info, 
-			ImportAppender importAppender, FoundImports foundImports) {
+			ImportAppender importAppender, ImportMatcher impMatcher) {
 			
 			this.componentWriter = componentWriter;
 			this.info = info;
 			this.clazz = clazz;
 			this.importAppender = importAppender;
-			this.foundImports = foundImports;
+			this.impMatcher = impMatcher;
 		}
 
 		@Override
@@ -154,7 +154,7 @@ public class ClassBody {
 			ControlStringFromContainers tree = 
 				new ControlStringFromContainers(
 					info,
-					foundImports,
+					impMatcher.getFoundImports(),
 					componentWriter,
 					new ParentNode(clazz.getHeaderContainer()),
 					new ParentNode(clazz.getBodyContainer()),
@@ -196,7 +196,7 @@ public class ClassBody {
 		
 		private BodyBuilder setLibrary() {
 			LibraryFunction libFunc = new LibraryFunction(info, clazz);			
-			super.libraryFuncStr = libFunc.getLibraryFunction(importAppender, foundImports);
+			super.libraryFuncStr = libFunc.getLibraryFunction(importAppender, impMatcher);
 			
 			return this;
 		}

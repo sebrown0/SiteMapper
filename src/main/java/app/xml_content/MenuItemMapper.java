@@ -5,7 +5,7 @@ package app.xml_content;
 
 import file.class_package.PackageSetter;
 import site_mapper.creators.clazz.ClassMakerDirector;
-import site_mapper.creators.imports.FoundImports;
+import site_mapper.creators.imports.ImportMatcher;
 import site_mapper.creators.package_maker.PackageMaker;
 import site_mapper.jaxb.menu_items.MenuItem;
 import site_mapper.jaxb.pom.PackageHierarchy;
@@ -23,15 +23,15 @@ public class MenuItemMapper {
 	private PackageSetter packageSetter;
 	private MenuItem menuItem;
 	private PackageHierarchy ph;
-	private FoundImports imps;
+	private ImportMatcher impMatcher;
 	
-	public MenuItemMapper(PackageSetter packageSetter, MenuItem menuItem, PackageHierarchy ph, FoundImports imps) {		
+	public MenuItemMapper(PackageSetter packageSetter, MenuItem menuItem, PackageHierarchy ph, ImportMatcher impMatcher) {		
 		this.siteMapInfo = menuItem.getSiteMapInfo();
 		this.ph = ph;
 		this.packageSetter = packageSetter;
 		this.menuItem = menuItem;
 		this.packageName = menuItem.getPackage();
-		this.imps = imps;
+		this.impMatcher = impMatcher;
 	}
 
 	public void createPoms() {						
@@ -41,7 +41,7 @@ public class MenuItemMapper {
 	}
 	
 	private void createClass() {
-		ClassMakerDirector cm = new ClassMakerDirector(menuItem, ph, packageSetter, imps);
+		ClassMakerDirector cm = new ClassMakerDirector(menuItem, ph, packageSetter, impMatcher);
 		cm.makeClass();
 	}
 	

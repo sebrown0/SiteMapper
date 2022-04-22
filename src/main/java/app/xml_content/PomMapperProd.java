@@ -3,7 +3,7 @@
  */
 package app.xml_content;
 
-import site_mapper.creators.imports.FoundImports;
+import site_mapper.creators.imports.ImportMatcher;
 
 /**
  * @author SteveBrown
@@ -12,8 +12,8 @@ import site_mapper.creators.imports.FoundImports;
  * @since 1.0
  */
 public class PomMapperProd extends PomMapper {	
-	public PomMapperProd(XmlContent content, FoundImports imps) {
-		super(content, imps);
+	public PomMapperProd(XmlContent content, ImportMatcher impMatcher) {
+		super(content, impMatcher);
 	}
 		
 	public void createPomsFromSource(final String ROOT_DIR, final String XML_SOURCE) {

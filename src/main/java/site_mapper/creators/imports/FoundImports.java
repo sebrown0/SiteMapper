@@ -15,5 +15,5 @@ import java.util.Map;
  * resolved to a file (import).
  */
 public interface FoundImports {
-	Map<String, String> getFoundImports();		
+	Map<String, String> getResolvedImports();		
 }

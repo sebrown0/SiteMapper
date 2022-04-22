@@ -19,15 +19,9 @@ import site_mapper.creators.imports.ImportFinder;
  * 	Initial
  * @since 1.0
  */
-class FindImportTests {
-//	private static final String LIBRARY = 
-//			"C:/Users/SteveBrown/eclipse-workspace/2021/DakarHR-Library";
-	
-//	private static final String ROOT = 
-//			LIBRARY + "/src/main/java/library";
-	
+class FindImportTests {	
 	private static List<String> required;
-	private static ImportFinder impResolver;
+	private static ImportFinder impFinder;
 	
 	@BeforeAll
 	public static void setup() {
@@ -35,21 +29,23 @@ class FindImportTests {
 				"TestControl", "ControlGetter", "ControlGetterGroup", 
 				"JsPanelWithIFrame", "ControlData", "CoreData","CoreData", "XXXX", "bad");
 		
-		impResolver = 
+		impFinder = 
 				new ImportFinder(
-						"C:/Users/SteveBrown/eclipse-workspace/2021", "SiteMapper");
+						"C:/Users/SteveBrown/eclipse-workspace/2021", 
+						"SiteMapper",
+						required);
 
-		impResolver.resolveRequired(required);
+		impFinder.findRequired();
 	}
 	
 	@Test
 	void test_importResolver_getGoodImp() {		
-		assertEquals("core_data.CoreData", impResolver.getFoundImports().get("CoreData"));		
+		assertEquals("core_data.CoreData", impFinder.getResolvedImports().get("CoreData"));		
 	}
 	
 	@Test
 	void test_importResolver_getMissingImp() {		
-		assertEquals("XXXX", impResolver.getMissing().get(0));		
+		assertEquals("XXXX", impFinder.getMissing().get(0));		
 	}
 	
 }

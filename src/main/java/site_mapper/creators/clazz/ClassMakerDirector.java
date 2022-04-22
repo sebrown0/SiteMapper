@@ -5,7 +5,7 @@ import org.apache.logging.log4j.Logger;
 
 import file.class_file.ClassFile;
 import file.class_package.PackageSetter;
-import site_mapper.creators.imports.FoundImports;
+import site_mapper.creators.imports.ImportMatcher;
 import site_mapper.elements.ElementClass;
 import site_mapper.jaxb.pom.PackageHierarchy;
 
@@ -25,24 +25,24 @@ public class ClassMakerDirector {
 	private ClassFile classFile;
 	private Logger logger = LogManager.getLogger(ClassMakerDirector.class);
 	private PackageSetter packageSetter;
-	private FoundImports imps;
+	private ImportMatcher impMatcher;
 	
-	public ClassMakerDirector(ElementClass elementClass, PackageHierarchy ph, PackageSetter packageSetter, FoundImports imps) {
+	public ClassMakerDirector(ElementClass elementClass, PackageHierarchy ph, PackageSetter packageSetter, ImportMatcher impMatcher) {
 		this.elementClass = elementClass;
 		this.packageHierarchy = ph;
 		this.packageSetter = packageSetter;
-		this.imps = imps;
+		this.impMatcher = impMatcher;
 	}
 
 	public void makeClass() {
 		ClassMaker classMaker = null;
 		
 		if(overWritingExisting()) {
-			classMaker = new OverwriteClass(elementClass, packageHierarchy, packageSetter, imps);			
+			classMaker = new OverwriteClass(elementClass, packageHierarchy, packageSetter, impMatcher);			
 		}else if (ignoringExisting()) {
-			classMaker = new IgnoreClass(elementClass, packageHierarchy, packageSetter, imps);			
+			classMaker = new IgnoreClass(elementClass, packageHierarchy, packageSetter, impMatcher);			
 		}else if (diffExisting()) {
-			classMaker = new DiffClass(elementClass, packageHierarchy, packageSetter, imps);
+			classMaker = new DiffClass(elementClass, packageHierarchy, packageSetter, impMatcher);
 		}else {
 			logger.error(
 					String.format("Incorrect mode specified for class [%s] in module [%s]", 

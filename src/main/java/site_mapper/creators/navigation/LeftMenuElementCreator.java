@@ -9,10 +9,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import file.imports.Import;
-import file.imports.NewImport;
-import site_mapper.creators.imports.FoundImports;
-import site_mapper.creators.imports.UseImport;
+import site_mapper.creators.imports.ImportMatcher;
 import site_mapper.jaxb.menu_items.MenuItem;
 import utils.StringUtils;
 
@@ -22,15 +19,14 @@ import utils.StringUtils;
  * 	Initial
  * @since 1.0
  */
-public class LeftMenuElementCreator  extends NavElementCreator {
+public class LeftMenuElementCreator extends NavElementCreator {
 	private Map<String, List<String>> parents = new HashMap<>();
 	private List<String> standAlone = new ArrayList<>();
 	private MenuItem currentItem;
-	private FoundImports foundImports;
-	
-	
-	public LeftMenuElementCreator(FoundImports foundImports) {
-		this.foundImports = foundImports;
+	private ImportMatcher impMatcher;
+		
+	public LeftMenuElementCreator(ImportMatcher impMatcher) {
+		this.impMatcher = impMatcher;
 	}
 
 	public List<String> getRequiredImports() {
@@ -38,7 +34,7 @@ public class LeftMenuElementCreator  extends NavElementCreator {
 	}	
 	
 	private void resolveImports() {
-		Map<String,String> imps = foundImports.getFoundImports();
+		Map<String,String> imps = impMatcher.getFoundImports().getResolvedImports();
 		if(imps != null) {
 			getRequiredImports().forEach(imp ->{
 				var foundImp = imps.get(imp);
@@ -172,6 +168,12 @@ public class LeftMenuElementCreator  extends NavElementCreator {
 				getOverriddenFunctions());				
 		 	
 		return res;
+	}
+
+	@Override
+	public void updateWithMatched(String imp) {
+		// TODO Auto-generated method stub
+		
 	}
 
 }

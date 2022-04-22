@@ -13,6 +13,7 @@ import file.imports.Import;
 import file.imports.NewImport;
 import site_mapper.creators.imports.FindImport;
 import site_mapper.creators.imports.FoundImports;
+import site_mapper.creators.imports.ImportMatcher;
 import site_mapper.elements.ElementClass;
 import site_mapper.jaxb.pom.SiteMapInfo;
 
@@ -38,12 +39,12 @@ public class LibraryFunction {
 		this.clazz = clazz;
 	}
 
-	public String getLibraryFunction(ImportAppender importAppender, FoundImports foundImports) {		
+	public String getLibraryFunction(ImportAppender importAppender, ImportMatcher impMatcher) {		
 		String libName = clazz.getLibrary();
 		
 		if(libName != null) {
 			if(FileFinder.fileExists(info.getRootDir(), libName + ".java")) {
-				appendImport(importAppender, foundImports, libName);
+				appendImport(importAppender, impMatcher.getFoundImports(), libName);
 				return goodLibrary(libName); 	
 			}else {
 				logError(libName);			

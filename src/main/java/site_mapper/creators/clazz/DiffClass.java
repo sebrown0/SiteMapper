@@ -7,7 +7,7 @@ import org.apache.logging.log4j.LogManager;
 
 import file.class_file.ClassFile;
 import file.class_package.PackageSetter;
-import site_mapper.creators.imports.FoundImports;
+import site_mapper.creators.imports.ImportMatcher;
 import site_mapper.elements.ElementClass;
 import site_mapper.jaxb.pom.PackageHierarchy;
 
@@ -18,8 +18,11 @@ import site_mapper.jaxb.pom.PackageHierarchy;
  * @since 1.0
  */
 public class DiffClass extends OverwriteClass implements ClassMaker {
-	public DiffClass(ElementClass elementClass, PackageHierarchy packageHierarchy, PackageSetter packageSetter, FoundImports imps) {
-		super(elementClass, packageHierarchy, packageSetter, imps);
+	public DiffClass(
+		ElementClass elementClass, PackageHierarchy packageHierarchy, 
+		PackageSetter packageSetter, ImportMatcher impMatcher) {
+		
+		super(elementClass, packageHierarchy, packageSetter, impMatcher);
 	}
 
 	@Override //ClassMaker

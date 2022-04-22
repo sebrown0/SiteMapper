@@ -26,6 +26,7 @@ import file.imports.ImportList;
 import site_mapper.creators.component_writer.ComponentWriter;
 import site_mapper.creators.component_writer.ComponentWriterSetter;
 import site_mapper.creators.imports.FoundImports;
+import site_mapper.creators.imports.ImportMatcher;
 import site_mapper.elements.ElementClass;
 import site_mapper.jaxb.pom.SiteMapInfo;
 
@@ -166,13 +167,13 @@ public class ClassFile {
 		private ElementClass clazz;
 		private SiteMapInfo info;
 		private PackageSetter packageSetter;
-		private FoundImports imps;
+		private ImportMatcher impMatcher;
 		
-		public NewClassFileBuilder(ElementClass clazz, PackageSetter packageSetter, FoundImports imps) {
+		public NewClassFileBuilder(ElementClass clazz, PackageSetter packageSetter, ImportMatcher impMatcher) {
 			this.clazz = clazz;
 			this.info = clazz.getSiteMapInfo();
 			this.packageSetter = packageSetter;
-			this.imps = imps;
+			this.impMatcher = impMatcher;
 			
 			setComponentWriter();			
 			setInPackage();
@@ -187,7 +188,7 @@ public class ClassFile {
 			componentWriter = clazz.getComponentWriter();
 			((ComponentWriterSetter) componentWriter).setSiteMapInfo(info);
 			((ComponentWriterSetter) componentWriter).setElementClass(clazz);
-			((ComponentWriterSetter) componentWriter).setFoundImports(imps);
+			((ComponentWriterSetter) componentWriter).setImportMatcher(impMatcher);
 		}
 		
 		@Override
@@ -214,7 +215,7 @@ public class ClassFile {
 		private void setClassBody() {			
 			ClassBody classBody = 
 					new ClassBody
-						.NewClassBody(componentWriter, clazz, info, this, imps)
+						.NewClassBody(componentWriter, clazz, info, this, impMatcher)
 						.build();
 			super.classBody = classBody;
 		}

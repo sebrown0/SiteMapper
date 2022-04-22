@@ -18,7 +18,7 @@ public interface ComponentWriter {
 	String getClassName();
 	String getModifier();
 	void addImport(Import imp);
-	List<String> getRequiredImports();
+//	List<String> getRequiredImports();
 	List<Variable> getClassVariables();
 	List<Import> getImportNames();	
 }

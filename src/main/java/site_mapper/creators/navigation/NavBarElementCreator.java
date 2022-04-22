@@ -1,8 +1,9 @@
 package site_mapper.creators.navigation;
 
+import java.util.List;
 import java.util.regex.Pattern;
 
-import site_mapper.creators.imports.FoundImports;
+import site_mapper.creators.imports.ImportMatcher;
 import site_mapper.jaxb.menu_items.MenuItem;
 import utils.StringUtils;
 
@@ -15,10 +16,10 @@ import utils.StringUtils;
  * 
  */
 public class NavBarElementCreator extends NavElementCreator {
-	private FoundImports foundImports;
+	private ImportMatcher impMatcher;
 
-	public NavBarElementCreator(FoundImports foundImports) {
-		this.foundImports = foundImports;
+	public NavBarElementCreator(ImportMatcher impMatcher) {
+		this.impMatcher = impMatcher;
 	}
 
 	@Override
@@ -110,5 +111,17 @@ public class NavBarElementCreator extends NavElementCreator {
 			String.format(
 				"public class %s implements NavBarElementStrategy {", 
 				className);
+	}
+
+	@Override
+	public List<String> getRequiredImports() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public void updateWithMatched(String imp) {
+		// TODO Auto-generated method stub
+		
 	}
 }

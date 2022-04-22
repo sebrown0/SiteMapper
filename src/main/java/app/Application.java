@@ -6,10 +6,8 @@ package app;
 import app.xml_content.PomMapperProd;
 import app.xml_content.XmlContent;
 import site_mapper.creators.component_writer.ComponentImports;
-import site_mapper.creators.component_writer.ComponentWriter;
-import site_mapper.creators.component_writer.ComponentWriterJsPanelWithIFrame;
-import site_mapper.creators.imports.FoundImports;
 import site_mapper.creators.imports.ImportFinder;
+import site_mapper.creators.imports.ImportMatcher;
 import site_mapper.jaxb.pom.PomMapperApp;
 
 /**
@@ -47,20 +45,22 @@ public final class Application {
 				new SiteMapContentGetter<>(XML_SOURCE, PomMapperApp.class);
 		XmlContent content = (XmlContent) contentGetter.getContent().get();
 				
-		PomMapperProd mapper = new PomMapperProd(content, resolveImports());
+		PomMapperProd mapper = new PomMapperProd(content, findImports());
 		mapper.createPomsFromSource(ROOT, XML_SOURCE);
 		
 		System.out.println("Finished"); // TODO - remove or log
 	}
 	
-	private static FoundImports resolveImports() {		
-		ImportFinder impResolver  = 
+	private static ImportMatcher findImports() {		
+		ImportFinder impFinder  = 
 				new ImportFinder(
-						"C:/Users/SteveBrown/eclipse-workspace/2021", "SiteMapper");
+						"C:/Users/SteveBrown/eclipse-workspace/2021", 
+						"SiteMapper",
+						new ComponentImports().getAll());
 		
-		impResolver.resolveRequired(new ComponentImports().getAll());
+		impFinder.findRequired();
 		
-		return impResolver;
+		return new ImportMatcher(impFinder);		
 	}
 
 }
