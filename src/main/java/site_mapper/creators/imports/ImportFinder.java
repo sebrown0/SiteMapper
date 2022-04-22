@@ -20,25 +20,23 @@ import file.helpers.FileFinder;
  * 	Initial
  * @since 1.0
  */
-public class ImportResolver implements FoundImports {
+public class ImportFinder implements FoundImports {
 	private Map<String, String> found = new HashMap<>();
 	private List<String> missing = new ArrayList<>();
 	private String root;
 	private String ignoreFolder;
-//	private List<String> required;
 			
 	private String currentImp;
 	
-	private final Logger LOGGER = LogManager.getLogger(ImportResolver.class);	
+	private final Logger LOGGER = LogManager.getLogger(ImportFinder.class);	
 	
-	public ImportResolver(String root, String ignoreFolder) {
+	public ImportFinder(String root, String ignoreFolder) {
 		this.root = root;
 		this.ignoreFolder = ignoreFolder;
-//		this.required = required;
 	}
 	
 	public void resolveRequired(List<String> required) {
-		LOGGER.info("Attempting to resolve required imports");
+		LOGGER.info("Attempting to find required imports");
 		required.forEach(imp -> {			
 			currentImp = imp;			
 			getImportPath(imp).ifPresentOrElse(

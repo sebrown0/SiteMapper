@@ -9,7 +9,7 @@ import site_mapper.creators.component_writer.ComponentImports;
 import site_mapper.creators.component_writer.ComponentWriter;
 import site_mapper.creators.component_writer.ComponentWriterJsPanelWithIFrame;
 import site_mapper.creators.imports.FoundImports;
-import site_mapper.creators.imports.ImportResolver;
+import site_mapper.creators.imports.ImportFinder;
 import site_mapper.jaxb.pom.PomMapperApp;
 
 /**
@@ -24,7 +24,9 @@ public final class Application {
 	private static final String LIBRARY = 
 			"C:/Users/SteveBrown/eclipse-workspace/2021/DakarHR-Library";
 	
-	private static final String ROOT = LIBRARY + "/src/main/java/library";	
+	private static final String ROOT = LIBRARY + "/src/main/java";
+//	private static final String ROOT = LIBRARY + "/src/main/java/library";	
+	
 //			"C:/Users/SteveBrown/eclipse-workspace/2021/DTest/src/main/java";
 	
 	private static final String XML_SOURCE = 
@@ -39,17 +41,21 @@ public final class Application {
 	 * TODO - XML_SOURCE as argument.
 	 */
 	public static void main(String[] args) { 	
+		System.out.println("Starting"); // TODO - remove or log 	
+		
 		SiteMapContentGetter<PomMapperApp> contentGetter = 
 				new SiteMapContentGetter<>(XML_SOURCE, PomMapperApp.class);
 		XmlContent content = (XmlContent) contentGetter.getContent().get();
 				
 		PomMapperProd mapper = new PomMapperProd(content, resolveImports());
 		mapper.createPomsFromSource(ROOT, XML_SOURCE);
+		
+		System.out.println("Finished"); // TODO - remove or log
 	}
 	
 	private static FoundImports resolveImports() {		
-		ImportResolver impResolver  = 
-				new ImportResolver(
+		ImportFinder impResolver  = 
+				new ImportFinder(
 						"C:/Users/SteveBrown/eclipse-workspace/2021", "SiteMapper");
 		
 		impResolver.resolveRequired(new ComponentImports().getAll());

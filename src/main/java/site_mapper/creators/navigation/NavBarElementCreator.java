@@ -2,6 +2,7 @@ package site_mapper.creators.navigation;
 
 import java.util.regex.Pattern;
 
+import site_mapper.creators.imports.FoundImports;
 import site_mapper.jaxb.menu_items.MenuItem;
 import utils.StringUtils;
 
@@ -14,6 +15,11 @@ import utils.StringUtils;
  * 
  */
 public class NavBarElementCreator extends NavElementCreator {
+	private FoundImports foundImports;
+
+	public NavBarElementCreator(FoundImports foundImports) {
+		this.foundImports = foundImports;
+	}
 
 	@Override
 	public String toString() {

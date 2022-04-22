@@ -17,7 +17,6 @@ import file.imports.Import;
 import file.imports.NewImport;
 import file.variable.ClassVariable;
 import file.variable.Variable;
-import site_mapper.creators.imports.FindImport;
 import site_mapper.creators.imports.FoundImports;
 import site_mapper.creators.imports.UseImport;
 import site_mapper.elements.DefaultNoArgsConstructor;
@@ -39,6 +38,7 @@ public class ComponentWriterJsPanelWithIFrame
 	implements ComponentWriterSetter, ElementConstructor, DefaultNoArgsConstructor {
 	
 	private ElementClass elementClass;
+	@SuppressWarnings("unused")
 	private SiteMapInfo siteMapInfo;
 	private ClassVariable panelTitle;
 	private ClassVariable menuTitle;

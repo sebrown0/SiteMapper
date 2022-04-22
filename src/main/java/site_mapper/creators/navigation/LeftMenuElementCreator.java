@@ -4,10 +4,15 @@
 package site_mapper.creators.navigation;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import file.imports.Import;
+import file.imports.NewImport;
+import site_mapper.creators.imports.FoundImports;
+import site_mapper.creators.imports.UseImport;
 import site_mapper.jaxb.menu_items.MenuItem;
 import utils.StringUtils;
 
@@ -21,9 +26,35 @@ public class LeftMenuElementCreator  extends NavElementCreator {
 	private Map<String, List<String>> parents = new HashMap<>();
 	private List<String> standAlone = new ArrayList<>();
 	private MenuItem currentItem;
+	private FoundImports foundImports;
+	
+	
+	public LeftMenuElementCreator(FoundImports foundImports) {
+		this.foundImports = foundImports;
+	}
 
+	public List<String> getRequiredImports() {
+		return Arrays.asList("LeftMenuElements");
+	}	
+	
+	private void resolveImports() {
+		Map<String,String> imps = foundImports.getFoundImports();
+		if(imps != null) {
+			getRequiredImports().forEach(imp ->{
+				var foundImp = imps.get(imp);
+				if(foundImp != null) {
+					imports.add(foundImp);
+				}
+			});	
+		}else {
+			//log
+		}		
+	}
+	
 	@Override
 	protected String getCommonImports() {
+		resolveImports();
+		
 		return 
 			"\nimport java.util.Arrays;" + 
 			"\nimport java.util.List;" + 

@@ -32,23 +32,18 @@ public class PackageHierarchy {
 		addCurrent(PRNT_PACKAGE);		
 	}
 		
-//	public PackageHierarchy(String root, String current) {
-//		this.root = root;
-//		addCurrent(current);		
-//	}
-
 	public PackageHierarchy removeCurrent() {		
 		packageNames.remove(current);		
 		return this;
 	}
 	
 	public PackageHierarchy reset(String moduleName) {
-		current = "object_models/modules/" + moduleName;
+		current = PRNT_PACKAGE + "/" + moduleName;
 		packageNames.clear();		
 		packageNames.add(current);
 		return this;
 	}
-	
+		
 	public PackageHierarchy addCurrent(String current) {
 		this.current = current;
 		packageNames.add(current);
@@ -93,11 +88,6 @@ public class PackageHierarchy {
 		});
 		return (ret.length()>0) ? ret.substring(0, ret.length()-1) : "";
 	}
-
-//	public PackageHierarchy setMenuPackageName(String packageName) {
-//		this.packageName = packageName;
-//		return this;
-//	}
 	
 	@Override
 	public String toString() {

@@ -14,12 +14,13 @@ import utils.StringUtils;
  * 	Initial
  * @since 1.0
  * 
- * Find the import from DTest using SiteMap.getElementLibrary(); 
+ * Find the import from resolved imports.
  */
 public class ControlImportGetter {
 
-	public static Import getImportForContolGetter(String type, SiteMapInfo info, FoundImports foundImports) {
+	public static Import getImportForContolGetter(String type, SiteMapInfo info, FoundImports resolvedImports) {
 		final String impStr = "ControlGetter" + StringUtils.asPascalCase(type);
-		return new NewImport(new FindImport(impStr, info), foundImports);
+		return new NewImport(new FindImport(impStr, info), resolvedImports);
 	}
+	
 }

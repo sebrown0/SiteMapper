@@ -11,7 +11,7 @@ import java.util.List;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
-import site_mapper.creators.imports.ImportResolver;
+import site_mapper.creators.imports.ImportFinder;
 
 /**
  * @author SteveBrown
@@ -27,7 +27,7 @@ class FindImportTests {
 //			LIBRARY + "/src/main/java/library";
 	
 	private static List<String> required;
-	private static ImportResolver impResolver;
+	private static ImportFinder impResolver;
 	
 	@BeforeAll
 	public static void setup() {
@@ -36,7 +36,7 @@ class FindImportTests {
 				"JsPanelWithIFrame", "ControlData", "CoreData","CoreData", "XXXX", "bad");
 		
 		impResolver = 
-				new ImportResolver(
+				new ImportFinder(
 						"C:/Users/SteveBrown/eclipse-workspace/2021", "SiteMapper");
 
 		impResolver.resolveRequired(required);

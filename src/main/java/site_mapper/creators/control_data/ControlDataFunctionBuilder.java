@@ -114,6 +114,7 @@ public class ControlDataFunctionBuilder implements TreeVisitor {
 				incContainers += asCamelCase(c.getName()) + ", ";						
 			}	
 		}
+		
 		if(nodeElements != null) {
 			String elName;
 			for (Element e : nodeElements) {	
@@ -139,6 +140,10 @@ public class ControlDataFunctionBuilder implements TreeVisitor {
 	}
 	
 	private void addToImports(String type) {
+		if(type.contains("LeftMenuElements")) {
+			System.out.println("->" ); // TODO - remove or log 	
+		}
+		System.out.println("->" + type); // TODO - remove or log
 		compWriter
 			.addImport(
 				ControlImportGetter
