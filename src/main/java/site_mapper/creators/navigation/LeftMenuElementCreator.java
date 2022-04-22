@@ -9,7 +9,12 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import file.imports.Import;
+import file.imports.NewImport;
+import site_mapper.creators.imports.FoundImports;
 import site_mapper.creators.imports.ImportMatcher;
+import site_mapper.creators.imports.NewImportResolver;
+import site_mapper.creators.imports.UseImport;
 import site_mapper.jaxb.menu_items.MenuItem;
 import utils.StringUtils;
 
@@ -24,43 +29,47 @@ public class LeftMenuElementCreator extends NavElementCreator {
 	private List<String> standAlone = new ArrayList<>();
 	private MenuItem currentItem;
 	private ImportMatcher impMatcher;
+	private FoundImports foundImports;
 		
 	public LeftMenuElementCreator(ImportMatcher impMatcher) {
 		this.impMatcher = impMatcher;
+		this.foundImports = impMatcher.getFoundImports();
 	}
 
+	@Override //RequiredImports
 	public List<String> getRequiredImports() {
 		return Arrays.asList("LeftMenuElements");
 	}	
 	
 	private void resolveImports() {
-		Map<String,String> imps = impMatcher.getFoundImports().getResolvedImports();
-		if(imps != null) {
-			getRequiredImports().forEach(imp ->{
-				var foundImp = imps.get(imp);
-				if(foundImp != null) {
-					imports.add(foundImp);
-				}
-			});	
-		}else {
-			//log
-		}		
+		impMatcher.matchImports(new NewImportResolver(this));		
 	}
 	
-	@Override
-	protected String getCommonImports() {
-		resolveImports();
+	@Override //RequiredImports
+	public void updateWithMatched(String imp) {
+		imports.add(new NewImport(new UseImport(imp), impMatcher.getFoundImports()));
+	}
 		
-		return 
-			"\nimport java.util.Arrays;" + 
-			"\nimport java.util.List;" + 
-			"\nimport java.util.Map;" + 
-			"\nimport java.util.Optional;" +
-			"\nimport java.util.stream.Collectors;" + 
-			"\nimport java.util.stream.Stream;" +
-			"\nimport object_models.common.nav.LeftMenuElements;";
+	@Override
+	protected String getImports() {		
+		if(requiredImportsAdded==false) {
+			requiredImportsAdded=true;
+			imports.add(new NewImport(new UseImport("java.util.List"), foundImports));
+			imports.add(new NewImport(new UseImport("java.util.Arrays"), foundImports));			
+			imports.add(new NewImport(new UseImport("java.util.Map"), foundImports));			
+			imports.add(new NewImport(new UseImport("java.util.Optional"), foundImports));
+			imports.add(new NewImport(new UseImport("java.util.stream.Collectors"), foundImports));
+			imports.add(new NewImport(new UseImport("java.util.stream.Stream"), foundImports));
+			resolveImports();
+		}
+		
+		String res = "";
+		for (Import imp : imports) {
+			res += imp.toString();//.getImportString();
+		}
+		return res;
 	}
-	
+		
 	@Override
 	protected String getOverriddenFunctions() {				
 		String res =				
@@ -94,17 +103,22 @@ public class LeftMenuElementCreator extends NavElementCreator {
 		String prntPackage = addImport();	
 		addElementToList(prntPackage);
 	}
+		
 	protected String addImport() {
 		var itemsPackage = currentItem.getPackage();
 		String prntPackage = null;
-		String imp = "\nimport " + ph.getHierarchyDotNotation() + ".";
+//		String imp = "\nimport " + ph.getHierarchyDotNotation() + ".";
+		String imp = ph.getHierarchyDotNotation() + ".";
 				
 		if(itemsPackage != null && itemsPackage.length() > 0) {
 			prntPackage = StringUtils.asCamelCase(itemsPackage);
 			imp += prntPackage + ".";			
 		}
-		imp +=  currentItem.getClassName()+ ";";
-		imports.add(imp);	
+		imp +=  currentItem.getClassName();//+ ";";
+		
+		imports.add(new NewImport(new UseImport(imp), impMatcher.getFoundImports()));
+		
+//		imports.add(imp);	
 		return prntPackage;
 	}
 	
@@ -158,22 +172,15 @@ public class LeftMenuElementCreator extends NavElementCreator {
 	public String toString() {
 		String res = 
 			String.format(
-				"%s\n%s\n%s\n%s\n%s\n%s\n%s\n}", 
+				"%s\n\n%s\n%s\n%s\n%s\n%s\n}", 
 				getPackage(),
-				getCommonImports(),
-				getImports(),
+				getImports(),				
 				getComment(),
 				getDeclaration(),
 				getParentDeclarations(),
 				getOverriddenFunctions());				
 		 	
 		return res;
-	}
-
-	@Override
-	public void updateWithMatched(String imp) {
-		// TODO Auto-generated method stub
-		
 	}
 
 }

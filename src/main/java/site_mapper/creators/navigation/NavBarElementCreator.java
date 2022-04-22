@@ -3,6 +3,7 @@ package site_mapper.creators.navigation;
 import java.util.List;
 import java.util.regex.Pattern;
 
+import file.imports.Import;
 import site_mapper.creators.imports.ImportMatcher;
 import site_mapper.jaxb.menu_items.MenuItem;
 import utils.StringUtils;
@@ -28,7 +29,7 @@ public class NavBarElementCreator extends NavElementCreator {
 			String.format(
 				"%s\n%s\n%s\n%s\n%s\n%s\n\n%s\n\n%s\n%s\n}", 
 				getPackage(),
-				getCommonImports(),
+				getImports(),
 				getImports(),
 				getComment(),
 				getDeclaration(),
@@ -48,10 +49,10 @@ public class NavBarElementCreator extends NavElementCreator {
 	}
 	
 	private void addImport(MenuItem item) {
-		imports.add(
-				String.format(
-						"\nimport " + parentPackage + 
-						".common.nav.nav_bar_elements.NavBar%s;", item.getClassName()));
+//		imports.add(
+//				String.format(
+//						"\nimport " + parentPackage + 
+//						".common.nav.nav_bar_elements.NavBar%s;", item.getClassName()));
 	}
 	
 	private void addElementToList(MenuItem item) {		
@@ -73,22 +74,23 @@ public class NavBarElementCreator extends NavElementCreator {
 	}
 	
 	@Override
-	protected String getCommonImports() {
+	protected String getImports() {
 		String[] parts = parentPackage.split(Pattern.quote("."));
 		String p = "ERROR";
 		if(parts.length >= 0) {
 			p=parts[0];
 		}
-		return 
-			"\nimport java.util.Map;" + 
-			"\nimport java.util.stream.Collectors;" + 
-			"\nimport java.util.stream.Stream;" + 
-			"\nimport org.openqa.selenium.WebDriver;" +
-			"\nimport object_models.modules.common.nav.NavBarElement;" + 
-			"\nimport " + p + ".pages.homepage.CoreData;" +
-			"\nimport " + parentPackage + ".common.nav.nav_bar_elements.NavBarElementStrategy;" + 
-			"\nimport " + parentPackage + ".common.nav.quick_links.QuickLinks;" +
-			"\nimport " + parentPackage + ".common.nav.quick_links.QuickLinksPayroll;";
+		return null;
+//		return 
+//			"\nimport java.util.Map;" + 
+//			"\nimport java.util.stream.Collectors;" + 
+//			"\nimport java.util.stream.Stream;" + 
+//			"\nimport org.openqa.selenium.WebDriver;" +
+//			"\nimport object_models.modules.common.nav.NavBarElement;" + 
+//			"\nimport " + p + ".pages.homepage.CoreData;" +
+//			"\nimport " + parentPackage + ".common.nav.nav_bar_elements.NavBarElementStrategy;" + 
+//			"\nimport " + parentPackage + ".common.nav.quick_links.QuickLinks;" +
+//			"\nimport " + parentPackage + ".common.nav.quick_links.QuickLinksPayroll;";
 	}
 
 	@Override

@@ -22,6 +22,10 @@ import site_mapper.creators.imports.RequiredImports;
  */
 public class ComponentImports implements RequiredImports {
 	private List<String> all = new ArrayList<>();
+		
+	public List<String> getForNav(){
+		return Arrays.asList("LeftMenuElements");
+	}
 	
 	public List<String> getControls(){
 		return
@@ -39,6 +43,7 @@ public class ComponentImports implements RequiredImports {
 	}
 	
 	public List<String> getAll(){
+		addListToAll(getForNav());
 		addListToAll(getControls());
 		addListToAll(getForJsPanel());
 		return all;				

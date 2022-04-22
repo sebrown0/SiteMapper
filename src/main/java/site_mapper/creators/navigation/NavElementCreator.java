@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import file.comment.NewComment;
+import file.imports.Import;
 import site_mapper.creators.imports.RequiredImports;
 import site_mapper.jaxb.pom.PackageHierarchy;
 import site_mapper.jaxb.pom.SiteMapInfo;
@@ -30,10 +31,11 @@ public abstract class NavElementCreator implements NavElementAdder, RequiredImpo
 	protected String modName;
 	protected String className;
 	protected String parentPackage;
-	protected List<String> imports = new ArrayList<>();
+	protected boolean requiredImportsAdded;
+	protected List<Import> imports = new ArrayList<>();
 	protected List<String> elements = new ArrayList<>();
 	
-	protected abstract String getCommonImports();
+	protected abstract String getImports();
 	protected abstract String getOverriddenFunctions();
 	protected abstract String getDeclaration();
 	protected abstract void setClassName();
@@ -64,15 +66,7 @@ public abstract class NavElementCreator implements NavElementAdder, RequiredImpo
 			modName +  "." +
 			ph.getPackageName() + ";";
 	}
-	
-	protected String getImports() {
-		String res="";		
-		for(String s : imports) {
-			res+=s;
-		}
-		return res;
-	}
-	
+		
 	protected Object getComment() {		
 		return new NewComment(info);
 	}

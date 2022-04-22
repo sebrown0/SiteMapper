@@ -16,6 +16,7 @@ import file.imports.Import;
 import file.imports.NewImport;
 import file.variable.ClassVariable;
 import file.variable.Variable;
+import site_mapper.creators.imports.FoundImports;
 import site_mapper.creators.imports.ImportMatcher;
 import site_mapper.creators.imports.NewImportResolver;
 import site_mapper.creators.imports.RequiredImports;
@@ -49,6 +50,7 @@ public class ComponentWriterJsPanelWithIFrame implements
 	private SiteMapAnnotation annotation;
 
 	private ImportMatcher impMatcher;	
+	private FoundImports foundImports;
 
 	@Override //ComponentWriter
 	public void addImport(Import imp) {
@@ -69,14 +71,14 @@ public class ComponentWriterJsPanelWithIFrame implements
 	public List<Import> getImportNames() {
 		if(imports==null) {
 			imports = new ArrayList<>();
-			imports.add(new NewImport(new UseImport("static org.junit.jupiter.api.Assertions.assertTrue"), impMatcher.getFoundImports()));
-			imports.add(new NewImport(new UseImport("static org.junit.jupiter.api.Assertions.fail"), impMatcher.getFoundImports()));
-			imports.add(new NewImport(new UseImport("java.util.List"), impMatcher.getFoundImports()));
-			imports.add(new NewImport(new UseImport("java.util.Arrays"), impMatcher.getFoundImports()));
-			imports.add(new NewImport(new UseImport("org.openqa.selenium.By"), impMatcher.getFoundImports()));
-			imports.add(new NewImport(new UseImport("control_builder.*"), impMatcher.getFoundImports()));
-			imports.add(new NewImport(new UseImport("site_mapper.annotations.SiteMap"), impMatcher.getFoundImports()));
-			imports.add(new NewImport(new UseImport("org.junit.jupiter.api.DynamicTest"), impMatcher.getFoundImports()));
+			imports.add(new NewImport(new UseImport("static org.junit.jupiter.api.Assertions.assertTrue"), foundImports));
+			imports.add(new NewImport(new UseImport("static org.junit.jupiter.api.Assertions.fail"), foundImports));
+			imports.add(new NewImport(new UseImport("java.util.List"), foundImports));
+			imports.add(new NewImport(new UseImport("java.util.Arrays"), foundImports));
+			imports.add(new NewImport(new UseImport("org.openqa.selenium.By"), foundImports));
+			imports.add(new NewImport(new UseImport("control_builder.*"), foundImports));
+			imports.add(new NewImport(new UseImport("site_mapper.annotations.SiteMap"), foundImports));
+			imports.add(new NewImport(new UseImport("org.junit.jupiter.api.DynamicTest"), foundImports));
 			resolveImports();
 		}
 		return imports;
@@ -128,6 +130,7 @@ public class ComponentWriterJsPanelWithIFrame implements
 	@Override //ComponentWriterSetter
 	public ComponentWriterSetter setImportMatcher(ImportMatcher impMatcher) {
 		this.impMatcher = impMatcher;
+		this.foundImports = impMatcher.getFoundImports();
 		return this;
 	}	
 	
