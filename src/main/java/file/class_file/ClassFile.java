@@ -25,7 +25,6 @@ import file.imports.Import;
 import file.imports.ImportList;
 import site_mapper.creators.component_writer.ComponentWriter;
 import site_mapper.creators.component_writer.ComponentWriterSetter;
-import site_mapper.creators.imports.FoundImports;
 import site_mapper.creators.imports.ImportMatcher;
 import site_mapper.elements.ElementClass;
 import site_mapper.jaxb.pom.SiteMapInfo;

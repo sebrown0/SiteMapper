@@ -5,7 +5,6 @@ package tests;
 
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-import java.util.Arrays;
 import java.util.List;
 
 import org.junit.jupiter.api.BeforeAll;
@@ -24,15 +23,10 @@ import site_mapper.creators.imports.ImportMatcher;
  * @since 1.0
  */
 class ImportMatcherTests {
-//	private static List<String> required;
 	private static ImportFinder impFinder;
 	
 	@BeforeAll
-	public static void setup() {
-//		required = Arrays.asList(
-//				"TestControl", "ControlGetter", "ControlGetterGroup", 
-//				"JsPanelWithIFrame", "ControlData", "CoreData","CoreData", "XXXX", "bad");
-		
+	public static void setup() {		
 		impFinder = 
 				new ImportFinder(
 						"C:/Users/SteveBrown/eclipse-workspace/2021", 

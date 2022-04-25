@@ -8,7 +8,11 @@ import java.util.List;
 
 import file.comment.NewComment;
 import file.imports.Import;
+import site_mapper.creators.imports.FoundImports;
+import site_mapper.creators.imports.ImportMatcher;
+import site_mapper.creators.imports.NewImportResolver;
 import site_mapper.creators.imports.RequiredImports;
+import site_mapper.jaxb.menu_items.MenuItem;
 import site_mapper.jaxb.pom.PackageHierarchy;
 import site_mapper.jaxb.pom.SiteMapInfo;
 import utils.FileWriter;
@@ -23,10 +27,12 @@ import utils.StringUtils;
  * @since 1.0
  * 
  */
-public abstract class NavElementCreator implements NavElementAdder, RequiredImports {	
-	private String root;	
+public abstract class NavElementCreator implements 
+	NavElementAdder, RequiredImports {
 	
-	protected SiteMapInfo info;	
+	private String root;
+		
+	protected SiteMapInfo info;
 	protected PackageHierarchy ph;
 	protected String modName;
 	protected String className;
@@ -34,12 +40,28 @@ public abstract class NavElementCreator implements NavElementAdder, RequiredImpo
 	protected boolean requiredImportsAdded;
 	protected List<Import> imports = new ArrayList<>();
 	protected List<String> elements = new ArrayList<>();
+	protected ImportMatcher impMatcher;
+	protected FoundImports foundImports;
 	
 	protected abstract String getImports();
 	protected abstract String getOverriddenFunctions();
 	protected abstract String getDeclaration();
 	protected abstract void setClassName();
 
+	public NavElementCreator(ImportMatcher impMatcher) {
+		this.impMatcher = impMatcher;
+		this.foundImports = impMatcher.getFoundImports();
+	}
+	
+	@Override //NavElementAdder
+	public void addElement(MenuItem item) {
+		/*
+		 * TODO
+		 * LeftMenuElementCreator implements this
+		 * but TopRightNavElementCreator doesn't.
+		 */
+	}
+	
 	@Override
 	public NavElementAdder setPackageHierarchy(PackageHierarchy ph) {
 		this.ph = ph;
@@ -59,12 +81,21 @@ public abstract class NavElementCreator implements NavElementAdder, RequiredImpo
 		return this;
 	}
 	
-	protected String getPackage() {
-		return 
-			"package " + 
+	protected String getPackagePath() {
+		String res =			
 			StringUtils.replaceFwdSlashes(ph.getParentPackage(), ".") + "." + 
 			modName +  "." +
-			ph.getPackageName() + ";";
+			ph.getPackageName();
+		
+		return res;			
+	}
+		
+	protected void resolveImports() {
+		impMatcher.matchImports(new NewImportResolver(this));		
+	}
+	
+	protected String getPackageDeclaration() {
+		return "package " + getPackagePath() + ";";
 	}
 		
 	protected Object getComment() {		

@@ -11,9 +11,7 @@ import java.util.Map;
 
 import file.imports.Import;
 import file.imports.NewImport;
-import site_mapper.creators.imports.FoundImports;
 import site_mapper.creators.imports.ImportMatcher;
-import site_mapper.creators.imports.NewImportResolver;
 import site_mapper.creators.imports.UseImport;
 import site_mapper.jaxb.menu_items.MenuItem;
 import utils.StringUtils;
@@ -28,11 +26,9 @@ public class LeftMenuElementCreator extends NavElementCreator {
 	private Map<String, List<String>> parents = new HashMap<>();
 	private List<String> standAlone = new ArrayList<>();
 	private MenuItem currentItem;
-	private ImportMatcher impMatcher;
-	private FoundImports foundImports;
 		
 	public LeftMenuElementCreator(ImportMatcher impMatcher) {
-		this.impMatcher = impMatcher;
+		super(impMatcher);
 		this.foundImports = impMatcher.getFoundImports();
 	}
 
@@ -40,11 +36,7 @@ public class LeftMenuElementCreator extends NavElementCreator {
 	public List<String> getRequiredImports() {
 		return Arrays.asList("LeftMenuElements");
 	}	
-	
-	private void resolveImports() {
-		impMatcher.matchImports(new NewImportResolver(this));		
-	}
-	
+		
 	@Override //RequiredImports
 	public void updateWithMatched(String imp) {
 		imports.add(new NewImport(new UseImport(imp), impMatcher.getFoundImports()));
@@ -65,7 +57,7 @@ public class LeftMenuElementCreator extends NavElementCreator {
 		
 		String res = "";
 		for (Import imp : imports) {
-			res += imp.toString();//.getImportString();
+			res += imp.toString();
 		}
 		return res;
 	}
@@ -104,21 +96,19 @@ public class LeftMenuElementCreator extends NavElementCreator {
 		addElementToList(prntPackage);
 	}
 		
-	protected String addImport() {
+	private String addImport() {
 		var itemsPackage = currentItem.getPackage();
 		String prntPackage = null;
-//		String imp = "\nimport " + ph.getHierarchyDotNotation() + ".";
 		String imp = ph.getHierarchyDotNotation() + ".";
 				
 		if(itemsPackage != null && itemsPackage.length() > 0) {
 			prntPackage = StringUtils.asCamelCase(itemsPackage);
 			imp += prntPackage + ".";			
 		}
-		imp +=  currentItem.getClassName();//+ ";";
 		
+		imp +=  currentItem.getClassName();//+ ";";		
 		imports.add(new NewImport(new UseImport(imp), impMatcher.getFoundImports()));
-		
-//		imports.add(imp);	
+			
 		return prntPackage;
 	}
 	
@@ -135,7 +125,6 @@ public class LeftMenuElementCreator extends NavElementCreator {
 		}else {
 			standAlone.add(currentItem.getClassName());
 		}
-
 	}	
 
 	@Override
@@ -173,7 +162,7 @@ public class LeftMenuElementCreator extends NavElementCreator {
 		String res = 
 			String.format(
 				"%s\n\n%s\n%s\n%s\n%s\n%s\n}", 
-				getPackage(),
+				getPackageDeclaration(),
 				getImports(),				
 				getComment(),
 				getDeclaration(),

@@ -40,13 +40,13 @@ public class FindImport implements ImportType {
 		//Not in resolved imports so try to find it.
 		return getPath();
 	}
-		
+			
 	@Override
 	public String getPath() {
 		String importPath = "";
 		if(siteMapInfo != null) {
 			importPath = FileFinder
-				.findPathWithoutRootAndExtension(siteMapInfo.getElementLibrary(), importStr + ".java")
+				.findPathBelowSrcMainJava(siteMapInfo.getElementLibrary(), importStr + ".java")
 				.replaceAll("\\\\", ".")
 				.replace("src.main.java.", "");								
 		}else {

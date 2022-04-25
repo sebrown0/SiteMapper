@@ -22,9 +22,17 @@ import site_mapper.creators.imports.RequiredImports;
  */
 public class ComponentImports implements RequiredImports {
 	private List<String> all = new ArrayList<>();
-		
+	
+	public List<String> getCommon(){
+		return Arrays.asList("Closable");
+	}
+	
 	public List<String> getForNav(){
-		return Arrays.asList("LeftMenuElements");
+		return 
+			Arrays.asList(
+				"LeftMenuElements", "NavBarElement", "NavBarElementStrategy", 
+				"QuickLinks", "QuickLinksPayroll");
+		//"QuickLinksPersonnel"
 	}
 	
 	public List<String> getControls(){
@@ -43,6 +51,7 @@ public class ComponentImports implements RequiredImports {
 	}
 	
 	public List<String> getAll(){
+		addListToAll(getCommon());
 		addListToAll(getForNav());
 		addListToAll(getControls());
 		addListToAll(getForJsPanel());

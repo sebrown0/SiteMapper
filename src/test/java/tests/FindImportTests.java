@@ -11,6 +11,7 @@ import java.util.List;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
+import file.helpers.FileFinder;
 import site_mapper.creators.imports.ImportFinder;
 
 /**
@@ -48,4 +49,9 @@ class FindImportTests {
 		assertEquals("XXXX", impFinder.getMissing().get(0));		
 	}
 	
+	@Test
+	void test_getPathToImport() { 	
+		assertEquals("app\\Application",FileFinder.findPathBelowSrcMainJava(
+				"C:\\Users\\SteveBrown\\eclipse-workspace\\2021\\SiteMapper", "Application.java"));
+	}
 }

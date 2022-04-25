@@ -5,18 +5,21 @@ package site_mapper.creators.imports;
 
 import java.util.Map;
 
+import org.apache.logging.log4j.LogManager;
+
 /**
  * @author SteveBrown
  * @version 1.0
  * 	Initial
  * @since 1.0
+ * 
+ * Try and match the known/resolved imports
+ * with those required for the item.
  */
 public class NewImportResolver implements ImportResolver {
-//	private FoundImports foundImports;
 	private RequiredImports reqImports;
 	
 	public NewImportResolver(RequiredImports reqImports) {
-//		this.foundImports = foundImports;
 		this.reqImports = reqImports;
 	}
 
@@ -31,7 +34,9 @@ public class NewImportResolver implements ImportResolver {
 				}
 			});	
 		}else {
-			//log
+			LogManager
+				.getLogger()
+				.info("Resolved imports is empty so cannot match required with resolved");
 		}		
 	}
 

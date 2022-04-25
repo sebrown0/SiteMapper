@@ -53,6 +53,15 @@ public class FileFinder {
 		return result;
 	}
 	
+	public static String findPathBelowSrcMainJava(final String ROOT, final String fileName) {
+		result = "";
+		findFilePath(ROOT, fileName).ifPresent(fp ->{
+			var pos = fp.lastIndexOf("src\\main\\java\\");
+			result = fp.substring(pos+"src/main/java/".length(), fp.length()-5);
+		});		
+		return result;
+	}
+	
 	public static String findPathWithRoot(final String ROOT, final String fileName) {
 		result = "";
 		findFilePath(ROOT, fileName).ifPresent(fp ->{
