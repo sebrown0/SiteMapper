@@ -21,18 +21,22 @@ import utils.StringUtils;
  * @version 1.0
  * 	Initial
  * @since 1.0
+ * 
+ * Add elements to the left menu and create the 
+ * LeftMenu[module] class from toString.
+ * 
  */
 public class LeftMenuElementCreator extends NavElementCreator {
 	private Map<String, List<String>> parents = new HashMap<>();
 	private List<String> standAlone = new ArrayList<>();
-	private LeftMenuEntry leftMenuEntry;
+	private LeftMenuComposer leftMenuComposer;
 	private MenuItem currentItem;
 		
 	public LeftMenuElementCreator(ImportMatcher impMatcher) {
 		super(impMatcher);
 		
 		this.foundImports = impMatcher.getFoundImports();
-		this.leftMenuEntry = new LeftMenuEntry(parents, standAlone);
+		this.leftMenuComposer = new LeftMenuComposer(parents, standAlone);
 	}
 
 	@Override //RequiredImports
@@ -45,7 +49,7 @@ public class LeftMenuElementCreator extends NavElementCreator {
 		imports.add(new NewImport(new UseImport(imp), impMatcher.getFoundImports()));
 	}
 		
-	@Override
+	@Override //NavElementCreator
 	protected String getImports() {		
 		if(requiredImportsAdded==false) {
 			requiredImportsAdded=true;
@@ -65,16 +69,16 @@ public class LeftMenuElementCreator extends NavElementCreator {
 		return res;
 	}
 		
-	@Override
+	@Override //NavElementCreator
 	protected String getOverriddenFunctions() {
-		String res = leftMenuEntry.getMenuEntries();	
+		String res = leftMenuComposer.getMenuEntries();	
 		return res;		
 	}
 	
 	@Override //NavElementAdder
 	public void addElement(MenuItem item) {		
 		this.currentItem = item;
-		String prntPackage = addImport();	//employeeOthers
+		String prntPackage = addImport();	
 		addElementToList(prntPackage);
 	}
 		
@@ -88,7 +92,7 @@ public class LeftMenuElementCreator extends NavElementCreator {
 			imp += prntPackage + ".";			
 		}
 		
-		imp +=  currentItem.getClassName();//+ ";";		
+		imp +=  currentItem.getClassName();
 		imports.add(new NewImport(new UseImport(imp), impMatcher.getFoundImports()));
 			
 		return prntPackage;
@@ -109,12 +113,12 @@ public class LeftMenuElementCreator extends NavElementCreator {
 		}
 	}	
 
-	@Override
+	@Override //NavElementCreator
 	protected void setClassName() {		
 		className = String.format("LeftMenu%s", StringUtils.asPascalCase(modName));
 	}
 
-	@Override
+	@Override //NavElementCreator
 	protected String getDeclaration() {		
 		return "public class LeftMenuPayroll implements LeftMenuElements {";
 	}
@@ -128,7 +132,7 @@ public class LeftMenuElementCreator extends NavElementCreator {
 				getImports(),				
 				getComment(),
 				getDeclaration(),
-				leftMenuEntry.getParentDeclarations(),
+				leftMenuComposer.getParentDeclarations(),
 				getOverriddenFunctions());				
 		 	
 		return res;

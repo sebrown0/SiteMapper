@@ -5,6 +5,7 @@ package site_mapper.creators.navigation;
 
 import static utils.StringUtils.asPascalCase;
 import static utils.StringUtils.removeTrailingComma;
+import static utils.StringUtils.removeUnderScoresAndAsPascalCase;
 
 import java.util.List;
 import java.util.Map;
@@ -14,12 +15,37 @@ import java.util.Map;
  * @version 1.0
  * 	Initial
  * @since 1.0
+ * 
+ * Take the parents, i.e. Employee and create function
+ * to return all the items in the parent.
+ * 
+ * FOR EXAMPLE:
+ * ------------
+ * 	private static final List<String> EMPLOYEES = Arrays.asList(
+ *		ContactNumbers.MENU_TITLE,
+ *		SalaryDetails.MENU_TITLE
+ *	);
+ *	public List<String> getEmployees() {
+ *		return EMPLOYEES;
+ *	}
+ * 
+ * When all the parents and standalone items have
+ * been created, then create the getAll function.
+ * FOR EXAMPLE:
+ * ------------ 
+ * public Map<String, Optional<List<String>>> getAll(){
+ * 	return Stream.of(new Object[][] {
+ * 		{"Employees", Optional.of(EMPLOYEES)},
+ * 		{"Employee_others", Optional.of(EMPLOYEE_OTHERS)}
+ *	}).collect(Collectors.toMap(d -> (String) d[0], d -> ((Optional<List<String>>) d[1])));
+ * }
+ * 
  */
-public class LeftMenuEntry {
+public class LeftMenuComposer {
 	private Map<String, List<String>> parents;
 	private List<String> standAlone;
 	
-	public LeftMenuEntry(Map<String, List<String>> parents, List<String> standAlone) {
+	public LeftMenuComposer(Map<String, List<String>> parents, List<String> standAlone) {
 		this.parents = parents;
 		this.standAlone = standAlone;
 	}
@@ -38,8 +64,8 @@ public class LeftMenuEntry {
 		
 		if(parents != null && parents.size() > 0) {
 			for (Map.Entry<String, List<String>> e : parents.entrySet()) {
-				var namePascal = asPascalCase(e.getKey());
-				var nameUpper = namePascal.toUpperCase();
+				var itemName = e.getKey();
+				var nameUpper = asPascalCase(itemName).toUpperCase();
 				
 				res += 
 					String.format(
@@ -51,13 +77,20 @@ public class LeftMenuEntry {
 							"\n\t\t%s.MENU_TITLE,", 
 							asPascalCase(itm));	
 				}
-				
-				res = removeTrailingComma(res);
-				res += "\n\t);";
-				
-				res += String.format("\n\tpublic List<String> get%s() {\n\t\treturn %s;\n\t}", namePascal, nameUpper);
+				res = getParentGetter(res, itemName, nameUpper);
 			}	
 		}		
+		return res;
+	}
+	
+	private String getParentGetter(String str, String itemName, String nameUpper) {
+		String res = removeTrailingComma(str);
+		res += "\n\t);";				
+		res += 
+			String.format(
+				"\n\tpublic List<String> get%s() {\n\t\treturn %s;\n\t}\n", 
+				removeUnderScoresAndAsPascalCase(itemName), nameUpper);
+		
 		return res;
 	}
 	
@@ -70,9 +103,12 @@ public class LeftMenuEntry {
 	
 	private String addParentItems(String res) {
 		for (Map.Entry<String, List<String>> e : parents.entrySet()) {			
-			var namePascal = asPascalCase(e.getKey());
-			var nameUpper = namePascal.toUpperCase();			
-			res += String.format("\n\t\t\t\t{\"%s\", Optional.of(%s)},", namePascal, nameUpper);
+			var itemName = e.getKey();
+			var nameUpper = asPascalCase(itemName).toUpperCase();			
+			res += 
+				String.format(
+					"\n\t\t\t\t{\"%s\", Optional.of(%s)},", 
+					removeUnderScoresAndAsPascalCase(itemName), nameUpper);
 		}
 		return res;
 	}
@@ -88,7 +124,7 @@ public class LeftMenuEntry {
 		res = removeTrailingComma(res);
 		res += "\n\t\t\t}).collect(Collectors.toMap("
 				+  "d -> (String) d[0], d -> ((Optional<List<String>>) d[1])));		\n"
-				+  "\t\t}";
+				+  "\t}";
 		return res;
 	}
 }
