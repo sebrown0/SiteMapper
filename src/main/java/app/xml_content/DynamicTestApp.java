@@ -37,7 +37,7 @@ public class DynamicTestApp implements XmlContent, XmlTestContent {
 	private List<String> includeElementsForTest;
 	
 	@XmlElementWrapper(name="Modules")
-  @XmlElement(name="Module", namespace="Modules")
+  @XmlElement(name="Module", namespace="Module")
   private List<Module> modules;
 
 	@Override //XmlContent

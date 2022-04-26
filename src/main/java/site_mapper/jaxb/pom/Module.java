@@ -19,7 +19,8 @@ import site_mapper.jaxb.pom.menu.TopRightNav;
  * 
  * Module found in the site_map.xml.
  */
-@XmlRootElement(name="Module", namespace="Modules")
+
+@XmlRootElement(name="Module", namespace="Module")
 public class Module {	
 	@XmlAttribute(name="name")
 	private String name;

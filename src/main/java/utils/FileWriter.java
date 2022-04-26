@@ -27,7 +27,6 @@ public class FileWriter {
 	
 	//Dir may not be created so create it first.
 	public static void writeFile(Object toWrite, String filePath, String fileName) {
-//		new File(ROOT + filePath).mkdirs();
 		new File(filePath).mkdirs();
 		writeFile(toWrite, filePath + "/" + fileName);
 	}

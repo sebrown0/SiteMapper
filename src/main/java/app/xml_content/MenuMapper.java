@@ -79,7 +79,6 @@ public class MenuMapper {
   			.getNavCreator(impMatcher)
   			.setSiteMapInfo(siteMapInfo)
   			.setPackageHierarchy(ph)
-//  			.setMenuName(menu.getName())
   			.setModuleName(moduleName);
   }
     

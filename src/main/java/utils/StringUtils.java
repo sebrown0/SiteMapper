@@ -59,6 +59,19 @@ public class StringUtils {
 		return res;
 	}
 	
+	public static String removeUnderScoresAndAsPascalCase(String str) {
+		String res = "";
+		if(str != null && str.length() > 0) {
+			String [] parts = str.split("_");
+			if(parts != null) {
+				for (String s : parts) {					
+					res += asPascalCase(s);
+				}
+			}			
+		} 
+		return res;
+	}
+	
 	public static List<String> getListFromString(String str, String separator) {
 		List<String> res = null;
 		if(str != null) {

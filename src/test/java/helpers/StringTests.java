@@ -31,5 +31,10 @@ class StringTests {
 	void pascalCase() {
 		assertEquals("OneTwo", StringUtils.asPascalCase("oneTwo"));		
 	}
+	
+	@Test
+	void removeUnderScores() {
+		assertEquals("OneTwo", StringUtils.removeUnderScoresAndAsPascalCase("One_two"));
+	}
 
 }

@@ -25,11 +25,14 @@ import utils.StringUtils;
 public class LeftMenuElementCreator extends NavElementCreator {
 	private Map<String, List<String>> parents = new HashMap<>();
 	private List<String> standAlone = new ArrayList<>();
+	private LeftMenuEntry leftMenuEntry;
 	private MenuItem currentItem;
 		
 	public LeftMenuElementCreator(ImportMatcher impMatcher) {
 		super(impMatcher);
+		
 		this.foundImports = impMatcher.getFoundImports();
+		this.leftMenuEntry = new LeftMenuEntry(parents, standAlone);
 	}
 
 	@Override //RequiredImports
@@ -63,36 +66,15 @@ public class LeftMenuElementCreator extends NavElementCreator {
 	}
 		
 	@Override
-	protected String getOverriddenFunctions() {				
-		String res =				
-				"\t\t@SuppressWarnings(\"unchecked\")\n" +
-				"\t\tpublic Map<String, Optional<List<String>>> getAll(){\n" +
-				"\t\t\treturn Stream.of(new Object[][] {";
-		
-		//Parents
-		for (Map.Entry<String, List<String>> e : parents.entrySet()) {
-			var namePascal = StringUtils.asPascalCase(e.getKey());
-			var nameUpper = namePascal.toUpperCase();
-			
-			res += String.format("\n\t\t\t\t{\"%s\", Optional.of(%s)},", namePascal, nameUpper);
-		}
-				
-		//Standalone
-		for(String s : standAlone) {
-			res += String.format("\n\t\t\t\t{%s.MENU_TITLE, Optional.empty()},", StringUtils.asPascalCase(s));
-		}
-		
-		res = StringUtils.removeTrailingComma(res);
-		res += "\n\t\t\t}).collect(Collectors.toMap(d -> (String) d[0], d -> ((Optional<List<String>>) d[1])));		\r\n"
-				+ "\t\t}";
-		
-		return res;
+	protected String getOverriddenFunctions() {
+		String res = leftMenuEntry.getMenuEntries();	
+		return res;		
 	}
 	
 	@Override //NavElementAdder
 	public void addElement(MenuItem item) {		
 		this.currentItem = item;
-		String prntPackage = addImport();	
+		String prntPackage = addImport();	//employeeOthers
 		addElementToList(prntPackage);
 	}
 		
@@ -112,7 +94,7 @@ public class LeftMenuElementCreator extends NavElementCreator {
 		return prntPackage;
 	}
 	
-	protected void addElementToList(String prntPackage) {
+	private void addElementToList(String prntPackage) {
 		if(prntPackage != null && prntPackage.length() >= 1) {
 			if(parents.containsKey(prntPackage)) {
 				var children = parents.get(prntPackage);
@@ -136,26 +118,6 @@ public class LeftMenuElementCreator extends NavElementCreator {
 	protected String getDeclaration() {		
 		return "public class LeftMenuPayroll implements LeftMenuElements {";
 	}
-
-	private Object getParentDeclarations() {
-		String res = "";
-		for (Map.Entry<String, List<String>> e : parents.entrySet()) {
-			var namePascal = StringUtils.asPascalCase(e.getKey());
-			var nameUpper = namePascal.toUpperCase();
-			
-			res = 
-				String.format(
-						"\tprivate static final List<String> %s = Arrays.asList(", nameUpper);
-			
-			//Parents
-			res += String.format("\n\t\t%s.MENU_TITLE,", StringUtils.asPascalCase(currentItem.getClassName()));
-			res = StringUtils.removeTrailingComma(res);
-			res += "\n\t);";
-			
-			res += String.format("\n\tpublic List<String> get%s() {\n\t\treturn %s;\n\t}", namePascal, nameUpper);
-		}
-		return res;
-	}
 	
 	@Override
 	public String toString() {
@@ -166,7 +128,7 @@ public class LeftMenuElementCreator extends NavElementCreator {
 				getImports(),				
 				getComment(),
 				getDeclaration(),
-				getParentDeclarations(),
+				leftMenuEntry.getParentDeclarations(),
 				getOverriddenFunctions());				
 		 	
 		return res;

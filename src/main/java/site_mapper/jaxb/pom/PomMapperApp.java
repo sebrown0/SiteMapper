@@ -25,7 +25,7 @@ public class PomMapperApp implements XmlContent {
 	private DynamicTestInfo dynamicTestInfo;
 	
 	@XmlElementWrapper(name="Modules")
-  @XmlElement(name="Module", namespace="Modules")
+	@XmlElement(name="Module", namespace="Module")
   private List<Module> modules;
 	
 	@Override //XmlContent

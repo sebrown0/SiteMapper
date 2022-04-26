@@ -17,21 +17,15 @@ import site_mapper.jaxb.pom.PomMapperApp;
  * @since 1.0
  */
 public final class Application {
-	// C:\Users\SteveBrown\eclipse-workspace\2021\DakarHR-Library\src\main\java\library / library.object_models
 	
 	private static final String LIBRARY = 
 			"C:/Users/SteveBrown/eclipse-workspace/2021/DakarHR-Library";
 	
 	private static final String ROOT = LIBRARY + "/src/main/java";
-//	private static final String ROOT = LIBRARY + "/src/main/java/library";	
-	
-//			"C:/Users/SteveBrown/eclipse-workspace/2021/DTest/src/main/java";
 	
 	private static final String XML_SOURCE = 
 			LIBRARY + "/src/main/resources/xml/site_map.xml";
 	
-//	private static final String XML_SOURCE = 
-//			"C:/Users/SteveBrown/eclipse-workspace/2021/DTest/src/main/resources/xml/site_map.xml";
 	
 	/**
 	 * @param args
