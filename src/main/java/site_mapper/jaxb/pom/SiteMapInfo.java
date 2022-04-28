@@ -63,6 +63,10 @@ public class SiteMapInfo {
 		this.rootDir = rootDir;
 		return this;
 	}
+	public SiteMapInfo setParentPackage(String parentPackage) {
+		this.parentPackage = parentPackage;
+		return this;
+	}			
 	public SiteMapInfo setXmlSource(String xmlSource) {
 		this.xmlSource = xmlSource;
 		return this;
@@ -126,5 +130,5 @@ public class SiteMapInfo {
 		return "SiteMapInfo [author=" + author + ", version=" + version + ", rootDir=" + rootDir + ", parentPackage="
 				+ parentPackage + ", xmlSource=" + xmlSource + ", date=" + date + ", time=" + time + "]";
 	}
-			
+
 }

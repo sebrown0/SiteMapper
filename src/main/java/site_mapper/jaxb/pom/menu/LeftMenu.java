@@ -6,8 +6,8 @@ import file.helpers.Formatter;
 import jakarta.xml.bind.annotation.XmlElement;
 import jakarta.xml.bind.annotation.XmlRootElement;
 import site_mapper.creators.imports.ImportMatcher;
-import site_mapper.creators.navigation.LeftMenuElementCreator;
 import site_mapper.creators.navigation.NavElementAdder;
+import site_mapper.creators.navigation.left_menu.LeftMenuElementCreator;
 import site_mapper.jaxb.menu_items.MenuItem;
 
 /** 

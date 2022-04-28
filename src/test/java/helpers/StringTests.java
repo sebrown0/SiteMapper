@@ -31,10 +31,25 @@ class StringTests {
 	void pascalCase() {
 		assertEquals("OneTwo", StringUtils.asPascalCase("oneTwo"));		
 	}
-	
+
 	@Test
 	void removeUnderScores() {
 		assertEquals("OneTwo", StringUtils.removeUnderScoresAndAsPascalCase("One_two"));
+	}
+	
+	@Test
+	void removeUnderScore_replaceWithSpace() {
+		assertEquals("One Two", StringUtils.replaceUnderScoresWithSpaceAndAsPascalCase("One_two"));
+	}
+
+	@Test
+	void removeSpace_asPascal() {
+		assertEquals("OneTwo", StringUtils.removeSpacesAndAsPascalCase("One two"));
+	}
+	
+	@Test
+	void removeSpace_insertUnderScore_inLower() {
+		assertEquals("one_two", StringUtils.replaceSpacesWithUnderScoreAndInLower("One Two"));
 	}
 
 }

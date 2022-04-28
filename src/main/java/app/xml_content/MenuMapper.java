@@ -10,6 +10,7 @@ import org.apache.logging.log4j.Logger;
 
 import file.class_package.PackageSetter;
 import site_mapper.creators.imports.ImportMatcher;
+import site_mapper.creators.navigation.MenuElementFactoryUpdater;
 import site_mapper.creators.navigation.NavElementAdder;
 import site_mapper.creators.package_maker.PackageMaker;
 import site_mapper.jaxb.menu_items.MenuItem;
@@ -95,5 +96,9 @@ public class MenuMapper {
   
   private void writeNavigation() {
   	elementAdder.writeNavClass();
+  	if(elementAdder instanceof MenuElementFactoryUpdater) {
+  		MenuElementFactoryUpdater updater = (MenuElementFactoryUpdater) elementAdder;
+  		updater.updateMenuElementFactory();
+  	}
   }
 }

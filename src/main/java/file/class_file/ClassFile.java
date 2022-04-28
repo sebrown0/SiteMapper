@@ -100,7 +100,7 @@ public class ClassFile {
 		return classBody;
 	}
 		
-	public abstract static class ClassBuilder implements ImportAppender{
+	public abstract static class ClassBuilder implements ImportAppender {
 		protected ClassPackage inPackage;
 		protected ImportList imports;
 		protected Comment comment;
@@ -168,7 +168,9 @@ public class ClassFile {
 		private PackageSetter packageSetter;
 		private ImportMatcher impMatcher;
 		
-		public NewClassFileBuilder(ElementClass clazz, PackageSetter packageSetter, ImportMatcher impMatcher) {
+		public NewClassFileBuilder(
+			ElementClass clazz, PackageSetter packageSetter, ImportMatcher impMatcher) {
+			
 			this.clazz = clazz;
 			this.info = clazz.getSiteMapInfo();
 			this.packageSetter = packageSetter;

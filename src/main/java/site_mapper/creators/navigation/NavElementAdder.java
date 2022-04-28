@@ -21,5 +21,5 @@ public interface NavElementAdder {
 	NavElementAdder setPackageHierarchy(PackageHierarchy ph);
 	
 	void addElement(MenuItem item);
-	void writeNavClass();	
+	void writeNavClass();
 }

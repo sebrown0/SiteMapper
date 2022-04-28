@@ -1,7 +1,7 @@
 /**
  * 
  */
-package site_mapper.creators.navigation;
+package site_mapper.creators.navigation.left_menu;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -13,6 +13,8 @@ import file.imports.Import;
 import file.imports.NewImport;
 import site_mapper.creators.imports.ImportMatcher;
 import site_mapper.creators.imports.UseImport;
+import site_mapper.creators.navigation.MenuElementFactoryUpdater;
+import site_mapper.creators.navigation.NavElementCreator;
 import site_mapper.jaxb.menu_items.MenuItem;
 import utils.StringUtils;
 
@@ -26,7 +28,7 @@ import utils.StringUtils;
  * LeftMenu[module] class from toString.
  * 
  */
-public class LeftMenuElementCreator extends NavElementCreator {
+public class LeftMenuElementCreator extends NavElementCreator implements MenuElementFactoryUpdater {
 	private Map<String, List<String>> parents = new HashMap<>();
 	private List<String> standAlone = new ArrayList<>();
 	private LeftMenuComposer leftMenuComposer;
@@ -34,10 +36,21 @@ public class LeftMenuElementCreator extends NavElementCreator {
 		
 	public LeftMenuElementCreator(ImportMatcher impMatcher) {
 		super(impMatcher);
-		
-		this.foundImports = impMatcher.getFoundImports();
+
+		if(impMatcher != null) {
+			this.foundImports = impMatcher.getFoundImports();
+		}
 		this.leftMenuComposer = new LeftMenuComposer(parents, standAlone);
 	}
+	
+	@Override
+	public void updateMenuElementFactory() {
+		LeftMenuElementFactoryUpdater updater = 
+			new LeftMenuElementFactoryUpdater(this, parents, standAlone);
+		
+		updater.updateFactoryContents();
+		updater.writeUpdatedContentToFile();
+	}	
 
 	@Override //RequiredImports
 	public List<String> getRequiredImports() {
@@ -137,5 +150,5 @@ public class LeftMenuElementCreator extends NavElementCreator {
 		 	
 		return res;
 	}
-
+	
 }

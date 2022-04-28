@@ -1,7 +1,7 @@
 /**
  * 
  */
-package site_mapper.creators.navigation;
+package site_mapper.creators.navigation.left_menu;
 
 import static utils.StringUtils.asPascalCase;
 import static utils.StringUtils.removeTrailingComma;
@@ -29,7 +29,7 @@ import java.util.Map;
  *		return EMPLOYEES;
  *	}
  * 
- * When all the parents and standalone items have
+ * When all the parents and stand alone items have
  * been created, then create the getAll function.
  * FOR EXAMPLE:
  * ------------ 

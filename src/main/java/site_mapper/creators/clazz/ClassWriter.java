@@ -20,16 +20,16 @@ import utils.FileWriter;
 public class ClassWriter {
 	private PackageHierarchy packageHierarchy;
 	private ClassFile clazz;
-	
+		
 	public ClassWriter(ClassFile clazz, PackageHierarchy packageHierarchy) {
 		this.packageHierarchy = packageHierarchy;
 		this.clazz = clazz;
 	}
 
-	public void writeClass() {
-		FileWriter.writeFile(clazz, getFilePath());
+	public void writeClass() {		
+		FileWriter.writeFile(clazz, getFilePath());	
 	}
-	
+		
 	private String getFilePath() {
 		return 
 				packageHierarchy.getRoot() + "/" + 

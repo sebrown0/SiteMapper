@@ -17,6 +17,20 @@ import site_mapper.jaxb.pom.PomMapperApp;
  * @since 1.0
  */
 public final class Application {
+	/*
+	 * NOTE
+	 * ----
+	 * After creating/updating the target library,
+	 * we must run mvn clean, compile & install 
+	 * on the library so that projects that depend
+	 * on it get the updated version.
+	 * 
+	 * When we do the update it is up to us to decide
+	 * on the version we use.
+	 * 
+	 * The target library & version that's used for
+	 * dynamic tests is set in the DTest pom.xml.
+	 */
 	
 	private static final String LIBRARY = 
 			"C:/Users/SteveBrown/eclipse-workspace/2021/DakarHR-Library";

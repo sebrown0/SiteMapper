@@ -32,7 +32,10 @@ public class StringUtils {
 	}
 	
 	public static String replaceFwdSlashes(String str, String with) {
-		String s = str.replace("/", with); 
+		String s=null;
+		if(str != null) {
+			s = str.replace("/", with);
+		}
 		return s;
 	}
 	
@@ -70,6 +73,33 @@ public class StringUtils {
 			}			
 		} 
 		return res;
+	}
+	public static String replaceSpacesWithUnderScoreAndInLower(String str) {
+		if(str != null) {
+			return str.replace(" ", "_").toLowerCase();
+		}
+		return str;
+	}
+	
+	public static String removeSpacesAndAsPascalCase(String str) {
+		return replaceTokenWithCharSpaceAndAsPascalCase(str, " ", "").trim();
+	}
+	
+	public static String replaceUnderScoresWithSpaceAndAsPascalCase(String str) {
+		return replaceTokenWithCharSpaceAndAsPascalCase(str, "_", " ").trim();
+	}
+	
+	public static String replaceTokenWithCharSpaceAndAsPascalCase(String str, String token, String chr) {
+		String res = "";
+		if(str != null && str.length() > 0) {
+			String [] parts = str.split(token);
+			if(parts != null) {
+				for (String s : parts) {					
+					res += chr + asPascalCase(s);
+				}
+			}			
+		} 
+		return res.trim();
 	}
 	
 	public static List<String> getListFromString(String str, String separator) {

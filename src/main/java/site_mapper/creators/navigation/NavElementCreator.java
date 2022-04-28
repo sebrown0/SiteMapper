@@ -28,7 +28,7 @@ import utils.StringUtils;
  * 
  */
 public abstract class NavElementCreator implements 
-	NavElementAdder, RequiredImports {
+	NavElementAdder, RequiredImports, FactoryInfo {
 	
 	private String root;
 		
@@ -49,8 +49,10 @@ public abstract class NavElementCreator implements
 	protected abstract void setClassName();
 
 	public NavElementCreator(ImportMatcher impMatcher) {
-		this.impMatcher = impMatcher;
-		this.foundImports = impMatcher.getFoundImports();
+		if(impMatcher != null) {
+			this.impMatcher = impMatcher;
+			this.foundImports = impMatcher.getFoundImports();	
+		}		
 	}
 	
 	@Override //NavElementAdder
@@ -139,4 +141,19 @@ public abstract class NavElementCreator implements
 		FileWriter.writeFile(this, filePath, className + ".java");		 	
 	}
 
+	@Override //FactoryInfo
+	public String getRoot() {
+		return root;
+	}
+
+	@Override //FactoryInfo
+	public String getModule() {
+		return modName;
+	}
+
+	@Override //FactoryInfo
+	public String getParentPackage() {
+		return info.getParentPackage();
+	}
+	
 }

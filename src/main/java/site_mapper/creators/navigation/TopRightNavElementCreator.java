@@ -35,9 +35,8 @@ public class TopRightNavElementCreator extends NavElementCreator {
 	
 			setNames();
 			setIsValidObject();
-		}
-		
-		
+	}
+				
 	private void setNames() {
 		itemName = "NavBar" + item.getClassName();
 		objName = item.getClassName();
