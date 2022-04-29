@@ -40,7 +40,7 @@ public class ComponentImports implements RequiredImports {
 				Arrays.asList(
 					"ControlGetterInputGroup", "ControlGetter", "ControlGetterGroup", 
 					"ControlGetterTextOut", "ControlGetterButton", "ControlGetterTabs",
-					"ControlGetterLabel", "ControlGetterTab");
+					"ControlGetterLabel", "ControlGetterRow", "ControlGetterTab");
 	}
 	
 	public List<String> getForJsPanel(){

@@ -29,15 +29,14 @@ public class ControlStringGetter {
 	private String getInitial() {
 		return "\t\tControlGetter ";
 	}
-	private String getName() {
-		return StringUtils.asCamelCase(element.getElementName());
+	private String getControlNameWithAcronym() {
+		return element.getNameWithAcronym();
 	}
+
 	private String getType() {
 		return StringUtils.asPascalCase(element.getElementType());
 	}
-	private String getElementName() {
-		return StringUtils.asPascalCase(element.getElementName());
-	}
+
 	private String getLocators() {
 		String res = "";
 		List<Locator> locs = element.getLocator();
@@ -50,12 +49,14 @@ public class ControlStringGetter {
 		return res;
 //		return (loc != null) ? ", " + loc.toString() : "";
 	}
+	
 	public String getString() {		
+		String nameWithAcronym = getControlNameWithAcronym();
 		return 
 			String.format(
 					"%s%s =\n\t\t\tnew ControlGetter%s(\"%s\", coreData%s, this);",
-					getInitial(), getName(), getType(),
-					getElementName(), getLocators());
+					getInitial(), nameWithAcronym, getType(),
+					nameWithAcronym, getLocators());
 	}
 
 }

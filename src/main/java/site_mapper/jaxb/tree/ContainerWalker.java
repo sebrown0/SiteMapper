@@ -43,13 +43,13 @@ public class ContainerWalker {
 	}
 	
 	private void addCont(Container c) {
-		if(c != null) {			
-			containers.add(c);	
-		}
+		if(c != null)	containers.add(c);
 	}
 		
 	private boolean isValidRoot(Node root) {
-		return (root.getContainers() != null || root.getElements() != null) ? true : false;
+		return 
+			(root.getContainers() != null || root.getElements() != null) 
+				? true : false;
 	}
 	
 	private Container setCurrentContainer() {

@@ -15,7 +15,6 @@ import jakarta.xml.bind.annotation.XmlRootElement;
 import site_mapper.creators.component_writer.ComponentWriter;
 import site_mapper.elements.ElementClass;
 import site_mapper.jaxb.containers.Container;
-import site_mapper.jaxb.node.Node;
 import site_mapper.jaxb.node.ParentNode;
 import site_mapper.jaxb.pom.SiteMapInfo;
 import site_mapper.jaxb.tree.ContainerWalker;
@@ -43,8 +42,6 @@ public class MenuItem implements ElementClass, TestElement {
 	private String className;	
 	@XmlAttribute(name="fafa")	
 	private String faFa;
-//	@XmlAttribute(name="returns")	
-//	private String returnsObject;	
 	@XmlAttribute(name="tooltip")	
 	private String tooltip;	
 	@XmlAttribute(name="library")	
@@ -93,6 +90,13 @@ public class MenuItem implements ElementClass, TestElement {
 	public List<Container> getAllContainers() {
 		if(allContainers == null) {
 			allContainers = new ArrayList<>();
+			/*
+			 * NOT ADD THE HeaderElements
+			 * GETTING THE CONTAINERS INSIDE IT.
+			 * 
+			 * WILL EITHER HAVE TO PUT AN InputGroup IN HeaderElements
+			 * OR ADD HeaderElements AS A CONTAINER.
+			 */
 			if(itemContainers != null) {
 				itemContainers.forEach(c ->	allContainers.addAll(getChildren(c)));	
 			}			
@@ -100,13 +104,11 @@ public class MenuItem implements ElementClass, TestElement {
 		return allContainers;				
 	}
 	
-	private List<Container> getChildren(Container c) {
-		Node n = new ParentNode(c);
-		ContainerWalker walker = new ContainerWalker(n);
-		return walker.traverseContainers();
+	private List<Container> getChildren(Container c) {		
+		return 
+			new ContainerWalker(new ParentNode(c)).traverseContainers();
 	}
-	
-	
+		
 	private Container getItemContainer(String name) {
 		Container res = null;
 		if(itemContainers != null) {
@@ -119,6 +121,7 @@ public class MenuItem implements ElementClass, TestElement {
 		}
 		return res;
 	}
+	
 	@Override //ElementClass
 	public Container getHeaderContainer() {
 		return getItemContainer("HeaderElements");

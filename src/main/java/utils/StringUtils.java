@@ -13,6 +13,17 @@ import java.util.List;
  * @since 1.0
  */
 public class StringUtils {
+	
+	public static String capitaliseFirstChar(String word) {
+		if(word != null) {
+			String s = word.substring(0, 1);
+			return s.toUpperCase() + word.substring(1, word.length());	
+		}else {
+			return "";
+		}
+		
+	}
+	
 	public static String removeTrailingComma(String str) {
 		String res = "";
 		int toPos = -1;

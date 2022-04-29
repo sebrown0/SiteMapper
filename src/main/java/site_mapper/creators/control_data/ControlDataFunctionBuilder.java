@@ -14,6 +14,7 @@ import file.annotation.SiteMapAnnotation;
 import file.imports.ControlImportGetter;
 import site_mapper.creators.component_writer.ComponentWriter;
 import site_mapper.creators.imports.FoundImports;
+import site_mapper.elements.ElementWithAcronym;
 import site_mapper.jaxb.containers.Container;
 import site_mapper.jaxb.node.Node;
 import site_mapper.jaxb.pom.Element;
@@ -46,7 +47,10 @@ public class ControlDataFunctionBuilder implements TreeVisitor {
 	private SiteMapInfo info;
 	private FoundImports foundImports;
 	
-	public ControlDataFunctionBuilder(SiteMapAnnotation anno, ComponentWriter cw, SiteMapInfo info, FoundImports foundImports) {		
+	public ControlDataFunctionBuilder(
+		SiteMapAnnotation anno, ComponentWriter cw, 
+		SiteMapInfo info, FoundImports foundImports) {
+		
 		this.anno = anno;		
 		this.compWriter = cw;
 		this.info = info;
@@ -55,8 +59,7 @@ public class ControlDataFunctionBuilder implements TreeVisitor {
 
 	@Override //TreeVisitor
 	public void addNode(Node n) {
-		if(isValidNode(n))
-			addNodeControls(n);
+		if(isValidNode(n)) addNodeControls(n);
 	}
 	
 	private boolean isValidNode(Node n) {
@@ -69,10 +72,12 @@ public class ControlDataFunctionBuilder implements TreeVisitor {
 		
 	private boolean notExcluded(Node n) {
 		String name = n.getName();
-		return (
+		boolean res = (
 				name.startsWith("Header") || 
 				name.startsWith("Body") || 
-				name.startsWith("Footer")) ? false : true;
+				name.startsWith("Footer")) ? false : true; 
+		
+		return res;
 	}
 	
 	private String getLocator(String loc) {
@@ -89,6 +94,9 @@ public class ControlDataFunctionBuilder implements TreeVisitor {
 		String locStr = n.getLocStr();
 		String incElements = "";
 		String incContainers = "";		
+		
+		String nameWithAcronym = null;
+		
 		List<Container> nodeContainers = n.getContainers();
 		List<Element> nodeElements = n.getElements();
 				
@@ -116,15 +124,14 @@ public class ControlDataFunctionBuilder implements TreeVisitor {
 		}
 		
 		if(nodeElements != null) {
-			String elName;
 			for (Element e : nodeElements) {	
-				elName = e.getElementName();
-				if(elementNames.contains(elName) == false) {
-					addToImports(e.getElementType());
-					elementNames.add(elName);
+				nameWithAcronym = getNameWithAcronym(e);
+				if(elementNames.contains(nameWithAcronym) == false) {
+					addToImports(e.getElementType());					
+					elementNames.add(nameWithAcronym);
 					elements.add(e.getElementAsControlGetter() + "\n");
+					incElements += nameWithAcronym + ", ";
 				}
-				incElements += asCamelCase(e.getElementName()) + ", ";
 			}	
 		}
 		
@@ -137,6 +144,10 @@ public class ControlDataFunctionBuilder implements TreeVisitor {
 			groupNames.add(nodeName);
 			groups.add(grpStr);
 		}		
+	}
+	
+	private String getNameWithAcronym(ElementWithAcronym e) {
+		return e.getNameWithAcronym();
 	}
 	
 	private void addToImports(String type) {
