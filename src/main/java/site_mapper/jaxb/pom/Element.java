@@ -3,6 +3,7 @@
  */
 package site_mapper.jaxb.pom;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import jakarta.xml.bind.annotation.XmlElement;
@@ -36,6 +37,11 @@ public class Element implements ElementWithAcronym, ElementCreation, ElementCont
 
 	private String nameWithAcronym;
 	
+	public Element addLocator(Locator loc) {
+		if(locator == null) locator = new ArrayList<>();
+		locator.add(loc);
+		return this;
+	}	
 	public Element setType(String type) {
 		if(details == null) details = new ElementDetails();
 		details.setType(type);
@@ -60,6 +66,18 @@ public class Element implements ElementWithAcronym, ElementCreation, ElementCont
 		this.elementFunction = elementFunction.setName(getElementName());
 		return this;
 	}	
+	
+	@Override //ElementCreation
+	public String getLocators() {
+		String res = "";
+		if(locator != null) {
+			for(Locator loc : locator) {
+				res += ", " + loc.toString();
+			}
+		}
+		return res;
+	}	
+	
 	public List<Locator> getLocator() {		
 		return locator;
 	}

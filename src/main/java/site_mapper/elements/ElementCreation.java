@@ -8,7 +8,10 @@ package site_mapper.elements;
  * @version 1.0
  * 	Initial
  * @since 1.0
+ * 
+ * Items required when an element is created.
  */
 public interface ElementCreation extends ElementDetails {	
-	public String getElementType();
+	String getElementType();	
+	String getLocators();
 }
