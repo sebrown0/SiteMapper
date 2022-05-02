@@ -40,18 +40,30 @@ public class ControlStringGetter {
 	private String getLocators() {
 		String res = "";
 		List<Locator> locs = element.getLocator();
-//		Locator loc = element.getLocator();
 		if(locs != null) {
 			for(Locator loc : locs) {
 				res += ", " + loc.toString();
 			}
 		}
 		return res;
-//		return (loc != null) ? ", " + loc.toString() : "";
 	}
 	
 	public String getString() {		
 		String nameWithAcronym = getControlNameWithAcronym();
+		/*
+		 * REALLY NEED TO HAVE A CONTROL FROM THE BEGGING SO THAT
+		 * 1. WE CAN GET IT'S ACRONYM
+		 * 2. WE GET THE CORRECT CONTROL STRING
+		 * 
+		 * ONLY THE ELEMENT KNOWS ITS TYPE SO THIS WOULD
+		 * HAVE TO RETURN AN OBJECT THAT DOES BOTH OF THE ABOVE,
+		 * FOR EACH TYPE OF CONTROL.
+		 * 
+		 * SO WE WOULD NEED A FACTORY.
+		 * 
+		 * CAN WE LINK THE FACTORY(all relevant factories) TO XML?
+		 */
+		
 		return 
 			String.format(
 					"%s%s =\n\t\t\tnew ControlGetter%s(\"%s\", coreData%s, this);",

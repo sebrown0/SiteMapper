@@ -46,7 +46,7 @@ public class FindImport implements ImportType {
 		String importPath = "";
 		if(siteMapInfo != null) {
 			importPath = FileFinder
-				.findPathBelowSrcMainJava(siteMapInfo.getElementLibrary(), importStr + ".java")
+				.findPathBelowSrcMainJava(siteMapInfo.getElementLibrary() + "/src/main/java", importStr + ".java")
 				.replaceAll("\\\\", ".")
 				.replace("src.main.java.", "");								
 		}else {

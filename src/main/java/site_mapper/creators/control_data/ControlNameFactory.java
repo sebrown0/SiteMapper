@@ -29,7 +29,7 @@ public class ControlNameFactory {
 			acronym = "txs";
 		}else if(cntrlType.equalsIgnoreCase("ComboSelectOnly")) {
 			acronym = "cso";
-		}else if(cntrlType.equalsIgnoreCase("ComboWriteSelect")) {
+		}else if(cntrlType.equalsIgnoreCase("ComboWriteAndSelect")) {
 			acronym = "cws";
 		}else if(cntrlType.equalsIgnoreCase("DropdownCombo")) {
 			acronym = "cdd";
