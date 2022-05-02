@@ -8,7 +8,6 @@ import java.util.List;
 
 import jakarta.xml.bind.annotation.XmlElement;
 import jakarta.xml.bind.annotation.XmlRootElement;
-import site_mapper.creators.control_data.ElementControl;
 import site_mapper.elements.ElementCreation;
 import site_mapper.jaxb.pom.test_data.TestData;
 import site_mapper.jaxb.pom.test_data.TestDataItem;
@@ -20,7 +19,7 @@ import site_mapper.jaxb.pom.test_data.TestDataItem;
  * @since 1.0
  */
 @XmlRootElement(name="Element", namespace="Container")
-public class Element implements ElementCreation, ElementControl {		
+public class Element implements ElementCreation {		
 	@XmlElement(name="Details", namespace="ElementType")
 	private ElementDetails details;
 	@XmlElement(name="Locator", namespace="ElementType")
