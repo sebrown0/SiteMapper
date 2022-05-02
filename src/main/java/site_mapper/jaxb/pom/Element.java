@@ -8,11 +8,8 @@ import java.util.List;
 
 import jakarta.xml.bind.annotation.XmlElement;
 import jakarta.xml.bind.annotation.XmlRootElement;
-import site_mapper.creators.control_data.ControlNameFactory;
-import site_mapper.creators.control_data.ControlStringGetter;
 import site_mapper.creators.control_data.ElementControl;
 import site_mapper.elements.ElementCreation;
-import site_mapper.elements.ElementWithAcronym;
 import site_mapper.jaxb.pom.test_data.TestData;
 import site_mapper.jaxb.pom.test_data.TestDataItem;
 
@@ -23,7 +20,7 @@ import site_mapper.jaxb.pom.test_data.TestDataItem;
  * @since 1.0
  */
 @XmlRootElement(name="Element", namespace="Container")
-public class Element implements ElementWithAcronym, ElementCreation, ElementControl {		
+public class Element implements ElementCreation, ElementControl {		
 	@XmlElement(name="Details", namespace="ElementType")
 	private ElementDetails details;
 	@XmlElement(name="Locator", namespace="ElementType")
@@ -35,7 +32,7 @@ public class Element implements ElementWithAcronym, ElementCreation, ElementCont
 	@XmlElement(name="TestData", namespace="ElementType")	
 	private TestData testData;
 
-	private String nameWithAcronym;
+//	private String nameWithAcronym;
 	
 	public Element addLocator(Locator loc) {
 		if(locator == null) locator = new ArrayList<>();
@@ -129,10 +126,10 @@ public class Element implements ElementWithAcronym, ElementCreation, ElementCont
 		}		
 	}
 	
-	@Override //ElementControl
-	public String getElementAsControlGetter() {
-		return new ControlStringGetter(this).getString();
-	}
+//	@Override //ElementControl
+//	public String getElementAsControlGetter() {
+//		return new ControlStringGetter(this).getString();
+//	}
 	
 	@Override
 	public String toString() {
@@ -142,14 +139,5 @@ public class Element implements ElementWithAcronym, ElementCreation, ElementCont
 	public ElementDetails getDetails() {
 		return details;
 	}
-	
-	@Override //ElementWithAcronym
-	public String getNameWithAcronym() {
-		if(nameWithAcronym == null){
-			nameWithAcronym = 
-					ControlNameFactory.getNameWithAcronym(getElementType(), getElementName());
-		}
-		return nameWithAcronym; 
-	}
-				
+					
 }

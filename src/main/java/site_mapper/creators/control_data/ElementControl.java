@@ -15,5 +15,5 @@ public interface ElementControl {
 	 * Get the String required for the 
 	 * element to be a ControlGetter.
 	 */
-	String getElementAsControlGetter();
+//	String getElementAsControlGetter();
 }

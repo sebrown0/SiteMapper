@@ -23,7 +23,11 @@ public class ControlTypeFactory {
 				case "Button", "button" -> ct = new ControlTypeButton(el);
 				case "Label", "label" -> ct = new ControlTypeLabel(el);
 				case "TextOut" -> ct = new ControlTypeTextOut(el);
+				case "TextSelect" -> ct = new ControlTypeTextSelect(el);
 				case "ComboWriteAndSelect" -> ct = new ControlTypeComboWriteAndSelect(el);
+				case "ComboSelectOnly" -> ct = new ControlTypeComboSelectOnly(el);
+				case "DropDownCombo" -> ct = new ControlTypeDropDownCombo(el);
+				
 				
 				default -> {
 					LogManager.getLogger().error("No control type for [" + key +"] found");

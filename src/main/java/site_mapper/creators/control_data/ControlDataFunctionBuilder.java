@@ -12,9 +12,13 @@ import java.util.List;
 
 import file.annotation.SiteMapAnnotation;
 import file.imports.ControlImportGetter;
+import file.imports.NewImport;
 import site_mapper.creators.component_writer.ComponentWriter;
+import site_mapper.creators.control_type.ControlType;
+import site_mapper.creators.control_type.ControlTypeFactory;
+import site_mapper.creators.control_type.RequiresImports;
+import site_mapper.creators.imports.FindImport;
 import site_mapper.creators.imports.FoundImports;
-import site_mapper.elements.ElementWithAcronym;
 import site_mapper.jaxb.containers.Container;
 import site_mapper.jaxb.node.Node;
 import site_mapper.jaxb.pom.Element;
@@ -125,11 +129,13 @@ public class ControlDataFunctionBuilder implements TreeVisitor {
 		
 		if(nodeElements != null) {
 			for (Element e : nodeElements) {	
-				nameWithAcronym = getNameWithAcronym(e);
+				ControlType ct = ControlTypeFactory.getControlType(e);				
+				nameWithAcronym = ct.getNameWithAcronym();
 				if(elementNames.contains(nameWithAcronym) == false) {
-					addToImports(e.getElementType());					
+					addElementToImports(e.getElementType());					
 					elementNames.add(nameWithAcronym);
-					elements.add(e.getElementAsControlGetter() + "\n");
+					elements.add(ct.getControlDataString() + "\n");
+					addImportsForControl(ct);
 					incElements += nameWithAcronym + ", ";
 				}
 			}	
@@ -140,17 +146,24 @@ public class ControlDataFunctionBuilder implements TreeVisitor {
 			removeTrailingComma(incElements) + "));\n";
 		
 		if(groupNames.contains(nodeName) == false) {
-			addToImports(type);
+			addElementToImports(type);
 			groupNames.add(nodeName);
 			groups.add(grpStr);
 		}		
 	}
 	
-	private String getNameWithAcronym(ElementWithAcronym e) {
-		return e.getNameWithAcronym();
+	private void addImportsForControl(ControlType ct) {
+		if(ct instanceof RequiresImports) {
+			List<String> imports = ((RequiresImports)ct).getRequiredImports();
+			if(imports != null) {
+				for(String imp : imports) {
+					compWriter.addImport(new NewImport(new FindImport(imp, info), foundImports));	
+				}								
+			} 	
+		}
 	}
 	
-	private void addToImports(String type) {
+	private void addElementToImports(String type) {
 		compWriter
 			.addImport(
 				ControlImportGetter

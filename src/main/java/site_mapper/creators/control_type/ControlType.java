@@ -16,6 +16,9 @@ import utils.StringUtils;
  * 1. Its name with appropriate acronym, i.e. btnNext.
  * 2. The control string that's used in buildMyControls() 
  * 		in the control's POM class.
+ * 3. If the control requires any imports other than those
+ * 		already added for the POM. Controls that fall into 
+ * 		this category should implement RequiresImports.
  */
 public abstract class ControlType {
 	private String acronym;
@@ -29,13 +32,13 @@ public abstract class ControlType {
 		
 		setNameAndAcronym();
 	}
+
+	public abstract String getControlDataString();
 		
 	private void setNameAndAcronym() {
 		nameWithAcronym = 
 				acronym + StringUtils.capitaliseFirstChar(element.getElementName());
 	}
-
-	public abstract String getControlDataString();
 
 	public String getNameWithAcronym() {
 		return nameWithAcronym;

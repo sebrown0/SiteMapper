@@ -5,10 +5,14 @@ import static org.junit.jupiter.api.Assertions.*;
 import org.junit.jupiter.api.Test;
 
 import site_mapper.creators.control_type.ControlTypeButton;
+import site_mapper.creators.control_type.ControlTypeComboSelectOnly;
 import site_mapper.creators.control_type.ControlTypeComboWriteAndSelect;
+import site_mapper.creators.control_type.ControlTypeDropDownCombo;
 import site_mapper.creators.control_type.ControlTypeFactory;
 import site_mapper.creators.control_type.ControlTypeLabel;
 import site_mapper.creators.control_type.ControlTypeTextOut;
+import site_mapper.creators.control_type.ControlTypeTextSelect;
+import site_mapper.creators.control_type.RequiresImports;
 import site_mapper.jaxb.pom.Element;
 import site_mapper.jaxb.pom.Locator;
 
@@ -104,4 +108,81 @@ class ControlTypeFactory_Tests {
 				"\n\t\t\t\tnew TextWriterComboMulti(coreData, getContainer()));", 
 				cmb.getControlDataString());		
 	}
+
+	@Test
+	void test_controlDataStr_forComboSelectOnly() {
+		Element el = new Element();
+		el.
+			setType("ComboSelectOnly").
+			setName("company").
+			addLocator(
+					new Locator()
+						.setBy("css")
+						.setLocator("span[id='select2-COMP_SELx-container']"));
+		
+		ControlTypeComboSelectOnly cmb = (ControlTypeComboSelectOnly) ControlTypeFactory.getControlType(el);
+		assertEquals(
+				"\t\tControlGetter csoCompany =" +
+				"\n\t\t\tnew ControlGetterComboSelectOnly(" +
+				"\n\t\t\t\t\"csoCompany\", coreData" +
+				"\n\t\t\t\t, By.cssSelector(\"span[id='select2-COMP_SELx-container']\")," +
+				"\n\t\t\t\tBy.className(\"select2-results\"));", 
+				cmb.getControlDataString());		
+	}
+
+	@Test
+	void test_controlDataStr_forDropDownCombo() {
+		Element el = new Element();
+		el.
+			setType("DropDownCombo").
+			setName("company").
+			addLocator(
+					new Locator()
+						.setBy("css")
+						.setLocator("span[id='select2-COMP_SELx-container']"));
+		
+		ControlTypeDropDownCombo cmb = (ControlTypeDropDownCombo) ControlTypeFactory.getControlType(el);
+		assertEquals(
+				"\t\tControlGetter cddCompany =" +
+				"\n\t\t\tnew ControlGetterDropDownCombo(" +
+				"\n\t\t\t\t\"cddCompany\", coreData" +
+				"\n\t\t\t\t, By.cssSelector(\"span[id='select2-COMP_SELx-container']\"));", 
+				cmb.getControlDataString());		
+	}
+
+	@Test
+	void test_controlDataStr_forTextSelect() {
+		Element el = new Element();
+		el.
+			setType("TextSelect").
+			setName("company").
+			addLocator(
+					new Locator()
+						.setBy("css")
+						.setLocator("span[id='select2-COMP_SELx-container']"));
+		
+		ControlTypeTextSelect txt = (ControlTypeTextSelect) ControlTypeFactory.getControlType(el);
+		assertEquals(
+				"\t\tControlGetter tslCompany =" +
+				"\n\t\t\tnew ControlGetterTextSelect(" +
+				"\n\t\t\t\t\"tslCompany\", coreData" +
+				", By.cssSelector(\"span[id='select2-COMP_SELx-container']\"));", 
+				txt.getControlDataString());		
+	}
+
+	@Test
+	void test_reqImports_forComboWriteAndSelect() {
+		Element el = new Element();
+		el.
+			setType("ComboWriteAndSelect").
+			setName("company").
+			addLocator(
+					new Locator()
+						.setBy("css")
+						.setLocator("span[id='select2-COMP_SELx-container']"));
+		
+		RequiresImports cmb = (RequiresImports) ControlTypeFactory.getControlType(el);
+		assertEquals("TextWriterComboMulti", cmb.getRequiredImports().get(0));		
+	}
+	
 }

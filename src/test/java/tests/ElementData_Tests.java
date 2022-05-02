@@ -1,18 +1,12 @@
 package tests;
 
-import static org.junit.jupiter.api.Assertions.*;
-
 import org.junit.jupiter.api.Test;
 
-import site_mapper.creators.control_data.ElementControl;
-import site_mapper.jaxb.pom.Element;
-import site_mapper.jaxb.pom.Locator;
-
 class ElementData_Tests {
-	private static Element e = 
-			new Element()
-				.setName("save")
-				.setType("button");
+//	private static Element e = 
+//			new Element()
+//				.setName("save")
+//				.setType("button");
 //				.setBy("css")
 //				.setLocator("button[name='SAVE']");
 	
@@ -22,14 +16,14 @@ class ElementData_Tests {
 //		assertEquals("By.cssSelector(\"button[name='SAVE']\")", loc.toString());
 	}
 	
-	@Test
-	void test() {
-		final String res = 
-				"\t\tControlGetter save =\n" +
-				"\t\t\tnew ControlGetterButton(\"Save\", coreData, By.cssSelector(\"button[name='SAVE']\"));";
-		
-		ElementControl elData = e;		
-		assertEquals(res, elData.getElementAsControlGetter());
-	}
+//	@Test
+//	void test() {
+//		final String res = 
+//				"\t\tControlGetter save =\n" +
+//				"\t\t\tnew ControlGetterButton(\"Save\", coreData, By.cssSelector(\"button[name='SAVE']\"));";
+//		
+//		ElementControl elData = e;		
+//		assertEquals(res, elData.getElementAsControlGetter());
+//	}
 
 }

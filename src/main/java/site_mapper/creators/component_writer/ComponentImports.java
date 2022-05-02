@@ -27,6 +27,10 @@ public class ComponentImports implements RequiredImports {
 		return Arrays.asList("Closable");
 	}
 	
+	public List<String> getUtils(){
+		return Arrays.asList("TextWriterComboMulti");
+	}
+	
 	public List<String> getForNav(){
 		return 
 			Arrays.asList(
@@ -55,6 +59,7 @@ public class ComponentImports implements RequiredImports {
 	
 	public List<String> getAll(){
 		addListToAll(getCommon());
+		addListToAll(getUtils());
 		addListToAll(getForNav());
 		addListToAll(getControls());
 		addListToAll(getForJsPanel());

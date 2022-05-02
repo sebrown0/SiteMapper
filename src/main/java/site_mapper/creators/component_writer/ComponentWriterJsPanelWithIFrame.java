@@ -55,11 +55,11 @@ public class ComponentWriterJsPanelWithIFrame implements
 	@Override //ComponentWriter
 	public void addImport(Import imp) {
 		boolean addIt = true;
+		String impStr = imp.getImportString();
 		
 		getImportNames();
-		for(Import i: imports) {
-			var str = imp.getImportString();
-			if(i.getImportString().equals(str)) {
+		for(Import i: imports) {			
+			if(i.getImportString().equals(impStr)) {
 				addIt = false;
 				break;
 			}
