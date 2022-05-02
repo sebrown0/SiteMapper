@@ -31,8 +31,6 @@ public class Element implements ElementCreation, ElementControl {
 	private ElementFunction elementFunction;	
 	@XmlElement(name="TestData", namespace="ElementType")	
 	private TestData testData;
-
-//	private String nameWithAcronym;
 	
 	public Element addLocator(Locator loc) {
 		if(locator == null) locator = new ArrayList<>();
@@ -125,11 +123,6 @@ public class Element implements ElementCreation, ElementControl {
 			return null;
 		}		
 	}
-	
-//	@Override //ElementControl
-//	public String getElementAsControlGetter() {
-//		return new ControlStringGetter(this).getString();
-//	}
 	
 	@Override
 	public String toString() {

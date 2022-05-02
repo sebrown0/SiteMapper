@@ -9,6 +9,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import file.class_package.PackageNameResolver;
 import file.imports.Import;
 import file.imports.NewImport;
 import site_mapper.creators.imports.ImportMatcher;
@@ -101,7 +102,7 @@ public class LeftMenuElementCreator extends NavElementCreator implements MenuEle
 		String imp = ph.getHierarchyDotNotation() + ".";
 				
 		if(itemsPackage != null && itemsPackage.length() > 0) {
-			prntPackage = StringUtils.asCamelCase(itemsPackage);
+			prntPackage = new PackageNameResolver(itemsPackage).getPackageInCorrectFormat();
 			imp += prntPackage + ".";			
 		}
 		

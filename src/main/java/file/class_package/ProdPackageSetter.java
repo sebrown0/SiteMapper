@@ -4,7 +4,7 @@
 package file.class_package;
 
 import site_mapper.elements.ElementClass;
-import utils.StringUtils;
+import static utils.StringUtils.replaceFwdSlashes;;
 
 /**
  * @author SteveBrown
@@ -15,25 +15,22 @@ import utils.StringUtils;
  * Set the class file's package for a production class.
  */
 public class ProdPackageSetter implements PackageSetter{
+
 	@Override
 	public String getPackage(ElementClass clazz) {
 		String s = 
-				StringUtils.replaceFwdSlashes(clazz.getSiteMapInfo().getParentPackage(), ".") + "." +
+				replaceFwdSlashes(clazz.getSiteMapInfo().getParentPackage(), ".") + "." +
 				clazz.getModuleName() + "." +
-				clazz.getParentPackage() +
+				clazz.getParentPackage() + "." +
 				getPackageIfExists(clazz);
 		
 		return s;
 	}
 	
 	private String getPackageIfExists(ElementClass clazz) {
-		String pck = clazz.getPackage();
-		if(pck != null && !pck.equals("")) {
-			pck = pck.toLowerCase();
-			return "." + pck;	
-		}else {
-			return "";
-		}		
+		return new 
+			PackageNameResolver(clazz.getPackage())
+				.getPackageInCorrectFormat();
 	}
 	
 }

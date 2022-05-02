@@ -85,9 +85,17 @@ public class StringUtils {
 		} 
 		return res;
 	}
+	
 	public static String replaceSpacesWithUnderScoreAndInLower(String str) {
 		if(str != null) {
 			return str.replace(" ", "_").toLowerCase();
+		}
+		return str;
+	}
+	
+	public static String replaceSpacesWithUnderScore(String str) {
+		if(str != null) {
+			return str.replace(" ", "_");
 		}
 		return str;
 	}
