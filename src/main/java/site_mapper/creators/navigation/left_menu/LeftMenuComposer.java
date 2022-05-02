@@ -3,9 +3,9 @@
  */
 package site_mapper.creators.navigation.left_menu;
 
-import static utils.StringUtils.asPascalCase;
-import static utils.StringUtils.removeTrailingComma;
-import static utils.StringUtils.removeUnderScoresAndAsPascalCase;
+import static utils.text_utils.StringUtils.asPascalCase;
+import static utils.text_utils.StringUtils.removeTrailingComma;
+import static utils.text_utils.StringUtils.removeUnderScoresAndAsPascalCase;
 
 import java.util.List;
 import java.util.Map;

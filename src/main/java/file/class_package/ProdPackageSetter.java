@@ -3,8 +3,10 @@
  */
 package file.class_package;
 
+import static utils.text_utils.StringUtils.replaceFwdSlashes;
+
 import site_mapper.elements.ElementClass;
-import static utils.StringUtils.replaceFwdSlashes;;
+import utils.clazz.PackageNameResolver;;
 
 /**
  * @author SteveBrown

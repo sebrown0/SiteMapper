@@ -3,9 +3,9 @@
  */
 package site_mapper.creators.navigation.left_menu;
 
-import static utils.StringUtils.removeSpacesAndAsPascalCase;
-import static utils.StringUtils.replaceFwdSlashes;
-import static utils.StringUtils.replaceSpacesWithUnderScoreAndInLower;
+import static utils.text_utils.StringUtils.removeSpacesAndAsPascalCase;
+import static utils.text_utils.StringUtils.replaceFwdSlashes;
+import static utils.text_utils.StringUtils.replaceSpacesWithUnderScoreAndInLower;
 
 import java.util.ArrayList;
 import java.util.List;

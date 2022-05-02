@@ -16,7 +16,7 @@ import org.apache.logging.log4j.LogManager;
 import site_mapper.creators.comment.Comments;
 import site_mapper.jaxb.pom.PackageHierarchy;
 import site_mapper.jaxb.pom.SiteMapInfo;
-import utils.StringUtils;
+import utils.text_utils.StringUtils;
 
 /**
  * @author SteveBrown

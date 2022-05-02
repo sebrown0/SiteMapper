@@ -3,6 +3,8 @@
  */
 package site_mapper.creators.navigation;
 
+import static utils.text_utils.StringUtils.replaceFwdSlashes;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -16,7 +18,7 @@ import site_mapper.jaxb.menu_items.MenuItem;
 import site_mapper.jaxb.pom.PackageHierarchy;
 import site_mapper.jaxb.pom.SiteMapInfo;
 import utils.FileWriter;
-import utils.StringUtils;
+import utils.text_utils.StringUtils;
 
 
 
@@ -68,7 +70,7 @@ public abstract class NavElementCreator implements
 	public NavElementAdder setPackageHierarchy(PackageHierarchy ph) {
 		this.ph = ph;
 		this.root = ph.getRoot();
-		this.parentPackage = StringUtils.replaceFwdSlashes(ph.getParentPackage(), ".");
+		this.parentPackage = replaceFwdSlashes(ph.getParentPackage(), ".");
 		return this;
 	}	
 	@Override

@@ -13,7 +13,7 @@ import site_mapper.creators.imports.ImportMatcher;
 import site_mapper.creators.imports.UseImport;
 import site_mapper.jaxb.menu_items.MenuItem;
 import utils.FileWriter;
-import utils.StringUtils;
+import utils.text_utils.StringUtils;
 
 /**
  * @author SteveBrown

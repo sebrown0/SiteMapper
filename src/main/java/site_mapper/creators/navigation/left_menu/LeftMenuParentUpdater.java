@@ -4,7 +4,7 @@
 package site_mapper.creators.navigation.left_menu;
 
 import static logging.AppLogger.logInfo;
-import static utils.StringUtils.replaceUnderScoresWithSpaceAndAsPascalCase;
+import static utils.text_utils.StringUtils.replaceUnderScoresWithSpaceAndAsPascalCase;
 
 import java.util.List;
 import java.util.Map;

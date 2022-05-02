@@ -4,7 +4,7 @@
 package site_mapper.creators.control_type;
 
 import site_mapper.elements.ElementCreation;
-import utils.StringUtils;
+import utils.text_utils.StringUtils;
 
 /**
  * @author SteveBrown

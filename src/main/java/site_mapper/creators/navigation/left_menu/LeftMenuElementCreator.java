@@ -3,13 +3,14 @@
  */
 package site_mapper.creators.navigation.left_menu;
 
+import static utils.text_utils.StringUtils.asPascalCase;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import file.class_package.PackageNameResolver;
 import file.imports.Import;
 import file.imports.NewImport;
 import site_mapper.creators.imports.ImportMatcher;
@@ -17,7 +18,7 @@ import site_mapper.creators.imports.UseImport;
 import site_mapper.creators.navigation.MenuElementFactoryUpdater;
 import site_mapper.creators.navigation.NavElementCreator;
 import site_mapper.jaxb.menu_items.MenuItem;
-import utils.StringUtils;
+import utils.clazz.PackageNameResolver;
 
 /**
  * @author SteveBrown
@@ -129,7 +130,7 @@ public class LeftMenuElementCreator extends NavElementCreator implements MenuEle
 
 	@Override //NavElementCreator
 	protected void setClassName() {		
-		className = String.format("LeftMenu%s", StringUtils.asPascalCase(modName));
+		className = String.format("LeftMenu%s", asPascalCase(modName));
 	}
 
 	@Override //NavElementCreator

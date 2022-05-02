@@ -1,5 +1,7 @@
 package site_mapper.creators.navigation;
 
+import static utils.text_utils.StringUtils.asPascalCase;
+
 import java.util.Arrays;
 import java.util.List;
 
@@ -9,7 +11,7 @@ import site_mapper.creators.imports.FindImport;
 import site_mapper.creators.imports.ImportMatcher;
 import site_mapper.creators.imports.UseImport;
 import site_mapper.jaxb.menu_items.MenuItem;
-import utils.StringUtils;
+import utils.text_utils.StringUtils;
 
 /**
  * @author SteveBrown
@@ -91,7 +93,7 @@ public class NavBarElementSetter extends NavElementCreator {
 	}
 	
 	private String getQuickLinkForModule() {
-		return "QuickLinks" +  StringUtils.asPascalCase(modName);
+		return "QuickLinks" +  asPascalCase(modName);
 	}
 	
 	@Override

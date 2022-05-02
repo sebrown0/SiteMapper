@@ -3,9 +3,9 @@
  */
 package site_mapper.creators.control_data;
 
-import static utils.StringUtils.asCamelCase;
-import static utils.StringUtils.asPascalCase;
-import static utils.StringUtils.removeTrailingComma;
+import static utils.text_utils.StringUtils.asCamelCase;
+import static utils.text_utils.StringUtils.asPascalCase;
+import static utils.text_utils.StringUtils.removeTrailingComma;
 
 import java.util.ArrayList;
 import java.util.List;

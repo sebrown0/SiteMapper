@@ -1,8 +1,8 @@
 package site_mapper.creators.navigation.left_menu;
 
 import static file.helpers.FileFinder.findFilePath;
-import static utils.StringUtils.asPascalCase;
-import static utils.StringUtils.removeSpacesAndAsPascalCase;
+import static utils.text_utils.StringUtils.asPascalCase;
+import static utils.text_utils.StringUtils.removeSpacesAndAsPascalCase;
 
 import java.util.ArrayList;
 import java.util.HashMap;
