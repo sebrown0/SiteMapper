@@ -27,7 +27,12 @@ public class ClassMakerDirector {
 	private PackageSetter packageSetter;
 	private ImportMatcher impMatcher;
 	
-	public ClassMakerDirector(ElementClass elementClass, PackageHierarchy ph, PackageSetter packageSetter, ImportMatcher impMatcher) {
+	private ClassMaker classMaker;
+	
+	public ClassMakerDirector(
+		ElementClass elementClass, PackageHierarchy ph, 
+		PackageSetter packageSetter, ImportMatcher impMatcher) {
+		
 		this.elementClass = elementClass;
 		this.packageHierarchy = ph;
 		this.packageSetter = packageSetter;
@@ -35,8 +40,11 @@ public class ClassMakerDirector {
 	}
 
 	public void makeClass() {
-		ClassMaker classMaker = null;
-		
+		setClassMakerType();		
+		makeClassAccordingToType();		
+	}
+	
+	private void setClassMakerType() {
 		if(overWritingExisting()) {
 			classMaker = new OverwriteClass(elementClass, packageHierarchy, packageSetter, impMatcher);			
 		}else if (ignoringExisting()) {
@@ -46,14 +54,9 @@ public class ClassMakerDirector {
 		}else {
 			logger.error(
 					String.format("Incorrect mode specified for class [%s] in module [%s]", 
-							elementClass.getClassName(), elementClass.getModuleName())
+							elementClass.getClassName(), elementClass.getModuleName())			
 			);			
 		}		
-		
-		if(classMaker != null) {
-			writeCreationModeToLog(classMaker.getCreationModeStr());
-			classFile = classMaker.makeClassFile();
-		}
 	}
 	
 	private boolean ignoringExisting() {
@@ -68,6 +71,13 @@ public class ClassMakerDirector {
 	
 	private void writeCreationModeToLog(String msg) {
 		logger.info(msg);			
+	}
+	
+	private void makeClassAccordingToType() {
+		if(classMaker != null) {
+			writeCreationModeToLog(classMaker.getCreationModeStr());
+			classFile = classMaker.makeClassFile();
+		}
 	}
 	
 }

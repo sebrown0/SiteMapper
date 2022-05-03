@@ -43,7 +43,7 @@ public class ComponentImports implements RequiredImports {
 		return
 				Arrays.asList(
 					"ControlGetterInputGroup", "ControlGetter", "ControlGetterGroup", 
-					"ControlGetterTextOut", "ControlGetterButton", 
+					"ControlGetterTextOut", "ControlGetterTextSelect", "ControlGetterButton", 
 					"ControlGetterTabs", "ControlGetterTab",
 					"ControlGetterLabel", 
 					"ControlGetterComboWriteAndSelect", "ControlGetterComboSelectOnly",

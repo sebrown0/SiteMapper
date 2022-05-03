@@ -22,6 +22,7 @@ import site_mapper.jaxb.pom.menu.MenuType;
  * @since 1.0
  */
 public class ModuleMapper {
+	
 	public static void mapModules(
 		Module module, PackageSetter packageSetter, 
 		PackageHierarchy ph, final SiteMapInfo siteMap, ImportMatcher impMatcher) {
@@ -41,4 +42,5 @@ public class ModuleMapper {
 				.forEach(m -> menuMapper.mapMenu(m) );	
 		}  	
 	}
+	
 }

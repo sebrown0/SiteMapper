@@ -47,7 +47,6 @@ public class MenuItemMapper {
 	
 	private boolean createPackageForClassIfNecessary() {
 		if(packageName != null && packageName.length() > 0) {
-//			PackageMaker.makeWithPackageInfo(siteMapInfo, ph.addCurrent(packageName.toLowerCase()));
 			PackageMaker.makeWithPackageInfo(siteMapInfo, ph.addCurrent(packageName));
 			return true;			
 		}

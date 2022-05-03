@@ -75,11 +75,11 @@ public class ControlDataFunctionBuilder implements TreeVisitor {
 	}
 		
 	private boolean notExcluded(Node n) {
-		String name = n.getName();
+		String type = n.getType();
 		boolean res = (
-				name.startsWith("Header") || 
-				name.startsWith("Body") || 
-				name.startsWith("Footer")) ? false : true; 
+				type.equals("HeaderElements") || 
+				type.equals("BodyElements") || 
+				type.equals("FooterElements")) ? false : true; 
 		
 		return res;
 	}
