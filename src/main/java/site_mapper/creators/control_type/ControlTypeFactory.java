@@ -3,8 +3,7 @@
  */
 package site_mapper.creators.control_type;
 
-import org.apache.logging.log4j.LogManager;
-
+import logging.AppLogger;
 import site_mapper.elements.ElementCreation;
 
 /**
@@ -28,14 +27,15 @@ public class ControlTypeFactory {
 				case "ComboSelectOnly" -> ct = new ControlTypeComboSelectOnly(el);
 				case "DropDownCombo" -> ct = new ControlTypeDropDownCombo(el);
 				
-				
-				default -> {
-					LogManager.getLogger().error("No control type for [" + key +"] found");
-					throw new IllegalArgumentException("Unexpected value: " + key);
-				}
+				default -> defaultAction(key);
 			}	
 		}		
 		return ct;
+	}
+	
+	private static void defaultAction(String key) {
+		AppLogger.logError("No control type for [" + key +"] found", ControlTypeFactory.class);
+		throw new IllegalArgumentException("Unexpected value: " + key);
 	}
 	
 }
