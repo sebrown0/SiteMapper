@@ -48,22 +48,6 @@ public class PackageMaker {
 		createPackageInfo(siteMap, Comments.getPackageComments(siteMap));
 	}
 	
-//	public static void makeWithPackageInfo(SiteMapInfo siteMap, String root, String packageName) {
-//		filePath = root + "/" + packageName;
-//		packagePath = packageName;
-//		
-//		makePackages();
-//		createPackageInfo(siteMap, Comments.getPackageComments(siteMap));
-//	}
-	
-//	public static void makeWithPackageInfo(SiteMapInfo siteMap, String root, String parentPackage, String packageName) {
-//		filePath = root + "/" + parentPackage + "/" + packageName;
-//		packagePath = parentPackage + "." + packageName;
-//		
-//		makePackages();
-//		createPackageInfo(siteMap, Comments.getPackageComments(siteMap));
-//	}
-	
 	private static void makePackages() {
 		LogManager.getLogger(
 				PackageMaker.class).info("Creating dir [" + filePath + "] if not present");

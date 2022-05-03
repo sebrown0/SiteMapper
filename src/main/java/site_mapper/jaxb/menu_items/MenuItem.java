@@ -18,6 +18,7 @@ import site_mapper.jaxb.containers.Container;
 import site_mapper.jaxb.node.ParentNode;
 import site_mapper.jaxb.pom.SiteMapInfo;
 import site_mapper.jaxb.tree.ContainerWalker;
+import utils.clazz.PackageNameResolver;
 
 /**
  * @author SteveBrown
@@ -55,6 +56,7 @@ public class MenuItem implements ElementClass, TestElement {
 	private String menuPackageName;
 	private String moduleName;	
 	private SiteMapInfo siteMapInfo;
+	private boolean packageNameChecked;
 	private List<Container> allContainers;	
 	
 	@Override //ElementClass
@@ -67,7 +69,13 @@ public class MenuItem implements ElementClass, TestElement {
 	}
 	@Override //ElementClass
 	public String getPackage() {
-		return packageName;
+		if(packageNameChecked == false) {
+			packageNameChecked = true;
+			packageName =
+				new PackageNameResolver(packageName)
+					.getPackageInCorrectFormat();
+		}
+		return packageName;			
 	}
 	@Override //ElementClass
 	public String getParentPackage() {

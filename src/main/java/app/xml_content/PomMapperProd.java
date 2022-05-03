@@ -3,6 +3,7 @@
  */
 package app.xml_content;
 
+import logging.AppLogger;
 import site_mapper.creators.imports.ImportMatcher;
 
 /**
@@ -24,7 +25,7 @@ public class PomMapperProd extends PomMapper {
 			makePackage();
 			createPoms(XML_SOURCE);	
 		}else {
-			//TODO LOG ERROR
+			AppLogger.logError("SiteMap Info must not be null to create POMs", getClass());
 		}
 	}
 

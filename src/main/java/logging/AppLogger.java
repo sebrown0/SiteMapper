@@ -18,6 +18,10 @@ public class AppLogger {
 		getLogger(clazz).info(msg);
 	}
 	
+	public static void logError(String msg, Class<?> clazz) {
+		getLogger(clazz).error(msg);
+	}
+	
 	private static Logger getLogger(Class<?> clazz) {
 		return LogManager.getLogger(clazz);
 	}
